@@ -1,5 +1,6 @@
 package com.groupryan.server.handlers;
 
+import com.google.gson.Gson;
 import com.sun.net.httpserver.HttpHandler;
         import com.sun.net.httpserver.HttpExchange;
 
@@ -21,7 +22,7 @@ public class CommandHandler implements HttpHandler {
     public void handle(HttpExchange httpExchange) throws IOException {
         String sentence=httpExchange.getRequestURI().toString();
       //  ReturnResult lcr=new ReturnResult("Could not get string to lower from Handler");
-      //  Gson g=new Gson();
+        Gson g=new Gson();
         String s="";
       //  String response= g.toJson(lcr);
         if(sentence.equals("/lower")) {
