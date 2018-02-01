@@ -1,4 +1,4 @@
 package com.groupryan.client;
 
-public class ClientProxy {
+public class UIFacade {
 }
