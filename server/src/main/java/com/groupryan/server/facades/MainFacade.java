@@ -12,15 +12,18 @@ import com.groupryan.shared.results.CommandResult;
 
 public class MainFacade implements IServer {
 
+    public CommandResult delegate(/*whatever we pass in.. probs the request*/){return null;}
+
     @Override
     public CommandResult createGame(Game game) {
         CreateGameFacade cgf=new CreateGameFacade();
-        return null;
+        return cgf.createGame();
     }
 
     @Override
     public CommandResult joinGame(String gameId, String userId) {
         JoinGameFacade jgf=new JoinGameFacade();
+        //jgf.joinGame();
         return null;
     }
 
@@ -44,7 +47,9 @@ public class MainFacade implements IServer {
 
     @Override
     public CommandResult getCommands() {
-        GetCommandsFacade gdf= new GetCommandsFacade();
+        GetCommandsFacade gcf= new GetCommandsFacade();
+        gcf.getCommandList();
+        //takes the above and then returns it
         return null;
     }
 }

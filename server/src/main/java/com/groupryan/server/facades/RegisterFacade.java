@@ -13,7 +13,13 @@ public class RegisterFacade {
     String password;
     String result;
 
-    CommandResult register(User user){return null;}
+    public CommandResult register(User user){
+
+        //ensures that the user id is unique
+        //create a user in the model
+        //creates a command to return the command
+
+        return null;}
     String checkUserId(String userId){return null;}
     String createUser(User user) {return null;}
     ClientCommand createReturnCommand(String result){return null;}
