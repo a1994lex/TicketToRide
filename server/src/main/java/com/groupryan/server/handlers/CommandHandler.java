@@ -1,6 +1,8 @@
 package com.groupryan.server.handlers;
 
 import com.google.gson.Gson;
+import com.groupryan.server.facades.MainFacade;
+import com.groupryan.shared.results.CommandResult;
 import com.sun.net.httpserver.HttpHandler;
         import com.sun.net.httpserver.HttpExchange;
 
@@ -21,10 +23,13 @@ public class CommandHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         String sentence=httpExchange.getRequestURI().toString();
-      //  ReturnResult lcr=new ReturnResult("Could not get string to lower from Handler");
+        CommandResult cr=new CommandResult();
         Gson g=new Gson();
         String s="";
-      //  String response= g.toJson(lcr);
+        /**
+         * This next if should be replaces by deserializing everything and then
+         * passing it to the mainfacade
+         */
         if(sentence.equals("/lower")) {
             try {
                 InputStream is=httpExchange.getRequestBody();
@@ -34,6 +39,9 @@ public class CommandHandler implements HttpHandler {
                 e.printStackTrace();
             }
         }
+        MainFacade mf=new MainFacade();
+
+
         httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
         OutputStream os=httpExchange.getResponseBody();
         OutputStreamWriter osw=new OutputStreamWriter(os);

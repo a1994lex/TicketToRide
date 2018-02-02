@@ -9,7 +9,12 @@ import com.groupryan.shared.results.CommandResult;
 
 public class StartGameFacade {
     String gameId;
-    CommandResult start() {return null;}
+
+    public CommandResult start() {
+
+        //takes the game id and uses it ot shutdown the game and start everything
+
+        return null;}
     ClientCommand activateGame(String gameId){return null;}
 
 }

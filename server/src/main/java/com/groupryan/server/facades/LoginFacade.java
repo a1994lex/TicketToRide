@@ -13,7 +13,12 @@ public class LoginFacade {
     String password;
     String result;
 
-    CommandResult login(User user){return null;}
+    CommandResult login(User user){
+
+        //verifies that the username and passowrd are correct
+        //create the command allowing login
+
+        return null;}
     Boolean verifyUserId(String userId){return false;}
     Boolean verifyPassword(String password){return false;}
     ClientCommand createReturnCommand(String result){return null;}
