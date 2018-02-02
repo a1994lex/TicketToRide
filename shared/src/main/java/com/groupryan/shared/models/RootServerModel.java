@@ -1,19 +1,20 @@
-package com.groupryan.client.models;
+package com.groupryan.shared.models;
 
 import java.util.ArrayList;
-import java.util.Observable;
 
-public class RootClientModel extends Observable {
+/**
+ * Created by bengu3 on 1/31/18.
+ */
 
+public class RootServerModel {
     private ArrayList<Game> games;
-    private User user;
+    private ArrayList<User> users;
 
-    private static RootClientModel single_instance = new RootClientModel();
+    private static RootServerModel single_instance = new RootServerModel();
 
 
 
     public static void addUser(User user){
-        //TODO: check if i am doing add user as intended
         single_instance._addUser(user);
     }
 
@@ -26,14 +27,13 @@ public class RootClientModel extends Observable {
     }
 
 
-    private RootClientModel(){
+    private RootServerModel(){
         games = new ArrayList<>();
-        user = new User();
+        users = new ArrayList<>();
     }
 
     private void _addUser(User user){
-        //what do i do here
-        this.user = user;
+        users.add(user);
     }
 
     private void _addGame(Game game){
@@ -42,7 +42,7 @@ public class RootClientModel extends Observable {
 
     private void _startGame(String gameId){
         //TODO: START GAME HERE
-        //make command so switch to game activity
+        //make command so switch to game activity!
     }
 
 }
