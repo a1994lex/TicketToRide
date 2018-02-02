@@ -20,5 +20,9 @@ public class CommandManager {
     public List<ClientCommand> getCommands(int index){
         return null;
     }
-
+    public ClientCommand makeJoinGameCommand(){return null;}
+    public ClientCommand makeCreateGameCommand(){return null;}
+    public ClientCommand makeStartGameCommand(){return null;}
+    public ClientCommand makeLoginCommand(){return null;}
+    public ClientCommand makeRegisterCommand(){return null;}
 }
