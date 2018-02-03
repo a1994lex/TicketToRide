@@ -3,10 +3,16 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/TicketToRide.iml" filepath="$PROJECT_DIR$/.idea/modules/TicketToRide.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TicketToRide.iml" filepath="$PROJECT_DIR$/.idea/modules/TicketToRide.iml" />
       <module fileurl="file://C:\Users\arctu\AndroidStudioProjects\TicketToRide\TicketToRide.iml" filepath="C:\Users\arctu\AndroidStudioProjects\TicketToRide\TicketToRide.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/client/client.iml" filepath="$PROJECT_DIR$/.idea/modules/client/client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/client/client.iml" filepath="$PROJECT_DIR$/.idea/modules/client/client.iml" />
+      <module fileurl="file://C:\Users\arctu\AndroidStudioProjects\TicketToRide\.idea\modules\client\client.iml" filepath="C:\Users\arctu\AndroidStudioProjects\TicketToRide\.idea\modules\client\client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/server.iml" filepath="$PROJECT_DIR$/.idea/modules/server/server.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/server.iml" filepath="$PROJECT_DIR$/.idea/modules/server/server.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/shared.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/shared.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/shared.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/shared.iml" />
+      <module fileurl="file://C:\Users\arctu\AndroidStudioProjects\TicketToRide\.idea\modules\shared\shared.iml" filepath="C:\Users\arctu\AndroidStudioProjects\TicketToRide\.idea\modules\shared\shared.iml" />
     </modules>
   </component>
 </project>
