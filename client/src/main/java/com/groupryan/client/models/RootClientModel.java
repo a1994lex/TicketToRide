@@ -27,7 +27,7 @@ public class RootClientModel extends Observable {
 
 
     private RootClientModel(){
-        games = new ArrayList<>();
+        games = new ArrayList();
         user = new User();
     }
 

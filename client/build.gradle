@@ -7,5 +7,5 @@ dependencies {
     testCompileOnly files('junit-4.12.jar')
 }
 
-sourceCompatibility = "1.6"
-targetCompatibility = "1.6"
+sourceCompatibility = "1.8"
+targetCompatibility = "1.8"

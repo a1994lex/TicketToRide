@@ -14,7 +14,6 @@ public interface IServer {
     CommandResult startGame(String gameId);
     LoginResult register(User user);
     LoginResult login(User user);
-    List<ICommand> getCommands();
 
 
 }
