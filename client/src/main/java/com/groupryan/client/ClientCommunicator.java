@@ -1,6 +1,7 @@
 package com.groupryan.client;
 
 import com.google.gson.Gson;
+import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.commands.ICommand;
 import com.groupryan.shared.commands.ServerCommand;
 import com.groupryan.shared.results.CommandResult;
@@ -85,7 +86,7 @@ public class ClientCommunicator {
      * @return CommandResult that indicates whether the command was executed properly and returns
      * a list of Commands or success or error messages.
      */
-    public List<ICommand> sendGetCommands(String commandName, ServerCommand command) {
+    public List<ClientCommand> sendGetCommands(String commandName, ServerCommand command) {
         CommandResult result = (CommandResult) sendCommand(commandName, command);
         return result.getClientCommands();
     }
