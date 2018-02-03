@@ -87,7 +87,7 @@ public class ClientCommunicator {
      */
     public List<ICommand> sendGetCommands(String commandName, ServerCommand command) {
         CommandResult result = (CommandResult) sendCommand(commandName, command);
-        return result.getCommands();
+        return result.getClientCommands();
     }
 
     /** Turns a Command into a JSON string.
@@ -99,6 +99,13 @@ public class ClientCommunicator {
         return gson.toJson(command);
     }
 
+
+    /** Creates a connection with the server.
+     *
+     * @param contextIdentifier The URL ending that indicates which web API is called.
+     * @param commandName A String that indicates which kind of Command is being sent.
+     * @return A connection to the server.
+     */
     private HttpURLConnection openConnection(String contextIdentifier, String commandName) {
         HttpURLConnection result = null;
         try {
