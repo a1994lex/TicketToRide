@@ -8,6 +8,7 @@ import com.groupryan.shared.commands.ServerCommandFactory;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
+import com.groupryan.shared.results.LoginResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,44 +33,45 @@ public class ServerProxy implements IServer {
 
     @Override
     public CommandResult createGame(Game game) {
-        ServerCommand command =
-        return ClientCommunicator.getInstance().sendCommand(CREATE_GAME, command);
+        ServerCommand command = new ServerCommand();
+        return (CommandResult) ClientCommunicator.getInstance().sendCommand(CREATE_GAME, command);
     }
 
     @Override
     public CommandResult joinGame(String gameId, String userId) {
-        ServerCommand command =
-        return ClientCommunicator.getInstance().sendCommand(JOIN_GAME, command);
+        ServerCommand command = new ServerCommand();
+        return (CommandResult) ClientCommunicator.getInstance().sendCommand(JOIN_GAME, command);
     }
 
     @Override
     public CommandResult startGame(String gameId) {
-        ServerCommand command =
-        return ClientCommunicator.getInstance().sendCommand(START_GAME, command);
+        ServerCommand command = new ServerCommand();
+        return (CommandResult) ClientCommunicator.getInstance().sendCommand(START_GAME, command);
     }
 
     @Override
-    public CommandResult register(User user) {
-        ServerCommand command =
-        return ClientCommunicator.getInstance().sendCommand(REGISTER, command);
+    public LoginResult register(User user) {
+        ServerCommand command = new ServerCommand();
+        return (LoginResult) ClientCommunicator.getInstance().sendCommand(REGISTER, command);
     }
 
     @Override
-    public CommandResult login(User user) {
-        ServerCommand command =
-        return ClientCommunicator.getInstance().sendCommand(LOGIN, command);
+    public LoginResult login(User user) {
+        ServerCommand command = new ServerCommand();
+        return (LoginResult) ClientCommunicator.getInstance().sendCommand(LOGIN, command);
     }
 
     @Override
     public List<ICommand> getCommands() {
-        return null;
+        ServerCommand command = new ServerCommand();
+        return ClientCommunicator.getInstance().sendGetCommands(GET_COMMANDS, command);
     }
 
-    private static final String CREATE_GAME = "CreateGame";
-    private static final String JOIN_GAME = "JoinGame";
-    private static final String START_GAME = "StartGame";
+    private static final String CREATE_GAME = "Create Game";
+    private static final String JOIN_GAME = "Join Game";
+    private static final String START_GAME = "Start Game";
     private static final String REGISTER = "Register";
     private static final String LOGIN = "Login";
-    private static final String LOGIN_REGISTER_RESULT = "LoginRegisterResult";
-    private static final String GAME_LIST_RESULT = "GameListResult";
+    private static final String GET_COMMANDS = "Get Commands";
+    private static final String GET_GAME_LIST = "Get Game List";
 }
