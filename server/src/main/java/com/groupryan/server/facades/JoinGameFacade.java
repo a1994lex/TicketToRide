@@ -25,7 +25,7 @@ public class JoinGameFacade {
         //adds them to the game,
         //returns the command
 
-        return null;}
-    ClientCommand createReturnCommand(String gameId, String userId){
+        return cm;}
+    private ClientCommand createReturnCommand(String gameId, String userId){
         return CommandManager.getInstance().makeJoinGameCommand(gameId, userId);}
 }

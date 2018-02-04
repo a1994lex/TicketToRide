@@ -26,11 +26,11 @@ public class LoginFacade {
         else{lr.setSucceeded(false);}//else false
         lr.setUserMessage(result);//im adding the result too so that they can know if it was a bad username or password
         return lr;}
-    String verifyUser(String userId, String password){
+    private String verifyUser(String userId, String password){
         return RootServerModel.getInstance()._confirmUser(userId, password);
     }
 
-    ClientCommand createReturnCommand(String result){
+    private ClientCommand createReturnCommand(String result){
         return CommandManager.getInstance().makeLoginCommand(result);}
 
 }
