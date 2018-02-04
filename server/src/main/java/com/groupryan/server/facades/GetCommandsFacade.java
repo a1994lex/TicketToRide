@@ -11,15 +11,16 @@ import java.util.List;
  */
 
 public class GetCommandsFacade {
-    int index;
+    private int index;
 
     public CommandResult getCommandList(){
 
         //calls the command manager with the index to get the command list
-
-        List<ClientCommand> commands = CommandManager.getInstance().getCommands(index);
+        CommandResult cr=new CommandResult();
+        cr.setClientCommands(CommandManager.getInstance().getCommands(index));
         //converts it to a Commandresult
-        return null;
+        cr.setResultType("Commands");
+        return cr;
     }
 
 

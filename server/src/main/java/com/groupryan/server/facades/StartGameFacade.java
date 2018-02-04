@@ -1,5 +1,6 @@
 package com.groupryan.server.facades;
 
+import com.groupryan.server.CommandManager;
 import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.results.CommandResult;
 
@@ -10,11 +11,14 @@ import com.groupryan.shared.results.CommandResult;
 public class StartGameFacade {
     String gameId;
 
-    public CommandResult start() {
-
+    public CommandResult start(String gameId) {
+        CommandResult cr = new CommandResult();
+        cr.addClientCommand(activateGame(gameId));
+        return cr;
         //takes the game id and uses it ot shutdown the game and start everything
-
-        return null;}
-    ClientCommand activateGame(String gameId){return null;}
+    }
+    ClientCommand activateGame(String gameId){
+        return CommandManager.getInstance().makeStartGameCommand(gameId);
+        }
 
 }

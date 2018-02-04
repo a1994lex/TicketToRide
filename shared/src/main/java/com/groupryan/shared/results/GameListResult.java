@@ -13,7 +13,7 @@ import java.util.List;
 public class GameListResult extends CommandResult {
 
 
-    private List<Game> games = new ArrayList<>();
+    private List<Game> games = new ArrayList();
 
     public GameListResult(String exceptionType, String exceptionMessage, List<ClientCommand> clientCommands, String resultType, List<Game> games){
         super(exceptionType, exceptionMessage, clientCommands, resultType);
