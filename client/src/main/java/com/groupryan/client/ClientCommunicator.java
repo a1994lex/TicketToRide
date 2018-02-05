@@ -1,7 +1,6 @@
 package com.groupryan.client;
 
 import com.google.gson.Gson;
-import com.groupryan.shared.commands.ICommand;
 import com.groupryan.shared.commands.ServerCommand;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.GameListResult;
@@ -13,7 +12,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 public class ClientCommunicator {
     public static ClientCommunicator instance = new ClientCommunicator();
@@ -75,19 +73,6 @@ public class ClientCommunicator {
                 }
             }
         }
-    }
-
-    /** Sends a HTTP request by calling the sendCommand() method, but returns only the list of
-     * commands received from the server.
-     *
-     * @param commandName The kind of command that is being sent. Added as request header.
-     * @param command The Command object that holds all of the information for executing a command.
-     * @return CommandResult that indicates whether the command was executed properly and returns
-     * a list of Commands or success or error messages.
-     */
-    public List<ICommand> sendGetCommands(String commandName, ServerCommand command) {
-        CommandResult result = (CommandResult) sendCommand(commandName, command);
-        return result.getClientCommands();
     }
 
     /** Turns a Command into a JSON string.

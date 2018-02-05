@@ -33,38 +33,40 @@ public class ServerProxy implements IServer {
 
     @Override
     public CommandResult createGame(Game game) {
-        ServerCommand command = new ServerCommand();
+        ServerCommand command = serverCommandFactory.createCreateGameCommand(game); //parameters may need to be changed
         return (CommandResult) ClientCommunicator.getInstance().sendCommand(CREATE_GAME, command);
     }
 
     @Override
     public CommandResult joinGame(String gameId, String userId) {
-        ServerCommand command = new ServerCommand();
+        ServerCommand command = serverCommandFactory.createJoinGameCommand(gameId, userId);
         return (CommandResult) ClientCommunicator.getInstance().sendCommand(JOIN_GAME, command);
     }
 
     @Override
     public CommandResult startGame(String gameId) {
-        ServerCommand command = new ServerCommand();
+        ServerCommand command = serverCommandFactory.createStartGameCommand(gameId);
         return (CommandResult) ClientCommunicator.getInstance().sendCommand(START_GAME, command);
     }
 
     @Override
     public LoginResult register(User user) {
-        ServerCommand command = new ServerCommand();
+        ServerCommand command = serverCommandFactory.createRegisterCommand(user.getUsername(),
+                                                                            user.getPassword());
         return (LoginResult) ClientCommunicator.getInstance().sendCommand(REGISTER, command);
     }
 
     @Override
     public LoginResult login(User user) {
-        ServerCommand command = new ServerCommand();
+        ServerCommand command = serverCommandFactory.createLoginCommand(user.getUsername(),
+                                                                        user.getPassword());
         return (LoginResult) ClientCommunicator.getInstance().sendCommand(LOGIN, command);
     }
 
     @Override
-    public List<ICommand> getCommands() {
-        ServerCommand command = new ServerCommand();
-        return ClientCommunicator.getInstance().sendGetCommands(GET_COMMANDS, command);
+    public CommandResult getCommands() {
+        ServerCommand command = serverCommandFactory.createGetCommandsCommand();
+        return (CommandResult) ClientCommunicator.getInstance().sendCommand(GET_COMMANDS, command);
     }
 
     private static final String CREATE_GAME = "Create Game";
