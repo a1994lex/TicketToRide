@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
  * Created by bengu3 on 1/31/18.
  */
 
-public class ServerCommand implements IClientCommand {
+public class ServerCommand implements ICommand {
 
     private String _className;
     private String _methodName;
