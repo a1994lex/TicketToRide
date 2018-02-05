@@ -72,14 +72,14 @@ public class RootServerModel {
 
 
 
-    private void _startGame(String gameId){
+    public String _startGame(String gameId){
         for(Game game : games){
             if(game.getGameId().equals(gameId)){
                 game.setStarted(true);
             }
         }
         //make command so switch to game activity!
-        return "null:";
+        return "good";
     }
 
 }
