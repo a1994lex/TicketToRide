@@ -8,9 +8,6 @@ import java.util.List;
  */
 
 public class User {
-    /*- username: String
-- password: String
-- gameList: List<Game>*/
 
     private String username;
     private String password;

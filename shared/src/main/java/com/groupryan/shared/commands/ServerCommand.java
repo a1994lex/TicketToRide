@@ -8,7 +8,7 @@ import java.lang.reflect.Method;
  * Created by bengu3 on 1/31/18.
  */
 
-public class ServerCommand implements IClientCommand {
+public class ServerCommand implements ICommand {
 
     private String _className;
     private String _methodName;
@@ -29,7 +29,7 @@ public class ServerCommand implements IClientCommand {
         try {
             Class<?> receiver = Class.forName(_className);
             Method method = receiver.getMethod(_methodName, _paramTypes);
-//            r = (CommandResult)method.invoke(MainFacade , _paramValues);
+            r = (CommandResult)method.invoke(receiver , _paramValues);
         }
         catch (Exception e) {
             e.printStackTrace();
