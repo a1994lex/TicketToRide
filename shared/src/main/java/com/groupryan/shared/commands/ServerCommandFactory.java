@@ -10,20 +10,20 @@ public class ServerCommandFactory {
 
     }
 
-    public ServerServerCommand createJoinGameCommand(String gameId, String userId){
-        return new ServerServerCommand();
+    public ServerCommand createJoinGameCommand(String gameId, String userId){
+        return new ServerCommand();
     }
 
-    public ServerServerCommand createStartGameCommand(String gameId){
-        return new ServerServerCommand();
+    public ServerCommand createStartGameCommand(String gameId){
+        return new ServerCommand();
     }
 
-    public ServerServerCommand createLoginCommand(String username, String password){
-        return new ServerServerCommand();
+    public ServerCommand createLoginCommand(String username, String password){
+        return new ServerCommand();
     }
 
-    public ServerServerCommand createRegisterCommand(String username, String password){
-        return new ServerServerCommand();
+    public ServerCommand createRegisterCommand(String username, String password){
+        return new ServerCommand();
     }
 
 }

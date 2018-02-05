@@ -8,15 +8,15 @@ import java.lang.reflect.Method;
  * Created by bengu3 on 1/31/18.
  */
 
-public class ServerServerCommand implements IServerCommand {
+public class ServerCommand implements IServerCommand {
 
     private String _className;
     private String _methodName;
     private Class<?>[] _paramTypes;
     private Object[] _paramValues;
 
-    public ServerServerCommand(String className, String methodName,
-                               Class<?>[] paramTypes, Object[] paramValues){
+    public ServerCommand(String className, String methodName,
+                         Class<?>[] paramTypes, Object[] paramValues){
         _className = className;
         _methodName = methodName;
         _paramTypes = paramTypes;
