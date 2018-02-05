@@ -40,7 +40,7 @@ public class RegisterFacade {
        return RootServerModel.getInstance()._checkUser(userId);}
 
     private void createUser() {
-        RootServerModel.getInstance()._addUser(user);}
+        RootServerModel.addUser(user);}
 
     private ClientCommand createReturnCommand(String result){
             return CommandManager.getInstance().makeRegisterCommand(result, user);
