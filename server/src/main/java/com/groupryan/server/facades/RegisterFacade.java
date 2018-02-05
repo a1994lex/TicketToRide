@@ -20,10 +20,10 @@ public class RegisterFacade {
         Boolean exists=checkUserId(user.getUsername());
         LoginResult lr=new LoginResult();
         if(!exists){
-            createUser();
+            String result=createUser();
             lr.addClientCommand(createReturnCommand("valid"));
             lr.setSucceeded(true);
-            lr.setUserMessage("valid");
+            lr.setUserMessage(result);
         }
         else{
             lr.addClientCommand(createReturnCommand("user already exists"));
@@ -39,8 +39,8 @@ public class RegisterFacade {
     private Boolean checkUserId(String userId){
        return RootServerModel.getInstance()._checkUser(userId);}
 
-    private void createUser() {
-        RootServerModel.addUser(user);}
+    private String createUser() {
+        return RootServerModel.getInstance()._addUser(user);}
 
     private ClientCommand createReturnCommand(String result){
             return CommandManager.getInstance().makeRegisterCommand(result, user);

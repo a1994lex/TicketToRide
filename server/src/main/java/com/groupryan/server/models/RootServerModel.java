@@ -30,9 +30,6 @@ public class RootServerModel {
         single_instance._addGame(game);
     }
 
-    public static void startGame(String gameId){
-        single_instance._startGame(gameId);
-    }
 
 
     private RootServerModel(){
@@ -40,12 +37,14 @@ public class RootServerModel {
         users = new ArrayList();
     }
 
-    public void _addUser(User user){
+    public String _addUser(User user){
         users.add(user);
+        return "valid";
     }
 
-    public void _addGame(Game game){
+    public String _addGame(Game game){
         games.add(game);
+        return "null";
     }
     
     public String _confirmUser(String userId, String password){
@@ -72,6 +71,7 @@ public class RootServerModel {
     public String _addUserToGame(String gameId, String userId){return null;} /////needs to be made
 
 
+
     private void _startGame(String gameId){
         for(Game game : games){
             if(game.getGameId().equals(gameId)){
@@ -79,6 +79,7 @@ public class RootServerModel {
             }
         }
         //make command so switch to game activity!
+        return "null:";
     }
 
 }
