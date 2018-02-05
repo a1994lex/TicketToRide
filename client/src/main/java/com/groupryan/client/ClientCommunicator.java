@@ -2,8 +2,7 @@ package com.groupryan.client;
 
 import com.google.gson.Gson;
 import com.groupryan.shared.commands.ClientCommand;
-import com.groupryan.shared.commands.ICommand;
-import com.groupryan.shared.commands.ServerCommand;
+import com.groupryan.shared.commands.ServerServerCommand;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.GameListResult;
 import com.groupryan.shared.results.LoginResult;
@@ -39,7 +38,7 @@ public class ClientCommunicator {
      * @return CommandResult that indicates whether the command was executed properly and returns
      * a list of Commands or success or error messages.
      */
-    public Object sendCommand(String commandName, ServerCommand command) {
+    public Object sendCommand(String commandName, ServerServerCommand command) {
         HttpURLConnection connection = openConnection(EXEC_COMMAND, commandName);
         if (commandName.equals(LOGIN) || commandName.equals(REGISTER)) {
             LoginResult result;
@@ -86,17 +85,17 @@ public class ClientCommunicator {
      * @return CommandResult that indicates whether the command was executed properly and returns
      * a list of Commands or success or error messages.
      */
-    public List<ClientCommand> sendGetCommands(String commandName, ServerCommand command) {
+    public List<ClientCommand> sendGetCommands(String commandName, ServerServerCommand command) {
         CommandResult result = (CommandResult) sendCommand(commandName, command);
         return result.getClientCommands();
     }
 
     /** Turns a Command into a JSON string.
      *
-     * @param command The ServerCommand object going to the server.
+     * @param command The ServerServerCommand object going to the server.
      * @return A String object.
      */
-    private String serializeCommand(ServerCommand command) {
+    private String serializeCommand(ServerServerCommand command) {
         return gson.toJson(command);
     }
 
@@ -125,13 +124,13 @@ public class ClientCommunicator {
         return result;
     }
 
-    /** Does the actual sending to the server. The ServerCommand is serialized and the HTTP request
+    /** Does the actual sending to the server. The ServerServerCommand is serialized and the HTTP request
      * body is sent.
      *
      * @param connection A connection to the server.
-     * @param commandToSend A ServerCommand object being sent to the server.
+     * @param commandToSend A ServerServerCommand object being sent to the server.
      */
-    private void sendToServer(HttpURLConnection connection, ServerCommand commandToSend) {
+    private void sendToServer(HttpURLConnection connection, ServerServerCommand commandToSend) {
         try {
             OutputStreamWriter outputStreamWriter = new OutputStreamWriter(connection.getOutputStream());
             String commandString = serializeCommand(commandToSend);

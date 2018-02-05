@@ -2,8 +2,8 @@ package com.groupryan.client;
 
 import com.groupryan.shared.IServer;
 import com.groupryan.shared.commands.ClientCommand;
-import com.groupryan.shared.commands.ICommand;
-import com.groupryan.shared.commands.ServerCommand;
+import com.groupryan.shared.commands.IServerCommand;
+import com.groupryan.shared.commands.ServerServerCommand;
 import com.groupryan.shared.commands.ServerCommandFactory;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
@@ -33,37 +33,37 @@ public class ServerProxy implements IServer {
 
     @Override
     public CommandResult createGame(Game game) {
-        ServerCommand command = new ServerCommand();
+        ServerServerCommand command = new ServerServerCommand();
         return (CommandResult) ClientCommunicator.getInstance().sendCommand(CREATE_GAME, command);
     }
 
     @Override
     public CommandResult joinGame(String gameId, String userId) {
-        ServerCommand command = new ServerCommand();
+        ServerServerCommand command = new ServerServerCommand();
         return (CommandResult) ClientCommunicator.getInstance().sendCommand(JOIN_GAME, command);
     }
 
     @Override
     public CommandResult startGame(String gameId) {
-        ServerCommand command = new ServerCommand();
+        ServerServerCommand command = new ServerServerCommand();
         return (CommandResult) ClientCommunicator.getInstance().sendCommand(START_GAME, command);
     }
 
     @Override
     public LoginResult register(User user) {
-        ServerCommand command = new ServerCommand();
+        ServerServerCommand command = new ServerServerCommand();
         return (LoginResult) ClientCommunicator.getInstance().sendCommand(REGISTER, command);
     }
 
     @Override
     public LoginResult login(User user) {
-        ServerCommand command = new ServerCommand();
+        ServerServerCommand command = new ServerServerCommand();
         return (LoginResult) ClientCommunicator.getInstance().sendCommand(LOGIN, command);
     }
 
     @Override
-    public List<ICommand> getCommands() {
-        ServerCommand command = new ServerCommand();
+    public List<IServerCommand> getCommands() {
+        ServerServerCommand command = new ServerServerCommand();
         return ClientCommunicator.getInstance().sendGetCommands(GET_COMMANDS, command);
     }
 
