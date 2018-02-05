@@ -27,7 +27,7 @@ public class ClientCommand implements IClientCommand {
         try {
             Class<?> receiver = Class.forName(_className);
             Method method = receiver.getMethod(_methodName, _paramTypes);
-            //method.invoke(RootClientModel, _paramValues); //TODO: what do i do here
+            method.invoke(receiver, _paramValues);
         }
         catch (Exception e) {
             e.printStackTrace();

@@ -2,7 +2,7 @@ package com.groupryan.client;
 
 import com.groupryan.shared.IServer;
 import com.groupryan.shared.commands.ClientCommand;
-import com.groupryan.shared.commands.ICommand;
+import com.groupryan.shared.commands.IServerCommand;
 import com.groupryan.shared.commands.ServerCommand;
 import com.groupryan.shared.commands.ServerCommandFactory;
 import com.groupryan.shared.models.Game;
@@ -62,7 +62,7 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public List<ICommand> getCommands() {
+    public List<IServerCommand> getCommands() {
         ServerCommand command = new ServerCommand();
         return ClientCommunicator.getInstance().sendGetCommands(GET_COMMANDS, command);
     }

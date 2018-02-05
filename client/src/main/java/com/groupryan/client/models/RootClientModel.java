@@ -1,5 +1,8 @@
 package com.groupryan.client.models;
 
+import com.groupryan.shared.models.Game;
+import com.groupryan.shared.models.User;
+
 import java.util.ArrayList;
 import java.util.Observable;
 
@@ -28,7 +31,7 @@ public class RootClientModel extends Observable {
 
     private RootClientModel(){
         games = new ArrayList();
-        user = new User();
+        user = new User(null, null);
     }
 
     private void _addUser(User user){

@@ -2,7 +2,6 @@ package com.groupryan.client;
 
 import com.google.gson.Gson;
 import com.groupryan.shared.commands.ClientCommand;
-import com.groupryan.shared.commands.ICommand;
 import com.groupryan.shared.commands.ServerCommand;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.GameListResult;
