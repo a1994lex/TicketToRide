@@ -14,6 +14,7 @@ public class Game {
     private Map<User, String> users;
     private String gameName;
     private String gameId;
+    private boolean started = false;
 
     public Game(){}
 
@@ -23,8 +24,18 @@ public class Game {
     }
 
     public void addUser(User u, String color){
-        //TODO: check if game is started so don't add more players
-        users.put(u, color);
+        if(!started){
+            users.put(u, color);
+        }
+        //RETURN SOMETHING SO THEY KNOW USER WAS NOT ADDED.
+    }
+
+    public boolean isStarted() {
+        return started;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
     }
 
     public Map<User, String> getUsers() {

@@ -71,8 +71,13 @@ public class RootServerModel {
     public String _addUserToGame(String gameId, String userId){return null;} /////needs to be made
 
 
-    public String _startGame(String gameId){
-        //TODO: START GAME HERE
+
+    private void _startGame(String gameId){
+        for(Game game : games){
+            if(game.getGameId().equals(gameId)){
+                game.setStarted(true);
+            }
+        }
         //make command so switch to game activity!
         return "null:";
     }

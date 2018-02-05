@@ -29,7 +29,7 @@ public class ServerCommand implements IServerCommand {
         try {
             Class<?> receiver = Class.forName(_className);
             Method method = receiver.getMethod(_methodName, _paramTypes);
-//            r = (CommandResult)method.invoke(MainFacade , _paramValues);
+            r = (CommandResult)method.invoke(receiver , _paramValues);
         }
         catch (Exception e) {
             e.printStackTrace();
