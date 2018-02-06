@@ -1,5 +1,8 @@
 package com.groupryan.shared.commands;
 
+import com.groupryan.shared.models.Game;
+import com.groupryan.shared.models.User;
+
 /**
  * Created by bengu3 on 1/31/18.
  */
@@ -27,16 +30,27 @@ public class ServerCommandFactory {
                 new Object[] {gameId});
     }
 
-    public ServerCommand createLoginCommand(String username, String password){
+    public ServerCommand createLoginCommand(User user){
         return new ServerCommand("facades.MainFacade", "login",
-                new Class<?>[] {String.class, String.class},
-                new Object[] {username, password});
+                new Class<?>[] {User.class},
+                new Object[] {user});
     }
 
-    public ServerCommand createRegisterCommand(String username, String password){
+    public ServerCommand createRegisterCommand(User user){
         return new ServerCommand("facades.MainFacade", "register",
-                new Class<?>[]{String.class, String.class},
-                new Object[] {username, password});
+                new Class<?>[]{User.class},
+                new Object[] {user});
+    }
+    public ServerCommand createCreateCommand(Game game){
+        return new ServerCommand("facades.MainFacade", "createGame",
+                new Class<?>[]{Game.class},
+                new Object[] {game});
+    }
+    public ServerCommand createGetCommands(){
+
+        return new ServerCommand("facades.MainFacade", "getCommands",
+                new Class<?>[]{},
+                new Object[] {});
     }
 
 }

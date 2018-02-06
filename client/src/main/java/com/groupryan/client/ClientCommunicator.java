@@ -85,9 +85,9 @@ public class ClientCommunicator {
      * @return CommandResult that indicates whether the command was executed properly and returns
      * a list of Commands or success or error messages.
      */
-    public List<ClientCommand> sendGetCommands(String commandName, ServerCommand command) {
+    public CommandResult sendGetCommands(String commandName, ServerCommand command) {
         CommandResult result = (CommandResult) sendCommand(commandName, command);
-        return result.getClientCommands();
+        return result;
     }
 
     /** Turns a Command into a JSON string.
