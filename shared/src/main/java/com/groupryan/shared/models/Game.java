@@ -15,12 +15,14 @@ public class Game {
     private String gameName;
     private String gameId;
     private boolean started = false;
+    private int maxPlayers;
 
     public Game(){}
 
-    public Game(String gameName, String gameId){
+    public Game(String gameName, String gameId, int maxPlayers){
         this.gameName = gameName;
         this.gameId = gameId;
+        this.maxPlayers = maxPlayers;
     }
 
     public void addUser(User u, String color){
@@ -66,8 +68,12 @@ public class Game {
         gameId = UUID.randomUUID().toString();
     }
 
+    public int getMaxPlayers() { return maxPlayers; }
+
+    public void setMaxPlayers(int maxPlayers) { this.maxPlayers = maxPlayers; }
+
     public List<Game> makeTestGames(){
-        ArrayList<Game> games = new ArrayList<>();
+        ArrayList<Game> games = new ArrayList<Game>();
         User u = new User("clairescout", "gammon");
         Game game = new Game("game1", "gameID");
         game.addUser(u, "red");

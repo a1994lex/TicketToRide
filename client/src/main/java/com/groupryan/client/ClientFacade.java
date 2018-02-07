@@ -2,7 +2,7 @@ package com.groupryan.client;
 
 public class ClientFacade {
 
-
+    public ClientFacade() {}
     /**
      * So the Client fACADE is supposed to be the twin of the command manager.
      * It calls the commands that the command manager/polar team returns
