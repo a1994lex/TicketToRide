@@ -26,7 +26,7 @@ public class Server {
         server.setExecutor(null);
 
         System.out.println("Creating contexts");
-//        server.createContext("/executeCommand", new CommandHandler());
+        server.createContext("/executeCommand", new CommandHandler());
 
         System.out.println("Starting server");
         server.start();

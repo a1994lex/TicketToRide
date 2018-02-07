@@ -14,17 +14,30 @@ public class Game {
     private Map<User, String> users;
     private String gameName;
     private String gameId;
+    private boolean started = false;
+    private int maxPlayers;
 
     public Game(){}
 
-    public Game(String gameName, String gameId){
+    public Game(String gameName, String gameId, int maxPlayers){
         this.gameName = gameName;
         this.gameId = gameId;
+        this.maxPlayers = maxPlayers;
     }
 
     public void addUser(User u, String color){
-        //TODO: check if game is started so don't add more players
-        users.put(u, color);
+        if(!started){
+            users.put(u, color);
+        }
+        //RETURN SOMETHING SO THEY KNOW USER WAS NOT ADDED.
+    }
+
+    public boolean isStarted() {
+        return started;
+    }
+
+    public void setStarted(boolean started) {
+        this.started = started;
     }
 
     public Map<User, String> getUsers() {
@@ -55,8 +68,12 @@ public class Game {
         gameId = UUID.randomUUID().toString();
     }
 
+    public int getMaxPlayers() { return maxPlayers; }
+
+    public void setMaxPlayers(int maxPlayers) { this.maxPlayers = maxPlayers; }
+
     public List<Game> makeTestGames(){
-        ArrayList<Game> games = new ArrayList<>();
+        ArrayList<Game> games = new ArrayList<Game>();
         User u = new User("clairescout", "gammon");
         Game game = new Game("game1", "gameID");
         game.addUser(u, "red");

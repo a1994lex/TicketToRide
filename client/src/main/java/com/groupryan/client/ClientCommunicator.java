@@ -75,6 +75,19 @@ public class ClientCommunicator {
         }
     }
 
+    /** Sends a HTTP request by calling the sendCommand() method, but returns only the list of
+     * commands received from the server.
+     *
+     * @param commandName The kind of command that is being sent. Added as request header.
+     * @param command The Command object that holds all of the information for executing a command.
+     * @return CommandResult that indicates whether the command was executed properly and returns
+     * a list of Commands or success or error messages.
+     */
+    public CommandResult sendGetCommands(String commandName, ServerCommand command) {
+        CommandResult result = (CommandResult) sendCommand(commandName, command);
+        return result;
+    }
+
     /** Turns a Command into a JSON string.
      *
      * @param command The ServerCommand object going to the server.

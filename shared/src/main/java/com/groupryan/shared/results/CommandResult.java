@@ -13,7 +13,7 @@ public class CommandResult {
 
     private String exceptionType;
     private String exceptionMessage;
-    private List<ClientCommand> clientCommands = new ArrayList<>();
+    private List<ClientCommand> clientCommands = new ArrayList();
     private String resultType;
 
     public CommandResult(String exceptionType, String exceptionMessage, List<ClientCommand> clientCommands, String resultType) {

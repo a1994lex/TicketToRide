@@ -3,13 +3,11 @@ package com.example.clientapp;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import com.groupryan.client.ui.IJoinGameView;
-
-public class JoinGameActivity extends AppCompatActivity implements IJoinGameView{
+public class GamePlayActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_list);
+        setContentView(R.layout.activity_game_play);
     }
 }

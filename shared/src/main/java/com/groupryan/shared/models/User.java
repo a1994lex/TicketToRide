@@ -8,9 +8,6 @@ import java.util.List;
  */
 
 public class User {
-    /*- username: String
-- password: String
-- gameList: List<Game>*/
 
     private String username;
     private String password;
@@ -19,7 +16,7 @@ public class User {
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        gameList = new ArrayList<>();
+        gameList = new ArrayList();
     }
 
     public void addGame(Game game){
@@ -51,7 +48,7 @@ public class User {
     }
 
     public List<User> makeTestUsers(){
-        ArrayList<User> users = new ArrayList<>();
+        ArrayList<User> users = new ArrayList();
         User u = new User("clairescout", "gammon");
         Game game = new Game("game1", "gameID");
         u.addGame(game);
