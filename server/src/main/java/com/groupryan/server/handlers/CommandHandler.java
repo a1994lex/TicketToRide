@@ -2,6 +2,8 @@ package com.groupryan.server.handlers;
 
 import com.google.gson.Gson;
 import com.groupryan.server.facades.MainFacade;
+import com.groupryan.shared.commands.ClientCommand;
+import com.groupryan.shared.commands.ServerCommand;
 import com.groupryan.shared.results.CommandResult;
 import com.sun.net.httpserver.HttpHandler;
         import com.sun.net.httpserver.HttpExchange;
@@ -30,16 +32,18 @@ public class CommandHandler implements HttpHandler {
          * This next if should be replaces by deserializing everything and then
          * passing it to the mainfacade
          */
-        if(sentence.equals("/lower")) {
-            try {
-                InputStream is=httpExchange.getRequestBody();
-                InputStreamReader reader=new InputStreamReader(is);
-         //       response=g.toJson(new ReturnResult(StringProcessor.getInstance().toLowerCase((g.fromJson(reader, LowerCaseRequest.class)).getSentence())));
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+
+        try {
+            InputStream is=httpExchange.getRequestBody();
+            InputStreamReader reader=new InputStreamReader(is);
+            ServerCommand command=g.fromJson(reader, ServerCommand.class);
+            CommandResult response=command.execute();
+            //       response=g.toJson(new ReturnResult(StringProcessor.getInstance().toLowerCase((g.fromJson(reader, LowerCaseRequest.class)).getSentence())));
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        MainFacade mf=new MainFacade();
+
+        //MainFacade mf=new MainFacade();
 
 
         httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
