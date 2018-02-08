@@ -68,6 +68,10 @@ public class ServerProxy implements IServer {
         return ClientCommunicator.getInstance().sendGetCommands(GET_COMMANDS, command);
     }
 
+    public void executeCommand(){
+
+    }
+
     private static final String CREATE_GAME = "Create Game";
     private static final String JOIN_GAME = "Join Game";
     private static final String START_GAME = "Start Game";

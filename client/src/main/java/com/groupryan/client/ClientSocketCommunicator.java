@@ -57,6 +57,7 @@ public class ClientSocketCommunicator {
             wr.write("\r\n");
 
             wr.write(json);
+            wr.write("\r\n");
             wr.flush();
 
             if (startRead == false){
@@ -67,6 +68,7 @@ public class ClientSocketCommunicator {
         catch(IOException e) {
             e.printStackTrace();
         }
+        return;
     }
 
 
@@ -114,8 +116,9 @@ public class ClientSocketCommunicator {
                     while ((line = rd.readLine()) != null) {
                         sb.append(line);
                     }
-                    ClientCommand result = gson.fromJson(line, ClientCommand.class);
-                    result.execute();
+                    System.out.print(sb.toString());
+//                    ClientCommand result = gson.fromJson(line, ClientCommand.class);
+//                    result.execute();
                 }
 
             }
