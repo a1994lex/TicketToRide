@@ -1,7 +1,6 @@
 package com.groupryan.client;
 
 import com.google.gson.Gson;
-import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.commands.ServerCommand;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.GameListResult;
@@ -13,7 +12,6 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.List;
 
 public class ClientCommunicator {
     public static ClientCommunicator instance = new ClientCommunicator();
