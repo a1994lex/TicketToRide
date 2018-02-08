@@ -41,7 +41,7 @@ public class ServerProxy implements IServer {
     public CommandResult createGame(Game game) {
         ServerCommand command = serverCommandFactory.createCreateCommand(game);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(CREATE_GAME, command);
-        ClientFacade clientFacade = new ClientFacade().executeCreateGameCommand(commandResult);
+        //ClientFacade clientFacade = new ClientFacade().executeCreateGameCommand(commandResult);
         return null;
     }
 
@@ -50,7 +50,7 @@ public class ServerProxy implements IServer {
         ServerCommand command = serverCommandFactory.createJoinGameCommand(gameId, userId);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance()
                                                         .sendCommand(JOIN_GAME, command);
-        ClientFacade clientFacade = new ClientFacade().executeJoinGameCommand(commandResult);
+       // ClientFacade clientFacade = new ClientFacade().executeJoinGameCommand(commandResult);
         return null;
     }
 
@@ -58,7 +58,7 @@ public class ServerProxy implements IServer {
     public CommandResult startGame(String gameId) {
         ServerCommand command = serverCommandFactory.createStartGameCommand(gameId);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(START_GAME, command);
-        ClientFacade clientFacade = new ClientFacade().executeStartGameCommand(commandResult);
+       // ClientFacade clientFacade = new ClientFacade().executeStartGameCommand(commandResult);
         return null;
     }
 
@@ -66,7 +66,7 @@ public class ServerProxy implements IServer {
     public LoginResult register(User user) {
         ServerCommand command= serverCommandFactory.createRegisterCommand(user);
         CommandResult registerResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(REGISTER, command);
-        ClientFacade clientFacade = new ClientFacade().executeRegisterCommand(registerResult);
+      //  ClientFacade clientFacade = new ClientFacade().executeRegisterCommand(registerResult);
         return null;
     }
 
@@ -74,7 +74,7 @@ public class ServerProxy implements IServer {
     public LoginResult login(User user) {
         ServerCommand command = serverCommandFactory.createLoginCommand(user);
         LoginResult loginResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(LOGIN, command);
-        ClientFacade clientFacade = new ClientFacade().executeLoginCommand(loginResult);
+     //   ClientFacade clientFacade = new ClientFacade().executeLoginCommand(loginResult);
         return null;
     }
 

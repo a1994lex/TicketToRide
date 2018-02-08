@@ -75,14 +75,14 @@ public class Game {
     public List<Game> makeTestGames(){
         ArrayList<Game> games = new ArrayList<Game>();
         User u = new User("clairescout", "gammon");
-        Game game = new Game("game1", "gameID");
+        Game game = new Game("game1", "gameID", 2);
         game.addUser(u, "red");
         User u2 = new User("sheila", "parker");
         game.addUser(u2, "blue");
         u.addGame(game);
         u2.addGame(game);
 
-        Game game2 = new Game("game2", "gameID2");
+        Game game2 = new Game("game2", "gameID2", 3);
         User u3 = new User("jimbob", "duggar");
         User u4 = new User("joanna", "newsom");
         game2.addUser(u3, "green");

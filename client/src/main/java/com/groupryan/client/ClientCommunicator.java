@@ -181,7 +181,7 @@ public class ClientCommunicator {
         return result;
     }
 
-    private static final String EXEC_COMMAND = "/execcommand";  // url for command API
+    private static final String EXEC_COMMAND = "/executeCommand";  // url for command API
     private static final String SERVER_HOST = "localhost";
     private static final int PORT_NUMBER = 8080;
     private static final String URL_PREFIX = "http://" + SERVER_HOST + ":" + PORT_NUMBER;

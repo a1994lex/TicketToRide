@@ -1,8 +1,6 @@
 package com.groupryan.server.handlers;
 
 import com.google.gson.Gson;
-import com.groupryan.server.facades.MainFacade;
-import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.commands.ServerCommand;
 import com.groupryan.shared.results.CommandResult;
 import com.sun.net.httpserver.HttpHandler;
