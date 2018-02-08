@@ -32,7 +32,7 @@ public class ServerCommandFactory {
     }
 
     public ServerCommand createLoginCommand(User user){
-        return new ServerCommand("facades.MainFacade", "login",
+        return new ServerCommand("com.groupryan.server.facades.MainFacade", "login",
                 new String[] {User.class.getTypeName()},
                 new Object[] {user});
     }
