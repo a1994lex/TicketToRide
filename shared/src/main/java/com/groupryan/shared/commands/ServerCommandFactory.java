@@ -3,6 +3,7 @@ package com.groupryan.shared.commands;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 
+
 /**
  * Created by bengu3 on 1/31/18.
  */
@@ -31,7 +32,7 @@ public class ServerCommandFactory {
     }
 
     public ServerCommand createLoginCommand(User user){
-        return new ServerCommand("facades.MainFacade", "login",
+        return new ServerCommand("com.groupryan.server.facades.MainFacade", "login",
                 new String[] {User.class.getTypeName()},
                 new Object[] {user});
     }

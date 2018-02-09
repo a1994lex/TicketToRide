@@ -78,12 +78,14 @@ public class Game {
         User u = new User("clairescout", "gammon");
         Game game = new Game("game1", "gameID", 2);
         game.addUser(u, Color.RED);
+
         User u2 = new User("sheila", "parker");
         game.addUser(u2, Color.BLUE);
         u.addGame(game);
         u2.addGame(game);
 
         Game game2 = new Game("game2", "gameID2", 2);
+
         User u3 = new User("jimbob", "duggar");
         User u4 = new User("joanna", "newsom");
         game2.addUser(u3, Color.GREEN);

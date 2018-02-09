@@ -64,6 +64,7 @@ public class User {
         users.add(u3);
         User u4 = new User("joanna", "newsom");
         u4.addGame(game2);
+
         users.add(u4);
 //        game2.addUser(u3, Color.GREEN);
 //        game2.addUser(u4, Color.YELLOW);
