@@ -17,6 +17,8 @@ public class ServerProxy implements IServer {
 
     //private List<ClientCommand> commands = new ArrayList<ClientCommand>();
 
+    Poller poller = new Poller();
+
     private static ServerCommandFactory serverCommandFactory = new ServerCommandFactory();
 
     public static ServerProxy instance = new ServerProxy();
@@ -78,7 +80,9 @@ public class ServerProxy implements IServer {
         return null;
     }
 
-
+    // void executeCommands(CommandResult) {
+    //  for command in CommandResult: command.execute()
+    // }
 
     private static final String CREATE_GAME = "createGame";
     private static final String JOIN_GAME = "joinGame";

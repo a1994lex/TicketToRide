@@ -14,14 +14,15 @@ public class Game {
     private Map<User, String> users;
     private String gameName;
     private String gameId;
+    private String creatorId;
     private boolean started = false;
     private int maxPlayers;
 
     public Game(){}
 
-    public Game(String gameName, String gameId, int maxPlayers){
+    public Game(String gameName, String creatorId, int maxPlayers){
         this.gameName = gameName;
-        this.gameId = gameId;
+        this.creatorId = creatorId;
         this.maxPlayers = maxPlayers;
     }
 
@@ -64,7 +65,16 @@ public class Game {
         this.gameId = gameId;
     }
 
+    public String getCreatorId() {
+        return creatorId;
+    }
+
+    public void setCreatorId(String creatorId) {
+        this.creatorId = creatorId;
+    }
+
     public void makeGameId(){
+
         gameId = UUID.randomUUID().toString();
     }
 
