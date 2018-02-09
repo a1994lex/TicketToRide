@@ -13,50 +13,50 @@ public class ClientCommandFactory {
 
     public ClientCommand createCreateGameCommand(String userId){
         return new ClientCommand("ui.ClientFacade", "executeCreateGameCommand",
-                new Class<?>[] {},
+                new String[] {},
                 new Object[] {});
         /*
-        new Class<?>[] {String.class},
+        new String[] {String.class},
         new Object[] {userId}
         */
     }
 
     public ClientCommand createJoinGameCommand(String gameId, String userId){
         return new ClientCommand("ui.ClientFacade", "executeJoinGameCommand",
-                new Class<?>[] {},
+                new String[] {},
                 new Object[] {});
         /*
-        new Class<?>[] {String.class, String.class},
+        new String[] {String.class, String.class},
         new Object[] {gameId, userId}
         */
     }
 
     public ClientCommand createStartGameCommand(String gameId){
         return new ClientCommand("ui.ClientFacade", "executeStartGameCommand",
-                new Class<?>[] {},
+                new String[] {},
                 new Object[] {});
         /*
-        new Class<?>[] {String.class},
+        new String[] {String.class},
         new Object[] {gameId}
         */
     }
 
     public ClientCommand createLoginCommand(String username, String password){
         return new ClientCommand("ui.ClientFacade", "executeLoginCommand",
-                new Class<?>[] {},
+                new String[] {},
                 new Object[] {});
         /*
-        new Class<?>[] {String.class, String.class},
+        new String[] {String.class, String.class},
         new Object[] {username, password}
         */
     }
 
     public ClientCommand createRegisterCommand(String username, String password){
         return new ClientCommand("ui.ClientFacade", "executeRegisterCommand",
-                new Class<?>[] {},
+                new String[] {},
                 new Object[] {});
         /*
-        new Class<?>[] {String.class, String.class},
+        new String[] {String.class, String.class},
         new Object[] {username, password}
         */
     }

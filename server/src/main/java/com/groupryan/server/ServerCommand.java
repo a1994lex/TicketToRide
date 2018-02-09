@@ -1,5 +1,8 @@
-package com.groupryan.shared.commands;
+package com.groupryan.server;
 
+import com.groupryan.server.facades.MainFacade;
+import com.groupryan.shared.commands.IServerCommand;
+import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 
 import java.lang.reflect.Method;
@@ -10,7 +13,6 @@ import java.util.ArrayList;
  */
 
 public class ServerCommand implements IServerCommand {
-
     private String _className;
     private String _methodName;
     private String[] _paramTypes;
@@ -43,7 +45,7 @@ public class ServerCommand implements IServerCommand {
         try {
             Class<?> receiver = Class.forName(_className);
             Method method = receiver.getMethod(_methodName, getClassParamTypes());
-            r = (CommandResult)method.invoke(receiver , _paramValues);
+            r = (CommandResult)method.invoke(receiver.newInstance() , new User("a","a"));
         }
         catch (Exception e) {
             e.printStackTrace();

@@ -1,9 +1,7 @@
 package com.groupryan.server.handlers;
 
 import com.google.gson.Gson;
-import com.groupryan.server.facades.MainFacade;
-import com.groupryan.shared.commands.ClientCommand;
-import com.groupryan.shared.commands.ServerCommand;
+import com.groupryan.server.ServerCommand;
 import com.groupryan.shared.results.CommandResult;
 import com.sun.net.httpserver.HttpHandler;
         import com.sun.net.httpserver.HttpExchange;
@@ -28,6 +26,7 @@ public class CommandHandler implements HttpHandler {
         CommandResult cr=new CommandResult();
         Gson g=new Gson();
         String s="";
+        CommandResult response=null;
         /**
          * This next if should be replaces by deserializing everything and then
          * passing it to the mainfacade
@@ -37,7 +36,7 @@ public class CommandHandler implements HttpHandler {
             InputStream is=httpExchange.getRequestBody();
             InputStreamReader reader=new InputStreamReader(is);
             ServerCommand command=g.fromJson(reader, ServerCommand.class);
-            CommandResult response=command.execute();
+            response=command.execute();
             //       response=g.toJson(new ReturnResult(StringProcessor.getInstance().toLowerCase((g.fromJson(reader, LowerCaseRequest.class)).getSentence())));
         } catch (Exception e) {
             e.printStackTrace();
@@ -50,7 +49,7 @@ public class CommandHandler implements HttpHandler {
         OutputStream os=httpExchange.getResponseBody();
         OutputStreamWriter osw=new OutputStreamWriter(os);
 
-     //   osw.write(response);
+        osw.write(g.toJson(response));
         osw.close();
         os.close();
     }

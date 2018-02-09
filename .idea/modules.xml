@@ -2,11 +2,13 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/TicketToRide.iml" filepath="$PROJECT_DIR$/.idea/modules/TicketToRide.iml" />
-      <module fileurl="file://C:\Users\arctu\AndroidStudioProjects\TicketToRide\TicketToRide.iml" filepath="C:\Users\arctu\AndroidStudioProjects\TicketToRide\TicketToRide.iml" />
+      <module fileurl="file://$PROJECT_DIR$/TicketToRide.iml" filepath="$PROJECT_DIR$/TicketToRide.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/TicketToRide.iml" filepath="$PROJECT_DIR$/.idea/TicketToRide.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/client/client.iml" filepath="$PROJECT_DIR$/.idea/modules/client/client.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/server/server.iml" filepath="$PROJECT_DIR$/.idea/modules/server/server.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/shared/shared.iml" filepath="$PROJECT_DIR$/.idea/modules/shared/shared.iml" />
+      <module fileurl="file://$PROJECT_DIR$/clientapp/clientapp.iml" filepath="$PROJECT_DIR$/clientapp/clientapp.iml" />
+      <module fileurl="file://$PROJECT_DIR$/gson-2.8.2/gson-2.8.2.iml" filepath="$PROJECT_DIR$/gson-2.8.2/gson-2.8.2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/server/server.iml" filepath="$PROJECT_DIR$/server/server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shared/shared.iml" filepath="$PROJECT_DIR$/shared/shared.iml" />
     </modules>
   </component>
 </project>
