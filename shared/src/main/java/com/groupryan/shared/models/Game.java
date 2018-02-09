@@ -11,7 +11,7 @@ import java.util.UUID;
 
 public class Game {
 
-    private Map<User, String> users;
+    private Map<User, Color> users;
     private String gameName;
     private String gameId;
     private boolean started = false;
@@ -25,7 +25,8 @@ public class Game {
         this.maxPlayers = maxPlayers;
     }
 
-    public void addUser(User u, String color){
+    public void addUser(User u,  Color color){
+
         if(!started){
             users.put(u, color);
         }
@@ -40,11 +41,11 @@ public class Game {
         this.started = started;
     }
 
-    public Map<User, String> getUsers() {
+    public Map<User, Color> getUsers() {
         return users;
     }
 
-    public void setUsers(Map<User, String> users) {
+    public void setUsers(Map<User, Color> users) {
         this.users = users;
     }
 
@@ -75,18 +76,18 @@ public class Game {
     public List<Game> makeTestGames(){
         ArrayList<Game> games = new ArrayList<Game>();
         User u = new User("clairescout", "gammon");
-        Game game = new Game("game1", "gameID");
-        game.addUser(u, "red");
+        Game game = new Game("game1", "gameID", 2);
+        game.addUser(u, Color.RED);
         User u2 = new User("sheila", "parker");
-        game.addUser(u2, "blue");
+        game.addUser(u2, Color.BLUE);
         u.addGame(game);
         u2.addGame(game);
 
-        Game game2 = new Game("game2", "gameID2");
+        Game game2 = new Game("game2", "gameID2", 2);
         User u3 = new User("jimbob", "duggar");
         User u4 = new User("joanna", "newsom");
-        game2.addUser(u3, "green");
-        game2.addUser(u4, "yellow");
+        game2.addUser(u3, Color.GREEN);
+        game2.addUser(u4, Color.YELLOW);
         u3.addGame(game2);
         u4.addGame(game2);
 
