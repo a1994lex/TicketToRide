@@ -50,28 +50,31 @@ public class User {
     public List<User> makeTestUsers(){
         ArrayList<User> users = new ArrayList();
         User u = new User("clairescout", "gammon");
-        Game game = new Game("game1", "gameID", 2);
+        Game game = new Game("game1", "gameID",2);
+        //game.addUser(u, Color.RED);
         u.addGame(game);
         users.add(u);
         User u2 = new User("sheila", "parker");
-        Game game2 = new Game("game2", "gameID2", 3);
-        u2.addGame(game2);
+        //game.addUser(u2, Color.BLUE);
+        Game game2 = new Game("game2", "gameID2", 2);
+        u2.addGame(game);
         users.add(u2);
         User u3 = new User("jimbob", "duggar");
-        Game game3 = new Game("game3", "gameID3", 4);
-        u3.addGame(game3);
+        u3.addGame(game2);
         users.add(u3);
         User u4 = new User("joanna", "newsom");
-        Game game4 = new Game("game4", "gameID4", 5);
-        u4.addGame(game4);
+        u4.addGame(game2);
+
         users.add(u4);
+//        game2.addUser(u3, Color.GREEN);
+//        game2.addUser(u4, Color.YELLOW);
 
         return users;
     }
 
     public User makeOneTestUser(){
         User u = new User("clairescout", "gammon");
-        Game game = new Game("game1", "gameID", 4);
+        Game game = new Game("game1", "gameID", 3);
         u.addGame(game);
         return u;
     }
