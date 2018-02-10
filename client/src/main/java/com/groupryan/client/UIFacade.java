@@ -8,13 +8,12 @@ import com.groupryan.shared.models.User;
 import java.util.HashMap;
 import java.util.Map;
 
-//import com.groupryan.shared.models.Color;
-
 public class UIFacade {
 
     private static ServerCommandFactory serverCommandFactory = new ServerCommandFactory();
 
-    public UIFacade() {}
+    public UIFacade() {
+    }
 
     void createGame(Color userColor, String gameName, String username, String password, int numberOfPlayers) {
         Game game = new Game(gameName, "0", numberOfPlayers);
@@ -35,11 +34,11 @@ public class UIFacade {
         ServerProxy.getInstance().register(user);
     }
 
-    void joinGame(String gameId, String userId) {
-        ServerProxy.getInstance().joinGame(gameId, userId);
+    void joinGame(Game game, User user, Color userColor) {
+        ServerProxy.getInstance().joinGame(game, user, userColor);
     }
 
-    void startGame(String gameId) {
-        ServerProxy.getInstance().startGame(gameId);
+    void startGame(Game game) {
+        ServerProxy.getInstance().startGame(game);
     }
 }

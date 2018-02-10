@@ -1,5 +1,6 @@
 package com.groupryan.shared.commands;
 
+import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 
@@ -10,31 +11,36 @@ import com.groupryan.shared.models.User;
 
 public class ServerCommandFactory {
 
-    public ServerCommandFactory(){
+    public ServerCommandFactory() {
 
     }
 
     /*public ServerCommand(String className, String methodName,
                          Class<?>[] paramTypes, Object[] paramValues)*/
+    public ServerCommand createCreateGameCommand(Game game) {
+        return new ServerCommand("facades.MainFacade", "createGame",
+                new String[]{Game.class.getTypeName()},
+                new Object[]{game});
+    }
 
-    public ServerCommand createJoinGameCommand(String gameId, String userId){
-
+    public ServerCommand createJoinGameCommand(Game game, User user, Color userColor) {
         return new ServerCommand("facades.MainFacade", "joinGame",
-            new String[] {String.class.getTypeName(), String.class.getTypeName()},
-            new Object[] {gameId, userId} );
+                new String[]{Game.class.getTypeName(), User.class.getTypeName(), Color.class.getTypeName()},
+                new Object[]{game, user, userColor});
     }
 
-    public ServerCommand createStartGameCommand(String gameId){
 
-        return new ServerCommand("com.groupryan.server.facades.MainFacade", "startGame",
-                new String[] {String.class.getTypeName()},
-                new Object[] {gameId});
+    public ServerCommand createStartGameCommand(Game game) {
+        return new ServerCommand("facades.MainFacade", "startGame",
+                new String[]{Game.class.getTypeName()},
+                new Object[]{game});
+
     }
 
-    public ServerCommand createLoginCommand(User user){
-        return new ServerCommand("com.groupryan.server.facades.MainFacade", "login",
-                new String[] {User.class.getTypeName()},
-                new Object[] {user});
+    public ServerCommand createLoginCommand(User user) {
+        return new ServerCommand("facades.MainFacade", "login",
+                new String[]{User.class.getTypeName()},
+                new Object[]{user});
     }
 
     public ServerCommand createRegisterCommand(User user){
@@ -46,12 +52,13 @@ public class ServerCommandFactory {
         return new ServerCommand("com.groupryan.server.facades.MainFacade", "createGame",
                 new String[]{Game.class.getTypeName()},
                 new Object[] {game});
+
     }
-    public ServerCommand createGetCommands(){
 
         return new ServerCommand("com.groupryan.server.facades.MainFacade", "getCommands",
+
                 new String[]{},
-                new Object[] {});
+                new Object[]{});
     }
 
 }

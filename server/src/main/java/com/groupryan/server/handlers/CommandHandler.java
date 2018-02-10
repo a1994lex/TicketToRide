@@ -23,34 +23,21 @@ public class CommandHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-        String sentence=httpExchange.getRequestURI().toString();
-        CommandResult cr=new CommandResult();
-        Gson g=new Gson();
-        String s="";
-        CommandResult response=null;
-        /**
-         * This next if should be replaces by deserializing everything and then
-         * passing it to the mainfacade
-         */
-
+        System.out.println("Entering CommandHandler...");
+        CommandResult commandResult = null;
         try {
-            InputStream is=httpExchange.getRequestBody();
-            InputStreamReader reader=new InputStreamReader(is);
-            ServerCommand command= (ServerCommand)Serializer.decode(is, ServerCommand.class);
-            response=command.execute();
-//            response=g.toJson(new ReturnResult(StringProcessor.getInstance().toLowerCase((g.fromJson(reader, LowerCaseRequest.class)).getSentence())));
+            InputStream is = httpExchange.getRequestBody();
+            InputStreamReader reader = new InputStreamReader(is);
+            ServerCommand command = (ServerCommand) Serializer.decode(is, ServerCommand.class);
+            commandResult = command.execute();
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        //MainFacade mf=new MainFacade();
-
-
+        // TODO: check if error and send ResponseHeaders back with HttpURLConnection.HTTP_BAD_REQUEST
         httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
-        OutputStream os=httpExchange.getResponseBody();
-        OutputStreamWriter osw=new OutputStreamWriter(os);
-
-        osw.write(g.toJson(response));
+        OutputStream os = httpExchange.getResponseBody();
+        OutputStreamWriter osw = new OutputStreamWriter(os);
+        osw.write(Serializer.encode(commandResult));
         osw.close();
         os.close();
     }

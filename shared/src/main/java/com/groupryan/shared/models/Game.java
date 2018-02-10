@@ -121,4 +121,13 @@ public class Game{
         return games;
 
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+        return gameId != null ? gameId.equals(game.gameId) : game.gameId == null;
+    }
+
 }
