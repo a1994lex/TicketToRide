@@ -36,6 +36,7 @@ public class RootServerModel {
         return single_instance._confirmUser(user);
     }
 
+
     public static Boolean checkUser(User user) {
         return single_instance._checkUser(user);
     }
@@ -47,6 +48,7 @@ public class RootServerModel {
     public static String startGame(Game game) {
         return single_instance._startGame(game);
     }
+
 
     private RootServerModel() {
         games = new ArrayList();
