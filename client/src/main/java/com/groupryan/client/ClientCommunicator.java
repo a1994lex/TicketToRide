@@ -1,6 +1,7 @@
 package com.groupryan.client;
 
 import com.google.gson.Gson;
+import com.groupryan.shared.Serializer;
 import com.groupryan.shared.commands.ServerCommand;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.GameListResult;
@@ -94,7 +95,7 @@ public class ClientCommunicator {
      * @return A String object.
      */
     private String serializeCommand(ServerCommand command) {
-        return gson.toJson(command);
+        return Serializer.encode(command);
     }
 
 
