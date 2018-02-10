@@ -16,31 +16,31 @@ public class ClientCommandFactory {
 
 
     public ClientCommand createCreateGameCommand(Game game) {
-        return new ClientCommand("ui.ClientFacade", "createGame",
+        return new ClientCommand("com.groupryan.client.ClientFacade", "createGame",
                 new String[]{Game.class.getTypeName()},
                 new Object[]{game});
     }
 
     public ClientCommand createJoinGameCommand(Game game, User user, Color userColor) {
-        return new ClientCommand("ui.ClientFacade", "joinGame",
+        return new ClientCommand("com.groupryan.client.ClientFacade", "joinGame",
                 new String[]{Game.class.getTypeName(), User.class.getTypeName(), Color.class.getTypeName()},
                 new Object[]{game, user, userColor});
     }
 
     public ClientCommand createStartGameCommand(Game game) {
-        return new ClientCommand("ui.ClientFacade", "startGame",
+        return new ClientCommand("com.groupryan.client.ClientFacade", "startGame",
                 new String[]{Game.class.getTypeName()},
                 new Object[]{game});
     }
 
     public ClientCommand createLoginCommand(User user) {
-        return new ClientCommand("ui.ClientFacade", "login",
+        return new ClientCommand("com.groupryan.client.ClientFacade", "login",
                 new String[]{User.class.getTypeName()},
                 new Object[]{user});
     }
 
     public ClientCommand createRegisterCommand(User user) {
-        return new ClientCommand("ui.ClientFacade", "register",
+        return new ClientCommand("com.groupryan.client.ClientFacade", "register",
                 new String[]{User.class.getTypeName()},
                 new Object[]{user});
     }

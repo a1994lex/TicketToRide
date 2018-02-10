@@ -18,45 +18,46 @@ public class ServerCommandFactory {
     /*public ServerCommand(String className, String methodName,
                          Class<?>[] paramTypes, Object[] paramValues)*/
     public ServerCommand createCreateGameCommand(Game game) {
-        return new ServerCommand("facades.MainFacade", "createGame",
+        return new ServerCommand("com.groupryan.server.facades.MainFacade", "createGame",
                 new String[]{Game.class.getTypeName()},
                 new Object[]{game});
     }
 
     public ServerCommand createJoinGameCommand(Game game, User user, Color userColor) {
-        return new ServerCommand("facades.MainFacade", "joinGame",
+        return new ServerCommand("com.groupryan.server.facades.MainFacade", "joinGame",
                 new String[]{Game.class.getTypeName(), User.class.getTypeName(), Color.class.getTypeName()},
                 new Object[]{game, user, userColor});
     }
 
 
     public ServerCommand createStartGameCommand(Game game) {
-        return new ServerCommand("facades.MainFacade", "startGame",
+        return new ServerCommand("com.groupryan.server.facades.MainFacade", "startGame",
                 new String[]{Game.class.getTypeName()},
                 new Object[]{game});
 
     }
 
     public ServerCommand createLoginCommand(User user) {
-        return new ServerCommand("facades.MainFacade", "login",
+        return new ServerCommand("com.groupryan.server.facades.MainFacade", "login",
                 new String[]{User.class.getTypeName()},
                 new Object[]{user});
     }
 
-    public ServerCommand createRegisterCommand(User user){
+    public ServerCommand createRegisterCommand(User user) {
         return new ServerCommand("com.groupryan.server.facades.MainFacade", "register",
                 new String[]{User.class.getTypeName()},
-                new Object[] {user});
+                new Object[]{user});
     }
-    public ServerCommand createCreateCommand(Game game){
+
+    public ServerCommand createCreateCommand(Game game) {
         return new ServerCommand("com.groupryan.server.facades.MainFacade", "createGame",
                 new String[]{Game.class.getTypeName()},
-                new Object[] {game});
+                new Object[]{game});
 
     }
 
+    public ServerCommand createGetCommands() {
         return new ServerCommand("com.groupryan.server.facades.MainFacade", "getCommands",
-
                 new String[]{},
                 new Object[]{});
     }
