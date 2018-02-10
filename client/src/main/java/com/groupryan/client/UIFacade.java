@@ -18,8 +18,8 @@ public class UIFacade {
         Game game = new Game(gameName, "0", numberOfPlayers);
         User user = new User(username, password);
         Map<User, String> users = new HashMap<User, String>();
-        users.put(user, userColor);
-        game.setUsers(users);
+       // users.put(user, userColor);
+       // game.setUsers(users);
         ServerProxy.getInstance().createGame(game);
     }
 

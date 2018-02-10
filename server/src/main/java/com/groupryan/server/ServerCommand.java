@@ -42,10 +42,17 @@ public class ServerCommand implements IServerCommand {
     @Override
     public CommandResult execute() {
         CommandResult r = new CommandResult();
+        System.out.print(_paramValues.length);
+        System.out.print("yolo");
+        //System.out.print(_paramValues);
+        //System.out.print((User)_paramValues);
+        //System.out.print(_paramValues.getClass());
+        System.out.println("yolo");
         try {
             Class<?> receiver = Class.forName(_className);
-            Method method = receiver.getMethod(_methodName, getClassParamTypes());
-            r = (CommandResult)method.invoke(receiver.newInstance() , new User("a","a"));
+            Class<?>[] types = getClassParamTypes();
+            Method method = receiver.getMethod(_methodName, types);
+            r = (CommandResult)method.invoke(receiver.newInstance(), _paramValues);
         }
         catch (Exception e) {
             e.printStackTrace();
