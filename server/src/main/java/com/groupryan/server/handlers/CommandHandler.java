@@ -2,16 +2,17 @@ package com.groupryan.server.handlers;
 
 import com.google.gson.Gson;
 import com.groupryan.server.ServerCommand;
+import com.groupryan.shared.Serializer;
 import com.groupryan.shared.results.CommandResult;
+import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-        import com.sun.net.httpserver.HttpExchange;
 
-    import java.io.IOException;
-  import java.io.InputStream;
-    import java.io.InputStreamReader;
-    import java.io.OutputStream;
-    import java.io.OutputStreamWriter;
-     import java.net.HttpURLConnection;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
 
 
 /**
@@ -35,9 +36,9 @@ public class CommandHandler implements HttpHandler {
         try {
             InputStream is=httpExchange.getRequestBody();
             InputStreamReader reader=new InputStreamReader(is);
-            ServerCommand command=g.fromJson(reader, ServerCommand.class);
+            ServerCommand command= (ServerCommand)Serializer.decode(is, ServerCommand.class);
             response=command.execute();
-            //       response=g.toJson(new ReturnResult(StringProcessor.getInstance().toLowerCase((g.fromJson(reader, LowerCaseRequest.class)).getSentence())));
+//            response=g.toJson(new ReturnResult(StringProcessor.getInstance().toLowerCase((g.fromJson(reader, LowerCaseRequest.class)).getSentence())));
         } catch (Exception e) {
             e.printStackTrace();
         }

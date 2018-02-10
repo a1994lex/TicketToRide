@@ -1,5 +1,7 @@
 package com.groupryan.shared.models;
 
+import com.google.gson.internal.LinkedTreeMap;
+
 /**
  * ${CLASS} in com.groupryan.shared.models
  *
@@ -8,4 +10,5 @@ package com.groupryan.shared.models;
  */
 
 public interface Serializable {
+    Object mapToObject(LinkedTreeMap map);
 }

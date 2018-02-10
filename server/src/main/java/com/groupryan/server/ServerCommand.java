@@ -1,8 +1,8 @@
 package com.groupryan.server;
 
-import com.groupryan.server.facades.MainFacade;
+import com.google.gson.Gson;
+import com.google.gson.internal.LinkedTreeMap;
 import com.groupryan.shared.commands.IServerCommand;
-import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 
 import java.lang.reflect.Method;
@@ -42,21 +42,34 @@ public class ServerCommand implements IServerCommand {
     @Override
     public CommandResult execute() {
         CommandResult r = new CommandResult();
-        System.out.print(_paramValues.length);
-        System.out.print("yolo");
-        //System.out.print(_paramValues);
-        //System.out.print((User)_paramValues);
-        //System.out.print(_paramValues.getClass());
-        System.out.println("yolo");
         try {
             Class<?> receiver = Class.forName(_className);
             Class<?>[] types = getClassParamTypes();
+            Gson g=new Gson();
+            ArrayList<Object> objects = getObjects(types, _paramValues);
+            Object[] objectParamVals = objects.toArray(new Object[objects.size()]);
             Method method = receiver.getMethod(_methodName, types);
-            r = (CommandResult)method.invoke(receiver.newInstance(), _paramValues);
+            r = (CommandResult)method.invoke(receiver.newInstance() , objectParamVals);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
         return r;
+    }
+
+    private ArrayList<Object> getObjects(Class<?>[] types, Object[] paramValues){
+        ArrayList<Object> objects = new ArrayList<>();
+        for (int i=0;i<types.length; i++){
+            Class<?> receiver = types[i];
+            try {
+                Method method = receiver.getMethod("mapToObject", LinkedTreeMap.class);
+                objects.add(method.invoke(receiver,paramValues[i]));
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return objects;
+
     }
 }
