@@ -29,10 +29,12 @@ public class ServerCommandFactory {
                 new Object[]{game, user, userColor});
     }
 
+
     public ServerCommand createStartGameCommand(Game game) {
         return new ServerCommand("facades.MainFacade", "startGame",
                 new String[]{Game.class.getTypeName()},
                 new Object[]{game});
+
     }
 
     public ServerCommand createLoginCommand(User user) {
@@ -41,14 +43,20 @@ public class ServerCommandFactory {
                 new Object[]{user});
     }
 
-    public ServerCommand createRegisterCommand(User user) {
-        return new ServerCommand("facades.MainFacade", "register",
+    public ServerCommand createRegisterCommand(User user){
+        return new ServerCommand("com.groupryan.server.facades.MainFacade", "register",
                 new String[]{User.class.getTypeName()},
-                new Object[]{user});
+                new Object[] {user});
+    }
+    public ServerCommand createCreateCommand(Game game){
+        return new ServerCommand("com.groupryan.server.facades.MainFacade", "createGame",
+                new String[]{Game.class.getTypeName()},
+                new Object[] {game});
+
     }
 
-    public ServerCommand createGetCommands() {
-        return new ServerCommand("facades.MainFacade", "getCommands",
+        return new ServerCommand("com.groupryan.server.facades.MainFacade", "getCommands",
+
                 new String[]{},
                 new Object[]{});
     }
