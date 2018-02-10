@@ -1,63 +1,47 @@
 package com.groupryan.shared.commands;
 
+import com.groupryan.shared.models.Color;
+import com.groupryan.shared.models.Game;
+import com.groupryan.shared.models.User;
+
 /**
  * Created by bengu3 on 1/31/18.
  */
 
 public class ClientCommandFactory {
 
-    public ClientCommandFactory(){
+    public ClientCommandFactory() {
 
     }
 
 
-    public ClientCommand createCreateGameCommand(String userId){
-        return new ClientCommand("ui.ClientFacade", "executeCreateGameCommand",
-                new String[] {},
-                new Object[] {});
-        /*
-        new String[] {String.class},
-        new Object[] {userId}
-        */
+    public ClientCommand createCreateGameCommand(Game game) {
+        return new ClientCommand("ui.ClientFacade", "createGame",
+                new String[]{Game.class.getTypeName()},
+                new Object[]{game});
     }
 
-    public ClientCommand createJoinGameCommand(String gameId, String userId){
-        return new ClientCommand("ui.ClientFacade", "executeJoinGameCommand",
-                new String[] {},
-                new Object[] {});
-        /*
-        new String[] {String.class, String.class},
-        new Object[] {gameId, userId}
-        */
+    public ClientCommand createJoinGameCommand(Game game, User user, Color userColor) {
+        return new ClientCommand("ui.ClientFacade", "joinGame",
+                new String[]{Game.class.getTypeName(), User.class.getTypeName(), Color.class.getTypeName()},
+                new Object[]{game, user, userColor});
     }
 
-    public ClientCommand createStartGameCommand(String gameId){
-        return new ClientCommand("ui.ClientFacade", "executeStartGameCommand",
-                new String[] {},
-                new Object[] {});
-        /*
-        new String[] {String.class},
-        new Object[] {gameId}
-        */
+    public ClientCommand createStartGameCommand(Game game) {
+        return new ClientCommand("ui.ClientFacade", "startGame",
+                new String[]{Game.class.getTypeName()},
+                new Object[]{game});
     }
 
-    public ClientCommand createLoginCommand(String username, String password){
-        return new ClientCommand("ui.ClientFacade", "executeLoginCommand",
-                new String[] {},
-                new Object[] {});
-        /*
-        new String[] {String.class, String.class},
-        new Object[] {username, password}
-        */
+    public ClientCommand createLoginCommand(User user) {
+        return new ClientCommand("ui.ClientFacade", "login",
+                new String[]{User.class.getTypeName()},
+                new Object[]{user});
     }
 
-    public ClientCommand createRegisterCommand(String username, String password){
-        return new ClientCommand("ui.ClientFacade", "executeRegisterCommand",
-                new String[] {},
-                new Object[] {});
-        /*
-        new String[] {String.class, String.class},
-        new Object[] {username, password}
-        */
+    public ClientCommand createRegisterCommand(User user) {
+        return new ClientCommand("ui.ClientFacade", "register",
+                new String[]{User.class.getTypeName()},
+                new Object[]{user});
     }
 }
