@@ -1,17 +1,39 @@
 package com.groupryan.client;
 
+import com.groupryan.client.models.RootClientModel;
+import com.groupryan.shared.models.*;
+
 public class ClientFacade {
 
-    public ClientFacade() {}
-    /**
-     * So the Client fACADE is supposed to be the twin of the command manager.
-     * It calls the commands that the command manager/polar team returns
-     *  I have it as a string so that it can return an empty success or an error message
-     *  change whatever you want.
-     */
-    public String executeJoinGameCommand(){return null;}
-    public String executeCreateGameCommand(){return null;}
-    public String executeStartGameCommand(){return null;}
-    public String executeLoginCommand(){return null;}
-    public String executeRegisterCommand(){return null;}
+    private static ClientFacade instance;
+
+    public static ClientFacade getInstance() {
+        if (instance == null) {
+            instance = new ClientFacade();
+        }
+        return instance;
+    }
+
+    private ClientFacade() {
+    }
+
+    public void joinGame(Game game, User user, Color userColor) {
+        RootClientModel.addUserToGame(game, user, userColor);
+    }
+
+    public void createGame(Game game) {
+        RootClientModel.addGame(game);
+    }
+
+    public void startGame(Game game) {
+        RootClientModel.startGame(game);
+    }
+
+    public void login(User user) {
+        RootClientModel.addUser(user);
+    }
+
+    public void register(User user) {
+        RootClientModel.addUser(user);
+    }
 }

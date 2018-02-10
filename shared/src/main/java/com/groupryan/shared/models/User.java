@@ -1,5 +1,7 @@
 package com.groupryan.shared.models;
 
+import com.google.gson.internal.LinkedTreeMap;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,6 +10,15 @@ import java.util.List;
  */
 
 public class User {
+    public static User mapToObject(LinkedTreeMap map){
+        String username;
+        String password;
+        List<Game> gameList;
+        username = (String)map.get("username");
+        password = (String)map.get("password");
+        gameList = (List<Game>)map.get("gameList");
+        return new User(username, password, gameList);
+    }
 
     private String username;
     private String password;
@@ -19,6 +30,11 @@ public class User {
         gameList = new ArrayList();
     }
 
+    private User(String username, String password, List<Game> gameList){
+        this.username = username;
+        this.password = password;
+        this.gameList = gameList;
+    }
     public void addGame(Game game){
         gameList.add(game);
     }
@@ -78,4 +94,13 @@ public class User {
         u.addGame(game);
         return u;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return username != null ? username.equals(user.username) : user.username == null;
+    }
+
 }

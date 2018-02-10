@@ -1,7 +1,7 @@
 package com.groupryan.client;
 
 import com.groupryan.shared.commands.ServerCommandFactory;
-//import com.groupryan.shared.models.Color;
+import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 
@@ -12,12 +12,13 @@ public class UIFacade {
 
     private static ServerCommandFactory serverCommandFactory = new ServerCommandFactory();
 
-    public UIFacade() {}
+    public UIFacade() {
+    }
 
-    void createGame(String userColor, String gameName, String username, String password, int numberOfPlayers) {
+    void createGame(Color userColor, String gameName, String username, String password, int numberOfPlayers) {
         Game game = new Game(gameName, "0", numberOfPlayers);
         User user = new User(username, password);
-        Map<User, String> users = new HashMap<User, String>();
+        Map<User, Color> users = new HashMap<User, Color>();
         users.put(user, userColor);
         //game.setUsers(users);
         ServerProxy.getInstance().createGame(game);
@@ -33,11 +34,11 @@ public class UIFacade {
         ServerProxy.getInstance().register(user);
     }
 
-    void joinGame(String gameId, String userId) {
-        ServerProxy.getInstance().joinGame(gameId, userId);
+    void joinGame(Game game, User user, Color userColor) {
+        ServerProxy.getInstance().joinGame(game, user, userColor);
     }
 
-    void startGame(String gameId) {
-        ServerProxy.getInstance().startGame(gameId);
+    void startGame(Game game) {
+        ServerProxy.getInstance().startGame(game);
     }
 }

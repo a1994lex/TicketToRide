@@ -1,5 +1,7 @@
 package com.groupryan.shared.models;
 
+import com.google.gson.internal.LinkedTreeMap;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -9,7 +11,20 @@ import java.util.UUID;
  * Created by bengu3 on 1/31/18.
  */
 
-public class Game {
+public class Game{
+    public static Game mapToObject(LinkedTreeMap map){
+      String gameName;
+      String gameId;
+      Map<User, Color> users;
+      boolean started;
+      int maxPlayers;
+      gameName = (String)map.get("gameName");
+      gameId = (String)map.get("gameId");
+      started = (boolean)map.get("started");
+      maxPlayers = (int)map.get("maxPlayers");
+      users = (Map<User, Color>)map.get("users");
+      return new Game(users, gameName, gameId, maxPlayers, started);
+    }
 
     private Map<User, Color> users;
     private String gameName;
@@ -23,6 +38,14 @@ public class Game {
         this.gameName = gameName;
         this.gameId = gameId;
         this.maxPlayers = maxPlayers;
+    }
+
+    private Game(Map<User, Color> users, String gameName, String gameId, int maxPlayers, boolean started){
+        this.gameName = gameName;
+        this.gameId = gameId;
+        this.maxPlayers = maxPlayers;
+        this.started = started;
+        this.users = users;
     }
 
     public void addUser(User u,  Color color){
@@ -98,4 +121,13 @@ public class Game {
         return games;
 
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+        return gameId != null ? gameId.equals(game.gameId) : game.gameId == null;
+    }
+
 }

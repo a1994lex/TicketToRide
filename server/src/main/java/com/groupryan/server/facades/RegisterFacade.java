@@ -12,38 +12,35 @@ import com.groupryan.shared.results.LoginResult;
  */
 
 public class RegisterFacade {
-    User user;
-    String result;
 
-    public LoginResult register(User user){
-        this.user=user;
-        Boolean exists=checkUserId(user.getUsername());
-        LoginResult lr=new LoginResult();
-        if(!exists){
-            String result=createUser();
-            lr.addClientCommand(createReturnCommand("valid"));
+    public LoginResult register(User user) {
+        Boolean exists = checkUserId(user);
+        LoginResult lr = new LoginResult();
+        if (!exists) {
+            String result = createUser(user);
+            lr.addClientCommand(createReturnCommand(user));
             lr.setSucceeded(true);
             lr.setUserMessage(result);
-        }
-        else{
-            lr.addClientCommand(createReturnCommand("user already exists"));
+        } else {
             lr.setSucceeded(false);
             lr.setUserMessage("user already exists");
-
         }
         //ensures that the user id is unique
         //create a user in the model
         //creates a command to return the command
-        return lr;}
+        return lr;
+    }
 
-    private Boolean checkUserId(String userId){
-       return RootServerModel.getInstance()._checkUser(userId);}
+    private Boolean checkUserId(User user) {
+        return RootServerModel.getInstance().checkUser(user);
+    }
 
-    private String createUser() {
-        return RootServerModel.getInstance()._addUser(user);}
+    private String createUser(User user) {
+        return RootServerModel.getInstance().addUser(user);
+    }
 
-    private ClientCommand createReturnCommand(String result){
-            return CommandManager.getInstance().makeRegisterCommand(result, user);
-        }
+    private ClientCommand createReturnCommand(User user) {
+        return CommandManager.getInstance().makeRegisterCommand(user);
+    }
 
 }
