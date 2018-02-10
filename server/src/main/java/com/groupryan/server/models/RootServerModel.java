@@ -30,7 +30,13 @@ public class RootServerModel {
         single_instance._addGame(game);
     }
 
+    public static void confirmUser(String userId, String password){ single_instance._confirmUser(userId, password);}
 
+    public static void checkUser(String userId){ single_instance._checkUser(userId);}
+
+    public static void addUserToGame(String gameId, String userId){ single_instance._addUserToGame(gameId, userId);}
+
+    public static void startGame(String gameId){ single_instance._startGame(gameId);}
 
     private RootServerModel(){
         games = new ArrayList();
