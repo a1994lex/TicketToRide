@@ -15,8 +15,16 @@ public class ClientCommunicatorTest extends TestCase {
         ClientCommunicator cc= ClientCommunicator.getInstance();
         User user=new User("ryan", "apple");
         ServerCommandFactory scf=new ServerCommandFactory();
-        ServerCommand sc =scf.createLoginCommand(user);
-        CommandResult cr= (CommandResult) cc.sendCommand("Login", sc);
+
+        ServerCommand sc=scf.createRegisterCommand(user);
+        CommandResult cr=(CommandResult) cc.sendCommand("Register", sc);
+        int i=0;
+
+        sc =scf.createLoginCommand(user);
+         cr= (CommandResult) cc.sendCommand("Login", sc);
+
+        sc =scf.createLoginCommand(user);
+        cr= (CommandResult) cc.sendCommand("Login", sc);
     int j=0;
     }
 
