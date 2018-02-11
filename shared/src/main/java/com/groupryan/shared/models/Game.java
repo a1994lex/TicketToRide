@@ -49,12 +49,14 @@ public class Game{
         this.users = users;
     }
 
-    public void addUser(User u,  Color color){
+    public String addUser(User u,  Color color){
 
-        if(!started){
+        Color c=users.get(u);//ensures the player isnt already in
+        if(!started && c!=null){
             users.put(u, color);
+            return "User added to "+gameId;
         }
-        //RETURN SOMETHING SO THEY KNOW USER WAS NOT ADDED.
+        return "User already in game";
     }
 
     public boolean isStarted() {

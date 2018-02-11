@@ -16,17 +16,29 @@ public class ClientCommunicatorTest extends TestCase {
     public void testSendCommand() throws Exception {
         ClientCommunicator cc= ClientCommunicator.getInstance();
         User user=new User("ryan", "apple");
+        User u1=new User("rya", "1");
+
         ServerCommandFactory scf=new ServerCommandFactory();
 
-        ServerCommand sc=scf.createRegisterCommand(user);
-        CommandResult cr=(CommandResult) cc.sendCommand("Register", sc);
+        ServerCommand sc;
+        CommandResult cr;
 
-
-        sc =scf.createLoginCommand(user);
-         cr= (CommandResult) cc.sendCommand("Login", sc);
+        // Login and Register tests
+        sc =scf.createRegisterCommand(user);
+        cr= (CommandResult) cc.sendCommand("Register", sc);
+        sc=scf.createRegisterCommand(u1);
+        cr=(CommandResult) cc.sendCommand("Register", sc);
 
         sc =scf.createLoginCommand(user);
         cr= (CommandResult) cc.sendCommand("Login", sc);
+        sc=scf.createLoginCommand(u1);
+         cr=(CommandResult) cc.sendCommand("Login", sc);
+
+
+    sc=scf.createGetCommands();
+    cr= (CommandResult) cc.sendCommand("getCommands", sc);
+
+
         sc=scf.createCreateCommand(new Game("YOLO", "123", 3));
         cr=(CommandResult) cc.sendCommand("Create", sc);
       //  sc=scf.createJoinGameCommand(new Game("game1", "gameID", 2),user, Color.BLACK);
