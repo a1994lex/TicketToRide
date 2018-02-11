@@ -5,6 +5,7 @@ import com.google.gson.internal.LinkedTreeMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.TreeMap;
 import java.util.UUID;
 
 /**
@@ -17,11 +18,11 @@ public class Game{
       String gameId;
       Map<User, Color> users;
       boolean started;
-      int maxPlayers;
+      double maxPlayers;
       gameName = (String)map.get("gameName");
       gameId = (String)map.get("gameId");
       started = (boolean)map.get("started");
-      maxPlayers = (int)map.get("maxPlayers");
+      maxPlayers = (double)map.get("maxPlayers");
       users = (Map<User, Color>)map.get("users");
       return new Game(users, gameName, gameId, maxPlayers, started);
     }
@@ -30,17 +31,17 @@ public class Game{
     private String gameName;
     private String gameId;
     private boolean started = false;
-    private int maxPlayers;
+    private double maxPlayers;
 
     public Game(){}
 
-    public Game(String gameName, String gameId, int maxPlayers){
+    public Game(String gameName, String gameId, double maxPlayers){
         this.gameName = gameName;
         this.gameId = gameId;
         this.maxPlayers = maxPlayers;
     }
 
-    private Game(Map<User, Color> users, String gameName, String gameId, int maxPlayers, boolean started){
+    public Game(Map<User, Color> users, String gameName, String gameId, double maxPlayers, boolean started){
         this.gameName = gameName;
         this.gameId = gameId;
         this.maxPlayers = maxPlayers;
@@ -92,7 +93,7 @@ public class Game{
         gameId = UUID.randomUUID().toString();
     }
 
-    public int getMaxPlayers() { return maxPlayers; }
+    public double getMaxPlayers() { return maxPlayers; }
 
     public void setMaxPlayers(int maxPlayers) { this.maxPlayers = maxPlayers; }
 

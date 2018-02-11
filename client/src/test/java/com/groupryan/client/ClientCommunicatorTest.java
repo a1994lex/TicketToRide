@@ -2,6 +2,7 @@ package com.groupryan.client;
 
 import com.groupryan.shared.commands.ServerCommand;
 import com.groupryan.shared.commands.ServerCommandFactory;
+import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
@@ -28,6 +29,8 @@ public class ClientCommunicatorTest extends TestCase {
         cr= (CommandResult) cc.sendCommand("Login", sc);
         sc=scf.createCreateCommand(new Game("YOLO", "123", 3));
         cr=(CommandResult) cc.sendCommand("Create", sc);
+      //  sc=scf.createJoinGameCommand(new Game("game1", "gameID", 2),user, Color.BLACK);
+       // cr=(CommandResult)cc.sendCommand("joinGame", sc);
 
     int j=0;
     }

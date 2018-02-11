@@ -15,7 +15,7 @@ public class RootServerModel {
     private ArrayList<Game> games;
     private ArrayList<User> users;
 
-    private static RootServerModel single_instance = new RootServerModel();
+    private static RootServerModel single_instance; /*= new RootServerModel();*/
 
     public static RootServerModel getInstance() {
         if (single_instance == null) {
@@ -60,7 +60,7 @@ public class RootServerModel {
 
     private String _addGame(Game game) {
         games.add(game);
-        return "null";
+        return "Game add";
     }
 
     private String _confirmUser(User user) {
