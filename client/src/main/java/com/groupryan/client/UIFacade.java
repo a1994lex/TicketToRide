@@ -4,6 +4,7 @@ import com.groupryan.shared.commands.ServerCommandFactory;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
+import com.groupryan.shared.results.LoginResult;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -33,14 +34,14 @@ public class UIFacade {
         ServerProxy.getInstance().createGame(game);
     }
 
-    void login(String username, String password) {
+    public LoginResult login(String username, String password) {
         User user = new User(username, password);
-        ServerProxy.getInstance().login(user);
+        return ServerProxy.getInstance().login(user);
     }
 
-    void register(String username, String password) {
+    public LoginResult register(String username, String password) {
         User user = new User(username, password);
-        ServerProxy.getInstance().register(user);
+        return ServerProxy.getInstance().register(user);
     }
 
     void joinGame(Game game, User user, Color userColor) {
