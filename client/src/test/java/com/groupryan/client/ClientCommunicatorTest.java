@@ -41,8 +41,8 @@ public class ClientCommunicatorTest extends TestCase {
 
         sc=scf.createCreateCommand(new Game("YOLO", "123", 3));
         cr=(CommandResult) cc.sendCommand("Create", sc);
-      //  sc=scf.createJoinGameCommand(new Game("game1", "gameID", 2),user, Color.BLACK);
-       // cr=(CommandResult)cc.sendCommand("joinGame", sc);
+        sc=scf.createJoinGameCommand(new Game("game1", "gameID", 2),user, Color.BLACK);
+        cr=(CommandResult)cc.sendCommand("joinGame", sc);
 
     int j=0;
     }
