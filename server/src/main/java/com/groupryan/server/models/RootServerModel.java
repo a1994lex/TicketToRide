@@ -98,6 +98,9 @@ public class RootServerModel {
     private String _addUserToGame(Game game, User user, Color userColor) {
         for (Game g : this.games) {
             if (g.equals(game)) {
+                if(g.getMaxPlayers()==g.getUsers().size()){
+                    return "Game is full";
+                }
                return g.addUser(user, userColor);
             }
         }

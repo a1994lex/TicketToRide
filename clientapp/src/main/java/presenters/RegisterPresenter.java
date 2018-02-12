@@ -1,6 +1,8 @@
-package com.groupryan.client.ui;
+package presenters;
 
 //import com.groupryan.client.RegisterAsyncTask;
+import android.app.Activity;
+
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.LoginResult;
@@ -8,11 +10,14 @@ import com.groupryan.shared.results.LoginResult;
 import java.util.Observable;
 import java.util.Observer;
 
+import async.LoginAsyncTask;
+import async.RegisterAsyncTask;
+
 public class RegisterPresenter implements Observer{
 
-    //private Activity registerActivity;
-    private RootClientModel root = RootClientModel.getInstance();
-    public RegisterPresenter(){ } //Activity registerActivity ){ this.registerActivity = registerActivity;}
+    private Activity registerActivity;
+    private RootClientModel root = RootClientModel.getSingle_instance();
+    public RegisterPresenter(Activity registerActivity ){ this.registerActivity = registerActivity;}
 
 
     @Override
@@ -28,14 +33,14 @@ public class RegisterPresenter implements Observer{
 
     public void login(String username, String password){
         User u = new User(username, password);
-        //LoginAsyncTask loginAsyncTask = new LoginAsyncTask(registerActivity);
-       // loginAsyncTask.execute(u);
+        LoginAsyncTask loginAsyncTask = new LoginAsyncTask(registerActivity);
+        loginAsyncTask.execute(u);
 
     }
 
     public void register(String username, String password){
         User u = new User(username, password);
-       // RegisterAsyncTask registerAsyncTask = new RegisterAsyncTask(registerActivity);
-       // registerAsyncTask.execute(u);
+        RegisterAsyncTask registerAsyncTask = new RegisterAsyncTask(registerActivity);
+        registerAsyncTask.execute(u);
     }
 }

@@ -42,19 +42,19 @@ public class CommandManager {
 
     public ClientCommand makeJoinGameCommand(Game game, User user, Color userColor) {
         ClientCommand command = factory.createJoinGameCommand(game, user, userColor);
-       // commands.add(command);
+        commands.add(command);
         return command;
     }
 
     public ClientCommand makeCreateGameCommand(Game game) {
         ClientCommand command = factory.createCreateGameCommand(game);
-        // commands.add(command);
+         commands.add(command);
         return command;
     }
 
     public ClientCommand makeStartGameCommand(Game game) {
         ClientCommand command = factory.createStartGameCommand(game);
-        // commands.add(command);
+         commands.add(command);
         return command;
     }
 

@@ -27,8 +27,6 @@ public class Server {
 
         System.out.println("Creating contexts");
         server.createContext("/executeCommand", new CommandHandler());
-
-        System.out.println("Starting server");
         server.start();
         System.out.println("Server started");
     }
