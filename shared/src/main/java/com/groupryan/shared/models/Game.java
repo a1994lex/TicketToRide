@@ -20,9 +20,9 @@ public class Game {
 
     public Game(){}
 
-    public Game(String gameName, String creatorId, int maxPlayers){
+    public Game(String gameName, String gameId, int maxPlayers){
         this.gameName = gameName;
-        this.creatorId = creatorId;
+        this.gameId = gameId;
         this.maxPlayers = maxPlayers;
     }
 
@@ -64,14 +64,6 @@ public class Game {
 
     public void setGameId(String gameId) {
         this.gameId = gameId;
-    }
-
-    public String getCreatorId() {
-        return creatorId;
-    }
-
-    public void setCreatorId(String creatorId) {
-        this.creatorId = creatorId;
     }
 
     public void makeGameId(){

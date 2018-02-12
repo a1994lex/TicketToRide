@@ -1,9 +1,10 @@
 package com.groupryan.client;
 
 import com.groupryan.shared.commands.ServerCommandFactory;
-//import com.groupryan.shared.models.Color;
+import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
+import com.groupryan.shared.results.LoginResult;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -14,30 +15,31 @@ public class UIFacade {
 
     public UIFacade() {}
 
-    void createGame(String userColor, String gameName, String username, String password, int numberOfPlayers) {
-        Game game = new Game(gameName, "0", numberOfPlayers);
+    public void createGame(Color userColor, String gameName, String username, String password, int numberOfPlayers) {
+        Game game = new Game(gameName, null, numberOfPlayers);
         User user = new User(username, password);
-        Map<User, String> users = new HashMap<User, String>();
+        Map<User, Color> users = new HashMap<User, Color>();
         users.put(user, userColor);
         game.setUsers(users);
         ServerProxy.getInstance().createGame(game);
     }
 
-    void login(String username, String password) {
+    public LoginResult login(String username, String password) {
         User user = new User(username, password);
-        ServerProxy.getInstance().login(user);
+        LoginResult loginResult = ServerProxy.getInstance().login(user);
+        return loginResult;
     }
 
-    void register(String username, String password) {
+    public void register(String username, String password) {
         User user = new User(username, password);
         ServerProxy.getInstance().register(user);
     }
 
-    void joinGame(String gameId, String userId) {
+    public void joinGame(String gameId, String userId) {
         ServerProxy.getInstance().joinGame(gameId, userId);
     }
 
-    void startGame(String gameId) {
+    public void startGame(String gameId) {
         ServerProxy.getInstance().startGame(gameId);
     }
 }
