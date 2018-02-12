@@ -58,7 +58,7 @@ public class CreateGameDialogActivity extends AppCompatActivity implements IJoin
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_game_list);
+        setContentView(R.layout.dialog_new_game);
         JoinGamePresenter.setView(this);
         mGameTitle = findViewById(R.id.game_title);
         mNumPlayers = findViewById(R.id.numberPicker);

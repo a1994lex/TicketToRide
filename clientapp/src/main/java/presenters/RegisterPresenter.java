@@ -23,14 +23,14 @@ public class RegisterPresenter implements Observer{
 
     @Override
     public void update(Observable observable, Object o) {
-        if(o instanceof String){
-            String message = (String)o;
-            if(message.equals("logged in")){
-                OnLogin signedIn = (OnLogin)registerActivity;
+        if(o instanceof String) {
+            String message = (String) o;
+            if (message.equals("logged in")) {
+                //Starting new activity
+                OnLogin signedIn = (OnLogin) registerActivity;
                 signedIn.onLogin();
             }
         }
-        //if logged in, start next activity.
     }
 
     public void login(String username, String password){
