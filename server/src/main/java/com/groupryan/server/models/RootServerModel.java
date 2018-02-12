@@ -77,7 +77,7 @@ public class RootServerModel {
 
     public String _createGame(Game game){
         for (Game g:games) {
-            if(g.getGameId().equals(game.getGameName())){
+            if(g.getGameName().equals(game.getGameName())){
                 return utils.GAME_NAME_IN_USE;
             }
         }
@@ -122,7 +122,7 @@ public class RootServerModel {
         for (Game g : games) {
             if (g.equals(game)) {
                 g.setStarted(true);
-                return utils.STARTED_GAME;
+                return utils.VALID;
             }
         }
         return utils.INVALID_GAMEID;

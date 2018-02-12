@@ -28,7 +28,7 @@ public class UIFacade {
 
     public void createGame(Color userColor, String gameName, int numberOfPlayers) {
 
-        Game game = new Game(gameName, "0", numberOfPlayers);
+        Game game = new Game(gameName, null, numberOfPlayers);
         User user = RootClientModel.getUser();
         Map<User, Color> users = new HashMap<User, Color>();
         users.put(user, userColor);
@@ -57,7 +57,7 @@ public class UIFacade {
     public void joinGame(Game game, Color userColor) {
         User user = RootClientModel.getUser();
         if (ServerProxy.getInstance().joinGame(game, user, userColor) != null){
-            JoinGame
+          //  JoinGame.
         }
     }
 
