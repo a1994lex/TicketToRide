@@ -21,7 +21,8 @@ public class Game{
       gameName = (String)map.get("gameName");
       gameId = (String)map.get("gameId");
       started = (boolean)map.get("started");
-      maxPlayers = (int)map.get("maxPlayers");
+      double players = (double)map.get("maxPlayers");
+      maxPlayers = (int)players;
       users = (Map<User, Color>)map.get("users");
       return new Game(users, gameName, gameId, maxPlayers, started);
     }
