@@ -9,6 +9,8 @@ import com.example.clientapp.IJoinGameView;
 import com.example.clientapp.LobbyActivity;
 import com.groupryan.shared.utils;
 
+import presenters.JoinGamePresenter;
+
 public class JoinGameDialogActivity extends AppCompatActivity implements IJoinGameView{
     @Override
     public void onGameAdd() {
@@ -37,5 +39,6 @@ public class JoinGameDialogActivity extends AppCompatActivity implements IJoinGa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        JoinGamePresenter.setView(this);
     }
 }

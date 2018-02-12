@@ -32,13 +32,20 @@ public class JoinGamePresenter implements Observer {
     }
     private void _createGame(String title, int numPlayers, Color color){
         game_title = title;
-        uifacade.createGame(color, title, numPlayers);
+        String errormsg = uifacade.createGame(color, title, numPlayers);
+        if (errormsg != null){
+            dialogView.error(errormsg);
+        }
 
     }
 
 
     private void _joinGame(Game game, Color color){
-        if (uifacade.joinGame(game, color, this) != null);
+        game_title = game.getGameName();
+        String errormsg = uifacade.joinGame(game, color);
+        if (errormsg != null){
+            dialogView.error(errormsg);
+        }
     }
 
     private static void _setView(IJoinGameView view){
@@ -61,12 +68,12 @@ public class JoinGamePresenter implements Observer {
             if (secondSize > gameListSize){
                 gameView.onGameAdd();
             }
-            else if (secondSize <gameListSize){
-//                gameView.onGameDelete();
-            }
+//            else if (){
+////                gameView.onGameDisable(id);
+//            }
 
-            for (Game game :root.getGames()){
-                if (game.getGameName() == game_title){
+            for (Game game : root.getUser().getGameList()){
+                if (game.getGameName().equals(game_title)){
                     dialogView.join(game.getGameId());
                 }
             }
