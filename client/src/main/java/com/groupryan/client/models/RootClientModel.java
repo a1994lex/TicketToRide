@@ -14,6 +14,9 @@ public class RootClientModel extends Observable {
 
     private static RootClientModel single_instance = new RootClientModel();
 
+    public static RootClientModel getInstance(){
+        return single_instance;
+    }
 
     public static void addUser(User user) {
         // TODO: check if i am doing add user as intended
@@ -30,6 +33,7 @@ public class RootClientModel extends Observable {
 
     public static void addUserToGame(Game game, User user, Color userColor) {
         single_instance._addUserToGame(game, user, userColor);
+
     }
 
     private RootClientModel() {
@@ -38,8 +42,10 @@ public class RootClientModel extends Observable {
     }
 
     private void _addUser(User user) {
-        //what do i do here
+
         this.user = user;
+        notifyObservers("logged in");
+        //notify register observer
     }
 
     private void _addGame(Game game) {
@@ -52,7 +58,7 @@ public class RootClientModel extends Observable {
                 g.setStarted(true);
             }
         }
-        // TODO: make command so switch to game activity
+        //notify observers
     }
 
     private void _addUserToGame(Game game, User user, Color userColor) {
@@ -61,6 +67,7 @@ public class RootClientModel extends Observable {
                 g.addUser(user, userColor);
             }
         }
+        //notify observers
     }
 
 }

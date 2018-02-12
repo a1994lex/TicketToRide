@@ -62,13 +62,13 @@ public class ServerProxy implements IServer {
     @Override
     public LoginResult register(User user) {
         ServerCommand command = serverCommandFactory.createRegisterCommand(user);
-        CommandResult registerResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(REGISTER, command);
+        LoginResult registerResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(REGISTER, command);
         if (true) {  // if register succeeds
             Poller poller = new Poller();
             poller.poll();
         }
         //  ClientFacade clientFacade = new ClientFacade().executeRegisterCommand(registerResult);
-        return null;
+        return registerResult;
     }
 
     @Override
@@ -80,7 +80,7 @@ public class ServerProxy implements IServer {
             Poller poller = new Poller();
             poller.poll();
         }
-        return null;
+        return loginResult;
     }
 
     public CommandResult getCommands() {
