@@ -1,6 +1,7 @@
 package com.groupryan.client;
 
 import com.groupryan.shared.IServer;
+import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.commands.ServerCommand;
 import com.groupryan.shared.commands.ServerCommandFactory;
 import com.groupryan.shared.models.Color;
@@ -8,6 +9,9 @@ import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class ServerProxy implements IServer {
 
@@ -38,7 +42,7 @@ public class ServerProxy implements IServer {
     public CommandResult createGame(Game game) {
         ServerCommand command = serverCommandFactory.createCreateGameCommand(game);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(CREATE_GAME, command);
-        //ClientFacade clientFacade = new ClientFacade().executeCreateGameCommand(commandResult);
+        executeCommands(commandResult.getClientCommands());
         return null;
     }
 
@@ -47,7 +51,7 @@ public class ServerProxy implements IServer {
         ServerCommand command = serverCommandFactory.createJoinGameCommand(game, user, userColor);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance()
                 .sendCommand(JOIN_GAME, command);
-        // ClientFacade clientFacade = new ClientFacade().executeJoinGameCommand(commandResult);
+        executeCommands(commandResult.getClientCommands());
         return null;
     }
 
@@ -55,7 +59,7 @@ public class ServerProxy implements IServer {
     public CommandResult startGame(Game game) {
         ServerCommand command = serverCommandFactory.createStartGameCommand(game);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(START_GAME, command);
-        // ClientFacade clientFacade = new ClientFacade().executeStartGameCommand(commandResult);
+        executeCommands(commandResult.getClientCommands());
         return null;
     }
 
@@ -67,7 +71,7 @@ public class ServerProxy implements IServer {
             Poller poller = new Poller();
             poller.poll();
         }
-        //  ClientFacade clientFacade = new ClientFacade().executeRegisterCommand(registerResult);
+        executeCommands(registerResult.getClientCommands());
         return registerResult;
     }
 
@@ -75,7 +79,7 @@ public class ServerProxy implements IServer {
     public LoginResult login(User user) {
         ServerCommand command = serverCommandFactory.createLoginCommand(user);
         LoginResult loginResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(LOGIN, command);
-        //   ClientFacade clientFacade = new ClientFacade().executeLoginCommand(loginResult);
+        executeCommands(loginResult.getClientCommands());
         if (loginResult.isSucceeded()) {  // if login succeeds
             Poller poller = new Poller();
             poller.poll();
@@ -86,7 +90,14 @@ public class ServerProxy implements IServer {
     public CommandResult getCommands() {
         ServerCommand command = serverCommandFactory.createGetCommands();
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(GET_COMMANDS, command);
+        executeCommands(commandResult.getClientCommands());
         return commandResult;
+    }
+
+    public void executeCommands(List<ClientCommand> commandList){
+        for (ClientCommand command : commandList) {
+            command.execute();
+        }
     }
 
 
