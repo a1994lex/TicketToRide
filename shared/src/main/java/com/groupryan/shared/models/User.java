@@ -1,5 +1,7 @@
 package com.groupryan.shared.models;
 
+import com.google.gson.internal.LinkedTreeMap;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -7,7 +9,16 @@ import java.util.List;
  * Created by bengu3 on 1/31/18.
  */
 
-public class User {
+public class User implements Comparable{
+    public static User mapToObject(LinkedTreeMap map){
+        String username;
+        String password;
+        List<Game> gameList;
+        username = (String)map.get("username");
+        password = (String)map.get("password");
+        gameList = (List<Game>)map.get("gameList");
+        return new User(username, password, gameList);
+    }
 
     private String username;
     private String password;
@@ -19,6 +30,11 @@ public class User {
         gameList = new ArrayList();
     }
 
+    private User(String username, String password, List<Game> gameList){
+        this.username = username;
+        this.password = password;
+        this.gameList = gameList;
+    }
     public void addGame(Game game){
         gameList.add(game);
     }
@@ -77,5 +93,30 @@ public class User {
         Game game = new Game("game1", "gameID", 3);
         u.addGame(game);
         return u;
+    }
+
+
+    @Override
+    public int hashCode() {
+        int result = username.hashCode();
+        result = 31 * result + password.hashCode();
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return username != null ? username.equals(user.username) : user.username == null;
+    }
+
+    @Override
+    public int compareTo(Object o) {
+        if(o instanceof User){
+            User u=(User)o;
+           return this.getUsername().compareTo(u.getUsername());
+        }
+        return 0;
     }
 }

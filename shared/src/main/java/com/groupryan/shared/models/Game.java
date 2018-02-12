@@ -1,38 +1,72 @@
 package com.groupryan.shared.models;
 
+import com.google.gson.internal.LinkedTreeMap;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 import java.util.UUID;
 
 /**
  * Created by bengu3 on 1/31/18.
  */
 
-public class Game {
+public class Game{
+    public static Game mapToObject(LinkedTreeMap map){
+      String gameName;
+      String gameId;
+      Map<User, Color> users=new TreeMap<>();
+      boolean started;
+      double maxPlayers;
+      gameName = (String)map.get("gameName");
+      gameId = (String)map.get("gameId");
+      started = (boolean)map.get("started");
+      double players = (double)map.get("maxPlayers");
+      maxPlayers = (int)players;
+      users = (Map<User, Color>)map.get("users");
+      return new Game(users, gameName, gameId, maxPlayers, started);
+    }
 
     private Map<User, Color> users;
     private String gameName;
     private String gameId;
     private String creatorId;
     private boolean started = false;
-    private int maxPlayers;
+    private double maxPlayers;
 
     public Game(){}
 
-    public Game(String gameName, String gameId, int maxPlayers){
+    public Game(String gameName, String gameId, double maxPlayers){
+        users=new TreeMap<>();
         this.gameName = gameName;
         this.gameId = gameId;
         this.maxPlayers = maxPlayers;
     }
 
-    public void addUser(User u,  Color color){
-
-        if(!started){
-            users.put(u, color);
-        }
-        //RETURN SOMETHING SO THEY KNOW USER WAS NOT ADDED.
+    public Game(Map<User, Color> users, String gameName, String gameId, double maxPlayers, boolean started){
+        this.gameName = gameName;
+        this.gameId = gameId;
+        this.maxPlayers = maxPlayers;
+        this.started = started;
+        this.users = users;
     }
+
+    public String addUser(User u,  Color color){
+
+        Color c=users.get(u);//ensures the player isnt already in
+
+        if(!started && c==null){
+            if(users.containsValue(color)){
+                return "Color in use";
+            }
+            users.put(u, color);
+            return "User added to "+gameId;
+        }
+        return "User already in game";
+    }
+
 
     public boolean isStarted() {
         return started;
@@ -71,7 +105,7 @@ public class Game {
         gameId = UUID.randomUUID().toString();
     }
 
-    public int getMaxPlayers() { return maxPlayers; }
+    public double getMaxPlayers() { return maxPlayers; }
 
     public void setMaxPlayers(int maxPlayers) { this.maxPlayers = maxPlayers; }
 
@@ -100,4 +134,21 @@ public class Game {
         return games;
 
     }
+
+
+    @Override
+    public int hashCode() {
+        int result = gameName.hashCode();
+        result = 31 * result + gameId.hashCode();
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Game game = (Game) o;
+        return gameId != null ? gameId.equals(game.gameId) : game.gameId == null;
+    }
+
 }

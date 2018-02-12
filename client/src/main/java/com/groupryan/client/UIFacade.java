@@ -1,5 +1,6 @@
 package com.groupryan.client;
 
+import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.commands.ServerCommandFactory;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
@@ -13,33 +14,54 @@ public class UIFacade {
 
     private static ServerCommandFactory serverCommandFactory = new ServerCommandFactory();
 
-    public UIFacade() {}
+    private static UIFacade instance;
 
-    public void createGame(Color userColor, String gameName, String username, String password, int numberOfPlayers) {
-        Game game = new Game(gameName, null, numberOfPlayers);
-        User user = new User(username, password);
+    public static UIFacade getInstance() {
+        if (instance == null) {
+            instance = new UIFacade();
+        }
+        return instance;
+    }
+
+    private UIFacade() {
+    }
+
+    public void createGame(Color userColor, String gameName, int numberOfPlayers) {
+
+        Game game = new Game(gameName, "0", numberOfPlayers);
+        User user = RootClientModel.getUser();
         Map<User, Color> users = new HashMap<User, Color>();
         users.put(user, userColor);
-        game.setUsers(users);
+        //game.setUsers(users);
         ServerProxy.getInstance().createGame(game);
     }
 
     public LoginResult login(String username, String password) {
         User user = new User(username, password);
-        LoginResult loginResult = ServerProxy.getInstance().login(user);
-        return loginResult;
+        LoginResult lr = ServerProxy.getInstance().login(user);
+        if (lr.getGameList() != null){
+            RootClientModel.setGames(lr.getGameList());
+        }
+        return lr;
     }
 
-    public void register(String username, String password) {
+    public LoginResult register(String username, String password) {
         User user = new User(username, password);
-        ServerProxy.getInstance().register(user);
+        LoginResult lr = ServerProxy.getInstance().register(user);
+        if (lr.getGameList() != null){
+            RootClientModel.setGames(lr.getGameList());
+        }
+        return lr;
     }
 
-    public void joinGame(String gameId, String userId) {
-        ServerProxy.getInstance().joinGame(gameId, userId);
+    public void joinGame(Game game, Color userColor) {
+        User user = RootClientModel.getUser();
+        if (ServerProxy.getInstance().joinGame(game, user, userColor) != null){
+            JoinGame.
+        }
     }
 
-    public void startGame(String gameId) {
-        ServerProxy.getInstance().startGame(gameId);
+    public void startGame(Game game) {
+        ServerProxy.getInstance().startGame(game);
     }
 }

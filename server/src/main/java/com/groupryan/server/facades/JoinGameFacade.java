@@ -3,7 +3,9 @@ package com.groupryan.server.facades;
 import com.groupryan.server.CommandManager;
 import com.groupryan.server.models.RootServerModel;
 import com.groupryan.shared.commands.ClientCommand;
+import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
+import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 
 /**
@@ -11,21 +13,17 @@ import com.groupryan.shared.results.CommandResult;
  */
 
 public class JoinGameFacade {
-    String userId;
-    String gameId;
-    String result;
 
-    public CommandResult joinGame(String gameId, String userId){
-        result=RootServerModel.getInstance()._addUserToGame(gameId, userId);
-        CommandResult cm=new CommandResult();
-        cm.addClientCommand(createReturnCommand(gameId, userId));
+    public CommandResult joinGame(Game game, User user, Color userColor) {
+        String result = RootServerModel.getInstance().addUserToGame(game, user, userColor);
+        CommandResult cm = new CommandResult();
+        cm.addClientCommand(createReturnCommand(game, user, userColor));
         cm.setResultType(result);
-        //if not joined set = to false
-        //this should have the id too, allws the player to join the game
-        //adds them to the game,
-        //returns the command
 
-        return cm;}
-    private ClientCommand createReturnCommand(String gameId, String userId){
-        return CommandManager.getInstance().makeJoinGameCommand(gameId, userId);}
+        return cm;
+    }
+
+    private ClientCommand createReturnCommand(Game game, User user, Color userColor) {
+        return CommandManager.getInstance().makeJoinGameCommand(game, user, userColor);
+    }
 }

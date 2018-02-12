@@ -1,6 +1,7 @@
 package com.groupryan.shared.results;
 
 import com.groupryan.shared.commands.ClientCommand;
+import com.groupryan.shared.models.Game;
 
 import java.util.List;
 
@@ -14,11 +15,14 @@ public class LoginResult extends CommandResult{
 
     private boolean succeeded;
     private String userMessage;
+    private List<Game> gameList;
 
-    public LoginResult(String exceptionType, String exceptionMessage, List<ClientCommand> clientCommands, String resultType, boolean succeeded, String userMessage){
+    public LoginResult(String exceptionType, String exceptionMessage, List<ClientCommand> clientCommands,
+                       String resultType, boolean succeeded, String userMessage, List<Game> games){
         super(exceptionType, exceptionMessage, clientCommands, resultType);
         this.succeeded = succeeded;
         this.userMessage = userMessage;
+        this.gameList = games;
     }
 
     public LoginResult(){
@@ -39,5 +43,14 @@ public class LoginResult extends CommandResult{
 
     public void setUserMessage(String userMessage) {
         this.userMessage = userMessage;
+
+    }
+
+    public List<Game> getGameList() {
+        return gameList;
+    }
+
+    public void setGameList(List<Game> gameList) {
+        this.gameList = gameList;
     }
 }
