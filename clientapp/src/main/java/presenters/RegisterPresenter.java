@@ -11,6 +11,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import async.LoginAsyncTask;
+import async.OnLogin;
 import async.RegisterAsyncTask;
 
 public class RegisterPresenter implements Observer{
@@ -25,7 +26,8 @@ public class RegisterPresenter implements Observer{
         if(o instanceof String){
             String message = (String)o;
             if(message.equals("logged in")){
-                //startActivity(LobbyActivity.class);
+                OnLogin signedIn = (OnLogin)registerActivity;
+                signedIn.onLogin();
             }
         }
         //if logged in, start next activity.

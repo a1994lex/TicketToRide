@@ -1,5 +1,6 @@
 package com.example.clientapp;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,15 +13,19 @@ import android.widget.Toast;
 
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.client.ui.IRegisterView;
+
+import async.OnLogin;
 import presenters.RegisterPresenter;
 
-public class RegisterActivity extends AppCompatActivity implements IRegisterView{
+public class RegisterActivity extends AppCompatActivity implements IRegisterView, OnLogin{
 
     private EditText usernameEditText;
     private EditText passwordEditText;
     private Button loginButton;
     private Button registerButton;
     private RegisterPresenter regPresenter = new RegisterPresenter(this);
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,6 +132,11 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         regPresenter.register(username, password);
+    }
+
+    public void onLogin(){
+        Intent intent = new Intent(this, LobbyActivity.class);
+        startActivity(intent);
     }
 
 }
