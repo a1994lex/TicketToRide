@@ -36,6 +36,8 @@ public class CreateGameDialogActivity extends AppCompatActivity {
 
         mGameTitle = findViewById(R.id.game_title);
         mNumPlayers = findViewById(R.id.numberPicker);
+        mNumPlayers.setMinValue(2);
+        mNumPlayers.setMaxValue(5);
         mColors = findViewById(R.id.radio_color_group);
         mContinue = findViewById(R.id.button);
         mError = findViewById(R.id.errorText);
@@ -45,8 +47,15 @@ public class CreateGameDialogActivity extends AppCompatActivity {
             public void onClick(View view) {
                 int colorChoice = mColors.getCheckedRadioButtonId();
                 try{
-                    Color color = getColorfromId(colorChoice);
-                    JoinGamePresenter.createGame();
+                    Color color = getColorFromId(colorChoice);
+                    String title = mGameTitle.getText().toString();
+                    int numPlayers = mNumPlayers.getValue();
+                    if (title.length() == 0){
+                        mError.setText("Please include a title");
+                    }
+                    else {
+                        JoinGamePresenter.createGame(title, numPlayers, color);
+                    }
                 }
                 catch (IOException exception){
                     mError.setText("Please choose a color");
@@ -55,7 +64,7 @@ public class CreateGameDialogActivity extends AppCompatActivity {
         });
     }
 
-    private Color getColorfromId(int colorChoice) throws IOException{
+    private Color getColorFromId(int colorChoice) throws IOException{
         Color color;
         switch (colorChoice){
             case R.id.radio_green:

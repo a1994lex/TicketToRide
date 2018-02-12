@@ -29,6 +29,7 @@
 
     <NumberPicker
         android:id="@+id/numberPicker"
+        android:ran
         android:layout_width="45dp"
         android:layout_height="108dp"
         android:layout_gravity="top"

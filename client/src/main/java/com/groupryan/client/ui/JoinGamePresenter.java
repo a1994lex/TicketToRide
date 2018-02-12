@@ -3,6 +3,7 @@ package com.groupryan.client.ui;
 import com.groupryan.client.ClientFacade;
 import com.groupryan.client.UIFacade;
 import com.groupryan.client.models.RootClientModel;
+import com.groupryan.shared.models.Color;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -23,8 +24,8 @@ public class JoinGamePresenter implements Observer {
     public static void joinGame(){
         instance._joinGame();
     }
-    private void _createGame(){
-        instance._createGame();
+    private void _createGame(String title, int numPlayers, Color color){
+        uifacade.createGame(color, title, numPlayers);
     }
 
     private void _joinGame(){
@@ -37,8 +38,8 @@ public class JoinGamePresenter implements Observer {
         }
     }
 
-    public static void createGame(){
-        instance._joinGame();
+    public static void createGame(String title, int numPlayers, Color color){
+        instance._createGame(title, numPlayers, color);
     }
 
     @Override
