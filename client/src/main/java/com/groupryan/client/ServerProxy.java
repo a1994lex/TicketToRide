@@ -2,13 +2,14 @@ package com.groupryan.client;
 
 import com.groupryan.shared.IServer;
 import com.groupryan.shared.commands.ClientCommand;
-import com.groupryan.shared.commands.IServerCommand;
 import com.groupryan.shared.commands.ServerCommand;
 import com.groupryan.shared.commands.ServerCommandFactory;
+import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
+import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,8 @@ public class ServerProxy implements IServer {
 
     public static ServerProxy instance = new ServerProxy();
 
-    private ServerProxy() {}
+    private ServerProxy() {
+    }
 
     public static ServerProxy getInstance() {
         if (instance == null) {
@@ -41,48 +43,68 @@ public class ServerProxy implements IServer {
 
     @Override
     public CommandResult createGame(Game game) {
-        ServerCommand command = serverCommandFactory.createCreateCommand(game);
+        ServerCommand command = serverCommandFactory.createCreateGameCommand(game);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(CREATE_GAME, command);
-        //ClientFacade clientFacade = new ClientFacade().executeCreateGameCommand(commandResult);
-        return null;
+        return executeCommands(commandResult.getClientCommands());
     }
 
     @Override
-    public CommandResult joinGame(String gameId, String userId) {
-        ServerCommand command = serverCommandFactory.createJoinGameCommand(gameId, userId);
+    public CommandResult joinGame(Game game, User user, Color userColor) {
+        ServerCommand command = serverCommandFactory.createJoinGameCommand(game, user, userColor);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance()
-                                                        .sendCommand(JOIN_GAME, command);
-       // ClientFacade clientFacade = new ClientFacade().executeJoinGameCommand(commandResult);
-        return null;
+                .sendCommand(JOIN_GAME, command);
+        if (commandResult.getResultType().equals(utils.VALID)){
+            executeCommands(commandResult.getClientCommands());
+            return null;
+        }
+        else{
+            return commandResult;
+        }
     }
 
     @Override
-    public CommandResult startGame(String gameId) {
-        ServerCommand command = serverCommandFactory.createStartGameCommand(gameId);
+    public CommandResult startGame(Game game) {
+        ServerCommand command = serverCommandFactory.createStartGameCommand(game);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(START_GAME, command);
-       // ClientFacade clientFacade = new ClientFacade().executeStartGameCommand(commandResult);
-        return null;
+        return executeCommands(commandResult.getClientCommands());
     }
 
     @Override
     public LoginResult register(User user) {
-        ServerCommand command= serverCommandFactory.createRegisterCommand(user);
-        CommandResult registerResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(REGISTER, command);
-      //  ClientFacade clientFacade = new ClientFacade().executeRegisterCommand(registerResult);
-        return null;
+        ServerCommand command = serverCommandFactory.createRegisterCommand(user);
+        LoginResult registerResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(REGISTER, command);
+        if (registerResult.isSucceeded()) {  // if register succeeds
+            Poller poller = new Poller();
+            poller.poll();
+        }
+        executeCommands(registerResult.getClientCommands());
+        return registerResult;
     }
 
     @Override
     public LoginResult login(User user) {
         ServerCommand command = serverCommandFactory.createLoginCommand(user);
         LoginResult loginResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(LOGIN, command);
-     //   ClientFacade clientFacade = new ClientFacade().executeLoginCommand(loginResult);
-        return null;
+        executeCommands(loginResult.getClientCommands());
+        if (loginResult.isSucceeded()) {  // if login succeeds
+            Poller poller = new Poller();
+            poller.poll();
+        }
+        return loginResult;
     }
 
-    // void executeCommands(CommandResult) {
-    //  for command in CommandResult: command.execute()
-    // }
+    public CommandResult getCommands() {
+        ServerCommand command = serverCommandFactory.createGetCommands();
+        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(GET_COMMANDS, command);
+        executeCommands(commandResult.getClientCommands());
+        return commandResult;
+    }
+
+    public void executeCommands(List<ClientCommand> commandList){
+        for (ClientCommand command : commandList) {
+            command.execute();
+        }
+    }
 
     private static final String CREATE_GAME = "createGame";
     private static final String JOIN_GAME = "joinGame";

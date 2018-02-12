@@ -3,7 +3,44 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:orientation="horizontal"
     android:layout_height="match_parent"
+    android:background="@drawable/sepiatrain"
     tools:context="com.example.clientapp.LobbyActivity">
+
+    <android.support.v7.widget.LinearLayoutCompat
+        android:id="@+id/shadow"
+        android:layout_width="326dp"
+        android:layout_height="match_parent"
+        android:alpha="0.8"
+        android:background="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0">
+
+        <android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/players_recycler_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp" />
+
+    </android.support.v7.widget.LinearLayoutCompat>
+
+    <Button
+        android:id="@+id/start_game_btn"
+        android:layout_width="300dp"
+        android:layout_height="40dp"
+        android:layout_marginBottom="28dp"
+        android:backgroundTint="@color/colorPrimary"
+        android:elevation="14dp"
+        android:text="@string/start_game"
+        android:textColor="@color/colorAccent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintRight_toRightOf="@id/shadow"
+        app:layout_constraintLeft_toLeftOf="@id/shadow"/>
 
 </android.support.constraint.ConstraintLayout>

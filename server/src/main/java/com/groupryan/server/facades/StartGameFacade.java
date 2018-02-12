@@ -3,6 +3,7 @@ package com.groupryan.server.facades;
 import com.groupryan.server.CommandManager;
 import com.groupryan.server.models.RootServerModel;
 import com.groupryan.shared.commands.ClientCommand;
+import com.groupryan.shared.models.Game;
 import com.groupryan.shared.results.CommandResult;
 
 /**
@@ -10,18 +11,20 @@ import com.groupryan.shared.results.CommandResult;
  */
 
 public class StartGameFacade {
-    String gameId;
 
-    public CommandResult start(String gameId) {
-        String result=RootServerModel.getInstance()._startGame(gameId);
+    public CommandResult start(Game game) {
+        String result = RootServerModel.getInstance().startGame(game);
         CommandResult cr = new CommandResult();
-        cr.addClientCommand(activateGame(gameId));
+        if(result.equals("Started")){
+            cr.addClientCommand(activateGame(game));
+        }
         cr.setResultType(result);
         return cr;
         //takes the game id and uses it ot shutdown the game and start everything
     }
-    ClientCommand activateGame(String gameId){
-        return CommandManager.getInstance().makeStartGameCommand(gameId);
-        }
+
+    ClientCommand activateGame(Game game) {
+        return CommandManager.getInstance().makeStartGameCommand(game);
+    }
 
 }

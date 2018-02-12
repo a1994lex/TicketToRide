@@ -11,25 +11,25 @@ import com.groupryan.shared.results.CommandResult;
  */
 
 public class CreateGameFacade {
-    String userId;
-    Game game;
 
     public CommandResult createGame(Game game) {
-        String result=addGame(game);
-        CommandResult cr=new CommandResult();
-        cr.addClientCommand(createReturnCommand(game.getGameId()));
+        String result = addGame(game);
+        CommandResult cr = new CommandResult();
+        if(result.equals("Game created")){
+            cr.addClientCommand(createReturnCommand(game));
+        }
         cr.setResultType(result);
         return cr;
     }
 
-    private String addGame (Game game){
-        return RootServerModel.getInstance()._addGame(game);
+    private String addGame(Game game) {
+        return RootServerModel.getInstance()._createGame(game);
     }// String gameId
 
-        ClientCommand createReturnCommand (String gameId){
-            CommandManager cm=CommandManager.getInstance();
-            return cm.makeCreateGameCommand(gameId);
-        }
+    ClientCommand createReturnCommand(Game game) {
+        CommandManager cm = CommandManager.getInstance();
+        return cm.makeCreateGameCommand(game);
+    }
 
 
 }

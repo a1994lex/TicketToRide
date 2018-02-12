@@ -1,18 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.example.clientapp.RegisterActivity">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/rootLL"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@drawable/sepiatrain">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#AAfff9e8"
+        android:orientation="vertical">
 
-</android.support.constraint.ConstraintLayout>
+
+
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo" />
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="258dp"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:layout_gravity="center_horizontal"
+            android:text="@string/username"
+            android:maxLength="25"/>
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="258dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="@string/password"
+            android:inputType="textPassword"
+            android:maxLength="25"/>
+
+        <Button
+            android:id="@+id/login_button"
+            android:layout_width="150dp"
+            android:layout_height="70dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/round_button"
+            android:text="@string/login"
+            />
+
+        <Button
+            android:id="@+id/register_button"
+            android:layout_width="150dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/round_button"
+            android:text="@string/register" />
+
+    </LinearLayout>
+</LinearLayout>

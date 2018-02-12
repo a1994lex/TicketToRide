@@ -1,4 +1,5 @@
-package com.groupryan.client.ui;
+package presenters;
 
 public interface ILobbyPresenter {
+
 }
