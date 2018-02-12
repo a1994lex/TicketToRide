@@ -1,8 +1,8 @@
-package com.groupryan.client.ui;
+package presenters;
 
-import com.groupryan.client.ClientFacade;
 import com.groupryan.client.UIFacade;
 import com.groupryan.client.models.RootClientModel;
+import com.groupryan.client.ui.IJoinGameView;
 
 import java.util.Observable;
 import java.util.Observer;

@@ -1,23 +1,18 @@
 package com.example.clientapp.dialogs;
 
-import android.graphics.Paint;
-import android.provider.DocumentsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
 import com.example.clientapp.R;
-import com.groupryan.client.models.RootClientModel;
-import com.groupryan.client.ui.JoinGamePresenter;
-import com.groupryan.shared.models.Color;
 
-import org.w3c.dom.Text;
+import presenters.JoinGamePresenter;
+import com.groupryan.shared.models.Color;
 
 import java.io.IOException;
 

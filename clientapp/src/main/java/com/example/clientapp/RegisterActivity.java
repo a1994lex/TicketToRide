@@ -5,7 +5,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -13,8 +12,7 @@ import android.widget.Toast;
 
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.client.ui.IRegisterView;
-import com.groupryan.client.ui.RegisterPresenter;
-import com.groupryan.shared.results.LoginResult;
+import presenters.RegisterPresenter;
 
 public class RegisterActivity extends AppCompatActivity implements IRegisterView{
 
