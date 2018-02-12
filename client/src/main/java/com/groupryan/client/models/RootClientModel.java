@@ -44,6 +44,7 @@ public class RootClientModel extends Observable {
     private void _addUser(User user) {
 
         this.user = user;
+        setChanged();
         notifyObservers("logged in");
         //notify register observer
     }
