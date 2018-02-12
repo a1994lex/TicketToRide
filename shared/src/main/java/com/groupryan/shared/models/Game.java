@@ -16,7 +16,7 @@ public class Game{
     public static Game mapToObject(LinkedTreeMap map){
       String gameName;
       String gameId;
-      Map<User, Color> users;
+      Map<User, Color> users=new TreeMap<>();
       boolean started;
       double maxPlayers;
       gameName = (String)map.get("gameName");
@@ -37,6 +37,7 @@ public class Game{
     public Game(){}
 
     public Game(String gameName, String gameId, double maxPlayers){
+        users=new TreeMap<>();
         this.gameName = gameName;
         this.gameId = gameId;
         this.maxPlayers = maxPlayers;
@@ -53,7 +54,7 @@ public class Game{
     public String addUser(User u,  Color color){
 
         Color c=users.get(u);//ensures the player isnt already in
-        if(!started && c!=null){
+        if(!started && c==null){
             users.put(u, color);
             return "User added to "+gameId;
         }
@@ -124,6 +125,14 @@ public class Game{
         games.add(game2);
         return games;
 
+    }
+
+
+    @Override
+    public int hashCode() {
+        int result = gameName.hashCode();
+        result = 31 * result + gameId.hashCode();
+        return result;
     }
 
     @Override
