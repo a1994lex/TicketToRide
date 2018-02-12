@@ -9,7 +9,7 @@ import java.util.List;
  * Created by bengu3 on 1/31/18.
  */
 
-public class User {
+public class User implements Comparable{
     public static User mapToObject(LinkedTreeMap map){
         String username;
         String password;
@@ -95,6 +95,14 @@ public class User {
         return u;
     }
 
+
+    @Override
+    public int hashCode() {
+        int result = username.hashCode();
+        result = 31 * result + password.hashCode();
+        return result;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -103,4 +111,12 @@ public class User {
         return username != null ? username.equals(user.username) : user.username == null;
     }
 
+    @Override
+    public int compareTo(Object o) {
+        if(o instanceof User){
+            User u=(User)o;
+           return this.getUsername().compareTo(u.getUsername());
+        }
+        return 0;
+    }
 }
