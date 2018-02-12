@@ -50,8 +50,6 @@ public class MainFacade implements IServer {
 
     public CommandResult getCommands() {
         GetCommandsFacade gcf = new GetCommandsFacade();
-        gcf.getCommandList();
-        //takes the above and then returns it
-        return null;
+        return gcf.getCommandList();
     }
 }

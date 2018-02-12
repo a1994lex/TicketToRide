@@ -15,7 +15,9 @@ public class StartGameFacade {
     public CommandResult start(Game game) {
         String result = RootServerModel.getInstance().startGame(game);
         CommandResult cr = new CommandResult();
-        cr.addClientCommand(activateGame(game));
+        if(result.equals("Started")){
+            cr.addClientCommand(activateGame(game));
+        }
         cr.setResultType(result);
         return cr;
         //takes the game id and uses it ot shutdown the game and start everything

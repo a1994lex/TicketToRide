@@ -15,13 +15,15 @@ public class CreateGameFacade {
     public CommandResult createGame(Game game) {
         String result = addGame(game);
         CommandResult cr = new CommandResult();
-        cr.addClientCommand(createReturnCommand(game));
+        if(result.equals("Game created")){
+            cr.addClientCommand(createReturnCommand(game));
+        }
         cr.setResultType(result);
         return cr;
     }
 
     private String addGame(Game game) {
-        return RootServerModel.getInstance().addGame(game);
+        return RootServerModel.getInstance()._createGame(game);
     }// String gameId
 
     ClientCommand createReturnCommand(Game game) {
