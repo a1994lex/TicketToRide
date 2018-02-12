@@ -13,7 +13,16 @@ public class UIFacade {
 
     private static ServerCommandFactory serverCommandFactory = new ServerCommandFactory();
 
-    public UIFacade() {
+    private static UIFacade instance;
+
+    public static UIFacade getInstance() {
+        if (instance == null) {
+            instance = new UIFacade();
+        }
+        return instance;
+    }
+
+    private UIFacade() {
     }
 
     void createGame(Color userColor, String gameName, String username, String password, int numberOfPlayers) {

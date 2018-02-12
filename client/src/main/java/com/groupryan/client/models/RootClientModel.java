@@ -12,11 +12,20 @@ public class RootClientModel extends Observable {
     private ArrayList<Game> games;
     private User user;
 
-    private static RootClientModel single_instance = new RootClientModel();
-
-    public static RootClientModel getInstance(){
+    public static RootClientModel getSingle_instance(){
         return single_instance;
     }
+
+    public static ArrayList<Game> getGames() {
+        return single_instance.games;
+    }
+
+    public static User getUser() {
+        return single_instance.user;
+    }
+
+    private static RootClientModel single_instance = new RootClientModel();
+
 
     public static void addUser(User user) {
         // TODO: check if i am doing add user as intended
@@ -33,7 +42,6 @@ public class RootClientModel extends Observable {
 
     public static void addUserToGame(Game game, User user, Color userColor) {
         single_instance._addUserToGame(game, user, userColor);
-
     }
 
     private RootClientModel() {
@@ -42,33 +50,37 @@ public class RootClientModel extends Observable {
     }
 
     private void _addUser(User user) {
-
+        //what do i do here
         this.user = user;
         setChanged();
-        notifyObservers("logged in");
-        //notify register observer
+        notifyObservers();
     }
 
     private void _addGame(Game game) {
         games.add(game);
+        setChanged();
+        notifyObservers();
     }
 
     private void _startGame(Game game) {
         for (Game g : games) {
             if (g.equals(game)) {
                 g.setStarted(true);
+                setChanged();
+                notifyObservers();
             }
         }
-        //notify observers
+        // TODO: make command so switch to game activity
     }
 
     private void _addUserToGame(Game game, User user, Color userColor) {
         for (Game g : this.games) {
             if (g.equals(game)) {
                 g.addUser(user, userColor);
+                setChanged();
+                notifyObservers();
             }
         }
-        //notify observers
     }
 
 }

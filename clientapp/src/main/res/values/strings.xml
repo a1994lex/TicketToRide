@@ -4,4 +4,21 @@
     <string name="register">Register</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+
+    <string name="choose_game">Choose a Game to Join</string>
+    <string name="empty_game_list">There are no games to join</string>
+    <string name="create_game">Create Game</string>
+    <string name="join_game">Join</string>
+
+    <string name="game_title_prompt">Game Title</string>
+    <string name="num_player_prompt">Number of Players</string>
+    <string name="choose_color_prompt">Choose your player color</string>
+    <string name="color_label">Your Color</string>
+    <string name="player_num_label"># Players</string>
+    <string name="continue_btn">Continue</string>
+
+    <string name="start_game">Start Game</string>
+
+
+
 </resources>

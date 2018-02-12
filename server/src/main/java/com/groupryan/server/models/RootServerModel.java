@@ -15,7 +15,7 @@ public class RootServerModel {
     private ArrayList<Game> games;
     private ArrayList<User> users;
 
-    private static RootServerModel single_instance = new RootServerModel();
+    private static RootServerModel single_instance; /*= new RootServerModel();*/
 
     public static RootServerModel getInstance() {
         if (single_instance == null) {
@@ -62,7 +62,16 @@ public class RootServerModel {
 
     private String _addGame(Game game) {
         games.add(game);
-        return "null";
+        return "Game created";
+    }
+
+    public String _createGame(Game game){
+        for (Game g:games) {
+            if(g.getGameId().equals(game.getGameId())){
+                return "Game name in use";
+            }
+        }
+        return _addGame(game);
     }
 
     private String _confirmUser(User user) {
@@ -89,10 +98,10 @@ public class RootServerModel {
     private String _addUserToGame(Game game, User user, Color userColor) {
         for (Game g : this.games) {
             if (g.equals(game)) {
-                g.addUser(user, userColor);
+               return g.addUser(user, userColor);
             }
         }
-        return "valid";
+        return "Invalid gameId";
     }
 
 
@@ -100,10 +109,11 @@ public class RootServerModel {
         for (Game g : games) {
             if (g.equals(game)) {
                 g.setStarted(true);
+                return "Started";
             }
         }
         // TODO: make command to switch to game activity!
-        return "good";
+        return "Invalid gameId";
     }
 
 }

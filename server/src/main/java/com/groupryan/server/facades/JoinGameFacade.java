@@ -19,10 +19,6 @@ public class JoinGameFacade {
         CommandResult cm = new CommandResult();
         cm.addClientCommand(createReturnCommand(game, user, userColor));
         cm.setResultType(result);
-        //if not joined set = to false
-        //this should have the id too, allows the player to join the game
-        //adds them to the game,
-        //returns the command
 
         return cm;
     }
