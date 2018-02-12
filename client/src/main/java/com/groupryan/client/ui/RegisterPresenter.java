@@ -11,7 +11,7 @@ import java.util.Observer;
 public class RegisterPresenter implements Observer{
 
     //private Activity registerActivity;
-    private RootClientModel root = RootClientModel.getInstance();
+    private RootClientModel root = RootClientModel.getSingle_instance();
     public RegisterPresenter(){ } //Activity registerActivity ){ this.registerActivity = registerActivity;}
 
 
