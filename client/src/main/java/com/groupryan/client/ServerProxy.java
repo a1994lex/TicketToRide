@@ -38,7 +38,7 @@ public class ServerProxy implements IServer {
     public CommandResult createGame(Game game) {
         ServerCommand command = serverCommandFactory.createCreateGameCommand(game);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(CREATE_GAME, command);
-        //ClientFacade clientFacade = new ClientFacade().executeCreateGameCommand(commandResult);
+        //ClientFacade clientFacade = ClientFacade.getInstance().createGame(commandResult);
         return null;
     }
 
