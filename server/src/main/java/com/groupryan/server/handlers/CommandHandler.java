@@ -23,7 +23,7 @@ public class CommandHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-        System.out.println("Entering CommandHandler...");
+        //System.out.println("Entering CommandHandler...");
         CommandResult commandResult = null;
         try {
             InputStream is = httpExchange.getRequestBody();
