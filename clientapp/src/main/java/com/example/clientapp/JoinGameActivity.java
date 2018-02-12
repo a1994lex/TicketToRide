@@ -22,6 +22,8 @@ import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
 
+import presenters.JoinGamePresenter;
+
 public class JoinGameActivity extends AppCompatActivity implements IJoinGameView{
     Button mCreateGamebtn;
     RecyclerView.Adapter mAdapter;
@@ -30,6 +32,8 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        JoinGamePresenter.setView(this);
+        JoinGamePresenter.setActivity(this);
         setContentView(R.layout.activity_game_list);
         mRecyclerView = findViewById(R.id.game_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -87,6 +91,7 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
                  @Override
                  public void onClick(View view) {
                      Intent i = new Intent(JoinGameActivity.this, JoinGameDialogActivity.class);
+                     i.putExtra(utils.GAME_ID_TAG, mGame.getGameId());
                      startActivity(i);
                  }
              });

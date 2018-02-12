@@ -28,14 +28,17 @@ public class UIFacade {
     private UIFacade() {
     }
 
-    public void createGame(Color userColor, String gameName, int numberOfPlayers) {
-
-        Game game = new Game(gameName, "0", numberOfPlayers);
+    public String createGame(Color userColor, String gameName, int numberOfPlayers) {
+        Game game = new Game(gameName, null, numberOfPlayers);
         User user = RootClientModel.getUser();
         Map<User, Color> users = new HashMap<User, Color>();
         users.put(user, userColor);
         //game.setUsers(users);
-        ServerProxy.getInstance().createGame(game);
+        CommandResult cr = ServerProxy.getInstance().createGame(game);
+        if (!cr.getResultType().equals(utils.VALID)){
+            return cr.getResultType();
+        }
+        return null;
     }
 
     public LoginResult login(String username, String password) {
