@@ -38,7 +38,11 @@ public class JoinGamePresenter implements Observer {
 
 
     private void _joinGame(Game game, Color color){
-        if (uifacade.joinGame(game, color, this) != null);
+        game_title = game.getGameName();
+        String errormsg = uifacade.joinGame(game, color);
+        if (errormsg != null){
+            dialogView.error(errormsg);
+        }
     }
 
     private static void _setView(IJoinGameView view){

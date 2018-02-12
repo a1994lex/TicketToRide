@@ -5,7 +5,9 @@ import com.groupryan.shared.commands.ServerCommandFactory;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
+import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
+import com.groupryan.shared.utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -54,11 +56,13 @@ public class UIFacade {
         return lr;
     }
 
-    public void joinGame(Game game, Color userColor) {
+    public String joinGame(Game game, Color userColor) {
         User user = RootClientModel.getUser();
-        if (ServerProxy.getInstance().joinGame(game, user, userColor) != null){
-          //  JoinGame.
+        CommandResult cr = ServerProxy.getInstance().joinGame(game, user, userColor);
+        if (!cr.getResultType().equals(utils.VALID)){
+            return cr.getResultType();
         }
+        return null;
     }
 
     public void startGame(Game game) {
