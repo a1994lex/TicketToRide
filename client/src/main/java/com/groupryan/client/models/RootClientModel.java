@@ -5,6 +5,7 @@ import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 
 public class RootClientModel extends Observable {
@@ -50,6 +51,9 @@ public class RootClientModel extends Observable {
     public static void addUserToGame(Game game, User user, Color userColor) {
         single_instance._addUserToGame(game, user, userColor);
     }
+    public static void setGames(List<Game> games){
+        single_instance._setGames(games);
+    }
 
     private RootClientModel() {
         games = new ArrayList();
@@ -90,4 +94,7 @@ public class RootClientModel extends Observable {
         }
     }
 
+    private void _setGames(List<Game> games) {
+        this.games = (ArrayList<Game>)games;
+    }
 }

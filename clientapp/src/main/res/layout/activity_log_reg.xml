@@ -26,7 +26,8 @@
             android:layout_height="wrap_content"
             android:inputType="text"
             android:layout_gravity="center_horizontal"
-            android:text="@string/username"/>
+            android:text="@string/username"
+            android:maxLength="25"/>
 
         <EditText
             android:id="@+id/password"
@@ -35,7 +36,8 @@
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:text="@string/password"
-            android:inputType="textPassword"/>
+            android:inputType="textPassword"
+            android:maxLength="25"/>
 
         <Button
             android:id="@+id/login_button"

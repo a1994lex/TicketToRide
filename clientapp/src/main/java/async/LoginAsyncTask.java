@@ -21,7 +21,7 @@ public class LoginAsyncTask extends AsyncTask<User,Void, LoginResult> {
 
     @Override
     public LoginResult doInBackground(User... params){
-        UIFacade uiFacade = new UIFacade();
+        UIFacade uiFacade = UIFacade.getInstance();
         return uiFacade.login(params[0].getUsername(), params[0].getPassword());
 
     }

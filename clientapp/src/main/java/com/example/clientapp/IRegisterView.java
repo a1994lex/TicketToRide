@@ -1,4 +1,4 @@
-package com.groupryan.client.ui;
+package com.example.clientapp;
 
 public interface IRegisterView {
     void initializeListeners();

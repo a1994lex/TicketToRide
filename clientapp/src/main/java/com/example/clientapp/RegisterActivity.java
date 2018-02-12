@@ -1,28 +1,30 @@
 package com.example.clientapp;
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.groupryan.client.models.RootClientModel;
-import com.groupryan.client.ui.IRegisterView;
-import com.groupryan.client.ui.RegisterPresenter;
-import com.groupryan.shared.results.LoginResult;
 
-public class RegisterActivity extends AppCompatActivity implements IRegisterView{
+import async.OnLogin;
+import presenters.RegisterPresenter;
+
+public class RegisterActivity extends AppCompatActivity implements IRegisterView, OnLogin{
 
     private EditText usernameEditText;
     private EditText passwordEditText;
     private Button loginButton;
     private Button registerButton;
-    private RegisterPresenter regPresenter = new RegisterPresenter();
+    private RegisterPresenter regPresenter = new RegisterPresenter(this);
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         setContentView(R.layout.activity_log_reg);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        RootClientModel.getInstance().addObserver(regPresenter);
+        RootClientModel.getSingle_instance().addObserver(regPresenter);
         this.usernameEditText = (EditText) findViewById(R.id.username);
         this.passwordEditText = (EditText) findViewById(R.id.password);
         this.loginButton = (Button) findViewById(R.id.login_button);
@@ -129,6 +131,11 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         regPresenter.register(username, password);
+    }
+
+    public void onLogin(){
+        Intent intent = new Intent(this, LobbyActivity.class);
+        startActivity(intent);
     }
 
 }

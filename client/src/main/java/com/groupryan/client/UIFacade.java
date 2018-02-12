@@ -1,5 +1,6 @@
 package com.groupryan.client;
 
+import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.commands.ServerCommandFactory;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
@@ -25,9 +26,10 @@ public class UIFacade {
     private UIFacade() {
     }
 
-    void createGame(Color userColor, String gameName, String username, String password, int numberOfPlayers) {
+    public void createGame(Color userColor, String gameName, int numberOfPlayers) {
+
         Game game = new Game(gameName, "0", numberOfPlayers);
-        User user = new User(username, password);
+        User user = RootClientModel.getUser();
         Map<User, Color> users = new HashMap<User, Color>();
         users.put(user, userColor);
         //game.setUsers(users);
@@ -36,19 +38,30 @@ public class UIFacade {
 
     public LoginResult login(String username, String password) {
         User user = new User(username, password);
-        return ServerProxy.getInstance().login(user);
+        LoginResult lr = ServerProxy.getInstance().login(user);
+        if (lr.getGameList() != null){
+            RootClientModel.setGames(lr.getGameList());
+        }
+        return lr;
     }
 
     public LoginResult register(String username, String password) {
         User user = new User(username, password);
-        return ServerProxy.getInstance().register(user);
+        LoginResult lr = ServerProxy.getInstance().register(user);
+        if (lr.getGameList() != null){
+            RootClientModel.setGames(lr.getGameList());
+        }
+        return lr;
     }
 
-    void joinGame(Game game, User user, Color userColor) {
-        ServerProxy.getInstance().joinGame(game, user, userColor);
+    public void joinGame(Game game, Color userColor) {
+        User user = RootClientModel.getUser();
+        if (ServerProxy.getInstance().joinGame(game, user, userColor) != null){
+            JoinGame.
+        }
     }
 
-    void startGame(Game game) {
+    public void startGame(Game game) {
         ServerProxy.getInstance().startGame(game);
     }
 }
