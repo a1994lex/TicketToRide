@@ -63,7 +63,7 @@ public class ServerProxy implements IServer {
     public LoginResult register(User user) {
         ServerCommand command = serverCommandFactory.createRegisterCommand(user);
         LoginResult registerResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(REGISTER, command);
-        if (true) {  // if register succeeds
+        if (registerResult.isSucceeded()) {  // if register succeeds
             Poller poller = new Poller();
             poller.poll();
         }
@@ -76,7 +76,7 @@ public class ServerProxy implements IServer {
         ServerCommand command = serverCommandFactory.createLoginCommand(user);
         LoginResult loginResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(LOGIN, command);
         //   ClientFacade clientFacade = new ClientFacade().executeLoginCommand(loginResult);
-        if (true) {  // if login succeeds
+        if (loginResult.isSucceeded()) {  // if login succeeds
             Poller poller = new Poller();
             poller.poll();
         }
