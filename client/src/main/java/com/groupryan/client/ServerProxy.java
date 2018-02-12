@@ -18,6 +18,8 @@ public class ServerProxy implements IServer {
 
     //private List<ClientCommand> commands = new ArrayList<ClientCommand>();
 
+    Poller poller = new Poller();
+
     private static ServerCommandFactory serverCommandFactory = new ServerCommandFactory();
 
     public static ServerProxy instance = new ServerProxy();
@@ -31,13 +33,6 @@ public class ServerProxy implements IServer {
         }
         return instance;
     }
-
-
-    /* I realize that the server facades are going to need to return command results, but the server
-        doesn't really need to return that to the UI facade, so I set the return value to null.
-        What do you guys think? Because the server proxy is just going to call the client facade
-        and execute the commands. It doesn't need to return anything to the UI facade, right?
-     */
 
     @Override
     public CommandResult createGame(Game game) {
@@ -65,8 +60,7 @@ public class ServerProxy implements IServer {
     public CommandResult startGame(Game game) {
         ServerCommand command = serverCommandFactory.createStartGameCommand(game);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(START_GAME, command);
-        executeCommands(commandResult.getClientCommands());
-        return null;
+        return executeCommands(commandResult.getClientCommands());
     }
 
     @Override
@@ -105,7 +99,6 @@ public class ServerProxy implements IServer {
             command.execute();
         }
     }
-
 
     private static final String CREATE_GAME = "createGame";
     private static final String JOIN_GAME = "joinGame";
