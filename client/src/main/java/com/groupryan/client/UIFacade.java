@@ -57,7 +57,7 @@ public class UIFacade {
     public void joinGame(Game game, Color userColor) {
         User user = RootClientModel.getUser();
         if (ServerProxy.getInstance().joinGame(game, user, userColor) != null){
-            JoinGame.
+          //  JoinGame.
         }
     }
 

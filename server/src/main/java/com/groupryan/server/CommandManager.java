@@ -30,7 +30,6 @@ public class CommandManager {
 
     ClientCommandFactory factory;
 
-    // TODO: How do we store the commands that each user needs to get?
 
     public CommandManager() {
         this.factory = new ClientCommandFactory();
@@ -60,7 +59,7 @@ public class CommandManager {
 
     public ClientCommand makeLoginCommand(User user) {
         ClientCommand command = factory.createLoginCommand(user);
-         commands.add(command);
+         //commands.add(command);
         return command;
     }
 

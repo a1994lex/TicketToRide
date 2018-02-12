@@ -1,6 +1,7 @@
 package com.groupryan.shared.models;
 
 import com.google.gson.internal.LinkedTreeMap;
+import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -61,7 +62,9 @@ public class Game{
                 return "Color in use";
             }
             users.put(u, color);
-            return "User added to "+gameId;
+            //return "User added to "+gameId;
+            u.addGame(this);
+            return utils.VALID;
         }
         return "User already in game";
     }
