@@ -4,4 +4,12 @@
     <string name="register">Register</string>
     <string name="username">Username</string>
     <string name="password">Password</string>
+    <string name="choose_game">Choose a Game to Join</string>
+    <string name="empty_game_list">There are no games to join</string>
+    <string name="create_game">Create Game</string>
+    <string name="join_game">Join</string>
+
+
+
+
 </resources>
