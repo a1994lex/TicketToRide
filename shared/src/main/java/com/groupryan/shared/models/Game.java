@@ -103,11 +103,11 @@ public class Game{
     }
 
     public String getCreatorId() {
-        return creatorId;
+        return null;
     }
 
     public void setCreatorId(String creatorId) {
-        this.creatorId = creatorId;
+        //this.creatorId = creatorId;
     }
 
     public void makeGameId(){

@@ -1,7 +1,5 @@
 package presenters;
 
-import android.app.Activity;
-
 import com.groupryan.client.UIFacade;
 import com.groupryan.client.models.RootClientModel;
 import com.example.clientapp.IJoinGameView;
