@@ -5,6 +5,7 @@ import com.google.gson.internal.LinkedTreeMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 import java.util.UUID;
 
@@ -54,12 +55,17 @@ public class Game{
     public String addUser(User u,  Color color){
 
         Color c=users.get(u);//ensures the player isnt already in
+
         if(!started && c==null){
+            if(users.containsValue(color)){
+                return "Color in use";
+            }
             users.put(u, color);
             return "User added to "+gameId;
         }
         return "User already in game";
     }
+
 
     public boolean isStarted() {
         return started;
