@@ -13,6 +13,13 @@ public class RootClientModel extends Observable {
     private ArrayList<Game> games;
     private User user;
 
+    public static RootClientModel getInstance() {
+        if (single_instance == null) {
+            single_instance = new RootClientModel();
+        }
+        return single_instance;
+    }
+
     public static RootClientModel getSingle_instance(){
         return single_instance;
     }
