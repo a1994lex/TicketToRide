@@ -119,7 +119,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
     }
 
     public void login(){
-        Toast.makeText(this, "logging in!", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "logging in!", Toast.LENGTH_SHORT).show();
 
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
@@ -127,13 +127,14 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
     }
 
     public void register(){
-        Toast.makeText(this, "registerrrr", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "registerrrr", Toast.LENGTH_SHORT).show();
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         regPresenter.register(username, password);
     }
 
     public void onLogin(){
+        RootClientModel.getSingle_instance().deleteObserver(regPresenter);
         Intent intent = new Intent(this, LobbyActivity.class);
         startActivity(intent);
     }
