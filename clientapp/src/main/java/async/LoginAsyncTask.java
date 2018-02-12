@@ -28,7 +28,7 @@ public class LoginAsyncTask extends AsyncTask<User,Void, LoginResult> {
 
     public void onPostExecute(LoginResult loginResult){
         if(!loginResult.isSucceeded()){
-            Toast.makeText(loginActivity, loginResult.getUserMessage(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(loginActivity, loginResult.getUserMessage(), Toast.LENGTH_SHORT).show(); //might not need this?
         }
 
     }
