@@ -5,7 +5,9 @@ import com.groupryan.shared.commands.ServerCommandFactory;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
+import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
+import com.groupryan.shared.utils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -26,14 +28,17 @@ public class UIFacade {
     private UIFacade() {
     }
 
-    public void createGame(Color userColor, String gameName, int numberOfPlayers) {
-
-        Game game = new Game(gameName, "0", numberOfPlayers);
+    public String createGame(Color userColor, String gameName, int numberOfPlayers) {
+        Game game = new Game(gameName, null, numberOfPlayers);
         User user = RootClientModel.getUser();
         Map<User, Color> users = new HashMap<User, Color>();
         users.put(user, userColor);
         //game.setUsers(users);
-        ServerProxy.getInstance().createGame(game);
+        CommandResult cr = ServerProxy.getInstance().createGame(game);
+        if (!cr.getResultType().equals(utils.VALID)){
+            return cr.getResultType();
+        }
+        return null;
     }
 
     public LoginResult login(String username, String password) {
@@ -54,11 +59,13 @@ public class UIFacade {
         return lr;
     }
 
-    public void joinGame(Game game, Color userColor) {
+    public String joinGame(Game game, Color userColor) {
         User user = RootClientModel.getUser();
-        if (ServerProxy.getInstance().joinGame(game, user, userColor) != null){
-            JoinGame.
+        CommandResult cr = ServerProxy.getInstance().joinGame(game, user, userColor);
+        if (!cr.getResultType().equals(utils.VALID)){
+            return cr.getResultType();
         }
+        return null;
     }
 
     public void startGame(Game game) {
