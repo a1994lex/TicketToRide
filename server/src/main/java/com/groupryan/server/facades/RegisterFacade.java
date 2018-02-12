@@ -21,6 +21,7 @@ public class RegisterFacade {
             lr.addClientCommand(createReturnCommand(user));
             lr.setSucceeded(true);
             lr.setUserMessage(result);
+            lr.setGameList(RootServerModel.getInstance().getGames());
         } else {
             lr.setSucceeded(false);
             lr.setUserMessage("user already exists");

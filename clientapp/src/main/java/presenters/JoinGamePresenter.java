@@ -1,15 +1,20 @@
-package com.groupryan.client.ui;
+package presenters;
 
 import com.groupryan.client.ClientFacade;
 import com.groupryan.client.UIFacade;
 import com.groupryan.client.models.RootClientModel;
+import com.groupryan.client.ui.IJoinGameView;
 import com.groupryan.shared.models.Color;
+import com.groupryan.shared.models.Game;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
 public class JoinGamePresenter implements Observer {
     RootClientModel root;
+    int gameListSize = root.getGames().size();
     IJoinGameView gameView;
     private static JoinGamePresenter instance = new JoinGamePresenter(RootClientModel.getSingle_instance());
     private UIFacade uifacade = UIFacade.getInstance();
@@ -44,6 +49,15 @@ public class JoinGamePresenter implements Observer {
 
     @Override
     public void update(Observable observable, Object o) {
+        if (observable == root){
+            int secondSize = root.getGames().size();
+            if (secondSize > gameListSize){
+                gameView.onGameAdd();
+            }
+            else if (secondSize <gameListSize){
+                gameView.onGameDelete();
+            }
+        }
 
     }
 }

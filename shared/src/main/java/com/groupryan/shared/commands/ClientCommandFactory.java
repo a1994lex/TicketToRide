@@ -4,6 +4,8 @@ import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 
+import java.util.List;
+
 /**
  * Created by bengu3 on 1/31/18.
  */

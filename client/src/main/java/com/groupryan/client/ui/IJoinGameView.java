@@ -9,4 +9,6 @@ import java.util.List;
 public interface IJoinGameView {
     Button mCreateGamebtn = null;
     List<Game> possibleGames = new ArrayList<>();
+    void onGameAdd();
+    void onGameDelete();
 }

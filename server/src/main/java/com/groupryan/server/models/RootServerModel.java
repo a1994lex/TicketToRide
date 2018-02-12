@@ -24,6 +24,14 @@ public class RootServerModel {
         return single_instance;
     }
 
+    public ArrayList<Game> getGames() {
+        return games;
+    }
+
+    public ArrayList<User> getUsers() {
+        return users;
+    }
+
     public static String addUser(User user) {
         return single_instance._addUser(user);
     }
@@ -115,7 +123,6 @@ public class RootServerModel {
                 return "Started";
             }
         }
-        // TODO: make command to switch to game activity!
         return "Invalid gameId";
     }
 

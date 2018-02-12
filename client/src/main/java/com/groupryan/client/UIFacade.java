@@ -37,12 +37,20 @@ public class UIFacade {
 
     public LoginResult login(String username, String password) {
         User user = new User(username, password);
-        return ServerProxy.getInstance().login(user);
+        LoginResult lr = ServerProxy.getInstance().login(user);
+        if (lr.getGameList() != null){
+            RootClientModel.setGames(lr.getGameList());
+        }
+        return lr;
     }
 
     public LoginResult register(String username, String password) {
         User user = new User(username, password);
-        return ServerProxy.getInstance().register(user);
+        LoginResult lr = ServerProxy.getInstance().register(user);
+        if (lr.getGameList() != null){
+            RootClientModel.setGames(lr.getGameList());
+        }
+        return lr;
     }
 
     public void joinGame(Game game, Color userColor) {
