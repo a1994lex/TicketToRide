@@ -87,6 +87,13 @@
             android:onClick="onRadioButtonClicked" />
     </RadioGroup>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/red"
+        android:id="@+id/errorText"
+        android:visibility="gone"/>
+
     <Button
         android:layout_width="308dp"
         android:layout_height="46dp"

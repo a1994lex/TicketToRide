@@ -12,6 +12,18 @@ public class RootClientModel extends Observable {
     private ArrayList<Game> games;
     private User user;
 
+    public static RootClientModel getSingle_instance(){
+        return single_instance;
+    }
+
+    public static ArrayList<Game> getGames() {
+        return single_instance.games;
+    }
+
+    public static User getUser() {
+        return single_instance.user;
+    }
+
     private static RootClientModel single_instance = new RootClientModel();
 
 
@@ -40,16 +52,22 @@ public class RootClientModel extends Observable {
     private void _addUser(User user) {
         //what do i do here
         this.user = user;
+        setChanged();
+        notifyObservers();
     }
 
     private void _addGame(Game game) {
         games.add(game);
+        setChanged();
+        notifyObservers();
     }
 
     private void _startGame(Game game) {
         for (Game g : games) {
             if (g.equals(game)) {
                 g.setStarted(true);
+                setChanged();
+                notifyObservers();
             }
         }
         // TODO: make command so switch to game activity
@@ -59,6 +77,8 @@ public class RootClientModel extends Observable {
         for (Game g : this.games) {
             if (g.equals(game)) {
                 g.addUser(user, userColor);
+                setChanged();
+                notifyObservers();
             }
         }
     }

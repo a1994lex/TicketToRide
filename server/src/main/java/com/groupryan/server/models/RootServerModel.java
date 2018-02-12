@@ -5,12 +5,13 @@ import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 
 import java.util.ArrayList;
+import java.util.Observable;
 
 /**
  * Created by bengu3 on 1/31/18.
  */
 
-public class RootServerModel {
+public class RootServerModel extends Observable{
 
     private ArrayList<Game> games;
     private ArrayList<User> users;
@@ -62,6 +63,8 @@ public class RootServerModel {
 
     private String _addGame(Game game) {
         games.add(game);
+        setChanged();
+        notifyObservers();
         return "null";
     }
 

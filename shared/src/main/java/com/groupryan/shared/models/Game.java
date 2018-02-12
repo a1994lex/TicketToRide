@@ -5,13 +5,14 @@ import com.google.gson.internal.LinkedTreeMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Observable;
 import java.util.UUID;
 
 /**
  * Created by bengu3 on 1/31/18.
  */
 
-public class Game{
+public class Game {
     public static Game mapToObject(LinkedTreeMap map){
       String gameName;
       String gameId;
