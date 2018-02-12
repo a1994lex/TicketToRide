@@ -20,7 +20,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
     private EditText passwordEditText;
     private Button loginButton;
     private Button registerButton;
-    private RegisterPresenter regPresenter = new RegisterPresenter();
+    private RegisterPresenter regPresenter = new RegisterPresenter(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +28,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         setContentView(R.layout.activity_log_reg);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
-        RootClientModel.getInstance().addObserver(regPresenter);
+        RootClientModel.getSingle_instance().addObserver(regPresenter);
         this.usernameEditText = (EditText) findViewById(R.id.username);
         this.passwordEditText = (EditText) findViewById(R.id.password);
         this.loginButton = (Button) findViewById(R.id.login_button);
