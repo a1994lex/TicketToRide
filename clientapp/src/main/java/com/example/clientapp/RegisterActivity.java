@@ -11,8 +11,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.groupryan.client.models.RootClientModel;
 import com.groupryan.client.ui.IRegisterView;
 import com.groupryan.client.ui.RegisterPresenter;
+import com.groupryan.shared.results.LoginResult;
 
 public class RegisterActivity extends AppCompatActivity implements IRegisterView{
 
@@ -20,6 +22,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
     private EditText passwordEditText;
     private Button loginButton;
     private Button registerButton;
+    private RegisterPresenter regPresenter = new RegisterPresenter();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +30,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         setContentView(R.layout.activity_log_reg);
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
+        RootClientModel.getInstance().addObserver(regPresenter);
         this.usernameEditText = (EditText) findViewById(R.id.username);
         this.passwordEditText = (EditText) findViewById(R.id.password);
         this.loginButton = (Button) findViewById(R.id.login_button);
@@ -38,6 +42,8 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
     }
 
     public void initializeListeners(){
+
+
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -112,18 +118,17 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
     public void login(){
         Toast.makeText(this, "logging in!", Toast.LENGTH_SHORT).show();
-        RegisterPresenter regPres = new RegisterPresenter();
+
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        regPres.login(username, password);
+        regPresenter.login(username, password);
     }
 
     public void register(){
         Toast.makeText(this, "registerrrr", Toast.LENGTH_SHORT).show();
-        RegisterPresenter regPres = new RegisterPresenter();
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
-        regPres.register(username, password);
+        regPresenter.register(username, password);
     }
 
 }

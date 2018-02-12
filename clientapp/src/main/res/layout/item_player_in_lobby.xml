@@ -10,6 +10,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/player_name"
         android:text="Player 1"
+        android:layout_margin="20dp"
         android:textSize="22dp"
         android:textColor="@color/colorAccent"
         />
