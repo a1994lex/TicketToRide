@@ -5,20 +5,20 @@ import com.google.gson.internal.LinkedTreeMap;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.util.Observable;
+import java.util.TreeMap;
 import java.util.UUID;
 
 /**
  * Created by bengu3 on 1/31/18.
  */
 
-public class Game {
+public class Game{
     public static Game mapToObject(LinkedTreeMap map){
       String gameName;
       String gameId;
-      Map<User, Color> users;
+      Map<User, Color> users=new TreeMap<>();
       boolean started;
-      int maxPlayers;
+      double maxPlayers;
       gameName = (String)map.get("gameName");
       gameId = (String)map.get("gameId");
       started = (boolean)map.get("started");
@@ -32,17 +32,18 @@ public class Game {
     private String gameName;
     private String gameId;
     private boolean started = false;
-    private int maxPlayers;
+    private double maxPlayers;
 
     public Game(){}
 
-    public Game(String gameName, String gameId, int maxPlayers){
+    public Game(String gameName, String gameId, double maxPlayers){
+        users=new TreeMap<>();
         this.gameName = gameName;
         this.gameId = gameId;
         this.maxPlayers = maxPlayers;
     }
 
-    private Game(Map<User, Color> users, String gameName, String gameId, int maxPlayers, boolean started){
+    public Game(Map<User, Color> users, String gameName, String gameId, double maxPlayers, boolean started){
         this.gameName = gameName;
         this.gameId = gameId;
         this.maxPlayers = maxPlayers;
@@ -50,12 +51,14 @@ public class Game {
         this.users = users;
     }
 
-    public void addUser(User u,  Color color){
+    public String addUser(User u,  Color color){
 
-        if(!started){
+        Color c=users.get(u);//ensures the player isnt already in
+        if(!started && c==null){
             users.put(u, color);
+            return "User added to "+gameId;
         }
-        //RETURN SOMETHING SO THEY KNOW USER WAS NOT ADDED.
+        return "User already in game";
     }
 
     public boolean isStarted() {
@@ -94,7 +97,7 @@ public class Game {
         gameId = UUID.randomUUID().toString();
     }
 
-    public int getMaxPlayers() { return maxPlayers; }
+    public double getMaxPlayers() { return maxPlayers; }
 
     public void setMaxPlayers(int maxPlayers) { this.maxPlayers = maxPlayers; }
 
@@ -122,6 +125,14 @@ public class Game {
         games.add(game2);
         return games;
 
+    }
+
+
+    @Override
+    public int hashCode() {
+        int result = gameName.hashCode();
+        result = 31 * result + gameId.hashCode();
+        return result;
     }
 
     @Override

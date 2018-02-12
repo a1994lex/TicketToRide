@@ -7,6 +7,7 @@ import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -17,6 +18,7 @@ import java.util.Map;
 
 public class CommandManager {
 
+    List<ClientCommand> commands=new ArrayList<>();
     private static CommandManager instance;
 
     public static CommandManager getInstance() {
@@ -35,31 +37,36 @@ public class CommandManager {
     }
 
     public List<ClientCommand> getCommands(int index) {
-        return null;
+        return commands.subList(index, commands.size());
     }
 
     public ClientCommand makeJoinGameCommand(Game game, User user, Color userColor) {
         ClientCommand command = factory.createJoinGameCommand(game, user, userColor);
+       // commands.add(command);
         return command;
     }
 
     public ClientCommand makeCreateGameCommand(Game game) {
         ClientCommand command = factory.createCreateGameCommand(game);
+        // commands.add(command);
         return command;
     }
 
     public ClientCommand makeStartGameCommand(Game game) {
         ClientCommand command = factory.createStartGameCommand(game);
+        // commands.add(command);
         return command;
     }
 
     public ClientCommand makeLoginCommand(User user) {
         ClientCommand command = factory.createLoginCommand(user);
+         commands.add(command);
         return command;
     }
 
     public ClientCommand makeRegisterCommand(User user) {
         ClientCommand command = factory.createRegisterCommand(user);
+        // commands.add(command);
         return command;
 
     }
