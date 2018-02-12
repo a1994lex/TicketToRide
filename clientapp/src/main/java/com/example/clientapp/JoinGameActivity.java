@@ -91,6 +91,7 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
                  @Override
                  public void onClick(View view) {
                      Intent i = new Intent(JoinGameActivity.this, JoinGameDialogActivity.class);
+                     i.putExtra(utils.GAME_ID_TAG, mGame.getGameId());
                      startActivity(i);
                  }
              });
