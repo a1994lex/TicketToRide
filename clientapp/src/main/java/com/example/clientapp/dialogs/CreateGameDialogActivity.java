@@ -1,5 +1,6 @@
 package com.example.clientapp.dialogs;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -8,21 +9,50 @@ import android.widget.EditText;
 import android.widget.NumberPicker;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.clientapp.IJoinGameView;
+import com.example.clientapp.ILobbyView;
+import com.example.clientapp.LobbyActivity;
 import com.example.clientapp.R;
 
 import presenters.JoinGamePresenter;
 import com.groupryan.shared.models.Color;
+import com.groupryan.shared.utils;
 
 import java.io.IOException;
 
-public class CreateGameDialogActivity extends AppCompatActivity {
+public class CreateGameDialogActivity extends AppCompatActivity implements IJoinGameView{
     private EditText mGameTitle;
     private NumberPicker mNumPlayers;
     private RadioGroup mColors;
     private Button mContinue;
     private TextView mError;
 
+    @Override
+    public void onGameAdd() {
+//        Not necessary for this activity
+    }
+
+    @Override
+    public void onGameDelete(int position) {
+//        Not necessary for this activity
+
+    }
+
+    @Override
+    public void error(String msg){
+        Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
+
+
+    }
+
+    @Override
+    public void join(String gameid) {
+        Intent i = new Intent(CreateGameDialogActivity.this, LobbyActivity.class);
+        i.putExtra(utils.GAME_ID_TAG, gameid);
+        startActivity(i);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

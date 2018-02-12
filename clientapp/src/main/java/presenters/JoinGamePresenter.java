@@ -1,21 +1,22 @@
 package presenters;
 
-import com.groupryan.client.ClientFacade;
 import com.groupryan.client.UIFacade;
 import com.groupryan.client.models.RootClientModel;
-import com.groupryan.client.ui.IJoinGameView;
+import com.example.clientapp.IJoinGameView;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import static com.groupryan.client.models.RootClientModel.getGames;
+
 public class JoinGamePresenter implements Observer {
     RootClientModel root;
-    int gameListSize = root.getGames().size();
+    int gameListSize = getGames().size();
+    String game_title;
     IJoinGameView gameView;
+    IJoinGameView dialogView;
     private static JoinGamePresenter instance = new JoinGamePresenter(RootClientModel.getSingle_instance());
     private UIFacade uifacade = UIFacade.getInstance();
 
@@ -26,20 +27,26 @@ public class JoinGamePresenter implements Observer {
     public static void setView(IJoinGameView view){
         instance._setView(view);
     }
-    public static void joinGame(){
-        instance._joinGame();
+    public static void joinGame(Game game, Color color){
+        instance._joinGame(game, color);
     }
     private void _createGame(String title, int numPlayers, Color color){
+        game_title = title;
         uifacade.createGame(color, title, numPlayers);
+
     }
 
-    private void _joinGame(){
 
+    private void _joinGame(Game game, Color color){
+        if (uifacade.joinGame(game, color, this) != null);
     }
 
     private static void _setView(IJoinGameView view){
         if (instance.gameView == null){
             instance.gameView = view;
+        }
+        else if (instance.dialogView == null){
+            instance.dialogView = view;
         }
     }
 
@@ -55,7 +62,13 @@ public class JoinGamePresenter implements Observer {
                 gameView.onGameAdd();
             }
             else if (secondSize <gameListSize){
-                gameView.onGameDelete();
+//                gameView.onGameDelete();
+            }
+
+            for (Game game :root.getGames()){
+                if (game.getGameName() == game_title){
+                    dialogView.join(game.getGameId());
+                }
             }
         }
 

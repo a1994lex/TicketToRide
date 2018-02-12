@@ -3,6 +3,7 @@ package com.groupryan.server.models;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
+import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
 
@@ -65,18 +66,19 @@ public class RootServerModel {
 
     private String _addUser(User user) {
         users.add(user);
-        return "valid";
+        return utils.VALID;
     }
 
     private String _addGame(Game game) {
+
         games.add(game);
-        return "Game created";
+        return utils.GAME_CREATED;
     }
 
     public String _createGame(Game game){
         for (Game g:games) {
-            if(g.getGameId().equals(game.getGameId())){
-                return "Game name in use";
+            if(g.getGameId().equals(game.getGameName())){
+                return utils.GAME_NAME_IN_USE;
             }
         }
         return _addGame(game);
@@ -86,12 +88,12 @@ public class RootServerModel {
         for (User u : users) {
             if (u.getUsername().equals(user.getUsername())) {
                 if (u.getPassword().equals(user.getPassword())) {
-                    return "valid";
+                    return utils.VALID;
                 }
-                return "invalid password";
+                return utils.INVALID_PW;
             }
         }
-        return "invalid username";
+        return utils.INVALID_UN;
     }
 
     private Boolean _checkUser(User user) {
@@ -107,12 +109,12 @@ public class RootServerModel {
         for (Game g : this.games) {
             if (g.equals(game)) {
                 if(g.getMaxPlayers()==g.getUsers().size()){
-                    return "Game is full";
+                    return utils.FULL_GAME;
                 }
                return g.addUser(user, userColor);
             }
         }
-        return "Invalid gameId";
+        return utils.INVALID_GAMEID;
     }
 
 
@@ -120,10 +122,10 @@ public class RootServerModel {
         for (Game g : games) {
             if (g.equals(game)) {
                 g.setStarted(true);
-                return "Started";
+                return utils.STARTED_GAME;
             }
         }
-        return "Invalid gameId";
+        return utils.INVALID_GAMEID;
     }
 
 }

@@ -17,7 +17,6 @@ import com.example.clientapp.dialogs.JoinGameDialogActivity;
 import com.example.clientapp.dialogs.CreateGameDialogActivity;
 
 import com.groupryan.client.models.RootClientModel;
-import com.groupryan.client.ui.IJoinGameView;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.utils;
 
@@ -49,16 +48,29 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
         });
 
     }
-    protected void onGameAdd(){
+   @Override
+   public void onGameAdd(){
 //      This method is called by the JoinGamePresenter to update the View
         mAdapter.notifyDataSetChanged();
     }
 
-    protected void onGameDelete(int position){
+    @Override
+    public void onGameDelete(int position){
 //      This method is called by the JoinGamePresenter to update the View
         mRecyclerView.removeViewAt(position);
         mAdapter.notifyItemRemoved(position);
         mAdapter.notifyItemRangeChanged(position, RootClientModel.getGames().size());
+    }
+
+    @Override
+    public void join(String gameid){
+//        This is really implemented in the JoinGameDialogActivity and the CreateGameDialogActivity
+    }
+
+    @Override
+    public void error(String msg){
+//        This is really implemented in the JoinGameDialogActivity and the CreateGameDialogActivity
+
     }
 
 
@@ -75,7 +87,6 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
                  @Override
                  public void onClick(View view) {
                      Intent i = new Intent(JoinGameActivity.this, JoinGameDialogActivity.class);
-                     i.putExtra(utils.GAME_ID_TAG, mGame.getGameId());
                      startActivity(i);
                  }
              });

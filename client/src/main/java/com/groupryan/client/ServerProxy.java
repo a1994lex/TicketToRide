@@ -9,6 +9,7 @@ import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
+import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,8 +52,13 @@ public class ServerProxy implements IServer {
         ServerCommand command = serverCommandFactory.createJoinGameCommand(game, user, userColor);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance()
                 .sendCommand(JOIN_GAME, command);
-        executeCommands(commandResult.getClientCommands());
-        return null;
+        if (commandResult.getResultType().equals(utils.VALID)){
+            executeCommands(commandResult.getClientCommands());
+            return null;
+        }
+        else{
+            return commandResult;
+        }
     }
 
     @Override

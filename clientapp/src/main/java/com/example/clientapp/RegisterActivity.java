@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.groupryan.client.models.RootClientModel;
-import com.groupryan.client.ui.IRegisterView;
 
 import async.OnLogin;
 import presenters.RegisterPresenter;
