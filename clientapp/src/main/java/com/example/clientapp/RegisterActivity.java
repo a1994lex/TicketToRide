@@ -60,20 +60,6 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
             }
         });
 
-//        usernameEditText.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                usernameEditText.setText("");
-//            }
-//        });
-//
-//        passwordEditText.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                passwordEditText.setText("");
-//            }
-//        });
-
         usernameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {

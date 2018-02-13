@@ -61,7 +61,6 @@ public class RootClientModel extends Observable {
     }
 
     private void _addUser(User user) {
-        //what do i do here
         this.user = user;
         setChanged();
         notifyObservers();
@@ -77,11 +76,11 @@ public class RootClientModel extends Observable {
         for (Game g : games) {
             if (g.equals(game)) {
                 g.setStarted(true);
+                games.remove(game);
                 setChanged();
                 notifyObservers();
             }
         }
-        // TODO: make command so switch to game activity
     }
 
     private void _addUserToGame(Game game, User user, Color userColor) {
