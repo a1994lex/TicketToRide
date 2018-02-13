@@ -24,12 +24,15 @@ import com.groupryan.shared.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import async.OnJoinOrCreate;
 import presenters.JoinGamePresenter;
 
 public class JoinGameActivity extends AppCompatActivity implements IJoinGameView{
     Button mCreateGamebtn;
     RecyclerView.Adapter mAdapter;
     RecyclerView mRecyclerView;
+//    Boolean addGame;
+//    Boolean removeGame;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -58,6 +61,7 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
    @Override
    public void onGameAdd(){
 //      This method is called by the JoinGamePresenter to update the View
+//        addGame = true;
         mAdapter.notifyDataSetChanged();
     }
 
@@ -67,6 +71,7 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
 //        mRecyclerView.removeViewAt(position);
 //        mAdapter.notifyItemRemoved(position);
 //        mAdapter.notifyItemRangeChanged(position, RootClientModel.getGames().size());
+//        removeGame = true;
         mAdapter.notifyDataSetChanged();
     }
 

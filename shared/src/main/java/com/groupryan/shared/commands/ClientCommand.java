@@ -1,5 +1,6 @@
 package com.groupryan.shared.commands;
 
+
 import com.google.gson.internal.LinkedTreeMap;
 import com.groupryan.shared.commands.IClientCommand;
 import com.groupryan.shared.results.CommandResult;
@@ -62,8 +63,13 @@ public class ClientCommand implements IClientCommand {
         for (int i=0;i<types.length; i++){
             Class<?> receiver = types[i];
             try {
-                Method method = receiver.getMethod("mapToObject", LinkedTreeMap.class);
-                objects.add(method.invoke(receiver,paramValues[i]));
+                if (types[i].isEnum()){
+                    objects.add(Enum.valueOf((Class<Enum>) types[i], (String)paramValues[i]));
+                }
+                else{
+                    Method method = receiver.getMethod("mapToObject", LinkedTreeMap.class);
+                    objects.add(method.invoke(receiver,paramValues[i]));
+                }
             }
             catch (Exception e) {
                 e.printStackTrace();

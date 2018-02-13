@@ -36,9 +36,8 @@ public class ServerProxy implements IServer {
     @Override
     public CommandResult createGame(Game game) {
         ServerCommand command = serverCommandFactory.createCreateGameCommand(game);
-        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.CREATE_GAME, command);
-        executeCommands(commandResult.getClientCommands());
-        return null;
+        return (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.CREATE_GAME, command);
+
     }
 
     @Override
@@ -46,13 +45,7 @@ public class ServerProxy implements IServer {
         ServerCommand command = serverCommandFactory.createJoinGameCommand(game, user, userColor);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance()
                 .sendCommand(utils.JOIN_GAME, command);
-        if (commandResult.getResultType().equals(utils.VALID)){
-            executeCommands(commandResult.getClientCommands());
-            return null;
-        }
-        else{
-            return commandResult;
-        }
+        return commandResult;
     }
 
     @Override

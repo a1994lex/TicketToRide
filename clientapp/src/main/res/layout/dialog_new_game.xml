@@ -15,6 +15,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
+        android:textColor="@color/black"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:inputType="text"
@@ -38,6 +39,7 @@
         android:layout_marginTop="8dp"
         android:orientation="horizontal"
         android:padding="0dp"
+        android:solidColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.687"
@@ -55,6 +57,7 @@
         android:layout_marginTop="8dp"
         android:text="@string/player_num_label"
         android:textSize="18dp"
+        android:textColor="@color/black"
         app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="@+id/numberPicker"
         app:layout_constraintHorizontal_bias="0.859"
@@ -66,7 +69,7 @@
         android:id="@+id/color_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-
+        android:textColor="@color/black"
         android:layout_marginBottom="196dp"
         android:text="@string/color_label"
         android:textSize="18dp"
@@ -91,35 +94,30 @@
             android:id="@+id/radio_green"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="@color/green"
-            android:onClick="onRadioButtonClicked" />
+            android:buttonTint="@color/green" />
 
         <RadioButton
             android:id="@+id/radio_yellow"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="@color/yellow"
-            android:onClick="onRadioButtonClicked" />
+            android:buttonTint="@color/yellow"/>
 
         <RadioButton
             android:id="@+id/radio_red"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="@color/red"
-            android:onClick="onRadioButtonClicked" />
+            android:buttonTint="@color/red" />
 
         <RadioButton
             android:id="@+id/radio_blue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:buttonTint="@color/blue"
-            android:onClick="onRadioButtonClicked" />
+            android:buttonTint="@color/blue"/>
 
         <RadioButton
             android:id="@+id/radio_black"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:onClick="onRadioButtonClicked" />
+            android:layout_height="wrap_content"/>
     </RadioGroup>
     <TextView
         android:layout_width="wrap_content"
@@ -132,15 +130,12 @@
         android:id="@+id/button"
         android:layout_width="309dp"
         android:layout_height="41dp"
-        android:layout_marginBottom="72dp"
-        android:layout_marginEnd="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
         android:background="@color/colorPrimary"
         android:text="@string/continue_btn"
         android:textColor="@color/colorAccent"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="@id/game_title"
-        app:layout_constraintHorizontal_bias="0.37" />
+        app:layout_constraintLeft_toLeftOf="@id/game_title" />
 
 
 </android.support.constraint.ConstraintLayout>
