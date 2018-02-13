@@ -41,10 +41,6 @@ public class JoinGamePresenter implements Observer, OnJoinOrCreate, IJoinGamePre
     }
     private void _createGame(String title, int numPlayers, Color color){
         game_title = title;
-//        String errormsg = uifacade.createGame(color, title, numPlayers);
-//        if (errormsg != null){
-//            dialogView.error(errormsg);
-//        }
         CreateGameAsyncTask createGameAsyncTask = new CreateGameAsyncTask(joinGameActivity);
         Object[] objects = {color, title, numPlayers};
         createGameAsyncTask.execute(objects);
@@ -83,6 +79,9 @@ public class JoinGamePresenter implements Observer, OnJoinOrCreate, IJoinGamePre
             int secondSize = root.getGames().size();
             if (secondSize > gameListSize){
                 gameView.onGameAdd();
+            }
+            else if(secondSize < gameListSize){
+                gameView.onGameDelete();
             }
 //            else if (){
 ////                gameView.onGameDisable(id);

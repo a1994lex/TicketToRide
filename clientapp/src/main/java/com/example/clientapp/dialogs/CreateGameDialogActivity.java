@@ -36,7 +36,7 @@ public class CreateGameDialogActivity extends AppCompatActivity implements IJoin
     }
 
     @Override
-    public void onGameDelete(int position) {
+    public void onGameDelete(){//int position) {
 //        Not necessary for this activity
 
     }
