@@ -82,9 +82,9 @@ public class ServerProxy implements IServer {
         executeCommands(loginResult.getClientCommands());
 //        if (loginResult.isSucceeded()) {  // if login succeeds
 //            Poller poller = new Poller();
-//            poller.poll();aaa
+//            poller.poll();
 //        }
-        return (LoginResult)loginResult;
+        return loginResult;
     }
 
     public CommandResult getCommands() {
@@ -100,6 +100,4 @@ public class ServerProxy implements IServer {
             command.execute();
         }
     }
-
-
 }

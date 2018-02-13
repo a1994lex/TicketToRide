@@ -5,17 +5,7 @@ import com.groupryan.shared.models.*;
 
 public class ClientFacade {
 
-    private static ClientFacade instance;
-
-    public static ClientFacade getInstance() {
-        if (instance == null) {
-            instance = new ClientFacade();
-        }
-        return instance;
-    }
-
-    private ClientFacade() {
-    }
+    public ClientFacade() {}
 
     public void joinGame(Game game, User user, Color userColor) {
         RootClientModel.addUserToGame(game, user, userColor);
