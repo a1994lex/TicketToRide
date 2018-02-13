@@ -2,15 +2,12 @@ package com.groupryan.server;
 
 import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.commands.ClientCommandFactory;
-import com.groupryan.shared.commands.IClientCommand;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Created by bengu3 on 1/31/18.

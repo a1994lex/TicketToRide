@@ -6,6 +6,8 @@ import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
+import com.groupryan.shared.results.LoginResult;
+import com.groupryan.shared.utils;
 
 import junit.framework.TestCase;
 
@@ -16,11 +18,11 @@ public class ClientCommunicatorTest extends TestCase {
     public void testSendCommand() throws Exception {
         ClientCommunicator cc= ClientCommunicator.getInstance();
         User user=new User("ryan", "apple");
-        User u1=new User("rya", "1");
+        /*er u1=new User("rya", "1");
         User u2=new User("ry", "2");
         User u3=new User("r", "3");
         User u4=new User("ra", "4");
-        User u5=new User("ya", "5");
+        User u5=new User("ya", "5");*/
 
         ServerCommandFactory scf=new ServerCommandFactory();
 
@@ -29,14 +31,15 @@ public class ClientCommunicatorTest extends TestCase {
 
         // Login and Register tests
         sc =scf.createRegisterCommand(user);
-        cr= (CommandResult) cc.sendCommand("Register", sc);
+        cr= (CommandResult) cc.sendCommand(utils.REGISTER, sc);
+        int i=0;
        /* sc=scf.createRegisterCommand(u1);
         cr=(CommandResult) cc.sendCommand("Register", sc);
 
         sc =scf.createLoginCommand(user);
         cr= (CommandResult) cc.sendCommand("Login", sc);
         sc=scf.createLoginCommand(u1);
-         cr=(CommandResult) cc.sendCommand("Login", sc);*/
+         cr=(CommandResult) cc.sendCommand("Login", sc);
 
 
     sc=scf.createGetCommands();
@@ -94,7 +97,7 @@ public class ClientCommunicatorTest extends TestCase {
         cr=(CommandResult)cc.sendCommand("joinGame", sc);
 
         sc=scf.createJoinGameCommand(g3,u3, Color.BLACK);
-        cr=(CommandResult)cc.sendCommand("joinGame", sc);*/
+        cr=(CommandResult)cc.sendCommand("joinGame", sc);*
 
         sc=scf.createStartGameCommand(g1);
         cr=(CommandResult)cc.sendCommand("startGame", sc);
@@ -104,7 +107,7 @@ public class ClientCommunicatorTest extends TestCase {
 
 
         sc=scf.createGetCommands();
-        cr= (CommandResult) cc.sendCommand("getCommands", sc);
+        cr= (CommandResult) cc.sendCommand("getCommands", sc);*/
 
     int j=0;
     }

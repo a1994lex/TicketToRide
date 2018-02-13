@@ -1,5 +1,7 @@
 package presenters;
 
+import android.app.Activity;
+
 import com.groupryan.client.UIFacade;
 import com.groupryan.client.models.RootClientModel;
 import com.example.clientapp.IJoinGameView;
@@ -52,10 +54,7 @@ public class JoinGamePresenter implements Observer, OnJoinOrCreate, IJoinGamePre
 
     private void _joinGame(Game game, Color color){
         game_title = game.getGameName();
-//        String errormsg = uifacade.joinGame(game, color);
-//        if (errormsg != null){
-//            dialogView.error(errormsg);
-//        }
+
         JoinAsyncTask joinAsyncTask = new JoinAsyncTask(joinGameActivity);
         Object[] objects = {game, color};
         joinAsyncTask.execute(objects);

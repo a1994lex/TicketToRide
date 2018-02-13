@@ -4,7 +4,6 @@ import com.groupryan.server.CommandManager;
 import com.groupryan.server.models.RootServerModel;
 import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.models.User;
-import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
 
 /**
