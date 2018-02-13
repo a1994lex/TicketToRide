@@ -37,7 +37,7 @@ public class CommandManager {
         return commands.subList(index, commands.size());
     }
 
-    public ClientCommand makeJoinGameCommand(Game game, User user, Color userColor) {
+    public ClientCommand makeJoinGameCommand(Game game, User user, String userColor) {
         ClientCommand command = factory.createJoinGameCommand(game, user, userColor);
         commands.add(command);
         return command;

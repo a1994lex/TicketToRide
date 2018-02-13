@@ -25,7 +25,7 @@ public class MainFacade implements IServer {
     }
 
     @Override
-    public CommandResult joinGame(Game game, User user, Color userColor) {
+    public CommandResult joinGame(Game game, User user, String userColor) {
         JoinGameFacade jgf = new JoinGameFacade();
         return jgf.joinGame(game, user, userColor);
     }

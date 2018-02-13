@@ -10,6 +10,11 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.UUID;
 
+import static com.groupryan.shared.utils.BLUE;
+import static com.groupryan.shared.utils.GREEN;
+import static com.groupryan.shared.utils.RED;
+import static com.groupryan.shared.utils.YELLOW;
+
 /**
  * Created by bengu3 on 1/31/18.
  */
@@ -18,7 +23,7 @@ public class Game{
     public static Game mapToObject(LinkedTreeMap map){
       String gameName;
       String gameId;
-      Map<String, Color> users=new TreeMap<>();
+      Map<String, String> users=new TreeMap<>();
       boolean started;
       double maxPlayers;
       gameName = (String)map.get("gameName");
@@ -26,11 +31,11 @@ public class Game{
       started = (boolean)map.get("started");
       double players = (double)map.get("maxPlayers");
       maxPlayers = (int)players;
-      users = (Map<String, Color>)map.get("users");
+      users = (Map<String, String>)map.get("users");
       return new Game(users, gameName, gameId, maxPlayers, started);
     }
 
-    private Map<String, Color> users;
+    private Map<String, String> users;
     private String gameName;
     private String gameId;
     private boolean started = false;
@@ -45,7 +50,7 @@ public class Game{
         this.maxPlayers = maxPlayers;
     }
 
-    public Game(Map<String, Color> users, String gameName, String gameId, double maxPlayers, boolean started){
+    public Game(Map<String, String> users, String gameName, String gameId, double maxPlayers, boolean started){
         this.gameName = gameName;
         this.gameId = gameId;
         this.maxPlayers = maxPlayers;
@@ -53,9 +58,9 @@ public class Game{
         this.users = users;
     }
 
-    public String addUser(User u,  Color color){
+    public String addUser(User u,  String color){
 
-        Color c=users.get(u);//ensures the player isnt already in
+        String c=users.get(u);//ensures the player isnt already in
 
         if(!started && c==null){
             if(users.containsValue(color)){
@@ -78,11 +83,11 @@ public class Game{
         this.started = started;
     }
 
-    public Map<String, Color> getUsers() {
+    public Map<String, String> getUsers() {
         return users;
     }
 
-    public void setUsers(Map<String, Color> users) {
+    public void setUsers(Map<String, String> users) {
         this.users = users;
     }
 
@@ -123,10 +128,10 @@ public class Game{
         ArrayList<Game> games = new ArrayList<Game>();
         User u = new User("clairescout", "gammon");
         Game game = new Game("game1", "gameID", 2);
-        game.addUser(u, Color.RED);
+        game.addUser(u, RED);
 
         User u2 = new User("sheila", "parker");
-        game.addUser(u2, Color.BLUE);
+        game.addUser(u2, BLUE);
         u.addGame(game);
         u2.addGame(game);
 
@@ -134,8 +139,8 @@ public class Game{
 
         User u3 = new User("jimbob", "duggar");
         User u4 = new User("joanna", "newsom");
-        game2.addUser(u3, Color.GREEN);
-        game2.addUser(u4, Color.YELLOW);
+        game2.addUser(u3, GREEN);
+        game2.addUser(u4, YELLOW);
         u3.addGame(game2);
         u4.addGame(game2);
 

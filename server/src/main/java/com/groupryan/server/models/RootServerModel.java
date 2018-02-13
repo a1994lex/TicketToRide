@@ -59,7 +59,7 @@ public class RootServerModel {
         return single_instance._checkUser(user);
     }
 
-    public static String addUserToGame(Game game, User user, Color userColor) {
+    public static String addUserToGame(Game game, User user, String userColor) {
         return single_instance._addUserToGame(game, user, userColor);
     }
 
@@ -136,7 +136,7 @@ public class RootServerModel {
         return false;
     }
 
-    private String _addUserToGame(Game game, User user, Color userColor) {
+    private String _addUserToGame(Game game, User user, String userColor) {
         for (Game g : this.games) {
             if (g.equals(game)) {
                 if(g.getMaxPlayers()==g.getUsers().size()){

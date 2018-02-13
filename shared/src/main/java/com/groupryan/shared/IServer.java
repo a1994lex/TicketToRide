@@ -9,7 +9,7 @@ import com.groupryan.shared.results.LoginResult;
 public interface IServer {
     CommandResult createGame(Game game);
 
-    CommandResult joinGame(Game game, User user, Color userColor);
+    CommandResult joinGame(Game game, User user, String userColor);
 
     CommandResult startGame(Game game);
 

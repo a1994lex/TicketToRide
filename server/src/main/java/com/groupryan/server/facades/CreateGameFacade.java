@@ -23,9 +23,9 @@ public class CreateGameFacade {
         if(result.equals(utils.VALID)){
             cr.addClientCommand(createReturnCommand(game));
         }
-        for (Map.Entry<String, Color> entry : game.getUsers().entrySet()) {
+        for (Map.Entry<String, String> entry : game.getUsers().entrySet()) {
             User u = RootServerModel.getUser(entry.getKey());
-            Color c=entry.getValue();
+            String c=entry.getValue();
 
             cr.addClientCommand(createReturCommand(game, u, c));
             break;
@@ -43,7 +43,7 @@ public class CreateGameFacade {
         CommandManager cm = CommandManager.getInstance();
         return cm.makeCreateGameCommand(game);
     }
-    ClientCommand createReturCommand(Game game, User u, Color c) {
+    ClientCommand createReturCommand(Game game, User u, String c) {
         CommandManager cm = CommandManager.getInstance();
         return cm.makeJoinGameCommand(game, u, c);
     }

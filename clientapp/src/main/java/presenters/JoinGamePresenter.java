@@ -40,10 +40,10 @@ public class JoinGamePresenter implements Observer, IJoinGamePresenter{
     public static void setView(IJoinGameView view){
         instance._setView(view);
     }
-    public static void joinGame(Game game, Color color){
+    public static void joinGame(Game game, String color){
         instance._joinGame(game, color);
     }
-    private void _createGame(String title, int numPlayers, Color color){
+    private void _createGame(String title, int numPlayers, String color){
         game_title = title;
         CreateGameAsyncTask createGameAsyncTask = new CreateGameAsyncTask(createDialogActivity);
         Object[] objects = {color, title, numPlayers};
@@ -52,7 +52,7 @@ public class JoinGamePresenter implements Observer, IJoinGamePresenter{
     }
 
 
-    private void _joinGame(Game game, Color color){
+    private void _joinGame(Game game, String color){
         game_title = game.getGameName();
 
         JoinAsyncTask joinAsyncTask = new JoinAsyncTask(joinDialogActivity);
@@ -69,7 +69,7 @@ public class JoinGamePresenter implements Observer, IJoinGamePresenter{
         }
     }
 
-    public static void createGame(String title, int numPlayers, Color color){
+    public static void createGame(String title, int numPlayers, String color){
         instance._createGame(title, numPlayers, color);
     }
 

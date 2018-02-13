@@ -7,7 +7,7 @@ public class ClientFacade {
 
     public ClientFacade() {}
 
-    public void joinGame(Game game, User user, Color userColor) {
+    public void joinGame(Game game, User user, String userColor) {
         RootClientModel.addUserToGame(game, user, userColor);
     }
 
