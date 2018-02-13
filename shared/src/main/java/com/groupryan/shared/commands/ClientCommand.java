@@ -63,16 +63,18 @@ public class ClientCommand implements IClientCommand {
         for (int i=0;i<types.length; i++){
             Class<?> receiver = types[i];
             try {
-                if (types[i].isEnum()){
-                    objects.add(Enum.valueOf((Class<Enum>) types[i], (String)paramValues[i]));
+
+                if (types[i].getName().startsWith("java.lang")){
+                    objects.add((String)paramValues[i]);
                 }
                 else{
                     Method method = receiver.getMethod("mapToObject", LinkedTreeMap.class);
                     objects.add(method.invoke(receiver,paramValues[i]));
                 }
+
             }
             catch (Exception e) {
-                e.printStackTrace();
+                e.getCause().printStackTrace();
             }
         }
         return objects;
