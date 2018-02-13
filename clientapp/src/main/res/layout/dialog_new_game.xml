@@ -16,7 +16,6 @@
         android:layout_marginTop="8dp"
         android:label="Game Title"
         android:textColor="@color/black"
-        android:text="@string/game_title_prompt"
          />
     <NumberPicker
         android:id="@+id/numberPicker"
