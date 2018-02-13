@@ -38,10 +38,8 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        JoinGamePresenter.setView(this);
         JoinGamePresenter.setActivity(this);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-
+        JoinGamePresenter.setView(this);
         setContentView(R.layout.activity_game_list);
         mRecyclerView = findViewById(R.id.game_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -60,15 +58,16 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
         });
 
     }
-   @Override
-   public void onGameAdd(){
+
+    @Override
+    public void onGameAdd() {
 //      This method is called by the JoinGamePresenter to update the View
 //        addGame = true;
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void onGameDelete(){//int position){
+    public void onGameDelete() {//int position){
 //      This method is called by the JoinGamePresenter to update the View
 //        mRecyclerView.removeViewAt(position);
 //        mAdapter.notifyItemRemoved(position);
@@ -78,52 +77,53 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
     }
 
     @Override
-    public void join(String gameid){
+    public void join(String gameid) {
 //        This is really implemented in the JoinGameDialogActivity and the CreateGameDialogActivity
     }
 
     @Override
-    public void error(String msg){
+    public void error(String msg) {
 //        This is really implemented in the JoinGameDialogActivity and the CreateGameDialogActivity
 
     }
 
 
-    private class GameHolder extends RecyclerView.ViewHolder{
+    private class GameHolder extends RecyclerView.ViewHolder {
         private Button mJoinGameBtn;
         private TextView mGameTitle;
         private Game mGame;
-         public GameHolder(View itemView){
-             super(itemView);
-             mJoinGameBtn = itemView.findViewById(R.id.join_game_btn);
-             mGameTitle = itemView.findViewById(R.id.game_title);
+
+        public GameHolder(View itemView) {
+            super(itemView);
+            mJoinGameBtn = itemView.findViewById(R.id.join_game_btn);
+            mGameTitle = itemView.findViewById(R.id.game_title);
 
 
-             mJoinGameBtn.setOnClickListener(new View.OnClickListener() {
-                 @Override
-                 public void onClick(View view) {
-                     if(mGame.getUsers().containsKey(RootClientModel.getUser().getUsername())){
-                         Intent i = new Intent(JoinGameActivity.this, LobbyActivity.class);
-                         startActivity(i);
-                     }
-                     Intent i = new Intent(JoinGameActivity.this, JoinGameDialogActivity.class);
-                     i.putExtra(utils.GAME_ID_TAG, mGame.getGameId());
-                     startActivity(i);
-                 }
-             });
-         }
+            mJoinGameBtn.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mGame.getUsers().containsKey(RootClientModel.getUser().getUsername())) {
+                        Intent i = new Intent(JoinGameActivity.this, LobbyActivity.class);
+                        startActivity(i);
+                    }
+                    Intent i = new Intent(JoinGameActivity.this, JoinGameDialogActivity.class);
+                    i.putExtra(utils.GAME_ID_TAG, mGame.getGameId());
+                    startActivity(i);
+                }
+            });
+        }
 
-         public void bindGame(Game game){
-             this.mGame = game;
-             mGameTitle.setText(game.getGameName());
-         }
+        public void bindGame(Game game) {
+            this.mGame = game;
+            mGameTitle.setText(game.getGameName());
+        }
     }
 
-    private class GameAdapter extends RecyclerView.Adapter<GameHolder>{
+    private class GameAdapter extends RecyclerView.Adapter<GameHolder> {
         private ArrayList<Game> mGames = combineLists();
 
 
-        public ArrayList combineLists(){
+        public ArrayList combineLists() {
             List<Game> usersGames = RootClientModel.getUser().getGameList();
             ArrayList<Game> games = RootClientModel.getGames();
             games.addAll(usersGames);
@@ -139,8 +139,8 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
 
         @Override
         public void onBindViewHolder(GameHolder holder, int position) {
-                Game game = mGames.get(position);
-                holder.bindGame(game);
+            Game game = mGames.get(position);
+            holder.bindGame(game);
         }
 
         @Override

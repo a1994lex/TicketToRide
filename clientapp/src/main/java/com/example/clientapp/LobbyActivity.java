@@ -1,6 +1,7 @@
 package com.example.clientapp;
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -116,7 +117,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
 
         @Override
         public int getItemCount() {
-            if (mUserIds.size() == mGame.getMaxPlayers()){
+            if (mUserIds.size() == mGame.getMaxPlayers()) {
                 enableStartButton();
             }
             return mUserIds.size();
