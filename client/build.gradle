@@ -2,9 +2,9 @@ apply plugin: 'java-library'
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile files('gson-2.8.2.jar')
     compile project(path: ':shared')
     testCompileOnly files('junit-4.12.jar')
+    implementation project(':gson-2.8.2')
 }
 
 sourceCompatibility = "1.8"
