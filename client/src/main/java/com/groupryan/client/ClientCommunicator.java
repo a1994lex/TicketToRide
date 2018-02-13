@@ -6,6 +6,7 @@ import com.groupryan.shared.commands.ServerCommand;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.GameListResult;
 import com.groupryan.shared.results.LoginResult;
+import com.groupryan.shared.utils;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -39,7 +40,7 @@ public class ClientCommunicator {
      */
     public Object sendCommand(String commandName, ServerCommand command) {
         HttpURLConnection connection = openConnection(EXEC_COMMAND, commandName);
-        if (commandName.equals(LOGIN) || commandName.equals(REGISTER)) {
+        if (commandName.equals(utils.LOGIN) || commandName.equals(utils.REGISTER)) {
             LoginResult result;
             if (connection != null) {
                 sendToServer(connection, command);
@@ -51,7 +52,7 @@ public class ClientCommunicator {
             }
         }
         else {
-            if (commandName.equals(GET_GAME_LIST)) {
+            if (commandName.equals(utils.GET_GAME_LIST)) {
                 GameListResult result;
                 if (connection != null) {
                     sendToServer(connection, command);
@@ -188,8 +189,5 @@ public class ClientCommunicator {
     private static final String URL_PREFIX = "http://" + SERVER_HOST + ":" + PORT_NUMBER;
     private static final String HTTP_POST = "POST";
     private static final String COMMAND_NAME = "CommandName";   // HTTP request header to determine
-                                                                // which kind of command is sent
-    private static final String REGISTER = "Register";
-    private static final String LOGIN = "Login";
-    private static final String GET_GAME_LIST = "Get Game List";
+    // which kind of command is sent
 }
