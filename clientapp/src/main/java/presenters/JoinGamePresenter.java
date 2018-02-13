@@ -15,7 +15,7 @@ import async.OnJoinOrCreate;
 
 import static com.groupryan.client.models.RootClientModel.getGames;
 
-public class JoinGamePresenter implements Observer, OnJoinOrCreate{
+public class JoinGamePresenter implements Observer, OnJoinOrCreate, IJoinGamePresenter{
     RootClientModel root;
     int gameListSize = getGames().size();
     String game_title;
