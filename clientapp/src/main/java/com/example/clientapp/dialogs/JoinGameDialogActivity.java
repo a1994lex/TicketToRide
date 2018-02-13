@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
@@ -65,6 +66,8 @@ public class JoinGameDialogActivity extends AppCompatActivity implements IJoinGa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
         JoinGamePresenter.setView(this);
         Intent incoming = getIntent();
         String gameID = incoming.getStringExtra(utils.GAME_ID_TAG);
@@ -133,7 +136,7 @@ public class JoinGameDialogActivity extends AppCompatActivity implements IJoinGa
     }
 
     public void enableColors() throws IOException{
-        Map<User, Color> colorMap = mGame.getUsers();
+        Map<String, Color> colorMap = mGame.getUsers();
         for (Color color: colorMap.values()) {
             switch (color){
                 case RED:

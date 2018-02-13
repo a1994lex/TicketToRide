@@ -18,7 +18,7 @@ public class Game{
     public static Game mapToObject(LinkedTreeMap map){
       String gameName;
       String gameId;
-      Map<User, Color> users=new TreeMap<>();
+      Map<String, Color> users=new TreeMap<>();
       boolean started;
       double maxPlayers;
       gameName = (String)map.get("gameName");
@@ -26,11 +26,11 @@ public class Game{
       started = (boolean)map.get("started");
       double players = (double)map.get("maxPlayers");
       maxPlayers = (int)players;
-      users = (Map<User, Color>)map.get("users");
+      users = (Map<String, Color>)map.get("users");
       return new Game(users, gameName, gameId, maxPlayers, started);
     }
 
-    private Map<User, Color> users;
+    private Map<String, Color> users;
     private String gameName;
     private String gameId;
     private boolean started = false;
@@ -45,7 +45,7 @@ public class Game{
         this.maxPlayers = maxPlayers;
     }
 
-    public Game(Map<User, Color> users, String gameName, String gameId, double maxPlayers, boolean started){
+    public Game(Map<String, Color> users, String gameName, String gameId, double maxPlayers, boolean started){
         this.gameName = gameName;
         this.gameId = gameId;
         this.maxPlayers = maxPlayers;
@@ -61,7 +61,7 @@ public class Game{
             if(users.containsValue(color)){
                 return "Color in use";
             }
-            users.put(u, color);
+            users.put(u.getUsername(), color);
             //return "User added to "+gameId;
             u.addGame(this);
             return utils.VALID;
@@ -78,11 +78,11 @@ public class Game{
         this.started = started;
     }
 
-    public Map<User, Color> getUsers() {
+    public Map<String, Color> getUsers() {
         return users;
     }
 
-    public void setUsers(Map<User, Color> users) {
+    public void setUsers(Map<String, Color> users) {
         this.users = users;
     }
 

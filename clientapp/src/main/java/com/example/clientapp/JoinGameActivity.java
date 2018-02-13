@@ -2,6 +2,7 @@ package com.example.clientapp;
 
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -35,6 +37,8 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
         super.onCreate(savedInstanceState);
         JoinGamePresenter.setView(this);
         JoinGamePresenter.setActivity(this);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         setContentView(R.layout.activity_game_list);
         mRecyclerView = findViewById(R.id.game_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));

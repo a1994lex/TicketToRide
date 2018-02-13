@@ -44,7 +44,7 @@ public class ClientCommunicator {
             LoginResult result;
             if (connection != null) {
                 sendToServer(connection, command);
-                return result = (LoginResult) returnResult(connection, LoginResult.class);
+                return returnResult(connection, LoginResult.class);
             }
             else {
                 result = new LoginResult(); // send result with exception, failed to connect
@@ -56,7 +56,7 @@ public class ClientCommunicator {
                 GameListResult result;
                 if (connection != null) {
                     sendToServer(connection, command);
-                    return result = (GameListResult) returnResult(connection, GameListResult.class);
+                    return returnResult(connection, GameListResult.class);
                 }
                 else {
                     result = new GameListResult(); // send result with exception, failed to connect
@@ -67,7 +67,7 @@ public class ClientCommunicator {
                 CommandResult result;
                 if (connection != null) {
                     sendToServer(connection, command);
-                    return result = (CommandResult) returnResult(connection, CommandResult.class);
+                    return returnResult(connection, CommandResult.class);
                 }
                 else {
                     result = new CommandResult(); // send result with exception, failed to connect

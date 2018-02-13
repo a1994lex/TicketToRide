@@ -6,6 +6,7 @@ import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
@@ -59,6 +60,7 @@ public class CreateGameDialogActivity extends Activity implements IJoinGameView{
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_new_game);
         JoinGamePresenter.setView(this);
         mGameTitle = findViewById(R.id.game_title);

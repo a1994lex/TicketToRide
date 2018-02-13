@@ -83,22 +83,22 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
 
     private class LobbyHolder extends RecyclerView.ViewHolder {
         private TextView mPlayerName;
-        private User mUser;
+        private String mUserId;
 
         public LobbyHolder(View itemView) {
             super(itemView);
             mPlayerName = itemView.findViewById(R.id.player_name);
         }
 
-        public void bindUser(User user) {
-            this.mUser = user;
+        public void bindUser(String userId) {
+            this.mUserId = userId;
 //            mPlayerName.setBackgroundColor();
-            mPlayerName.setText(mUser.getUsername());
+            mPlayerName.setText(mUserId);
         }
     }
 
     private class LobbyAdapter extends RecyclerView.Adapter<LobbyActivity.LobbyHolder> {
-        private ArrayList<User> mUsers = new ArrayList<>(mGame.getUsers().keySet());
+        private ArrayList<String> mUserIds = new ArrayList<>(mGame.getUsers().keySet());
 
         @Override
         public LobbyActivity.LobbyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -109,13 +109,13 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
 
         @Override
         public void onBindViewHolder(LobbyActivity.LobbyHolder holder, int position) {
-            User user = mUsers.get(position);
-            holder.bindUser(user);
+            String userId = mUserIds.get(position);
+            holder.bindUser(userId);
         }
 
         @Override
         public int getItemCount() {
-            return mUsers.size();
+            return mUserIds.size();
         }
     }
 }
