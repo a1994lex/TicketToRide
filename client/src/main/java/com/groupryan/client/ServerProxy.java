@@ -37,7 +37,7 @@ public class ServerProxy implements IServer {
     @Override
     public CommandResult createGame(Game game) {
         ServerCommand command = serverCommandFactory.createCreateGameCommand(game);
-        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(CREATE_GAME, command);
+        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.CREATE_GAME, command);
         executeCommands(commandResult.getClientCommands());
         return null;
     }
@@ -46,7 +46,7 @@ public class ServerProxy implements IServer {
     public CommandResult joinGame(Game game, User user, Color userColor) {
         ServerCommand command = serverCommandFactory.createJoinGameCommand(game, user, userColor);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance()
-                .sendCommand(JOIN_GAME, command);
+                .sendCommand(utils.JOIN_GAME, command);
         if (commandResult.getResultType().equals(utils.VALID)){
             executeCommands(commandResult.getClientCommands());
             return null;
@@ -59,7 +59,7 @@ public class ServerProxy implements IServer {
     @Override
     public CommandResult startGame(Game game) {
         ServerCommand command = serverCommandFactory.createStartGameCommand(game);
-        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(START_GAME, command);
+        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.START_GAME, command);
         executeCommands(commandResult.getClientCommands());
         return null;
     }
@@ -67,7 +67,7 @@ public class ServerProxy implements IServer {
     @Override
     public LoginResult register(User user) {
         ServerCommand command = serverCommandFactory.createRegisterCommand(user);
-        LoginResult registerResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(REGISTER, command);
+        LoginResult registerResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(utils.REGISTER, command);
         if (registerResult.isSucceeded()) {  // if register succeeds
             Poller poller = new Poller();
             poller.poll();
@@ -79,18 +79,18 @@ public class ServerProxy implements IServer {
     @Override
     public LoginResult login(User user) {
         ServerCommand command = serverCommandFactory.createLoginCommand(user);
-        LoginResult loginResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(LOGIN, command);
+        LoginResult loginResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(utils.LOGIN, command);
         executeCommands(loginResult.getClientCommands());
         if (loginResult.isSucceeded()) {  // if login succeeds
             Poller poller = new Poller();
             poller.poll();
         }
-        return loginResult;
+        return (LoginResult)loginResult;
     }
 
     public CommandResult getCommands() {
         ServerCommand command = serverCommandFactory.createGetCommands();
-        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(GET_COMMANDS, command);
+        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.GET_COMMANDS, command);
         executeCommands(commandResult.getClientCommands());
         return commandResult;
     }
@@ -101,11 +101,5 @@ public class ServerProxy implements IServer {
         }
     }
 
-    private static final String CREATE_GAME = "createGame";
-    private static final String JOIN_GAME = "joinGame";
-    private static final String START_GAME = "startGame";
-    private static final String REGISTER = "register";
-    private static final String LOGIN = "login";
-    private static final String GET_COMMANDS = "getCommands";
-    private static final String GET_GAME_LIST = "getGameList";
+
 }
