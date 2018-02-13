@@ -61,7 +61,7 @@ public class ClientCommunicatorTest extends TestCase {
 /////games created
         sc=scf.createJoinGameCommand(g1,user, Color.BLACK);
         cr=(CommandResult)cc.sendCommand("joinGame", sc);
-
+/*
         sc=scf.createJoinGameCommand(g2,user, Color.BLACK);
         cr=(CommandResult)cc.sendCommand("joinGame", sc);
         sc=scf.createJoinGameCommand(g2,u4, Color.BLACK);
@@ -94,11 +94,14 @@ public class ClientCommunicatorTest extends TestCase {
         cr=(CommandResult)cc.sendCommand("joinGame", sc);
 
         sc=scf.createJoinGameCommand(g3,u3, Color.BLACK);
-        cr=(CommandResult)cc.sendCommand("joinGame", sc);
-
+        cr=(CommandResult)cc.sendCommand("joinGame", sc);*/
 
         sc=scf.createStartGameCommand(g1);
         cr=(CommandResult)cc.sendCommand("startGame", sc);
+
+        sc =scf.createRegisterCommand(u5);
+        cr= (CommandResult) cc.sendCommand("Register", sc);
+
 
         sc=scf.createGetCommands();
         cr= (CommandResult) cc.sendCommand("getCommands", sc);
