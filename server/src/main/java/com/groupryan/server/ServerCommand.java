@@ -46,7 +46,7 @@ public class ServerCommand implements IServerCommand {
         try {
             Class<?> receiver = Class.forName(_className);
             Class<?>[] types = getClassParamTypes();
-            Gson g=new Gson();
+
             ArrayList<Object> objects = getObjects(types, _paramValues);
             Object[] objectParamVals = objects.toArray(new Object[objects.size()]);
             Method method = receiver.getMethod(_methodName, types);
@@ -66,8 +66,8 @@ public class ServerCommand implements IServerCommand {
             Class<?> receiver = types[i];
             try {
 
-                if (types[i].isEnum()){
-                    objects.add(Enum.valueOf((Class<Enum>) types[i], (String)paramValues[i]));
+                if (types[i].getName().startsWith("java.lang")){
+                    objects.add((String)paramValues[i]);
                 }
                 else{
                     Method method = receiver.getMethod("mapToObject", LinkedTreeMap.class);
