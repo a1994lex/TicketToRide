@@ -32,6 +32,7 @@ package="com.example.clientapp">
              android:theme="@android:style/Theme.Holo.Light.Dialog">
 
          </activity>
+        <activity android:name=".GamePlayActivity"></activity>
 
     </application>
 

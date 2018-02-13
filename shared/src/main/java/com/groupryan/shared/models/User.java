@@ -66,13 +66,13 @@ public class User implements Comparable{
     public List<User> makeTestUsers(){
         ArrayList<User> users = new ArrayList();
         User u = new User("clairescout", "gammon");
-        Game game = new Game("game1", "gameID",2);
+        Game game = new Game("game1", "gameID",5);
         //game.addUser(u, RED);
         u.addGame(game);
         users.add(u);
         User u2 = new User("sheila", "parker");
         //game.addUser(u2, BLUE);
-        Game game2 = new Game("game2", "gameID2", 2);
+        Game game2 = new Game("game2", "gameID2", 3);
         u2.addGame(game);
         users.add(u2);
         User u3 = new User("jimbob", "duggar");
