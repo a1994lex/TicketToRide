@@ -5,6 +5,7 @@ dependencies {
     compile project(path: ':shared')
     testCompileOnly files('junit-4.12.jar')
     implementation project(':gson-2.8.2')
+    compile 'com.google.code.gson:gson:2.8.2'
 }
 
 sourceCompatibility = "1.8"

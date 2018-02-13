@@ -43,7 +43,6 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         setContentView(R.layout.activity_game_list);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         mRecyclerView = findViewById(R.id.game_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
