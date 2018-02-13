@@ -62,41 +62,41 @@ public class ClientCommunicatorTest extends TestCase {
         sc=scf.createCreateCommand(g4);
         cr=(CommandResult) cc.sendCommand("createGame", sc);
 /////games created
-        sc=scf.createJoinGameCommand(g1,user, Color.BLACK);
+        sc=scf.createJoinGameCommand(g1,user, BLACK);
         cr=(CommandResult)cc.sendCommand("joinGame", sc);
 /*
-        sc=scf.createJoinGameCommand(g2,user, Color.BLACK);
+        sc=scf.createJoinGameCommand(g2,user, BLACK);
         cr=(CommandResult)cc.sendCommand("joinGame", sc);
-        sc=scf.createJoinGameCommand(g2,u4, Color.BLACK);
-        cr=(CommandResult)cc.sendCommand("joinGame", sc);
-
-
-
-
-
-        sc=scf.createJoinGameCommand(g3,user, Color.BLACK);
+        sc=scf.createJoinGameCommand(g2,u4, BLACK);
         cr=(CommandResult)cc.sendCommand("joinGame", sc);
 
-        sc=scf.createJoinGameCommand(g4,user, Color.BLACK);
+
+
+
+
+        sc=scf.createJoinGameCommand(g3,user, BLACK);
+        cr=(CommandResult)cc.sendCommand("joinGame", sc);
+
+        sc=scf.createJoinGameCommand(g4,user, BLACK);
         cr=(CommandResult)cc.sendCommand("joinGame", sc);
 ///////first user joins all games
 
-        sc=scf.createJoinGameCommand(g1,u1, Color.GREEN);
+        sc=scf.createJoinGameCommand(g1,u1, GREEN);
         cr=(CommandResult)cc.sendCommand("joinGame", sc);
 
-        sc=scf.createJoinGameCommand(g2,u1, Color.GREEN);
+        sc=scf.createJoinGameCommand(g2,u1, GREEN);
         cr=(CommandResult)cc.sendCommand("joinGame", sc);
 
-        sc=scf.createJoinGameCommand(g3,u1, Color.GREEN);
+        sc=scf.createJoinGameCommand(g3,u1, GREEN);
         cr=(CommandResult)cc.sendCommand("joinGame", sc);
 ///2nd user joins games
-        sc=scf.createJoinGameCommand(g1,u2, Color.RED);
+        sc=scf.createJoinGameCommand(g1,u2, RED);
         cr=(CommandResult)cc.sendCommand("joinGame", sc);
 
-        sc=scf.createJoinGameCommand(g2,u2, Color.RED);
+        sc=scf.createJoinGameCommand(g2,u2, RED);
         cr=(CommandResult)cc.sendCommand("joinGame", sc);
 
-        sc=scf.createJoinGameCommand(g3,u3, Color.BLACK);
+        sc=scf.createJoinGameCommand(g3,u3, BLACK);
         cr=(CommandResult)cc.sendCommand("joinGame", sc);*
 
         sc=scf.createStartGameCommand(g1);

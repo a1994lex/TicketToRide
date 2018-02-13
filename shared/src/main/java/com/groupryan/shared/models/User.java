@@ -67,11 +67,11 @@ public class User implements Comparable{
         ArrayList<User> users = new ArrayList();
         User u = new User("clairescout", "gammon");
         Game game = new Game("game1", "gameID",2);
-        //game.addUser(u, Color.RED);
+        //game.addUser(u, RED);
         u.addGame(game);
         users.add(u);
         User u2 = new User("sheila", "parker");
-        //game.addUser(u2, Color.BLUE);
+        //game.addUser(u2, BLUE);
         Game game2 = new Game("game2", "gameID2", 2);
         u2.addGame(game);
         users.add(u2);
@@ -82,8 +82,8 @@ public class User implements Comparable{
         u4.addGame(game2);
 
         users.add(u4);
-//        game2.addUser(u3, Color.GREEN);
-//        game2.addUser(u4, Color.YELLOW);
+//        game2.addUser(u3, GREEN);
+//        game2.addUser(u4, YELLOW);
 
         return users;
     }

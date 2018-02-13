@@ -29,10 +29,10 @@ public class UIFacade {
     private UIFacade() {
     }
 
-    public CommandResult createGame(Color userColor, String gameName, int numberOfPlayers) {
+    public CommandResult createGame(String userColor, String gameName, int numberOfPlayers) {
         Game game = new Game(gameName, null, numberOfPlayers);
         User user = RootClientModel.getUser();
-        Map<String, Color> users = new HashMap<String, Color>();
+        Map<String, String> users = new HashMap<String, String>();
         users.put(user.getUsername(), userColor);
         game.setUsers(users);
         return ServerProxy.getInstance().createGame(game);
@@ -57,7 +57,7 @@ public class UIFacade {
         return lr;
     }
 
-    public CommandResult joinGame(Game game, Color userColor) {
+    public CommandResult joinGame(Game game, String userColor) {
         User user = RootClientModel.getUser();
         return ServerProxy.getInstance().joinGame(game, user, userColor);
 

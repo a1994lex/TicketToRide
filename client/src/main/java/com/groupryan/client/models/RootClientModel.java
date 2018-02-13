@@ -48,7 +48,7 @@ public class RootClientModel extends Observable {
         single_instance._startGame(game);
     }
 
-    public static void addUserToGame(Game game, User user, Color userColor) {
+    public static void addUserToGame(Game game, User user, String userColor) {
         single_instance._addUserToGame(game, user, userColor);
     }
     public static void setGames(List<Game> games){
@@ -83,7 +83,7 @@ public class RootClientModel extends Observable {
         }
     }
 
-    private void _addUserToGame(Game game, User user, Color userColor) {
+    private void _addUserToGame(Game game, User user, String userColor) {
         for (Game g : this.games) {
             if (g.equals(game)) {
                 g.addUser(user, userColor);

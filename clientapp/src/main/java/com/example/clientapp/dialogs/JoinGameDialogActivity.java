@@ -30,11 +30,18 @@ import java.util.Map;
 import async.OnJoinOrCreate;
 import presenters.JoinGamePresenter;
 
+import static com.groupryan.shared.utils.BLACK;
+import static com.groupryan.shared.utils.BLUE;
+import static com.groupryan.shared.utils.GREEN;
+import static com.groupryan.shared.utils.RED;
+import static com.groupryan.shared.utils.YELLOW;
+
 public class JoinGameDialogActivity extends Activity implements IJoinGameView, OnJoinOrCreate{
     private RadioGroup mColors;
     private Button mContinue;
     private TextView mError;
     private Game mGame;
+    private TextView mGameTitle;
     RadioButton mradioGreen;
     RadioButton mradioYellow;
     RadioButton mradioRed;
@@ -96,6 +103,9 @@ public class JoinGameDialogActivity extends Activity implements IJoinGameView, O
         mradioRed = findViewById(R.id.radio_red);
         mradioBlue = findViewById(R.id.radio_blue);
         mradioBlack = findViewById(R.id.radio_black);
+        mGameTitle = findViewById(R.id.game_title);
+
+        mGameTitle.setText(mGame.getGameName());
 
         try{
             enableColors();
@@ -108,7 +118,7 @@ public class JoinGameDialogActivity extends Activity implements IJoinGameView, O
             public void onClick(View view) {
                 int colorChoice = mColors.getCheckedRadioButtonId();
                 try {
-                    Color color = getColorFromId(colorChoice);
+                    String color = getColorFromId(colorChoice);
 
                     JoinGamePresenter.joinGame(mGame, color);
                 } catch (IOException exception) {
@@ -118,23 +128,23 @@ public class JoinGameDialogActivity extends Activity implements IJoinGameView, O
         });
     }
 
-    private Color getColorFromId(int colorChoice) throws IOException {
-        Color color;
+    private String getColorFromId(int colorChoice) throws IOException {
+        String color;
         switch (colorChoice) {
             case R.id.radio_green:
-                color = Color.GREEN;
+                color = GREEN;
                 break;
             case R.id.radio_blue:
-                color = Color.BLUE;
+                color = BLUE;
                 break;
             case R.id.radio_black:
-                color = Color.BLACK;
+                color = BLACK;
                 break;
             case R.id.radio_yellow:
-                color = Color.YELLOW;
+                color = YELLOW;
                 break;
             case R.id.radio_red:
-                color = Color.RED;
+                color = RED;
                 break;
             default:
                 throw new IOException();
@@ -143,8 +153,8 @@ public class JoinGameDialogActivity extends Activity implements IJoinGameView, O
     }
 
     public void enableColors() throws IOException{
-        Map<String, Color> colorMap = mGame.getUsers();
-        for (Color color: colorMap.values()) {
+        Map<String, String> colorMap = mGame.getUsers();
+        for (String color: colorMap.values()) {
             switch (color){
                 case RED:
                     mradioRed.setEnabled(false);
