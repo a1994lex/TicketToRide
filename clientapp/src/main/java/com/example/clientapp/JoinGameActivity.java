@@ -21,6 +21,7 @@ import com.groupryan.shared.models.Game;
 import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import presenters.JoinGamePresenter;
 
@@ -59,11 +60,12 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
     }
 
     @Override
-    public void onGameDelete(int position){
+    public void onGameDelete(){//int position){
 //      This method is called by the JoinGamePresenter to update the View
-        mRecyclerView.removeViewAt(position);
-        mAdapter.notifyItemRemoved(position);
-        mAdapter.notifyItemRangeChanged(position, RootClientModel.getGames().size());
+//        mRecyclerView.removeViewAt(position);
+//        mAdapter.notifyItemRemoved(position);
+//        mAdapter.notifyItemRangeChanged(position, RootClientModel.getGames().size());
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -107,8 +109,14 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
         private ArrayList<Game> mGames = RootClientModel.getGames();
 
 
+        public void combineLists(){
+            List<Game> usersGames = RootClientModel.getUser().getGameList();
+            mGames.addAll(usersGames);
+        }
+
         @Override
         public GameHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            combineLists();
             LayoutInflater layoutInflater = LayoutInflater.from(JoinGameActivity.this);
             View view = layoutInflater.inflate(R.layout.item_game_in_gamelist, parent, false);
             return new GameHolder(view);

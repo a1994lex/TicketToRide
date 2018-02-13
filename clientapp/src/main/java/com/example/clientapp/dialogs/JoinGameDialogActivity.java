@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.NumberPicker;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -17,9 +18,11 @@ import com.example.clientapp.R;
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
+import com.groupryan.shared.models.User;
 import com.groupryan.shared.utils;
 
 import java.io.IOException;
+import java.util.Map;
 
 import presenters.JoinGamePresenter;
 
@@ -28,6 +31,12 @@ public class JoinGameDialogActivity extends AppCompatActivity implements IJoinGa
     private Button mContinue;
     private TextView mError;
     private Game mGame;
+    RadioButton radioGreen;
+    RadioButton radioYellow;
+    RadioButton radioRed;
+    RadioButton radioBlue;
+    RadioButton radioBlack;
+
 
     @Override
     public void onGameAdd() {
@@ -36,7 +45,7 @@ public class JoinGameDialogActivity extends AppCompatActivity implements IJoinGa
     }
 
     @Override
-    public void onGameDelete(int position) {
+    public void onGameDelete(){//int position) {
 //        This is really implemented in the JoinGameActivity
 
     }
@@ -72,6 +81,17 @@ public class JoinGameDialogActivity extends AppCompatActivity implements IJoinGa
         mColors = findViewById(R.id.radio_color_group);
         mContinue = findViewById(R.id.button);
         mError = findViewById(R.id.errorText);
+        RadioButton radioGreen = findViewById(R.id.radio_green);
+        RadioButton radioYellow = findViewById(R.id.radio_yellow);
+        RadioButton radioRed = findViewById(R.id.radio_red);
+        RadioButton radioBlue = findViewById(R.id.radio_blue);
+        RadioButton radioBlack = findViewById(R.id.radio_black);
+
+        try{
+            enableColors();
+        }catch(IOException e){
+            mError.setText("Error enabling colors from game map");
+        }
 
         mContinue.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,5 +130,30 @@ public class JoinGameDialogActivity extends AppCompatActivity implements IJoinGa
                 throw new IOException();
         }
         return color;
+    }
+
+    public void enableColors() throws IOException{
+        Map<User, Color> colorMap = mGame.getUsers();
+        for (Color color: colorMap.values()) {
+            switch (color){
+                case RED:
+                    radioRed.setEnabled(false);
+                    break;
+                case BLUE:
+                    radioBlue.setEnabled(false);
+                    break;
+                case BLACK:
+                    radioBlack.setEnabled(false);
+                    break;
+                case GREEN:
+                    radioGreen.setEnabled(false);
+                    break;
+                case YELLOW:
+                    radioYellow.setEnabled(false);
+                    break;
+                default:
+                    throw new IOException();
+            }
+        }
     }
 }
