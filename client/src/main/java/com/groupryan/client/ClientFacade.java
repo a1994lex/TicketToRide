@@ -13,6 +13,7 @@ public class ClientFacade {
 
     public void createGame(Game game) {
         RootClientModel.addGame(game);
+        //RootClientModel.addUserToGame();
     }
 
     public void startGame(Game game) {

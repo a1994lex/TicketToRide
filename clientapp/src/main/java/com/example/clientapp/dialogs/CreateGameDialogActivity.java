@@ -2,6 +2,7 @@ package com.example.clientapp.dialogs;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -19,13 +20,14 @@ import com.example.clientapp.ILobbyView;
 import com.example.clientapp.LobbyActivity;
 import com.example.clientapp.R;
 
+import async.OnJoinOrCreate;
 import presenters.JoinGamePresenter;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.utils;
 
 import java.io.IOException;
 
-public class CreateGameDialogActivity extends Activity implements IJoinGameView{
+public class CreateGameDialogActivity extends Activity implements OnJoinOrCreate, IJoinGameView{
     private EditText mGameTitle;
     private NumberPicker mNumPlayers;
     private RadioGroup mColors;
@@ -51,6 +53,13 @@ public class CreateGameDialogActivity extends Activity implements IJoinGameView{
     }
 
     @Override
+    public void onJoinOrCreate(String errormsg) {
+        if (errormsg != null){
+            this.error(errormsg);
+        }
+    }
+
+    @Override
     public void join(String gameid) {
         Intent i = new Intent(CreateGameDialogActivity.this, LobbyActivity.class);
         i.putExtra(utils.GAME_ID_TAG, gameid);
@@ -63,6 +72,10 @@ public class CreateGameDialogActivity extends Activity implements IJoinGameView{
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_new_game);
         JoinGamePresenter.setView(this);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        JoinGamePresenter.setCreateDialogActivity(this);
+
+//        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         mGameTitle = findViewById(R.id.game_title);
         mNumPlayers = findViewById(R.id.numberPicker);
         mNumPlayers.setMinValue(2);

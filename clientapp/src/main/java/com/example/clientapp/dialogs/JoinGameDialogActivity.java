@@ -1,6 +1,8 @@
 package com.example.clientapp.dialogs;
 
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -25,9 +27,10 @@ import com.groupryan.shared.utils;
 import java.io.IOException;
 import java.util.Map;
 
+import async.OnJoinOrCreate;
 import presenters.JoinGamePresenter;
 
-public class JoinGameDialogActivity extends AppCompatActivity implements IJoinGameView{
+public class JoinGameDialogActivity extends Activity implements IJoinGameView, OnJoinOrCreate{
     private RadioGroup mColors;
     private Button mContinue;
     private TextView mError;
@@ -65,10 +68,14 @@ public class JoinGameDialogActivity extends AppCompatActivity implements IJoinGa
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+//        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         JoinGamePresenter.setView(this);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
+        JoinGamePresenter.setJoinDialogActivity(this);
         Intent incoming = getIntent();
         String gameID = incoming.getStringExtra(utils.GAME_ID_TAG);
         for (Game g: RootClientModel.getGames()){
@@ -158,5 +165,13 @@ public class JoinGameDialogActivity extends AppCompatActivity implements IJoinGa
                     throw new IOException();
             }
         }
+    }
+
+    @Override
+    public void onJoinOrCreate(String errormsg) {
+        if (errormsg != null){
+            this.error(errormsg);
+        }
+
     }
 }

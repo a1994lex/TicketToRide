@@ -8,6 +8,7 @@ import com.groupryan.shared.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by bengu3 on 1/31/18.
@@ -45,7 +46,7 @@ public class CommandManager {
     public ClientCommand makeCreateGameCommand(Game game) {
         ClientCommand command = factory.createCreateGameCommand(game);
          commands.add(command);
-        return command;
+         return command;
     }
 
     public ClientCommand makeStartGameCommand(Game game) {

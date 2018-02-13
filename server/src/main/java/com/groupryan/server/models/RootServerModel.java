@@ -6,6 +6,7 @@ import com.groupryan.shared.models.User;
 import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * Created by bengu3 on 1/31/18.
@@ -77,10 +78,32 @@ public class RootServerModel {
         return utils.VALID;
     }
 
-    private String _addGame(Game game) {
+    public static User getUser(String userId) {
+        return single_instance._getUser(userId);
+    }
 
+    private User _getUser(String userId) {
+        for (User u : users) {
+            if(u.getUsername().equals(userId)){
+                return u;
+            }
+        }
+        return null;
+    }
+
+    private String _addGame(Game game) {
+        if(game.getGameId()==null){
+            game.makeGameId();
+        }
         games.add(game);
-        return utils.GAME_CREATED;
+        Set<String> keys = game.getUsers().keySet();
+        for (String s:keys) {
+            getUser(s).addGame(game);
+            break;
+        }
+//        Set<String> keys = game.getUsers().keySet();
+//        for (String username : keys)
+        return utils.VALID;
     }
 
     public String _createGame(Game game){

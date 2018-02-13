@@ -2,6 +2,7 @@ package com.groupryan.server.facades;
 
 import com.groupryan.server.CommandManager;
 import com.groupryan.shared.results.CommandResult;
+import com.groupryan.shared.utils;
 
 /**
  * Created by arctu on 1/31/2018.
@@ -16,7 +17,7 @@ public class GetCommandsFacade {
         CommandResult cr=new CommandResult();
         cr.setClientCommands(CommandManager.getInstance().getCommands(index));
         //converts it to a Commandresult
-        cr.setResultType("Commands");
+        cr.setResultType(utils.VALID);
         return cr;
     }
 
