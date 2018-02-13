@@ -35,6 +35,7 @@ public class JoinGameDialogActivity extends Activity implements IJoinGameView, O
     private Button mContinue;
     private TextView mError;
     private Game mGame;
+    private TextView mGameTitle;
     RadioButton mradioGreen;
     RadioButton mradioYellow;
     RadioButton mradioRed;
@@ -96,6 +97,9 @@ public class JoinGameDialogActivity extends Activity implements IJoinGameView, O
         mradioRed = findViewById(R.id.radio_red);
         mradioBlue = findViewById(R.id.radio_blue);
         mradioBlack = findViewById(R.id.radio_black);
+        mGameTitle = findViewById(R.id.game_title);
+
+        mGameTitle.setText(mGame.getGameName());
 
         try{
             enableColors();
