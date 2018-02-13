@@ -14,4 +14,5 @@ public enum Color {
         Color color=Color.valueOf(s);
        return color;
     }
+
 }

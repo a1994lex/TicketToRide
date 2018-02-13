@@ -17,7 +17,7 @@ import async.OnJoinOrCreate;
 
 import static com.groupryan.client.models.RootClientModel.getGames;
 
-public class JoinGamePresenter implements Observer, OnJoinOrCreate, IJoinGamePresenter{
+public class JoinGamePresenter implements Observer, IJoinGamePresenter{
     RootClientModel root;
     int gameListSize = getGames().size();
     String game_title;
@@ -26,6 +26,8 @@ public class JoinGamePresenter implements Observer, OnJoinOrCreate, IJoinGamePre
     private static JoinGamePresenter instance = new JoinGamePresenter(RootClientModel.getSingle_instance());
     private UIFacade uifacade = UIFacade.getInstance();
     Activity joinGameActivity;
+    Activity joinDialogActivity;
+    Activity createDialogActivity;
 
     private JoinGamePresenter(RootClientModel root){
         this.root = root;
@@ -33,6 +35,8 @@ public class JoinGamePresenter implements Observer, OnJoinOrCreate, IJoinGamePre
     }
 
     private static void _setActivity(Activity activity){ instance.joinGameActivity = activity;}
+    private static void _setJoinDialogActivity(Activity activity){instance.joinDialogActivity = activity;}
+    private static void _setCreateDialogActivity(Activity activity){instance.createDialogActivity = activity;}
     public static void setView(IJoinGameView view){
         instance._setView(view);
     }
@@ -41,11 +45,7 @@ public class JoinGamePresenter implements Observer, OnJoinOrCreate, IJoinGamePre
     }
     private void _createGame(String title, int numPlayers, Color color){
         game_title = title;
-//        String errormsg = uifacade.createGame(color, title, numPlayers);
-//        if (errormsg != null){
-//            dialogView.error(errormsg);
-//        }
-        CreateGameAsyncTask createGameAsyncTask = new CreateGameAsyncTask(joinGameActivity);
+        CreateGameAsyncTask createGameAsyncTask = new CreateGameAsyncTask(createDialogActivity);
         Object[] objects = {color, title, numPlayers};
         createGameAsyncTask.execute(objects);
 
@@ -55,7 +55,7 @@ public class JoinGamePresenter implements Observer, OnJoinOrCreate, IJoinGamePre
     private void _joinGame(Game game, Color color){
         game_title = game.getGameName();
 
-        JoinAsyncTask joinAsyncTask = new JoinAsyncTask(joinGameActivity);
+        JoinAsyncTask joinAsyncTask = new JoinAsyncTask(joinDialogActivity);
         Object[] objects = {game, color};
         joinAsyncTask.execute(objects);
     }
@@ -76,6 +76,8 @@ public class JoinGamePresenter implements Observer, OnJoinOrCreate, IJoinGamePre
     public static void setActivity(Activity activity){
         instance._setActivity(activity);
     }
+    public static void setJoinDialogActivity(Activity activity){instance._setJoinDialogActivity(activity);}
+    public static void setCreateDialogActivity(Activity activity){instance._setCreateDialogActivity(activity);}
 
     @Override
     public void update(Observable observable, Object o) {
@@ -83,6 +85,9 @@ public class JoinGamePresenter implements Observer, OnJoinOrCreate, IJoinGamePre
             int secondSize = root.getGames().size();
             if (secondSize > gameListSize){
                 gameView.onGameAdd();
+            }
+            else if(secondSize < gameListSize){
+                gameView.onGameDelete();
             }
 //            else if (){
 ////                gameView.onGameDisable(id);
@@ -97,10 +102,5 @@ public class JoinGamePresenter implements Observer, OnJoinOrCreate, IJoinGamePre
 
     }
 
-    @Override
-    public void onJoinOrCreate(String errormsg) {
-        if (errormsg != null){
-            dialogView.error(errormsg);
-        }
-    }
+
 }

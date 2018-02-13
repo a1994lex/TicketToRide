@@ -39,12 +39,12 @@ public class ClientCommunicator {
      * a list of Commands or success or error messages.
      */
     public Object sendCommand(String commandName, ServerCommand command) {
-        HttpURLConnection connection = openConnection(EXEC_COMMAND, commandName);
+        HttpURLConnection connection = openConnection(utils.EXEC_COMMAND, commandName);
         if (commandName.equals(utils.LOGIN) || commandName.equals(utils.REGISTER)) {
             LoginResult result;
             if (connection != null) {
                 sendToServer(connection, command);
-                return result = (LoginResult) returnResult(connection, LoginResult.class);
+                return returnResult(connection, LoginResult.class);
             }
             else {
                 result = new LoginResult(); // send result with exception, failed to connect
@@ -56,7 +56,7 @@ public class ClientCommunicator {
                 GameListResult result;
                 if (connection != null) {
                     sendToServer(connection, command);
-                    return result = (GameListResult) returnResult(connection, GameListResult.class);
+                    return returnResult(connection, GameListResult.class);
                 }
                 else {
                     result = new GameListResult(); // send result with exception, failed to connect
@@ -67,7 +67,7 @@ public class ClientCommunicator {
                 CommandResult result;
                 if (connection != null) {
                     sendToServer(connection, command);
-                    return result = (CommandResult) returnResult(connection, CommandResult.class);
+                    return returnResult(connection, CommandResult.class);
                 }
                 else {
                     result = new CommandResult(); // send result with exception, failed to connect
@@ -109,11 +109,11 @@ public class ClientCommunicator {
     private HttpURLConnection openConnection(String contextIdentifier, String commandName) {
         HttpURLConnection result = null;
         try {
-            URL url = new URL(URL_PREFIX + contextIdentifier);
+            URL url = new URL(utils.URL_PREFIX + contextIdentifier);
             result = (HttpURLConnection)url.openConnection();
-            result.setRequestMethod(HTTP_POST);
+            result.setRequestMethod(utils.HTTP_POST);
             result.setDoOutput(true);
-            result.setRequestProperty(COMMAND_NAME, commandName);
+            result.setRequestProperty(utils.COMMAND_NAME, commandName);
             result.connect();
         } catch (MalformedURLException e) {
             e.printStackTrace();
@@ -183,11 +183,6 @@ public class ClientCommunicator {
         return result;
     }
 
-    private static final String EXEC_COMMAND = "/executeCommand";  // url for command API
-    private static final String SERVER_HOST = "localhost";
-    private static final int PORT_NUMBER = 8080;
-    private static final String URL_PREFIX = "http://" + SERVER_HOST + ":" + PORT_NUMBER;
-    private static final String HTTP_POST = "POST";
-    private static final String COMMAND_NAME = "CommandName";   // HTTP request header to determine
+
     // which kind of command is sent
 }

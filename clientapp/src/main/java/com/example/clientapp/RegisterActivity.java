@@ -60,20 +60,6 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
             }
         });
 
-//        usernameEditText.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                usernameEditText.setText("");
-//            }
-//        });
-//
-//        passwordEditText.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                passwordEditText.setText("");
-//            }
-//        });
-
         usernameEditText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int i, int i1, int i2) {
@@ -135,7 +121,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
     public void onLogin(){
         RootClientModel.getSingle_instance().deleteObserver(regPresenter);
-        Intent intent = new Intent(this, LobbyActivity.class);
+        Intent intent = new Intent(this, JoinGameActivity.class);
         startActivity(intent);
     }
 

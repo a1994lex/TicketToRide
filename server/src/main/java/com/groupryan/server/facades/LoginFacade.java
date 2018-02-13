@@ -4,8 +4,8 @@ import com.groupryan.server.CommandManager;
 import com.groupryan.server.models.RootServerModel;
 import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.models.User;
-import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
+import com.groupryan.shared.utils;
 
 /**
  * Created by bengu3 on 1/31/18.
@@ -16,7 +16,7 @@ public class LoginFacade {
     LoginResult login(User user) {
         String result = verifyUser(user);//checks the username and password against the model
         LoginResult lr = new LoginResult();//create the specific login result instead of a command result
-        if (result.equals("valid")) {
+        if (result.equals(utils.VALID)) {
             lr.addClientCommand(createReturnCommand(user));//creates and stores the client command that comes through
             lr.setSucceeded(true);//im setting this so that the client knows to go to the next activity
             lr.setGameList(RootServerModel.getInstance().getGames());

@@ -11,7 +11,6 @@ import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
 import com.groupryan.shared.utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ServerProxy implements IServer {
@@ -37,9 +36,8 @@ public class ServerProxy implements IServer {
     @Override
     public CommandResult createGame(Game game) {
         ServerCommand command = serverCommandFactory.createCreateGameCommand(game);
-        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.CREATE_GAME, command);
-        executeCommands(commandResult.getClientCommands());
-        return null;
+        return (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.CREATE_GAME, command);
+
     }
 
     @Override
@@ -47,13 +45,7 @@ public class ServerProxy implements IServer {
         ServerCommand command = serverCommandFactory.createJoinGameCommand(game, user, userColor);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance()
                 .sendCommand(utils.JOIN_GAME, command);
-        if (commandResult.getResultType().equals(utils.VALID)){
-            executeCommands(commandResult.getClientCommands());
-            return null;
-        }
-        else{
-            return commandResult;
-        }
+        return commandResult;
     }
 
     @Override
@@ -68,10 +60,10 @@ public class ServerProxy implements IServer {
     public LoginResult register(User user) {
         ServerCommand command = serverCommandFactory.createRegisterCommand(user);
         LoginResult registerResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(utils.REGISTER, command);
-        if (registerResult.isSucceeded()) {  // if register succeeds
-            Poller poller = new Poller();
-            poller.poll();
-        }
+//        if (registerResult.isSucceeded()) {  // if register succeeds
+//            Poller poller = new Poller();
+//            poller.poll();
+//        }
         executeCommands(registerResult.getClientCommands());
         return registerResult;
     }
@@ -81,11 +73,11 @@ public class ServerProxy implements IServer {
         ServerCommand command = serverCommandFactory.createLoginCommand(user);
         LoginResult loginResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(utils.LOGIN, command);
         executeCommands(loginResult.getClientCommands());
-        if (loginResult.isSucceeded()) {  // if login succeeds
-            Poller poller = new Poller();
-            poller.poll();
-        }
-        return (LoginResult)loginResult;
+//        if (loginResult.isSucceeded()) {  // if login succeeds
+//            Poller poller = new Poller();
+//            poller.poll();
+//        }
+        return loginResult;
     }
 
     public CommandResult getCommands() {
@@ -95,11 +87,10 @@ public class ServerProxy implements IServer {
         return commandResult;
     }
 
+
     public void executeCommands(List<ClientCommand> commandList){
         for (ClientCommand command : commandList) {
             command.execute();
         }
     }
-
-
 }

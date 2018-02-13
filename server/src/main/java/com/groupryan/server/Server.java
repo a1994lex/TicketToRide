@@ -1,6 +1,7 @@
 package com.groupryan.server;
 
 import com.groupryan.server.handlers.CommandHandler;
+import com.groupryan.shared.utils;
 import com.sun.net.httpserver.HttpServer;
 
 import java.io.IOException;
@@ -13,11 +14,11 @@ public class Server {
     private HttpServer server;
 
     private void run() {
-        String portNumber = "8080";
+        int portNumber = utils.PORT_NUMBER;
         System.out.println("Initializing HTTP Server on port " + portNumber);
         try {
             server = HttpServer.create(
-                    new InetSocketAddress(Integer.parseInt(portNumber)),
+                    new InetSocketAddress(portNumber),
                     MAX_WAITING_CONNECTIONS);
         } catch (IOException e) {
             e.printStackTrace();
@@ -26,7 +27,7 @@ public class Server {
         server.setExecutor(null);
 
         System.out.println("Creating contexts");
-        server.createContext("/executeCommand", new CommandHandler());
+        server.createContext(utils.EXEC_COMMAND, new CommandHandler());
         server.start();
         System.out.println("Server started");
     }

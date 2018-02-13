@@ -2,6 +2,7 @@ package com.example.clientapp;
 
 
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.support.v7.app.AppCompatActivity;
 
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -21,20 +23,27 @@ import com.groupryan.shared.models.Game;
 import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import async.OnJoinOrCreate;
 import presenters.JoinGamePresenter;
 
 public class JoinGameActivity extends AppCompatActivity implements IJoinGameView{
     Button mCreateGamebtn;
     RecyclerView.Adapter mAdapter;
     RecyclerView mRecyclerView;
+//    Boolean addGame;
+//    Boolean removeGame;
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         JoinGamePresenter.setView(this);
         JoinGamePresenter.setActivity(this);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+
         setContentView(R.layout.activity_game_list);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         mRecyclerView = findViewById(R.id.game_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -55,15 +64,18 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
    @Override
    public void onGameAdd(){
 //      This method is called by the JoinGamePresenter to update the View
+//        addGame = true;
         mAdapter.notifyDataSetChanged();
     }
 
     @Override
-    public void onGameDelete(int position){
+    public void onGameDelete(){//int position){
 //      This method is called by the JoinGamePresenter to update the View
-        mRecyclerView.removeViewAt(position);
-        mAdapter.notifyItemRemoved(position);
-        mAdapter.notifyItemRangeChanged(position, RootClientModel.getGames().size());
+//        mRecyclerView.removeViewAt(position);
+//        mAdapter.notifyItemRemoved(position);
+//        mAdapter.notifyItemRangeChanged(position, RootClientModel.getGames().size());
+//        removeGame = true;
+        mAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -87,6 +99,7 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
              mJoinGameBtn = itemView.findViewById(R.id.join_game_btn);
              mGameTitle = itemView.findViewById(R.id.game_title);
 
+
              mJoinGameBtn.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View view) {
@@ -107,8 +120,14 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
         private ArrayList<Game> mGames = RootClientModel.getGames();
 
 
+        public void combineLists(){
+            List<Game> usersGames = RootClientModel.getUser().getGameList();
+            mGames.addAll(usersGames);
+        }
+
         @Override
         public GameHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            combineLists();
             LayoutInflater layoutInflater = LayoutInflater.from(JoinGameActivity.this);
             View view = layoutInflater.inflate(R.layout.item_game_in_gamelist, parent, false);
             return new GameHolder(view);

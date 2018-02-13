@@ -7,5 +7,5 @@ import com.groupryan.shared.results.CommandResult;
  */
 
 public interface IClientCommand {
-    void execute();
+    CommandResult execute();
 }

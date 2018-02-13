@@ -1,5 +1,10 @@
 package com.groupryan.shared.commands;
 
+
+import com.google.gson.internal.LinkedTreeMap;
+import com.groupryan.shared.commands.IClientCommand;
+import com.groupryan.shared.results.CommandResult;
+
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 
@@ -37,15 +42,41 @@ public class ClientCommand implements IClientCommand {
     }
 
     @Override
-    public void execute() {
+    public CommandResult execute() {
+        CommandResult r = new CommandResult();
         try {
             Class<?> receiver = Class.forName(_className);
+            Class<?>[] types = getClassParamTypes();
+            ArrayList<Object> objects = getObjects(types, _paramValues);
+            Object[] objectParamVals = objects.toArray(new Object[objects.size()]);
             Method method = receiver.getMethod(_methodName, getClassParamTypes());
-            method.invoke(receiver, _paramValues);
+            r = (CommandResult)method.invoke(receiver.newInstance() , objectParamVals);
         }
         catch (Exception e) {
             e.printStackTrace();
         }
+        return r;
+    }
+
+    private ArrayList<Object> getObjects(Class<?>[] types, Object[] paramValues){
+        ArrayList<Object> objects = new ArrayList<>();
+        for (int i=0;i<types.length; i++){
+            Class<?> receiver = types[i];
+            try {
+                if (types[i].isEnum()){
+                    objects.add(Enum.valueOf((Class<Enum>) types[i], (String)paramValues[i]));
+                }
+                else{
+                    Method method = receiver.getMethod("mapToObject", LinkedTreeMap.class);
+                    objects.add(method.invoke(receiver,paramValues[i]));
+                }
+            }
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return objects;
+
     }
 
 }
