@@ -35,11 +35,11 @@ public class JoinGameDialogActivity extends Activity implements IJoinGameView, O
     private Button mContinue;
     private TextView mError;
     private Game mGame;
-    RadioButton radioGreen;
-    RadioButton radioYellow;
-    RadioButton radioRed;
-    RadioButton radioBlue;
-    RadioButton radioBlack;
+    RadioButton mradioGreen;
+    RadioButton mradioYellow;
+    RadioButton mradioRed;
+    RadioButton mradioBlue;
+    RadioButton mradioBlack;
 
 
     @Override
@@ -73,7 +73,7 @@ public class JoinGameDialogActivity extends Activity implements IJoinGameView, O
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 
         JoinGamePresenter.setView(this);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         JoinGamePresenter.setJoinDialogActivity(this);
         Intent incoming = getIntent();
@@ -91,11 +91,11 @@ public class JoinGameDialogActivity extends Activity implements IJoinGameView, O
         mColors = findViewById(R.id.radio_color_group);
         mContinue = findViewById(R.id.button);
         mError = findViewById(R.id.errorText);
-        RadioButton radioGreen = findViewById(R.id.radio_green);
-        RadioButton radioYellow = findViewById(R.id.radio_yellow);
-        RadioButton radioRed = findViewById(R.id.radio_red);
-        RadioButton radioBlue = findViewById(R.id.radio_blue);
-        RadioButton radioBlack = findViewById(R.id.radio_black);
+        mradioGreen = findViewById(R.id.radio_green);
+        mradioYellow = findViewById(R.id.radio_yellow);
+        mradioRed = findViewById(R.id.radio_red);
+        mradioBlue = findViewById(R.id.radio_blue);
+        mradioBlack = findViewById(R.id.radio_black);
 
         try{
             enableColors();
@@ -147,19 +147,19 @@ public class JoinGameDialogActivity extends Activity implements IJoinGameView, O
         for (Color color: colorMap.values()) {
             switch (color){
                 case RED:
-                    radioRed.setEnabled(false);
+                    mradioRed.setEnabled(false);
                     break;
                 case BLUE:
-                    radioBlue.setEnabled(false);
+                    mradioBlue.setEnabled(false);
                     break;
                 case BLACK:
-                    radioBlack.setEnabled(false);
+                   mradioBlack.setEnabled(false);
                     break;
                 case GREEN:
-                    radioGreen.setEnabled(false);
+                    mradioGreen.setEnabled(false);
                     break;
                 case YELLOW:
-                    radioYellow.setEnabled(false);
+                    mradioYellow.setEnabled(false);
                     break;
                 default:
                     throw new IOException();

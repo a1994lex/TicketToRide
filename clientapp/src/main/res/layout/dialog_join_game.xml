@@ -45,35 +45,30 @@ android:background="@color/colorAccent">
         android:id="@+id/radio_green"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:buttonTint="@color/green"
-        android:onClick="onRadioButtonClicked" />
+        android:buttonTint="@color/green" />
 
     <RadioButton
         android:id="@+id/radio_yellow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:buttonTint="@color/yellow"
-        android:onClick="onRadioButtonClicked" />
+        android:buttonTint="@color/yellow"/>
 
     <RadioButton
         android:id="@+id/radio_red"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:buttonTint="@color/red"
-        android:onClick="onRadioButtonClicked" />
+        android:buttonTint="@color/red" />
 
     <RadioButton
         android:id="@+id/radio_blue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:buttonTint="@color/blue"
-        android:onClick="onRadioButtonClicked" />
+        android:buttonTint="@color/blue" />
 
     <RadioButton
         android:id="@+id/radio_black"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:onClick="onRadioButtonClicked" />
+        android:layout_height="wrap_content" />
 </RadioGroup>
 <TextView
     android:layout_width="wrap_content"
