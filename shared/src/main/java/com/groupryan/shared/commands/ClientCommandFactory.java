@@ -23,7 +23,7 @@ public class ClientCommandFactory {
 
     public ClientCommand createJoinGameCommand(Game game, User user, String userColor) {
         return new ClientCommand("com.groupryan.client.ClientFacade", "joinGame",
-                new String[]{Game.class.getTypeName(), User.class.getTypeName(), Color.class.getTypeName()},
+                new String[]{Game.class.getTypeName(), User.class.getTypeName(), String.class.getTypeName()},
                 new Object[]{game, user, userColor});
     }
 

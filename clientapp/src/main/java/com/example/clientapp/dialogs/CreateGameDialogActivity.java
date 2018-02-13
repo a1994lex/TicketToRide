@@ -78,7 +78,7 @@ public class CreateGameDialogActivity extends Activity implements OnJoinOrCreate
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_new_game);
         JoinGamePresenter.setView(this);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+//        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         JoinGamePresenter.setCreateDialogActivity(this);
 
 //        getWindow().requestFeature(Window.FEATURE_NO_TITLE);
