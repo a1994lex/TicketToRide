@@ -14,7 +14,7 @@ import com.groupryan.shared.results.CommandResult;
 
 public class JoinGameFacade {
 
-    public CommandResult joinGame(Game game, User user, Color userColor) {
+    public CommandResult joinGame(Game game, User user, String userColor) {
         String result = RootServerModel.getInstance().addUserToGame(game, user, userColor);
         CommandResult cm = new CommandResult();
         cm.addClientCommand(createReturnCommand(game, user, userColor));
@@ -23,7 +23,7 @@ public class JoinGameFacade {
         return cm;
     }
 
-    private ClientCommand createReturnCommand(Game game, User user, Color userColor) {
+    private ClientCommand createReturnCommand(Game game, User user, String userColor) {
         return CommandManager.getInstance().makeJoinGameCommand(game, user, userColor);
     }
 }

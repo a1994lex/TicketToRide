@@ -18,14 +18,14 @@ import java.util.List;
 
 public class CreateGameAsyncTask extends AsyncTask<Object, Void, CommandResult>{
 
-    /*Color userColor, String gameName, int numberOfPlayers*/
+    /*String userColor, String gameName, int numberOfPlayers*/
     private Activity activity;
 
     public CreateGameAsyncTask(Activity activity){this.activity = activity;}
 
     @Override
     protected CommandResult doInBackground(Object ... objects) {
-        Color color = (Color)objects[0];
+        String color = (String)objects[0];
         String gameName = (String)objects[1];
         int numOfPlayers = (Integer)objects[2];
         CommandResult result = UIFacade.getInstance().createGame(color, gameName, numOfPlayers);

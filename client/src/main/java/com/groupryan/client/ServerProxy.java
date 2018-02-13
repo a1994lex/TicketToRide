@@ -41,7 +41,7 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public CommandResult joinGame(Game game, User user, Color userColor) {
+    public CommandResult joinGame(Game game, User user, String userColor) {
         ServerCommand command = serverCommandFactory.createJoinGameCommand(game, user, userColor);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance()
                 .sendCommand(utils.JOIN_GAME, command);

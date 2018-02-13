@@ -23,9 +23,9 @@ public class ServerCommandFactory {
                 new Object[]{game});
     }
 
-    public ServerCommand createJoinGameCommand(Game game, User user, Color userColor) {
+    public ServerCommand createJoinGameCommand(Game game, User user, String userColor) {
         return new ServerCommand("com.groupryan.server.facades.MainFacade", "joinGame",
-                new String[]{Game.class.getTypeName(), User.class.getTypeName(), Color.class.getTypeName()},
+                new String[]{Game.class.getTypeName(), User.class.getTypeName(), String.class.getTypeName()},
                 new Object[]{game, user, userColor});
     }
 

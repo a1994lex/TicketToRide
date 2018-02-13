@@ -25,7 +25,7 @@ public class JoinAsyncTask extends AsyncTask<Object, Void,CommandResult> {
     @Override
     protected CommandResult doInBackground(Object ... objects) {
         Game game = (Game)objects[0];
-        Color color = (Color) objects[1];
+        String color = (String) objects[1];
         CommandResult result = UIFacade.getInstance().joinGame(game, color);
         return result;
     }
