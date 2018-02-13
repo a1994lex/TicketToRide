@@ -94,6 +94,7 @@ public class ServerProxy implements IServer {
         return commandResult;
     }
 
+
     public void executeCommands(List<ClientCommand> commandList){
         for (ClientCommand command : commandList) {
             command.execute();

@@ -1,6 +1,5 @@
 package com.groupryan.server.handlers;
 
-import com.google.gson.Gson;
 import com.groupryan.server.ServerCommand;
 import com.groupryan.shared.Serializer;
 import com.groupryan.shared.results.CommandResult;

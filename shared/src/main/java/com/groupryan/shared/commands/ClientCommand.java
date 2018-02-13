@@ -50,8 +50,6 @@ public class ClientCommand implements IClientCommand {
             Object[] objectParamVals = objects.toArray(new Object[objects.size()]);
             Method method = receiver.getMethod(_methodName, getClassParamTypes());
             r = (CommandResult)method.invoke(receiver.newInstance() , objectParamVals);
-
-            method.invoke(receiver, _paramValues);
         }
         catch (Exception e) {
             e.printStackTrace();
