@@ -1,4 +1,4 @@
-package com.groupryan.shared.commands;
+package com.groupryan.client;
 
 import com.google.gson.internal.LinkedTreeMap;
 import com.groupryan.shared.commands.IClientCommand;

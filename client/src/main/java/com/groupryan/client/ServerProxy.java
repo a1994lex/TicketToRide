@@ -11,7 +11,6 @@ import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
 import com.groupryan.shared.utils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ServerProxy implements IServer {
@@ -68,10 +67,10 @@ public class ServerProxy implements IServer {
     public LoginResult register(User user) {
         ServerCommand command = serverCommandFactory.createRegisterCommand(user);
         LoginResult registerResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(utils.REGISTER, command);
-        if (registerResult.isSucceeded()) {  // if register succeeds
-            Poller poller = new Poller();
-            poller.poll();
-        }
+//        if (registerResult.isSucceeded()) {  // if register succeeds
+//            Poller poller = new Poller();
+//            poller.poll();
+//        }
         executeCommands(registerResult.getClientCommands());
         return registerResult;
     }
@@ -81,10 +80,10 @@ public class ServerProxy implements IServer {
         ServerCommand command = serverCommandFactory.createLoginCommand(user);
         LoginResult loginResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(utils.LOGIN, command);
         executeCommands(loginResult.getClientCommands());
-        if (loginResult.isSucceeded()) {  // if login succeeds
-            Poller poller = new Poller();
-            poller.poll();
-        }
+//        if (loginResult.isSucceeded()) {  // if login succeeds
+//            Poller poller = new Poller();
+//            poller.poll();aaa
+//        }
         return (LoginResult)loginResult;
     }
 
