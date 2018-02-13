@@ -1,5 +1,6 @@
 package com.example.clientapp.dialogs;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +24,7 @@ import com.groupryan.shared.utils;
 
 import java.io.IOException;
 
-public class CreateGameDialogActivity extends AppCompatActivity implements IJoinGameView{
+public class CreateGameDialogActivity extends Activity implements IJoinGameView{
     private EditText mGameTitle;
     private NumberPicker mNumPlayers;
     private RadioGroup mColors;
@@ -89,6 +90,8 @@ public class CreateGameDialogActivity extends AppCompatActivity implements IJoin
             }
         });
     }
+
+
 
     private Color getColorFromId(int colorChoice) throws IOException{
         Color color;
