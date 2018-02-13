@@ -14,4 +14,12 @@ public class utils {
     public static String FULL_GAME = "Game is full";
     public static String STARTED_GAME = "Started game";
 
+    public static final String CREATE_GAME = "createGame";
+    public static final String JOIN_GAME = "joinGame";
+    public static final String START_GAME = "startGame";
+    public static final String REGISTER = "register";
+    public static final String LOGIN = "login";
+    public static final String GET_COMMANDS = "getCommands";
+    public static final String GET_GAME_LIST = "getGameList";
+
 }
