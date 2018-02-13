@@ -26,7 +26,13 @@ public class RootServerModel {
     }
 
     public ArrayList<Game> getGames() {
-        return games;
+        ArrayList<Game> notStartedGames=new ArrayList<>();
+        for (Game g:games) {
+            if(!g.isStarted()){
+                notStartedGames.add(g);
+            }
+        }
+        return notStartedGames;
     }
 
     public ArrayList<User> getUsers() {

@@ -54,10 +54,7 @@ public class JoinGamePresenter implements Observer, OnJoinOrCreate{
 
     private void _joinGame(Game game, Color color){
         game_title = game.getGameName();
-//        String errormsg = uifacade.joinGame(game, color);
-//        if (errormsg != null){
-//            dialogView.error(errormsg);
-//        }
+
         JoinAsyncTask joinAsyncTask = new JoinAsyncTask(joinGameActivity);
         Object[] objects = {game, color};
         joinAsyncTask.execute(objects);
