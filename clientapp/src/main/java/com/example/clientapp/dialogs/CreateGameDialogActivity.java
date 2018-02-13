@@ -105,6 +105,8 @@ public class CreateGameDialogActivity extends Activity implements OnJoinOrCreate
         });
     }
 
+
+
     private Color getColorFromId(int colorChoice) throws IOException{
         Color color;
         switch (colorChoice){
