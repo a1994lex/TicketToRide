@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-android:layout_width="wrap_content"
+android:layout_width="400dp"
 android:layout_height="wrap_content"
-xmlns:android="http://schemas.android.com/apk/res/android"
-android:background="@color/colorAccent">
+xmlns:android="http://schemas.android.com/apk/res/android">
 
 <TextView
     android:id="@+id/game_title"
@@ -16,7 +15,6 @@ android:background="@color/colorAccent">
     android:layout_marginTop="8dp"
     android:textSize="26dp"
     android:text="@string/game_title_prompt"
-    android:textColor="@color/black"
 
     />
 
@@ -45,30 +43,36 @@ android:background="@color/colorAccent">
         android:id="@+id/radio_green"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:buttonTint="@color/green" />
+        android:shadowColor="@color/green"
+        android:buttonTint="@color/green"/>
 
     <RadioButton
         android:id="@+id/radio_yellow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:shadowColor="@color/yellow"
         android:buttonTint="@color/yellow"/>
 
     <RadioButton
         android:id="@+id/radio_red"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:shadowColor="@color/red"
         android:buttonTint="@color/red" />
 
     <RadioButton
         android:id="@+id/radio_blue"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:shadowColor="@color/blue"
         android:buttonTint="@color/blue" />
 
     <RadioButton
         android:id="@+id/radio_black"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:shadowColor="@color/black"
+        android:buttonTint="@color/black"/>
 </RadioGroup>
 <TextView
     android:layout_width="wrap_content"
@@ -76,7 +80,7 @@ android:background="@color/colorAccent">
     android:textColor="@color/red"
     android:id="@+id/errorText"
     android:layout_below="@id/radio_color_group"
-    android:visibility="gone"/>
+    />
 
 <Button
     android:id="@+id/button"

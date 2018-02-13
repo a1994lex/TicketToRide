@@ -28,7 +28,7 @@ import java.util.List;
 import async.OnJoinOrCreate;
 import presenters.JoinGamePresenter;
 
-public class JoinGameActivity extends AppCompatActivity implements IJoinGameView{
+public class JoinGameActivity extends AppCompatActivity implements IJoinGameView {
     Button mCreateGamebtn;
     RecyclerView.Adapter mAdapter;
     RecyclerView mRecyclerView;
@@ -43,7 +43,6 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
         setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         setContentView(R.layout.activity_game_list);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         mRecyclerView = findViewById(R.id.game_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -103,6 +102,10 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
              mJoinGameBtn.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View view) {
+                     if(mGame.getUsers().containsKey(RootClientModel.getUser().getUsername())){
+                         Intent i = new Intent(JoinGameActivity.this, LobbyActivity.class);
+                         startActivity(i);
+                     }
                      Intent i = new Intent(JoinGameActivity.this, JoinGameDialogActivity.class);
                      i.putExtra(utils.GAME_ID_TAG, mGame.getGameId());
                      startActivity(i);
@@ -117,17 +120,18 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
     }
 
     private class GameAdapter extends RecyclerView.Adapter<GameHolder>{
-        private ArrayList<Game> mGames = RootClientModel.getGames();
+        private ArrayList<Game> mGames = combineLists();
 
 
-        public void combineLists(){
+        public ArrayList combineLists(){
             List<Game> usersGames = RootClientModel.getUser().getGameList();
-            mGames.addAll(usersGames);
+            ArrayList<Game> games = RootClientModel.getGames();
+            games.addAll(usersGames);
+            return games;
         }
 
         @Override
         public GameHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            combineLists();
             LayoutInflater layoutInflater = LayoutInflater.from(JoinGameActivity.this);
             View view = layoutInflater.inflate(R.layout.item_game_in_gamelist, parent, false);
             return new GameHolder(view);

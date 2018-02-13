@@ -25,11 +25,11 @@ package="com.example.clientapp">
         <activity android:name=".JoinGameActivity"></activity>
         <activity
             android:name=".dialogs.CreateGameDialogActivity"
-            android:theme="@android:style/Theme.Holo.Dialog">
+            android:theme="@android:style/Theme.Holo.Light.Dialog">
         </activity>
          <activity
              android:name="com.example.clientapp.dialogs.JoinGameDialogActivity"
-             android:theme="@android:style/Theme.Holo.Dialog">
+             android:theme="@android:style/Theme.Holo.Light.Dialog">
 
          </activity>
 

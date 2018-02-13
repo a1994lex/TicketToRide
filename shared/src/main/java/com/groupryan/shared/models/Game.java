@@ -60,7 +60,7 @@ public class Game{
 
     public String addUser(User u,  String color){
 
-        String c=users.get(u);//ensures the player isnt already in
+        String c=users.get(u.getUsername());//ensures the player isnt already in
 
         if(!started && c==null){
             if(users.containsValue(color)){
@@ -119,7 +119,7 @@ public class Game{
     public List<Game> makeTestGames(){
         ArrayList<Game> games = new ArrayList<Game>();
         User u = new User("clairescout", "gammon");
-        Game game = new Game("game1", "gameID", 2);
+        Game game = new Game("game1", "gameID", 5);
         game.addUser(u, RED);
 
         User u2 = new User("sheila", "parker");
