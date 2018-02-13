@@ -28,7 +28,7 @@ import java.util.List;
 import async.OnJoinOrCreate;
 import presenters.JoinGamePresenter;
 
-public class JoinGameActivity extends AppCompatActivity implements IJoinGameView{
+public class JoinGameActivity extends AppCompatActivity implements IJoinGameView {
     Button mCreateGamebtn;
     RecyclerView.Adapter mAdapter;
     RecyclerView mRecyclerView;
@@ -120,17 +120,18 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
     }
 
     private class GameAdapter extends RecyclerView.Adapter<GameHolder>{
-        private ArrayList<Game> mGames = RootClientModel.getGames();
+        private ArrayList<Game> mGames = combineLists();
 
 
-        public void combineLists(){
+        public ArrayList combineLists(){
             List<Game> usersGames = RootClientModel.getUser().getGameList();
-            mGames.addAll(usersGames);
+            ArrayList<Game> games = RootClientModel.getGames();
+            games.addAll(usersGames);
+            return games;
         }
 
         @Override
         public GameHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            combineLists();
             LayoutInflater layoutInflater = LayoutInflater.from(JoinGameActivity.this);
             View view = layoutInflater.inflate(R.layout.item_game_in_gamelist, parent, false);
             return new GameHolder(view);
