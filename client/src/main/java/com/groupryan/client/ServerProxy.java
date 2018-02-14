@@ -4,7 +4,6 @@ import com.groupryan.shared.IServer;
 import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.commands.ServerCommand;
 import com.groupryan.shared.commands.ServerCommandFactory;
-import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
@@ -16,8 +15,6 @@ import java.util.List;
 public class ServerProxy implements IServer {
 
     //private List<ClientCommand> commands = new ArrayList<ClientCommand>();
-
-    Poller poller = new Poller();
 
     private static ServerCommandFactory serverCommandFactory = new ServerCommandFactory();
 
@@ -60,10 +57,6 @@ public class ServerProxy implements IServer {
     public LoginResult register(User user) {
         ServerCommand command = serverCommandFactory.createRegisterCommand(user);
         LoginResult registerResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(utils.REGISTER, command);
-        if (registerResult.isSucceeded()) {  // if register succeeds
-            this.poller = new Poller();
-            this.poller.poll();
-        }
         executeCommands(registerResult.getClientCommands());
         return registerResult;
     }
@@ -73,10 +66,6 @@ public class ServerProxy implements IServer {
         ServerCommand command = serverCommandFactory.createLoginCommand(user);
         LoginResult loginResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(utils.LOGIN, command);
         executeCommands(loginResult.getClientCommands());
-        if (loginResult.isSucceeded()) {  // if login succeeds
-            this.poller = new Poller();
-            this.poller.poll();
-        }
         return loginResult;
     }
 
@@ -88,7 +77,7 @@ public class ServerProxy implements IServer {
     }
 
 
-    public void executeCommands(List<ClientCommand> commandList){
+    public void executeCommands(List<ClientCommand> commandList) {
         System.out.println(commandList);
         for (ClientCommand command : commandList) {
             command.execute();

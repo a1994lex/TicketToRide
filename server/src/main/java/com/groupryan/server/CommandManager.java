@@ -43,6 +43,8 @@ public class CommandManager {
     public List<ClientCommand> getCommands(User user) {
         List<ClientCommand> commands = this.usersCommands.get(user);
         this.usersCommands.put(user, new ArrayList<>());
+        System.out.println(user);
+        System.out.println(commands);
         return commands;
     }
 

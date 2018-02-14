@@ -30,6 +30,9 @@ public class RegisterAsyncTask extends AsyncTask<User, Void, LoginResult>{
         //return string
         if(!loginResult.isSucceeded()){
             Toast.makeText(registerActivity, loginResult.getUserMessage(), Toast.LENGTH_SHORT).show(); //might not need this?
+        } else {
+            Poller poller = new Poller();
+            poller.poll();
         }
 
     }
