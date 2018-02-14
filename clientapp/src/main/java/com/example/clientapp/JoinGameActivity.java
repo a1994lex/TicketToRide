@@ -103,12 +103,16 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
                  @Override
                  public void onClick(View view) {
                      if(mGame.getUsers().containsKey(RootClientModel.getUser().getUsername())){
+
                          Intent i = new Intent(JoinGameActivity.this, LobbyActivity.class);
+                         i.putExtra(utils.GAME_ID_TAG, mGame.getGameId());
                          startActivity(i);
                      }
-                     Intent i = new Intent(JoinGameActivity.this, JoinGameDialogActivity.class);
-                     i.putExtra(utils.GAME_ID_TAG, mGame.getGameId());
-                     startActivity(i);
+                     else {
+                         Intent i = new Intent(JoinGameActivity.this, JoinGameDialogActivity.class);
+                         i.putExtra(utils.GAME_ID_TAG, mGame.getGameId());
+                         startActivity(i);
+                     }
                  }
              });
          }
@@ -124,9 +128,9 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
 
 
         public ArrayList combineLists(){
-            List<Game> usersGames = RootClientModel.getUser().getGameList();
+           // List<Game> usersGames = RootClientModel.getUser().getGameList();
             ArrayList<Game> games = RootClientModel.getGames();
-            games.addAll(usersGames);
+           // games.addAll(usersGames);
             return games;
         }
 

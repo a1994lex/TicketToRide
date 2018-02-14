@@ -2,7 +2,9 @@ package com.groupryan.shared.models;
 
 import com.google.gson.internal.LinkedTreeMap;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -13,10 +15,17 @@ public class User implements Comparable{
     public static User mapToObject(LinkedTreeMap map){
         String username;
         String password;
-        List<Game> gameList;
+        List<Game> gameList=new ArrayList<>();
         username = (String)map.get("username");
         password = (String)map.get("password");
-        gameList = (List<Game>)map.get("gameList");
+        ArrayList<LinkedTreeMap> treeGames = (ArrayList)map.get("gameList");
+        if (treeGames.size()>0)
+        {
+            for (LinkedTreeMap l: treeGames){
+                gameList.add(Game.mapToObject(l));
+            }
+        }
+        //gameList = (List<Game>)map.get("gameList");
         return new User(username, password, gameList);
     }
 
