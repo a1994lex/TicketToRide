@@ -6,6 +6,7 @@ import com.groupryan.shared.models.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Observable;
 
 public class RootClientModel extends Observable {
@@ -93,6 +94,7 @@ public class RootClientModel extends Observable {
             }
         }
     }
+
 
     private void _setGames(List<Game> games) {
         this.games = (ArrayList<Game>)games;

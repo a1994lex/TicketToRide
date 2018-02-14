@@ -44,6 +44,7 @@ public class UIFacade {
         LoginResult lr = ServerProxy.getInstance().login(user);
         if (lr.getGameList() != null){
             RootClientModel.setGames(lr.getGameList());
+
         }
         return lr;
     }
