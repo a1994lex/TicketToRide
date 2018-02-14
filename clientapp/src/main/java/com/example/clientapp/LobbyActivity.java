@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.clientapp.dialogs.CreateGameDialogActivity;
 import com.example.clientapp.dialogs.JoinGameDialogActivity;
@@ -58,7 +59,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
         mStartGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                LobbyPresenter.startGame(mGame);
+                //LobbyPresenter.startGame(mGame);
                 Intent i = new Intent(LobbyActivity.this, GamePlayActivity.class);
                 startActivity(i);
             }
@@ -115,6 +116,9 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
 
         @Override
         public int getItemCount() {
+            if (mUserIds.size() == mGame.getMaxPlayers()){
+                enableStartButton();
+            }
             return mUserIds.size();
         }
     }

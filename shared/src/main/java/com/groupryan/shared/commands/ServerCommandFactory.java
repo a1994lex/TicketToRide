@@ -49,17 +49,10 @@ public class ServerCommandFactory {
                 new Object[]{user});
     }
 
-    public ServerCommand createCreateCommand(Game game) {
-        return new ServerCommand("com.groupryan.server.facades.MainFacade", "createGame",
-                new String[]{Game.class.getTypeName()},
-                new Object[]{game});
-
-    }
-
-    public ServerCommand createGetCommands() {
+    public ServerCommand createGetCommands(User user) {
         return new ServerCommand("com.groupryan.server.facades.MainFacade", "getCommands",
-                new String[]{},
-                new Object[]{});
+                new String[]{User.class.getTypeName()},
+                new Object[]{user});
     }
 
 }
