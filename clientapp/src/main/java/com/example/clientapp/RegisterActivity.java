@@ -30,7 +30,6 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_log_reg);
-        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 
         RootClientModel.getSingle_instance().addObserver(regPresenter);
         this.usernameEditText = (EditText) findViewById(R.id.username);

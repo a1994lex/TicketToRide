@@ -34,10 +34,10 @@
             android:theme="@android:style/Theme.Holo.Light.Dialog"></activity>
         <activity
             android:name="com.example.clientapp.dialogs.JoinGameDialogActivity"
-            android:theme="@android:style/Theme.Holo.Light.Dialog">
-
-        </activity>
-        <activity android:screenOrientation="landscape" android:name=".GamePlayActivity"></activity>
+            android:theme="@android:style/Theme.Holo.Light.Dialog"></activity>
+        <activity
+            android:name=".GamePlayActivity"
+            android:screenOrientation="landscape"></activity>
 
     </application>
 

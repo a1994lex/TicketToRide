@@ -60,10 +60,10 @@ public class ServerProxy implements IServer {
     public LoginResult register(User user) {
         ServerCommand command = serverCommandFactory.createRegisterCommand(user);
         LoginResult registerResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(utils.REGISTER, command);
-//        if (registerResult.isSucceeded()) {  // if register succeeds
-//            Poller poller = new Poller();
-//            poller.poll();
-//        }
+        if (registerResult.isSucceeded()) {  // if register succeeds
+            this.poller = new Poller();
+            this.poller.poll();
+        }
         executeCommands(registerResult.getClientCommands());
         return registerResult;
     }
@@ -73,15 +73,15 @@ public class ServerProxy implements IServer {
         ServerCommand command = serverCommandFactory.createLoginCommand(user);
         LoginResult loginResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(utils.LOGIN, command);
         executeCommands(loginResult.getClientCommands());
-//        if (loginResult.isSucceeded()) {  // if login succeeds
-//            Poller poller = new Poller();
-//            poller.poll();
-//        }
+        if (loginResult.isSucceeded()) {  // if login succeeds
+            this.poller = new Poller();
+            this.poller.poll();
+        }
         return loginResult;
     }
 
-    public CommandResult getCommands() {
-        ServerCommand command = serverCommandFactory.createGetCommands();
+    public CommandResult getCommands(User user) {
+        ServerCommand command = serverCommandFactory.createGetCommands(user);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.GET_COMMANDS, command);
         executeCommands(commandResult.getClientCommands());
         return commandResult;
@@ -89,6 +89,7 @@ public class ServerProxy implements IServer {
 
 
     public void executeCommands(List<ClientCommand> commandList){
+        System.out.println(commandList);
         for (ClientCommand command : commandList) {
             command.execute();
         }

@@ -20,17 +20,16 @@ public class CreateGameFacade {
     public CommandResult createGame(Game game) {
         String result = addGame(game);
         CommandResult cr = new CommandResult();
-        if(result.equals(utils.VALID)){
+        if (result.equals(utils.VALID)) {
             cr.addClientCommand(createReturnCommand(game));
-        }
-        for (Map.Entry<String, String> entry : game.getUsers().entrySet()) {
-            User u = RootServerModel.getUser(entry.getKey());
-            String c=entry.getValue();
+            for (Map.Entry<String, String> entry : game.getUsers().entrySet()) {
+                User u = RootServerModel.getUser(entry.getKey());
+                String c = entry.getValue();
 
-            cr.addClientCommand(createReturCommand(game, u, c));
-            break;
+                cr.addClientCommand(createReturCommand(game, u, c));
+                break;
+            }
         }
-
         cr.setResultType(result);
         return cr;
     }
@@ -43,6 +42,7 @@ public class CreateGameFacade {
         CommandManager cm = CommandManager.getInstance();
         return cm.makeCreateGameCommand(game);
     }
+
     ClientCommand createReturCommand(Game game, User u, String c) {
         CommandManager cm = CommandManager.getInstance();
         return cm.makeJoinGameCommand(game, u, c);

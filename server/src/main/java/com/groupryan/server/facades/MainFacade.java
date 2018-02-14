@@ -48,8 +48,8 @@ public class MainFacade implements IServer {
         return lf.login(user);
     }
 
-    public CommandResult getCommands() {
+    public CommandResult getCommands(User user) {
         GetCommandsFacade gcf = new GetCommandsFacade();
-        return gcf.getCommandList();
+        return gcf.getCommandList(user);
     }
 }
