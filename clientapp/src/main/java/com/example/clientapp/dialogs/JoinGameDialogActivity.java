@@ -124,7 +124,6 @@ public class JoinGameDialogActivity extends Activity implements IJoinGameView, O
                     } else {
                         mError.setText("Game is full");
                     }
-                    JoinGamePresenter.joinGame(mGame, color);
                 } catch (IOException exception) {
                     mError.setText("Please choose a color");
                 }
