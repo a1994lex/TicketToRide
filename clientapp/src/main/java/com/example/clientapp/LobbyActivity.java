@@ -60,8 +60,10 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
             @Override
             public void onClick(View view) {
                 //LobbyPresenter.startGame(mGame);
-                Intent i = new Intent(LobbyActivity.this, GamePlayActivity.class);
-                startActivity(i);
+                if (mGame.getMaxPlayers() == (double) mGame.getUsers().size()) {
+                    Intent i = new Intent(LobbyActivity.this, GamePlayActivity.class);
+                    startActivity(i);
+                }
             }
         });
     }
@@ -116,7 +118,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
 
         @Override
         public int getItemCount() {
-            if (mUserIds.size() == mGame.getMaxPlayers()){
+            if (mUserIds.size() == mGame.getMaxPlayers()) {
                 enableStartButton();
             }
             return mUserIds.size();
