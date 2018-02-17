@@ -135,7 +135,7 @@ public class Game{
         u.addGame(game);
         u2.addGame(game);
 
-        Game game2 = new Game("game2", "gameID2", 2);
+        Game game2 = new Game("game2", "gameID2", 3);
 
         User u3 = new User("jimbob", "duggar");
         User u4 = new User("joanna", "newsom");

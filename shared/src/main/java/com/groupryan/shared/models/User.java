@@ -2,7 +2,9 @@ package com.groupryan.shared.models;
 
 import com.google.gson.internal.LinkedTreeMap;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -13,10 +15,17 @@ public class User implements Comparable{
     public static User mapToObject(LinkedTreeMap map){
         String username;
         String password;
-        List<Game> gameList;
+        List<Game> gameList=new ArrayList<>();
         username = (String)map.get("username");
         password = (String)map.get("password");
-        gameList = (List<Game>)map.get("gameList");
+        ArrayList<LinkedTreeMap> treeGames = (ArrayList)map.get("gameList");
+        if (treeGames.size()>0)
+        {
+            for (LinkedTreeMap l: treeGames){
+                gameList.add(Game.mapToObject(l));
+            }
+        }
+        //gameList = (List<Game>)map.get("gameList");
         return new User(username, password, gameList);
     }
 
@@ -66,13 +75,13 @@ public class User implements Comparable{
     public List<User> makeTestUsers(){
         ArrayList<User> users = new ArrayList();
         User u = new User("clairescout", "gammon");
-        Game game = new Game("game1", "gameID",2);
+        Game game = new Game("game1", "gameID",5);
         //game.addUser(u, RED);
         u.addGame(game);
         users.add(u);
         User u2 = new User("sheila", "parker");
         //game.addUser(u2, BLUE);
-        Game game2 = new Game("game2", "gameID2", 2);
+        Game game2 = new Game("game2", "gameID2", 3);
         u2.addGame(game);
         users.add(u2);
         User u3 = new User("jimbob", "duggar");

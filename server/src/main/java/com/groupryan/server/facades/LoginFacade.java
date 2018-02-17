@@ -17,6 +17,7 @@ public class LoginFacade {
         String result = verifyUser(user);//checks the username and password against the model
         LoginResult lr = new LoginResult();//create the specific login result instead of a command result
         if (result.equals(utils.VALID)) {
+            user=RootServerModel.getUser(user.getUsername());
             lr.addClientCommand(createReturnCommand(user));//creates and stores the client command that comes through
             lr.setSucceeded(true);//im setting this so that the client knows to go to the next activity
             lr.setGameList(RootServerModel.getInstance().getGames());
