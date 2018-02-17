@@ -7,6 +7,8 @@ import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
 
+import java.util.List;
+
 /**
  * Created by bengu3 on 1/31/18.
  */
@@ -46,6 +48,29 @@ public class MainFacade implements IServer {
     public LoginResult login(User user) {
         LoginFacade lf = new LoginFacade();
         return lf.login(user);
+    }
+
+    @Override
+    public CommandResult discardDestinationCard(List<String> cardID, String username) {
+        DestinationCardFacade dcf= new DestinationCardFacade();
+        return dcf.discard();
+    }
+
+    public CommandResult updateChat(){
+        ChatFacade cf= new ChatFacade();
+        return cf.updateChat();
+
+    }
+
+
+    public CommandResult drawColorCard(){
+        ColorCardFacade ccf= new ColorCardFacade();
+        return ccf.drawCard();
+    }
+    public CommandResult updateFaceUp(){
+        ColorCardFacade ccf=new ColorCardFacade();
+        return ccf.updateFaceUp();
+
     }
 
     public CommandResult getCommands(User user) {

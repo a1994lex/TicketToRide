@@ -6,6 +6,8 @@ import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
 
+import java.util.List;
+
 public interface IServer {
     CommandResult createGame(Game game);
 
@@ -16,4 +18,6 @@ public interface IServer {
     LoginResult register(User user);
 
     LoginResult login(User user);
+
+    CommandResult discardDestinationCard(List<String> cardID, String username);
 }
