@@ -7,28 +7,44 @@ import com.groupryan.shared.models.Game;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.utils;
 
+import java.util.ArrayList;
+import java.util.Map;
+
 /**
  * Created by bengu3 on 1/31/18.
  */
 
 public class StartGameFacade {
+    ArrayList<ClientCommand> commands=new ArrayList<>();
 
-    public CommandResult start(Game game) {
-        String result = RootServerModel.getInstance().startGame(game);
-        //setUp();
+
+    public CommandResult start(String gameId) {
+        String result = RootServerModel.getInstance().startGame(gameId);
         CommandResult cr = new CommandResult();
         if(result.equals(utils.VALID)){
-            cr.addClientCommand(activateGame(game));
+            commands.add(activateGame(gameId));
+            setUp(gameId);
         }
         cr.setResultType(result);
         return cr;
         //takes the game id and uses it ot shutdown the game and start everything
     }
 
-    ClientCommand activateGame(Game game) {
-        return CommandManager.getInstance().makeStartGameCommand(game);
+    ClientCommand activateGame(String gameId) {
+        Game g=RootServerModel.getInstance().getGame(gameId);
+        RootServerModel.getInstance().createServerGame(gameId);
+        return CommandManager.getInstance().makeStartGameCommand(g);
     }
 
+    void setUp(String gameId){
+        RootServerModel root= RootServerModel.getInstance();
+        Game g=root.getGame(gameId);
+        for (Map.Entry<String, String> entry : g.getUsers().entrySet()) {
+            root.createPlaya(entry);
+            //we create a create playa command call using the last line as the playa value
+        }
+
+    }
 
     /*
 *   the set up finction{}

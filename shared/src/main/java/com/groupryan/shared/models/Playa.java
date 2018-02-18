@@ -16,9 +16,9 @@ public class Playa {
     int trainPieces;
     String username;
 
-    public Playa(String color  , List<Route> routes, List<DestCard> destCards, List<TrainCard> trainCards, String username){
+    public Playa(String color, List<DestCard> destCards, List<TrainCard> trainCards, String username){
         this.color=color;
-        this.routes=routes;
+        this.routes=new ArrayList<>();
         this.points=0;
         this.destCards=destCards;//should it be new or should it have the 3 alreadyin it?
         this.trainCards=trainCards;//same question

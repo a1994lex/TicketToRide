@@ -2,10 +2,12 @@ package com.groupryan.server.models;
 
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
+import com.groupryan.shared.models.Playa;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -63,8 +65,8 @@ public class RootServerModel {
         return single_instance._addUserToGame(game, user, userColor);
     }
 
-    public static String startGame(Game game) {
-        return single_instance._startGame(game);
+    public static String startGame(String gameId) {
+        return single_instance._startGame(gameId);
     }
 
 
@@ -106,6 +108,14 @@ public class RootServerModel {
         return utils.VALID;
     }
 
+    public Game getGame(String gameId) {
+        for (Game g : games) {
+            if (g.getGameId().equals(gameId)) {
+                return g;
+            }
+        }
+        return null;
+    }
     public String _createGame(Game game){
         for (Game g:games) {
             if(g.getGameName().equals(game.getGameName())){
@@ -148,10 +158,25 @@ public class RootServerModel {
         return utils.INVALID_GAMEID;
     }
 
+    public void createServerGame(String gameId){
+        //ServerGame sg=new ServerGame;
+        //create the game
+        //  that involves making the bank
 
-    private String _startGame(Game game) {
+    }
+
+    public Playa createPlaya(Map.Entry<String, String> entry){
+        //get the top 4 train cards
+        //get the top 3 D cards,
+        //store the player ,
+
+
+        return new Playa(entry.getValue(), null, null, entry.getKey());
+    }
+
+    private String _startGame(String gameId) {
         for (Game g : games) {
-            if (g.equals(game)) {
+            if (g.getGameId().equals(gameId)) {
                 g.setStarted(true);
                 return utils.VALID;
             }
