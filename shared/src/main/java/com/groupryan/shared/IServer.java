@@ -13,11 +13,10 @@ public interface IServer {
 
     CommandResult joinGame(Game game, User user, String userColor);
 
-    CommandResult startGame(Game game);
+    CommandResult startGame(String gameId);
 
     LoginResult register(User user);
 
     LoginResult login(User user);
 
-    CommandResult discardDestinationCard(List<String> cardID, String username);
 }

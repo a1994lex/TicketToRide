@@ -46,8 +46,8 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public CommandResult startGame(Game game) {
-        ServerCommand command = serverCommandFactory.createStartGameCommand(game);
+    public CommandResult startGame(String gameId) {
+        ServerCommand command = serverCommandFactory.createStartGameCommand(gameId);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.START_GAME, command);
         executeCommands(commandResult.getClientCommands());
         return null;

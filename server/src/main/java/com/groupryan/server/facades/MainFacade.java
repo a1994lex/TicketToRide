@@ -33,9 +33,9 @@ public class MainFacade implements IServer {
     }
 
     @Override
-    public CommandResult startGame(Game game) {
+    public CommandResult startGame(String gameId) {
         StartGameFacade sgf = new StartGameFacade();
-        return sgf.start(game);
+        return sgf.start(gameId);
     }
 
     @Override
@@ -50,7 +50,7 @@ public class MainFacade implements IServer {
         return lf.login(user);
     }
 
-    @Override
+
     public CommandResult discardDestinationCard(List<String> cardID, String username) {
         DestinationCardFacade dcf= new DestinationCardFacade();
         return dcf.discard();

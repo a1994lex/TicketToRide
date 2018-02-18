@@ -30,10 +30,10 @@ public class ServerCommandFactory {
     }
 
 
-    public ServerCommand createStartGameCommand(Game game) {
+    public ServerCommand createStartGameCommand(String gameId) {
         return new ServerCommand("com.groupryan.server.facades.MainFacade", "startGame",
                 new String[]{Game.class.getTypeName()},
-                new Object[]{game});
+                new Object[]{gameId});
 
     }
 
