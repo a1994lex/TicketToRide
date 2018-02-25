@@ -69,6 +69,31 @@ public class ServerProxy implements IServer {
         return loginResult;
     }
 
+    @Override
+    public CommandResult discardDestinationCard(List<Integer> cardID, String username) {
+        return null;
+    }
+
+    @Override
+    public CommandResult sendChat(String gameId) {
+        return null;
+    }
+
+    @Override
+    public CommandResult drawColorCard(String username) {
+        return null;
+    }
+
+    @Override
+    public CommandResult updateFaceUp(String gameId) {
+        return null;
+    }
+
+    @Override
+    public CommandResult drawDestinationCards(String username) {
+        return null;
+    }
+
     public CommandResult getCommands(User user) {
         ServerCommand command = serverCommandFactory.createGetCommands(user);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.GET_COMMANDS, command);

@@ -8,7 +8,7 @@ import com.groupryan.shared.results.CommandResult;
 
 public class ChatFacade {
 
-    public CommandResult updateChat(){
+    public CommandResult sendChat(){
         //add chat to the chat list
         //add chat to everyone else
         return null;

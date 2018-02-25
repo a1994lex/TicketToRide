@@ -3,8 +3,11 @@ package com.groupryan.server;
 import com.groupryan.server.models.RootServerModel;
 import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.commands.ClientCommandFactory;
+import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Color;
+import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.Game;
+import com.groupryan.shared.models.Playa;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.utils;
@@ -95,9 +98,17 @@ public class CommandManager {
         return command;
     }
 
-    public ClientCommand makeStartGameCommand(Game game) {
-        ClientCommand command = factory.createStartGameCommand(game);
+    public ClientCommand makeStartGameCommand(Game game, Playa p) {
+        ClientCommand command = factory.createStartGameCommand(game, p);
+
         this._addCommandToMap(command, game, utils.START_GAME);
+        return command;
+    }
+
+    public ClientCommand makeDiscardDestinationCardCommand(List<Integer> cardIDs, String username){
+        ClientCommand command = factory.createDiscardDestinationCardCommand(cardIDs, username);
+//TODO  this needs to be fixed too
+        //this._addCommandToMap(command, game, utils._GAME);
         return command;
     }
 
@@ -113,5 +124,11 @@ public class CommandManager {
         return command;
 
     }
+
+    public ClientCommand makeDrawThreeCardsCommand(List<DestCard> cards){
+        ClientCommand command = factory.createDrawThreeCardsCommand(cards);
+        return command;
+    }
+
 
 }

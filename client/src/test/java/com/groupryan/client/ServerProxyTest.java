@@ -22,6 +22,7 @@ public class ServerProxyTest extends TestCase {
 
     public void testStartGame() throws Exception {
         ServerProxy sp= ServerProxy.getInstance();
+        sp.startGame("gameID2");
     }
 
     public void testRegister() throws Exception {

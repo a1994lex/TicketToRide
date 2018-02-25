@@ -50,24 +50,33 @@ public class MainFacade implements IServer {
         return lf.login(user);
     }
 
-
-    public CommandResult discardDestinationCard(List<String> cardID, String username) {
+    @Override
+    public CommandResult discardDestinationCard(List<Integer> cardIDs, String username) {
         DestinationCardFacade dcf= new DestinationCardFacade();
-        return dcf.discard();
+        return dcf.discard(cardIDs, username);
     }
 
-    public CommandResult updateChat(){
+    @Override
+    public CommandResult drawDestinationCards(String username){
+        DestinationCardFacade dcf=new DestinationCardFacade();
+        return dcf.drawDestinationCards(username);
+    }
+
+    @Override
+    public CommandResult sendChat(String gameId){
         ChatFacade cf= new ChatFacade();
-        return cf.updateChat();
+        return cf.sendChat();
 
     }
 
-
-    public CommandResult drawColorCard(){
+    @Override
+    public CommandResult drawColorCard(String gameId){
         ColorCardFacade ccf= new ColorCardFacade();
         return ccf.drawCard();
     }
-    public CommandResult updateFaceUp(){
+
+    @Override
+    public CommandResult updateFaceUp(String gameId){
         ColorCardFacade ccf=new ColorCardFacade();
         return ccf.updateFaceUp();
 

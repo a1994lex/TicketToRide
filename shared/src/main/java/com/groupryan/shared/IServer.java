@@ -19,4 +19,13 @@ public interface IServer {
 
     LoginResult login(User user);
 
+    CommandResult discardDestinationCard(List<Integer> cardID, String username);
+
+    CommandResult sendChat(String gameId);
+
+    CommandResult drawColorCard(String username);
+
+    CommandResult updateFaceUp(String gameId);
+
+    CommandResult drawDestinationCards(String username);
 }

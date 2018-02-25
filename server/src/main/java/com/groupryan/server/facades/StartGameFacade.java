@@ -4,6 +4,7 @@ import com.groupryan.server.CommandManager;
 import com.groupryan.server.models.RootServerModel;
 import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.models.Game;
+import com.groupryan.shared.models.Playa;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.utils;
 
@@ -19,32 +20,32 @@ public class StartGameFacade {
 
 
     public CommandResult start(String gameId) {
+        //sets the game id = to TRUE and returns the literal VALID
         String result = RootServerModel.getInstance().startGame(gameId);
         CommandResult cr = new CommandResult();
         if(result.equals(utils.VALID)){
-            commands.add(activateGame(gameId));
-            setUp(gameId);
+            //if valid it will create a start game command
+            activateGame(gameId);
+            //then it will prepare the game to be started
         }
         cr.setResultType(result);
         return cr;
         //takes the game id and uses it ot shutdown the game and start everything
     }
 
-    ClientCommand activateGame(String gameId) {
-        Game g=RootServerModel.getInstance().getGame(gameId);
-        RootServerModel.getInstance().createServerGame(gameId);
-        return CommandManager.getInstance().makeStartGameCommand(g);
-    }
-
-    void setUp(String gameId){
+    void activateGame(String gameId) {
         RootServerModel root= RootServerModel.getInstance();
         Game g=root.getGame(gameId);
+        root.createServerGame(gameId);
         for (Map.Entry<String, String> entry : g.getUsers().entrySet()) {
-            root.createPlaya(entry);
+            Playa p=root.createPlaya(gameId, entry);
+            root.addPlayatoGame(p.getUsername(), gameId);
+            CommandManager.getInstance().makeStartGameCommand(g, p);
             //we create a create playa command call using the last line as the playa value
         }
-
+      //  return CommandManager.getInstance().makeStartGameCommand(g,p);
     }
+
 
     /*
 *   the set up finction{}
