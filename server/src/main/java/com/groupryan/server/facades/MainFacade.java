@@ -7,6 +7,8 @@ import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
 
+import java.util.List;
+
 /**
  * Created by bengu3 on 1/31/18.
  */
@@ -31,9 +33,9 @@ public class MainFacade implements IServer {
     }
 
     @Override
-    public CommandResult startGame(Game game) {
+    public CommandResult startGame(String gameId) {
         StartGameFacade sgf = new StartGameFacade();
-        return sgf.start(game);
+        return sgf.start(gameId);
     }
 
     @Override
@@ -46,6 +48,38 @@ public class MainFacade implements IServer {
     public LoginResult login(User user) {
         LoginFacade lf = new LoginFacade();
         return lf.login(user);
+    }
+
+    @Override
+    public CommandResult discardDestinationCard(List<Integer> cardIDs, String username) {
+        DestinationCardFacade dcf= new DestinationCardFacade();
+        return dcf.discard(cardIDs, username);
+    }
+
+    @Override
+    public CommandResult drawDestinationCards(String username){
+        DestinationCardFacade dcf=new DestinationCardFacade();
+        return dcf.drawDestinationCards(username);
+    }
+
+    @Override
+    public CommandResult sendChat(String gameId){
+        ChatFacade cf= new ChatFacade();
+        return cf.sendChat();
+
+    }
+
+    @Override
+    public CommandResult drawColorCard(String gameId){
+        ColorCardFacade ccf= new ColorCardFacade();
+        return ccf.drawCard();
+    }
+
+    @Override
+    public CommandResult updateFaceUp(String gameId){
+        ColorCardFacade ccf=new ColorCardFacade();
+        return ccf.updateFaceUp();
+
     }
 
     public CommandResult getCommands(User user) {

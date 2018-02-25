@@ -4,6 +4,7 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     compile project(path: ':shared')
     implementation project(':gson-2.8.2')
+    testCompile 'junit:junit:4.12'
 }
 
 sourceCompatibility = "1.8"

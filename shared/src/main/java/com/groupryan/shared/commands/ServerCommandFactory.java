@@ -30,10 +30,10 @@ public class ServerCommandFactory {
     }
 
 
-    public ServerCommand createStartGameCommand(Game game) {
+    public ServerCommand createStartGameCommand(String gameId) {
         return new ServerCommand("com.groupryan.server.facades.MainFacade", "startGame",
-                new String[]{Game.class.getTypeName()},
-                new Object[]{game});
+                new String[]{String.class.getTypeName()},
+                new Object[]{gameId});
 
     }
 
@@ -53,6 +53,11 @@ public class ServerCommandFactory {
         return new ServerCommand("com.groupryan.server.facades.MainFacade", "getCommands",
                 new String[]{User.class.getTypeName()},
                 new Object[]{user});
+    }
+    public ServerCommand createDrawThreeCardsCommand(String username){
+        return new ServerCommand("com.groupryan.server.facades.MainFacade", "drawDestinationCards",
+                new String[]{String.class.getTypeName()},
+                new Object[]{username});
     }
 
 }
