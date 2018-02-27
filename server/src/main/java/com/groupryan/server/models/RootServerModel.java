@@ -5,7 +5,7 @@ import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Deck;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.Game;
-import com.groupryan.shared.models.Playa;
+import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.models.User;
@@ -23,8 +23,8 @@ import java.util.Set;
 
 public class RootServerModel {
 
-    private ArrayList<Game> games;
-    private ArrayList<User> users;
+    private Map<String, Game> gameMap;
+    private Map<String, User> userMap;
     private Map<Integer, TrainCard> trainCardMap=new HashMap<>();
     private Map<Integer, DestCard> destinationCardMap=new HashMap<>();
     private Map<String, ServerGame> serverGameIdMap=new HashMap<>();
@@ -40,7 +40,7 @@ public class RootServerModel {
         if (single_instance == null) {
             single_instance = new RootServerModel();
             Game game = new Game();
-            single_instance.games = (ArrayList) game.makeTestGames();
+            single_instance.gameMap = game.makeTestGames();
             single_instance.makeBank();
         }
         return single_instance;
@@ -48,7 +48,7 @@ public class RootServerModel {
 
     public ArrayList<Game> getGames() {
         ArrayList<Game> notStartedGames=new ArrayList<>();
-        for (Game g:games) {
+        for (Game g:gameMap.values()) {
             if(!g.isStarted()){
                 notStartedGames.add(g);
             }
@@ -57,7 +57,7 @@ public class RootServerModel {
     }
 
     public ArrayList<User> getUsers() {
-        return users;
+        return (ArrayList<User>)userMap.values();
     }
 
     public static String addUser(User user) {
@@ -87,12 +87,12 @@ public class RootServerModel {
 
 
     private RootServerModel() {
-        games = new ArrayList();
-        users = new ArrayList();
+        gameMap = new HashMap<>();
+        userMap = new HashMap<>();
     }
 
     private String _addUser(User user) {
-        users.add(user);
+        userMap.put(user.getUsername(), user);
         return utils.VALID;
     }
 
@@ -101,10 +101,9 @@ public class RootServerModel {
     }
 
     private User _getUser(String userId) {
-        for (User u : users) {
-            if(u.getUsername().equals(userId)){
-                return u;
-            }
+        if (userMap.containsKey((userId)))
+        {
+            return userMap.get(userId);
         }
         return null;
     }
@@ -113,7 +112,7 @@ public class RootServerModel {
         if(game.getGameId()==null){
             game.makeGameId();
         }
-        games.add(game);
+        gameMap.put(game.getGameId(),game);
         Set<String> keys = game.getUsers().keySet();
         for (String s:keys) {
             getUser(s).addGame(game);
@@ -125,7 +124,7 @@ public class RootServerModel {
     }
 
     public Game getGame(String gameId) {
-        for (Game g : games) {
+        for (Game g : gameMap.values()) {
             if (g.getGameId().equals(gameId)) {
                 return g;
             }
@@ -133,7 +132,7 @@ public class RootServerModel {
         return null;
     }
     public String _createGame(Game game){
-        for (Game g:games) {
+        for (Game g:gameMap.values()) {
             if(g.getGameName().equals(game.getGameName())){
                 return utils.GAME_NAME_IN_USE;
             }
@@ -142,34 +141,28 @@ public class RootServerModel {
     }
 
     private String _confirmUser(User user) {
-        for (User u : users) {
-            if (u.getUsername().equals(user.getUsername())) {
-                if (u.getPassword().equals(user.getPassword())) {
-                    return utils.VALID;
-                }
-                return utils.INVALID_PW;
+        if (userMap.containsKey(user.getUsername()))
+        {
+            User u = userMap.get(user.getUsername());
+            if (u.getPassword().equals(user.getPassword())) {
+                return utils.VALID;
             }
+            return utils.INVALID_PW;
         }
         return utils.INVALID_UN;
     }
 
     private Boolean _checkUser(User user) {
-        for (User u : users) {
-            if (u.getUsername().equals(user.getUsername())) {
-                return true;
-            }
-        }
-        return false;
+        return userMap.containsKey(user.getUsername());
     }
 
     private String _addUserToGame(Game game, User user, String userColor) {
-        for (Game g : this.games) {
-            if (g.equals(game)) {
-                if(g.getMaxPlayers()==g.getUsers().size()){
-                    return utils.FULL_GAME;
-                }
-               return g.addUser(user, userColor);
+        if (gameMap.containsKey(game.getGameId())) {
+            Game g = gameMap.get(game.getGameId());
+            if (g.getMaxPlayers() == g.getUsers().size()) {
+                return utils.FULL_GAME;
             }
+            return g.addUser(user, userColor);
         }
         return utils.INVALID_GAMEID;
     }
@@ -432,31 +425,30 @@ public class RootServerModel {
     public ServerGame getServerGame(String username){
         return userGames.get(username);
     }
-    public void addPlayatoGame(String username, String gameID){
+    public void addPlayertoGame(String username, String gameID){
         userGames.put(username, serverGameIdMap.get(gameID));
     }
 
-    public Playa createPlaya(String gameId, Map.Entry<String, String> entry){
+    public Player createPlayer(String gameId, Map.Entry<String, String> entry){
         ServerGame sg=serverGameIdMap.get(gameId);
         List<Card> tCards=new ArrayList<>();
         tCards.add(sg.drawTrainCard());
         tCards.add(sg.drawTrainCard());
         tCards.add(sg.drawTrainCard());
         tCards.add(sg.drawTrainCard());
-        Playa p=new Playa(entry.getValue(), sg.drawDestinationCards(),tCards ,entry.getKey());
+        Player p=new Player(entry.getValue(), sg.drawDestinationCards(),tCards ,entry.getKey());
         //get the top 4 train cards
         //get the top 3 D cards,
         //store the player ,
-        sg.addPlaya(p);
+        sg.addPlayer(p);
         return p;
     }
 
     private String _startGame(String gameId) {
-        for (Game g : games) {
-            if (g.getGameId().equals(gameId)) {
-                g.setStarted(true);
-                return utils.VALID;
-            }
+        if (gameMap.containsKey(gameId))
+        {
+            gameMap.get(gameId).setStarted(true);
+            return utils.VALID;
         }
         return utils.INVALID_GAMEID;
     }

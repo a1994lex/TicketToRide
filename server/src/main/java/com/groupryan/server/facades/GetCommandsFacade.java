@@ -17,4 +17,11 @@ public class GetCommandsFacade {
         cr.setResultType(utils.VALID);
         return cr;
     }
+
+    public CommandResult getGameCommands(String gameId, String playerId){
+        CommandResult cr = new CommandResult();
+        cr.setClientCommands(CommandManager.getInstance().getGameCommands(gameId, playerId));
+        cr.setResultType(utils.VALID);
+        return cr;
+    }
 }

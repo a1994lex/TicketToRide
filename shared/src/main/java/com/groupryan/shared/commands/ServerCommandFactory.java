@@ -54,10 +54,23 @@ public class ServerCommandFactory {
                 new String[]{User.class.getTypeName()},
                 new Object[]{user});
     }
+
+    public ServerCommand createGetGameCommands(String gameId, String playerId) {
+        return new ServerCommand("com.groupryan.server.facades.MainFacade", "getGameCommands",
+                new String[]{String.class.getTypeName(), String.class.getTypeName()},
+                new Object[]{gameId, playerId});
+    }
+
     public ServerCommand createDrawThreeCardsCommand(String username){
         return new ServerCommand("com.groupryan.server.facades.MainFacade", "drawDestinationCards",
                 new String[]{String.class.getTypeName()},
                 new Object[]{username});
+    }
+
+    public ServerCommand createSendChat(String gameId, String msg, String username) {
+        return new ServerCommand("com.groupryan.server.facades.MainFacade", "sendChat",
+                new String[]{String.class.getTypeName(), String.class.getTypeName(), String.class.getTypeName()},
+                new Object[]{gameId, msg, username});
     }
 
 }

@@ -7,7 +7,7 @@ import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.Game;
-import com.groupryan.shared.models.Playa;
+import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.utils;
@@ -23,7 +23,9 @@ import java.util.Map;
 
 public class CommandManager {
 
+
     Map<User, List<ClientCommand>> usersCommands = new HashMap<>();
+    Map<String, Map<String, List<ClientCommand>>> gamePlayerCommands = new HashMap();
     private static CommandManager instance;
 
     public static CommandManager getInstance() {
@@ -49,6 +51,33 @@ public class CommandManager {
         System.out.println(user);
         System.out.println(commands);
         return commands;
+    }
+    public List<ClientCommand> getGameCommands(String gameId, String playerId){
+        List<ClientCommand> playerCommands = this.gamePlayerCommands.get(gameId).get(playerId);
+        this.gamePlayerCommands.get(gameId).get(playerId).clear(); // Clears the players list of commands
+        return playerCommands;
+    }
+
+    private void _addCommandToGameMap(ClientCommand command, String gameId, String exceptionPlayer)
+    {
+        assert (this.gamePlayerCommands.containsKey(gameId));
+        if (exceptionPlayer != null)
+            // exceptionPlayer is null if all players need to receive command,
+            // I'm not sure if it will ever not be null, but this capability is here
+        {
+            assert (this.gamePlayerCommands.get(gameId).containsKey(exceptionPlayer));
+        }
+        for (String playerId: this.gamePlayerCommands.get(gameId).keySet())
+        {
+            /* only adds a command to the list if the player is not the exceptionPlayer.
+             exceptionPlayer is another word for the player who is currently having their turn, and
+             they don't need this specific command handed to them.*/
+
+            if (!playerId.equals(exceptionPlayer))
+            {
+                this.gamePlayerCommands.get(gameId).get(playerId).add(command); //add the command to list
+            }
+        }
     }
 
     private void _addCommandToMap(ClientCommand command, Object o, String commandType) {
@@ -86,6 +115,11 @@ public class CommandManager {
         }
     }
 
+    public void addChatCommand(String chat_msg, String gameId, String playerId) {
+        ClientCommand command = factory.createChatCommand(chat_msg);
+        this._addCommandToGameMap(command, gameId, playerId);
+    }
+
     public ClientCommand makeJoinGameCommand(Game game, User user, String userColor) {
         ClientCommand command = factory.createJoinGameCommand(game, user, userColor);
         this._addCommandToMap(command, user, utils.JOIN_GAME);
@@ -98,7 +132,7 @@ public class CommandManager {
         return command;
     }
 
-    public ClientCommand makeStartGameCommand(Game game, Playa p) {
+    public ClientCommand makeStartGameCommand(Game game, Player p) {
         ClientCommand command = factory.createStartGameCommand(game, p);
 
         this._addCommandToMap(command, game, utils.START_GAME);

@@ -75,7 +75,10 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public CommandResult sendChat(String gameId) {
+    public CommandResult sendChat(String gameId, String msg, String username) {
+        ServerCommand command = serverCommandFactory.createSendChat(gameId, msg, username);
+        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.GET_COMMANDS, command);
+        executeCommands(commandResult.getClientCommands());
         return null;
     }
 
@@ -94,8 +97,16 @@ public class ServerProxy implements IServer {
         return null;
     }
 
+    @Override
     public CommandResult getCommands(User user) {
         ServerCommand command = serverCommandFactory.createGetCommands(user);
+        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.GET_COMMANDS, command);
+        return commandResult;
+    }
+
+    @Override
+    public CommandResult getGameCommands(String gameId, String playerId) {
+        ServerCommand command = serverCommandFactory.createGetGameCommands(gameId, playerId);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.GET_COMMANDS, command);
         return commandResult;
     }

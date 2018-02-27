@@ -7,7 +7,7 @@ import java.util.List;
  * Created by arctu on 2/17/2018.
  */
 
-public class Playa {
+public class Player {
     String color;
     List<Route> routes;
     int points;
@@ -16,7 +16,7 @@ public class Playa {
     int trainPieces;
     String username;
 
-    public Playa(String color, List<DestCard> destCards, List<Card> trainCards, String username){
+    public Player(String color, List<DestCard> destCards, List<Card> trainCards, String username){
         this.color=color;
         this.routes=new ArrayList<>();
         this.points=0;

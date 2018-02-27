@@ -4,7 +4,7 @@ import com.groupryan.server.CommandManager;
 import com.groupryan.server.models.RootServerModel;
 import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.models.Game;
-import com.groupryan.shared.models.Playa;
+import com.groupryan.shared.models.Player;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.utils;
 
@@ -38,8 +38,8 @@ public class StartGameFacade {
         Game g=root.getGame(gameId);
         root.createServerGame(gameId);
         for (Map.Entry<String, String> entry : g.getUsers().entrySet()) {
-            Playa p=root.createPlaya(gameId, entry);
-            root.addPlayatoGame(p.getUsername(), gameId);
+            Player p=root.createPlayer(gameId, entry);
+            root.addPlayertoGame(p.getUsername(), gameId);
             CommandManager.getInstance().makeStartGameCommand(g, p);
             //we create a create playa command call using the last line as the playa value
         }

@@ -16,7 +16,7 @@ public class ClientFacade {
         //RootClientModel.addUserToGame();
     }
 
-    public void startGame(Game game, Playa p) {
+    public void startGame(Game game, Player p) {
         RootClientModel.startGame(game, p);
     }
 

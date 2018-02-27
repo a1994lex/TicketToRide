@@ -19,9 +19,13 @@ public interface IServer {
 
     LoginResult login(User user);
 
+    CommandResult getCommands(User user);
+
+    CommandResult getGameCommands(String gameId, String playerId);
+
     CommandResult discardDestinationCard(List<Integer> cardID, String username);
 
-    CommandResult sendChat(String gameId);
+    CommandResult sendChat(String gameId, String msg, String username);
 
     CommandResult drawColorCard(String username);
 

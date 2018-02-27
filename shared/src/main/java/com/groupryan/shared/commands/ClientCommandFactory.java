@@ -4,8 +4,9 @@ import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.Game;
-import com.groupryan.shared.models.Playa;
+import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.User;
+import com.sun.security.ntlm.Client;
 
 import java.util.List;
 
@@ -32,9 +33,9 @@ public class ClientCommandFactory {
                 new Object[]{game, user, userColor});
     }
 
-    public ClientCommand createStartGameCommand(Game game, Playa p) {
+    public ClientCommand createStartGameCommand(Game game, Player p) {
         return new ClientCommand("com.groupryan.client.ClientFacade", "startGame",
-                new String[]{Game.class.getTypeName(), Playa.class.getTypeName()},
+                new String[]{Game.class.getTypeName(), Player.class.getTypeName()},
                 new Object[]{game, p});
     }
 
@@ -60,6 +61,12 @@ public class ClientCommandFactory {
         return new ClientCommand("com.groupryan.client.ClientFacade", "drawThreeCards",
                 new String[]{List.class.getTypeName()},
                 new Object[]{cards});
+    }
+
+    public ClientCommand createChatCommand(String msg){
+        return new ClientCommand("com.groupryan.client.ClientFacade", "updateChat",
+                new String[]{String.class.getTypeName()},
+                new Object[]{msg});
     }
 
 }

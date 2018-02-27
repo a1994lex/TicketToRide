@@ -5,7 +5,7 @@ import com.groupryan.server.models.RootServerModel;
 import com.groupryan.server.models.ServerGame;
 import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.DestCard;
-import com.groupryan.shared.models.Playa;
+import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.utils;
@@ -39,7 +39,7 @@ public class DestinationCardFacade {
         CommandResult cr = new CommandResult();
         ServerGame sg=RootServerModel.getInstance().getServerGame(username);
         List<DestCard> cards =sg.drawDestinationCards();
-        sg.getPlaya(username).addDestCards(cards);
+        sg.getPlayer(username).addDestCards(cards);
         cr.addClientCommand(CommandManager.getInstance().makeDrawThreeCardsCommand(cards));
         //update the history by making a command saying that this username drew three cards
         //CommandManager.getInstance().add(getStat(username));

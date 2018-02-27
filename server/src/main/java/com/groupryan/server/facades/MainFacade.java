@@ -1,11 +1,13 @@
 package com.groupryan.server.facades;
 
+import com.groupryan.server.CommandManager;
 import com.groupryan.shared.IServer;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
+import com.groupryan.shared.utils;
 
 import java.util.List;
 
@@ -63,10 +65,12 @@ public class MainFacade implements IServer {
     }
 
     @Override
-    public CommandResult sendChat(String gameId){
-        ChatFacade cf= new ChatFacade();
-        return cf.sendChat();
-
+    public CommandResult sendChat(String gameId, String msg, String username){
+        CommandManager.getInstance().addChatCommand(msg,gameId, username);
+        CommandResult cm = new CommandResult();
+        cm.setClientCommands(CommandManager.getInstance().getGameCommands(gameId, username));
+        cm.setResultType(utils.VALID);
+        return cm;
     }
 
     @Override
@@ -82,8 +86,15 @@ public class MainFacade implements IServer {
 
     }
 
+    @Override
     public CommandResult getCommands(User user) {
         GetCommandsFacade gcf = new GetCommandsFacade();
         return gcf.getCommandList(user);
+    }
+
+    @Override
+    public CommandResult getGameCommands(String gameId, String playerId) {
+        GetCommandsFacade gcf = new GetCommandsFacade();
+        return gcf.getGameCommands(gameId, playerId);
     }
 }

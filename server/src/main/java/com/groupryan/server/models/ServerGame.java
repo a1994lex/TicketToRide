@@ -3,7 +3,7 @@ package com.groupryan.server.models;
 import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Deck;
 import com.groupryan.shared.models.DestCard;
-import com.groupryan.shared.models.Playa;
+import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.utils;
@@ -22,7 +22,7 @@ public class ServerGame {
     Deck trainCards;
     Deck destinationCards;
     List<String> history;
-    Map<String, Playa> playaMap;
+    Map<String, Player> playaMap;
     Map<String, Stat> stats;
 // playamap after  stats also null
     public ServerGame( String serverGameID, Deck trainCards, Deck destinationCards){
@@ -38,10 +38,10 @@ public class ServerGame {
     public void addHistory(String note){
         history.add(note);
     }
-    public void addPlaya(Playa p){
+    public void addPlayer(Player p){
         playaMap.put(p.getUsername(), p);
     }
-    public Playa getPlaya(String username){return playaMap.get(username);}
+    public Player getPlayer(String username){return playaMap.get(username);}
 
     public Stat getStat(String username){
         Stat s=(playaMap.get(username)).makeStat();
@@ -52,11 +52,11 @@ public class ServerGame {
     public List<String> getAllHistory(){
         return history;
     }
-    public void removeTrainCardsFromPlaya(String username, List<Integer> cardID){
+    public void removeTrainCardsFromPlayer(String username, List<Integer> cardID){
         //voided by the discard funciton
         //not necessary
     }
-    public void removeDestinationCardsFromPlaya(String username, List<Integer> cardID){
+    public void removeDestinationCardsFromPlayer(String username, List<Integer> cardID){
         //needs to do something
         //not    now voided by discard function
     }
