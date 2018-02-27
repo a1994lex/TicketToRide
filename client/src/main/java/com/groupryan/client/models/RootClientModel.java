@@ -14,6 +14,7 @@ public class RootClientModel extends Observable {
 
     private ArrayList<Game> games;
     private User user;
+    private ClientGame clientGame;
 
     public static RootClientModel getInstance() {
         if (single_instance == null) {
@@ -32,6 +33,10 @@ public class RootClientModel extends Observable {
 
     public static User getUser() {
         return single_instance.user;
+    }
+
+    public static ClientGame getCurrentGame() {
+        return single_instance.clientGame;
     }
 
     private static RootClientModel single_instance = new RootClientModel();
@@ -75,6 +80,7 @@ public class RootClientModel extends Observable {
     }
 
     private void _startGame(Game game, Player p) {
+        clientGame = new ClientGame(game, p);
         //MAKE THE PLAYA LIVEEEEE
         for (Game g : games) {
             if (g.equals(game)) {

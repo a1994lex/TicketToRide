@@ -66,7 +66,7 @@ public class MainFacade implements IServer {
 
     @Override
     public CommandResult sendChat(String gameId, String msg, String username){
-        CommandManager.getInstance().addChatCommand(msg,gameId, username);
+        CommandManager.getInstance().addChatCommand(msg,gameId,null);
         CommandResult cm = new CommandResult();
         cm.setClientCommands(CommandManager.getInstance().getGameCommands(gameId, username));
         cm.setResultType(utils.VALID);
