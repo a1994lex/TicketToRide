@@ -64,7 +64,13 @@ public class UIFacade {
 
     }
 
-    public void startGame(Game game) {
-        ServerProxy.getInstance().startGame(game);
+    public void startGame(String gameId) {
+        ServerProxy.getInstance().startGame(gameId);
+    }
+
+    public CommandResult sendChat(String msg){
+        String gid =RootClientModel.getCurrentGame().getGameId();
+        String uid = RootClientModel.getUser().getUsername();
+        return ServerProxy.getInstance().sendChat(gid, msg, uid);
     }
 }

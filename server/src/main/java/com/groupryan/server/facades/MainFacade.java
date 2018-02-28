@@ -1,11 +1,15 @@
 package com.groupryan.server.facades;
 
+import com.groupryan.server.CommandManager;
 import com.groupryan.shared.IServer;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
+import com.groupryan.shared.utils;
+
+import java.util.List;
 
 /**
  * Created by bengu3 on 1/31/18.
@@ -31,9 +35,9 @@ public class MainFacade implements IServer {
     }
 
     @Override
-    public CommandResult startGame(Game game) {
+    public CommandResult startGame(String gameId) {
         StartGameFacade sgf = new StartGameFacade();
-        return sgf.start(game);
+        return sgf.start(gameId);
     }
 
     @Override
@@ -48,8 +52,49 @@ public class MainFacade implements IServer {
         return lf.login(user);
     }
 
+    @Override
+    public CommandResult discardDestinationCard(List<Integer> cardIDs, String username) {
+        DestinationCardFacade dcf= new DestinationCardFacade();
+        return dcf.discard(cardIDs, username);
+    }
+
+    @Override
+    public CommandResult drawDestinationCards(String username){
+        DestinationCardFacade dcf=new DestinationCardFacade();
+        return dcf.drawDestinationCards(username);
+    }
+
+    @Override
+    public CommandResult sendChat(String gameId, String msg, String username){
+        CommandManager.getInstance().addChatCommand(msg,gameId,null);
+        CommandResult cm = new CommandResult();
+        cm.setClientCommands(CommandManager.getInstance().getGameCommands(gameId, username));
+        cm.setResultType(utils.VALID);
+        return cm;
+    }
+
+    @Override
+    public CommandResult drawColorCard(String gameId){
+        ColorCardFacade ccf= new ColorCardFacade();
+        return ccf.drawCard();
+    }
+
+    @Override
+    public CommandResult updateFaceUp(String gameId){
+        ColorCardFacade ccf=new ColorCardFacade();
+        return ccf.updateFaceUp();
+
+    }
+
+    @Override
     public CommandResult getCommands(User user) {
         GetCommandsFacade gcf = new GetCommandsFacade();
         return gcf.getCommandList(user);
+    }
+
+    @Override
+    public CommandResult getGameCommands(String gameId, String playerId) {
+        GetCommandsFacade gcf = new GetCommandsFacade();
+        return gcf.getGameCommands(gameId, playerId);
     }
 }

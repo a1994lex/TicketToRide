@@ -2,6 +2,7 @@ package com.groupryan.client.models;
 
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
+import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.User;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class RootClientModel extends Observable {
 
     private ArrayList<Game> games;
     private User user;
+    private ClientGame clientGame;
 
     public static RootClientModel getInstance() {
         if (single_instance == null) {
@@ -33,6 +35,11 @@ public class RootClientModel extends Observable {
         return single_instance.user;
     }
 
+    public static ClientGame getCurrentGame() {
+        return single_instance.clientGame;
+
+    }
+
     private static RootClientModel single_instance = new RootClientModel();
 
 
@@ -45,9 +52,11 @@ public class RootClientModel extends Observable {
         single_instance._addGame(game);
     }
 
-    public static void startGame(Game game) {
-        single_instance._startGame(game);
+    public static void startGame(Game game, Player p) {
+        single_instance._startGame(game, p);
     }
+
+    public static void setCurrentGame(Game game){ single_instance._setCurrentGame(game);}
 
     public static void addUserToGame(Game game, User user, String userColor) {
         single_instance._addUserToGame(game, user, userColor);
@@ -73,7 +82,9 @@ public class RootClientModel extends Observable {
         notifyObservers();
     }
 
-    private void _startGame(Game game) {
+    private void _startGame(Game game, Player p) {
+        // Builds a client game along with the Player
+        clientGame = new ClientGame(game, p);
         for (Game g : games) {
             if (g.equals(game)) {
                 g.setStarted(true);
@@ -98,5 +109,9 @@ public class RootClientModel extends Observable {
 
     private void _setGames(List<Game> games) {
         this.games = (ArrayList<Game>)games;
+    }
+
+    private void _setCurrentGame(Game g){
+        clientGame = new ClientGame(g, new Player(user.getUsername(), g.getUsers().get(user.getUsername())));
     }
 }

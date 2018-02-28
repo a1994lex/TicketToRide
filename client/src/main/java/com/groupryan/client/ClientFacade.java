@@ -16,8 +16,8 @@ public class ClientFacade {
         //RootClientModel.addUserToGame();
     }
 
-    public void startGame(Game game) {
-        RootClientModel.startGame(game);
+    public void startGame(Game game, Player p) {
+        RootClientModel.startGame(game, p);
     }
 
     public void login(User user) {
@@ -27,4 +27,6 @@ public class ClientFacade {
     public void register(User user) {
         RootClientModel.addUser(user);
     }
+
+    public void updateChat(String msg){ RootClientModel.getCurrentGame().updateChat(msg);}
 }

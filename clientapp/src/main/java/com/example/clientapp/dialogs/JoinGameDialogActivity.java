@@ -119,7 +119,7 @@ public class JoinGameDialogActivity extends Activity implements IJoinGameView, O
                 int colorChoice = mColors.getCheckedRadioButtonId();
                 try {
                     String color = getColorFromId(colorChoice);
-                    if (mGame.getMaxPlayers() < (double) mGame.getUsers().size()) {
+                    if (mGame.getMaxPlayers() > (double) mGame.getUsers().size()) {
                         JoinGamePresenter.joinGame(mGame, color);
                     } else {
                         mError.setText("Game is full");

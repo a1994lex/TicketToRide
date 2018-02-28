@@ -1,11 +1,20 @@
 package com.groupryan.server.models;
 
+import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Color;
+import com.groupryan.shared.models.Deck;
+import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.Game;
+import com.groupryan.shared.models.Player;
+import com.groupryan.shared.models.Route;
+import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -14,8 +23,16 @@ import java.util.Set;
 
 public class RootServerModel {
 
-    private ArrayList<Game> games;
-    private ArrayList<User> users;
+    private Map<String, Game> gameMap;
+    private Map<String, User> userMap;
+    private Map<Integer, TrainCard> trainCardMap=new HashMap<>();
+    private Map<Integer, DestCard> destinationCardMap=new HashMap<>();
+    private Map<String, ServerGame> serverGameIdMap=new HashMap<>();
+    private List<Card> trainCards;
+    private List<Card> destinationCards;
+    private Map<String, ServerGame> userGames=new HashMap<>();
+    private Map<Integer, Route> routeMap=new HashMap<>();
+    private Map<Integer, Integer> routeLengthPoints=new HashMap<>();
 
     private static RootServerModel single_instance; /*= new RootServerModel();*/
 
@@ -23,14 +40,15 @@ public class RootServerModel {
         if (single_instance == null) {
             single_instance = new RootServerModel();
             Game game = new Game();
-            single_instance.games = (ArrayList) game.makeTestGames();
+            single_instance.gameMap = game.makeTestGames();
+            single_instance.makeBank();
         }
         return single_instance;
     }
 
     public ArrayList<Game> getGames() {
         ArrayList<Game> notStartedGames=new ArrayList<>();
-        for (Game g:games) {
+        for (Game g:gameMap.values()) {
             if(!g.isStarted()){
                 notStartedGames.add(g);
             }
@@ -39,7 +57,7 @@ public class RootServerModel {
     }
 
     public ArrayList<User> getUsers() {
-        return users;
+        return (ArrayList<User>)userMap.values();
     }
 
     public static String addUser(User user) {
@@ -63,18 +81,18 @@ public class RootServerModel {
         return single_instance._addUserToGame(game, user, userColor);
     }
 
-    public static String startGame(Game game) {
-        return single_instance._startGame(game);
+    public static String startGame(String gameId) {
+        return single_instance._startGame(gameId);
     }
 
 
     private RootServerModel() {
-        games = new ArrayList();
-        users = new ArrayList();
+        gameMap = new HashMap<>();
+        userMap = new HashMap<>();
     }
 
     private String _addUser(User user) {
-        users.add(user);
+        userMap.put(user.getUsername(), user);
         return utils.VALID;
     }
 
@@ -83,10 +101,9 @@ public class RootServerModel {
     }
 
     private User _getUser(String userId) {
-        for (User u : users) {
-            if(u.getUsername().equals(userId)){
-                return u;
-            }
+        if (userMap.containsKey((userId)))
+        {
+            return userMap.get(userId);
         }
         return null;
     }
@@ -95,7 +112,7 @@ public class RootServerModel {
         if(game.getGameId()==null){
             game.makeGameId();
         }
-        games.add(game);
+        gameMap.put(game.getGameId(),game);
         Set<String> keys = game.getUsers().keySet();
         for (String s:keys) {
             getUser(s).addGame(game);
@@ -106,8 +123,15 @@ public class RootServerModel {
         return utils.VALID;
     }
 
+    public Game getGame(String gameId) {
+        if (gameMap.containsKey(gameId))
+        {
+            return gameMap.get(gameId);
+        }
+        return null;
+    }
     public String _createGame(Game game){
-        for (Game g:games) {
+        for (Game g:gameMap.values()) {
             if(g.getGameName().equals(game.getGameName())){
                 return utils.GAME_NAME_IN_USE;
             }
@@ -116,45 +140,314 @@ public class RootServerModel {
     }
 
     private String _confirmUser(User user) {
-        for (User u : users) {
-            if (u.getUsername().equals(user.getUsername())) {
-                if (u.getPassword().equals(user.getPassword())) {
-                    return utils.VALID;
-                }
-                return utils.INVALID_PW;
+        if (userMap.containsKey(user.getUsername()))
+        {
+            User u = userMap.get(user.getUsername());
+            if (u.getPassword().equals(user.getPassword())) {
+                return utils.VALID;
             }
+            return utils.INVALID_PW;
         }
         return utils.INVALID_UN;
     }
 
     private Boolean _checkUser(User user) {
-        for (User u : users) {
-            if (u.getUsername().equals(user.getUsername())) {
-                return true;
-            }
-        }
-        return false;
+        return userMap.containsKey(user.getUsername());
     }
 
     private String _addUserToGame(Game game, User user, String userColor) {
-        for (Game g : this.games) {
-            if (g.equals(game)) {
-                if(g.getMaxPlayers()==g.getUsers().size()){
-                    return utils.FULL_GAME;
-                }
-               return g.addUser(user, userColor);
+        if (gameMap.containsKey(game.getGameId())) {
+            Game g = gameMap.get(game.getGameId());
+            if (g.getMaxPlayers() == g.getUsers().size()) {
+                return utils.FULL_GAME;
             }
+            return g.addUser(user, userColor);
         }
         return utils.INVALID_GAMEID;
     }
 
+    private  void makeBank(){
+        destinationCards=new ArrayList<>();
+        trainCards=new ArrayList<>();
 
-    private String _startGame(Game game) {
-        for (Game g : games) {
-            if (g.equals(game)) {
-                g.setStarted(true);
-                return utils.VALID;
-            }
+        DestCard d=new DestCard(11, "WINNIPEG", "LITTLE ROCK", 1);
+        destinationCardMap.put(1, d);
+        destinationCards.add(d);
+        d=new DestCard(7, "CALGARY", "SALT LAKE CITY", 2);
+        destinationCardMap.put(2, d);
+        destinationCards.add(d);
+        d=new DestCard(10, "TORONTO", "MIAMI", 3);
+        destinationCardMap.put(3, d);
+        destinationCards.add(d);
+        d=new DestCard(11, "DALLAS", "NEW YORK", 4);
+        destinationCardMap.put(4, d);
+        destinationCards.add(d);
+        d=new DestCard(12, "BOSTON", "MIAMI", 5);
+        destinationCardMap.put(5, d);
+        destinationCards.add(d);
+        d=new DestCard(21, "LOS ANGELES", "NEW YORK", 6);
+        destinationCardMap.put(6, d);
+        destinationCards.add(d);
+        d=new DestCard(8, "HELENA", "LOS ANGELES", 7);
+        destinationCardMap.put(7, d);
+        destinationCards.add(d);
+        d=new DestCard(13, "MONTREAL", "NEW ORLEANS", 8);
+        destinationCardMap.put(8, d);
+        destinationCards.add(d);
+        d=new DestCard(10, "DULUTH", "EL PASO", 9);
+        destinationCardMap.put(9, d);
+        destinationCards.add(d);
+        d=new DestCard(9, "SAULT STE. MARIE", "OKLAHOMA CITY", 10);
+        destinationCardMap.put(10, d);
+        destinationCards.add(d);
+        d=new DestCard(17, "SAN FRANCISCO", "ATLANTA", 11);
+        destinationCardMap.put(11, d);
+        destinationCards.add(d);
+        d=new DestCard(22, "SEATTLE", "NEW YORK", 12);
+        destinationCardMap.put(12, d);
+        destinationCards.add(d);
+        d=new DestCard(12, "WINNIPEG", "HOUSTON", 13);
+        destinationCardMap.put(13, d);
+        destinationCards.add(d);
+        d=new DestCard(20, "LOS ANGELES", "MIAMI", 14);
+        destinationCardMap.put(14, d);
+        destinationCards.add(d);
+        d=new DestCard(9, "CHICAGO", "SANTA FE", 15);
+        destinationCardMap.put(15, d);
+        destinationCards.add(d);
+        d=new DestCard(8, "DULUTH", "HOUSTON", 16);
+        destinationCardMap.put(16, d);
+        destinationCards.add(d);
+        d=new DestCard(6, "NEW YORK", "ATLANTA", 17);
+        destinationCardMap.put(17, d);
+        destinationCards.add(d);
+        d=new DestCard(11, "PORTLAND", "PHOENIX", 18);
+        destinationCardMap.put(18, d);
+        destinationCards.add(d);
+        d=new DestCard(20, "VANCOUVER", "MONTREAL", 19);
+        destinationCardMap.put(19, d);
+        destinationCards.add(d);
+        d=new DestCard(7, "CHICAGO", "NEW ORLEANS", 20);
+        destinationCardMap.put(20, d);
+        destinationCards.add(d);
+        d=new DestCard(5, "KANSAS CITY", "HOUSTON", 21);
+        destinationCardMap.put(21, d);
+        destinationCards.add(d);
+        d=new DestCard(13, "CALGARY", "PHOENIX", 22);
+        destinationCardMap.put(22, d);
+        destinationCards.add(d);
+        d=new DestCard(16, "LOS ANGELES", "CHICAGO", 23);
+        destinationCardMap.put(23, d);
+        destinationCards.add(d);
+        d=new DestCard(13, "VANCOUVER", "SANTA FE", 24);
+        destinationCardMap.put(24, d);
+        destinationCards.add(d);
+        d=new DestCard(9, "SEATTLE", "LOS ANGELES", 25);
+        destinationCardMap.put(25, d);
+        destinationCards.add(d);
+        d=new DestCard(9, "MONTREAL", "ATLANTA", 26);
+        destinationCardMap.put(26, d);
+        destinationCards.add(d);
+        d=new DestCard(4, "DENVER", "EL PASO", 27);
+        destinationCardMap.put(27, d);
+        destinationCards.add(d);
+        d=new DestCard(8, "SAULT STE. MARIE", "NASHVILLE", 28);
+        destinationCardMap.put(28, d);
+        destinationCards.add(d);
+        d=new DestCard(11, "DENVER", "PITTSBURGH", 29);
+        destinationCardMap.put(29, d);
+        destinationCards.add(d);
+        d=new DestCard(17, "PORTLAND", "NASHVILLE", 30);
+        destinationCardMap.put(30, d);
+        destinationCards.add(d);
+
+        int id=1;
+        TrainCard t;
+        for(int i=0; i<12; i++) {
+            t=new TrainCard(utils.PINK, id);
+            trainCards.add(t);
+            trainCardMap.put(id,t);
+            id++;
+        } for(int i=0; i<12; i++) {
+            t=new TrainCard(utils.WHITE, id);
+            trainCards.add(t);
+            trainCardMap.put(id,t);
+            id++;
+        } for(int i=0; i<12; i++) {
+            t=new TrainCard(utils.BLUE, id);
+            trainCards.add(t);
+            trainCardMap.put(id,t);
+            id++;
+        } for(int i=0; i<12; i++) {
+            t=new TrainCard(utils.YELLOW, id);
+            trainCards.add(t);
+            trainCardMap.put(id,t);
+            id++;
+        } for(int i=0; i<12; i++) {
+            t=new TrainCard(utils.ORANGE, id);
+            trainCards.add(t);
+            trainCardMap.put(id,t);
+            id++;
+        } for(int i=0; i<12; i++) {
+            t=new TrainCard(utils.BLACK, id);
+            trainCards.add(t);
+            trainCardMap.put(id,t);
+            id++;
+        } for(int i=0; i<12; i++) {
+            t=new TrainCard(utils.RED, id);
+            trainCards.add(t);
+            trainCardMap.put(id,t);
+            id++;
+        } for(int i=0; i<12; i++) {
+            t=new TrainCard(utils.GREEN, id);
+            trainCards.add(t);
+            trainCardMap.put(id,t);
+            id++;
+        } for(int i=0; i<14; i++) {
+            t=new TrainCard(utils.LOCOMOTIVE, id);
+            trainCards.add(t);
+            trainCardMap.put(id,t);
+            id++;
+        }
+
+
+        routeMap.put(1, new Route(1, "VANCOUVER", "SEATTLE", 1, ""));
+        routeMap.put(2, new Route(1, "SEATTLE", "PORTLAND", 1, ""));
+        routeMap.put(3, new Route(5, "PORTLAND", "SAN FRANCISCO", 10, "green"));
+        routeMap.put(4, new Route(5, "PORTLAND", "SAN FRANCISCO", 10, "pink"));
+        routeMap.put(5, new Route(3, "SAN FRANCISCO", "LOS ANGELES", 4, "yellow"));
+        routeMap.put(6, new Route(3, "SAN FRANCISCO", "LOS ANGELES", 4, "pink"));
+        routeMap.put(7, new Route(3, "VANCOUVER", "CALGARY", 4, ""));
+        routeMap.put(8, new Route(4, "SEATTLE", "CALGARY", 7, ""));
+        routeMap.put(9, new Route(6, "SEATTLE", "HELENA", 15, "yellow"));
+        routeMap.put(10, new Route(6, "PORTLAND", "SALT LAKE CITY", 15, "blue"));
+        routeMap.put(11, new Route(5, "SAN FRANCISCO", "SALT LAKE CITY", 10, "orange"));
+        routeMap.put(12, new Route(5, "SAN FRANCISCO", "SALT LAKE CITY", 10, "white"));
+        routeMap.put(13, new Route(2, "LOS ANGELES", "LAS VEGAS", 2, ""));
+        routeMap.put(14, new Route(3, "LOS ANGELES", "PHOENIX", 4, ""));
+        routeMap.put(15, new Route(6, "LOS ANGELES", "EL PASO", 15, "black"));
+        routeMap.put(16, new Route(6, "CALGARY", "WINNIPEG", 15, "white"));
+        routeMap.put(17, new Route(4, "CALGARY", "HELENA", 7, ""));
+        routeMap.put(18, new Route(3, "SALT LAKE CITY", "HELENA", 4, "pink"));
+        routeMap.put(19, new Route(3, "SALT LAKE CITY", "DENVER", 4, "red"));
+        routeMap.put(20, new Route(3, "SALT LAKE CITY", "DENVER", 4, "yellow"));
+        routeMap.put(21, new Route(3, "LAS VEGAS", "SALT LAKE CITY", 4, "orange"));
+        routeMap.put(22, new Route(5, "PHOENIX", "DENVER", 10, "white"));
+        routeMap.put(23, new Route(3, "PHOENIX", "SANTA FE", 4, ""));
+        routeMap.put(24, new Route(3, "PHOENIX", "EL PASO", 4, ""));
+        routeMap.put(25, new Route(4, "HELENA", "WINNIPEG", 7, "blue"));
+        routeMap.put(26, new Route(6, "HELENA", "DULUTH", 15, "orange"));
+        routeMap.put(27, new Route(5, "HELENA", "OMAHA", 10, "red"));
+        routeMap.put(28, new Route(4, "HELENA", "DENVER", 7, "green"));
+        routeMap.put(29, new Route(2, "DENVER", "SANTA FE", 2, ""));
+        routeMap.put(30, new Route(4, "DENVER", "OMAHA", 7, "pink"));
+        routeMap.put(31, new Route(4, "DENVER", "KANSAS CITY", 7, "black"));
+        routeMap.put(32, new Route(4, "DENVER", "KANSAS CITY", 7, "orange"));
+        routeMap.put(33, new Route(4, "DENVER", "OKLAHOMA CITY", 7, "red"));
+        routeMap.put(34, new Route(3, "SANTA FE", "OKLAHOMA CITY", 4, "blue"));
+        routeMap.put(35, new Route(2, "SANTA FE", "EL PASO", 2, ""));
+        routeMap.put(36, new Route(5, "EL PASO", "OKLAHOMA CITY", 10, "yellow"));
+        routeMap.put(37, new Route(4, "EL PASO", "DALLAS", 7, "red"));
+        routeMap.put(38, new Route(6, "EL PASO", "HOUSTON", 15, "green"));
+        routeMap.put(39, new Route(4, "WINNIPEG", "DULUTH", 7, "black"));
+        routeMap.put(40, new Route(6, "WINNIPEG", "SAULT ST. MARIE", 15, ""));
+        routeMap.put(41, new Route(3, "DULUTH", "SAULT ST. MARIE", 4, ""));
+        routeMap.put(42, new Route(6, "DULUTH", "TORONTO", 15, "pink"));
+        routeMap.put(43, new Route(3, "DULUTH", "CHICAGO", 4, "red"));
+        routeMap.put(44, new Route(2, "DULUTH", "OMAHA", 2, ""));
+        routeMap.put(45, new Route(4, "OMAHA", "CHICAGO", 7, "blue"));
+        routeMap.put(46, new Route(1, "OMAHA", "KANSAS CITY", 1, ""));
+        routeMap.put(47, new Route(2, "KANSAS CITY", "SAINT LOUIS", 2, "blue"));
+        routeMap.put(48, new Route(2, "KANSAS CITY", "SAINT LOUIS", 2, "pink"));
+        routeMap.put(49, new Route(2, "KANSAS CITY", "OKLAHOMA CITY", 2, ""));
+        routeMap.put(50, new Route(2, "OKLAHOMA CITY", "LITTLE ROCK", 2, ""));
+        routeMap.put(51, new Route(2, "OKLAHOMA CITY", "DALLAS", 2, ""));
+        routeMap.put(52, new Route(1, "DALLAS", "HOUSTON", 1, ""));
+        routeMap.put(53, new Route(2, "DALLAS", "LITTLE ROCK", 2, ""));
+        routeMap.put(54, new Route(2, "HOUSTON", "NEW ORLEANS", 2, ""));
+        routeMap.put(55, new Route(3, "LITTLE ROCK", "NEW ORLEANS", 4, "green"));
+        routeMap.put(56, new Route(3, "LITTLE ROCK", "NASHVILLE", 4, "white"));
+        routeMap.put(57, new Route(2, "SAINT LOUIS", "LITTLE ROCK", 2, ""));
+        routeMap.put(58, new Route(2, "SAINT LOUIS", "NASHVILLE", 2, ""));
+        routeMap.put(59, new Route(5, "SAINT LOUIS", "PITTSBURGH", 10, ""));
+        routeMap.put(60, new Route(2, "SAINT LOUIS", "CHICAGO", 2, "green"));
+        routeMap.put(61, new Route(2, "SAINT LOUIS", "CHICAGO", 2, "white"));
+        routeMap.put(62, new Route(3, "CHICAGO", "PITTSBURGH", 4, "orange"));
+        routeMap.put(63, new Route(3, "CHICAGO", "PITTSBURGH", 4, "black"));
+        routeMap.put(64, new Route(4, "CHICAGO", "TORONTO", 7, "white"));
+        routeMap.put(65, new Route(5, "SAULT ST. MARIE", "MONTREAL", 10, "black"));
+        routeMap.put(66, new Route(2, "SAULT ST. MARIE", "TORONTO", 2, ""));
+        routeMap.put(67, new Route(3, "TORONTO", "MONTREAL", 4, ""));
+        routeMap.put(68, new Route(2, "TORONTO", "PITTSBURGH", 2, ""));
+        routeMap.put(69, new Route(2, "MONTREAL", "BOSTON", 2, ""));
+        routeMap.put(70, new Route(3, "MONTREAL", "NEW YORK", 4, "blue"));
+        routeMap.put(71, new Route(2, "BOSTON", "NEW YORK", 2, "yellow"));
+        routeMap.put(72, new Route(2, "BOSTON", "NEW YORK", 2, "red"));
+        routeMap.put(73, new Route(2, "PITTSBURGH", "NEW YORK", 2, "white"));
+        routeMap.put(74, new Route(2, "PITTSBURGH", "NEW YORK", 2, "green"));
+        routeMap.put(75, new Route(2, "NEW YORK", "WASHINGTON", 2, "orange"));
+        routeMap.put(76, new Route(2, "NEW YORK", "WASHINGTON", 2, "black"));
+        routeMap.put(77, new Route(2, "PITTSBURGH", "WASHINGTON", 2, ""));
+        routeMap.put(78, new Route(4, "NASHVILLE", "PITTSBURGH", 7, "yellow"));
+        routeMap.put(79, new Route(3, "NASHVILLE", "RALEIGH", 4, "black"));
+        routeMap.put(80, new Route(1, "NASHVILLE", "ATLANTA", 1, ""));
+        routeMap.put(81, new Route(4, "NEW ORLEANS", "ATLANTA", 7, "yellow"));
+        routeMap.put(82, new Route(4, "NEW ORLEANS", "ATLANTA", 7, "orange"));
+        routeMap.put(83, new Route(6, "NEW ORLEANS", "MIAMI", 15, "red"));
+        routeMap.put(84, new Route(5, "ATLANTA", "MIAMI", 10, "blue"));
+        routeMap.put(85, new Route(2, "ATLANTA", "RALEIGH", 2, ""));
+        routeMap.put(86, new Route(2, "ATLANTA", "CHARLESTON", 2, ""));
+        routeMap.put(87, new Route(4, "CHARLESTON", "MIAMI", 7, "pink"));
+        routeMap.put(88, new Route(2, "RALEIGH", "CHARLESTON", 2, ""));
+        routeMap.put(89, new Route(2, "PITTSBURGH", "RALEIGH", 2, ""));
+        routeMap.put(90, new Route(2, "RALEIGH", "WASHINGTON", 2, ""));
+
+
+    }
+
+    public Card getCard(String type, int cardID){
+        if(type.equals(utils.DESTINATION)){
+            return destinationCardMap.get(cardID);
+        }
+        else{
+            return trainCardMap.get(cardID);
+        }
+    }
+
+    public void createServerGame(String gameId){
+        ServerGame sg=new ServerGame(gameId, new Deck(trainCards), new Deck(destinationCards));
+
+        serverGameIdMap.put(gameId, sg);
+
+    }
+
+    public ServerGame getServerGame(String username){
+        return userGames.get(username);
+    }
+    public void addPlayertoGame(String username, String gameID){
+        userGames.put(username, serverGameIdMap.get(gameID));
+    }
+
+    public Player createPlayer(String gameId, Map.Entry<String, String> entry){
+        ServerGame sg=serverGameIdMap.get(gameId);
+        List<Card> tCards=new ArrayList<>();
+        tCards.add(sg.drawTrainCard());
+        tCards.add(sg.drawTrainCard());
+        tCards.add(sg.drawTrainCard());
+        tCards.add(sg.drawTrainCard());
+        Player p=new Player(entry.getValue(), sg.drawDestinationCards(),tCards ,entry.getKey());
+        //get the top 4 train cards
+        //get the top 3 D cards,
+        //store the player ,
+        sg.addPlayer(p);
+        return p;
+    }
+
+    private String _startGame(String gameId) {
+        if (gameMap.containsKey(gameId))
+        {
+            gameMap.get(gameId).setStarted(true);
+            return utils.VALID;
         }
         return utils.INVALID_GAMEID;
     }

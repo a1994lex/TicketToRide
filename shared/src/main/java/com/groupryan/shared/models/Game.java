@@ -4,6 +4,7 @@ import com.google.gson.internal.LinkedTreeMap;
 import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -116,8 +117,8 @@ public class Game{
 
     public void setMaxPlayers(int maxPlayers) { this.maxPlayers = maxPlayers; }
 
-    public List<Game> makeTestGames(){
-        ArrayList<Game> games = new ArrayList<Game>();
+    public HashMap<String,Game> makeTestGames(){
+        HashMap<String,Game> games = new HashMap<>();
         User u = new User("clairescout", "gammon");
         Game game = new Game("game1", "gameID", 5);
         game.addUser(u, RED);
@@ -136,8 +137,8 @@ public class Game{
         u3.addGame(game2);
         u4.addGame(game2);
 
-        games.add(game);
-        games.add(game2);
+        games.put(game.gameId, game);
+        games.put(game2.gameId, game2);
         return games;
 
     }
