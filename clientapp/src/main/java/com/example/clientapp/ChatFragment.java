@@ -62,7 +62,7 @@ public class ChatFragment extends Fragment implements IChatView {
             }
         });
 
-        mRecyclerView = view.findViewById(R.id.game_recycler_view);
+        mRecyclerView = view.findViewById(R.id.recycler_list);
         Context context = view.getContext();
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mAdapter = new ChatAdapter();

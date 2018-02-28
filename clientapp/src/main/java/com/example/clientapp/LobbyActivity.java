@@ -62,6 +62,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
 //                LobbyPresenter.startGame(mGame);
                 if (mGame.getMaxPlayers() == (double) mGame.getUsers().size()) {
                     Intent i = new Intent(LobbyActivity.this, GamePlayActivity.class);
+                    LobbyPresenter.createTestClientGame();
                     startActivity(i);
                 }
 

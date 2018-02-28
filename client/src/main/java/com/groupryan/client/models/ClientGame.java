@@ -8,6 +8,7 @@ import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Observable;
 
 /**
@@ -28,7 +29,7 @@ public class ClientGame extends Observable {
     ArrayList<String> chat;
     ArrayList<TrainCard> bankCards;
     HashMap<String, Stat> stats;
-    HashMap<String, String> playersColors;
+    Map<String, String> playersColors;
 
     public ClientGame(Game game, Player player)
     {
@@ -40,7 +41,7 @@ public class ClientGame extends Observable {
         this.myPlayer = player;
 
         this.stats = new HashMap<>();
-        this.playersColors = (HashMap<String, String>)game.getUsers();
+        this.playersColors = game.getUsers();
     }
 
     public String getGameId() {

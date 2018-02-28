@@ -26,6 +26,11 @@ public class Player {
         this.username=username;
     }
 
+    public Player(String username, String color){ // for testing only
+        this.username = username;
+        this.color = color;
+    }
+
     public String getUsername(){
         return username;
     }

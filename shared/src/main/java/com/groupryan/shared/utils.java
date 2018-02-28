@@ -47,5 +47,6 @@ public class utils {
     public static final String COMMAND_NAME = "CommandName";   // HTTP request header to determine
 
     public static final String CHAT = "CHAT";
+    public static final String HISTORY = "HISTORY";
 
 }

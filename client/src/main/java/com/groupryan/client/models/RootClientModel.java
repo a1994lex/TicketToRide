@@ -37,6 +37,7 @@ public class RootClientModel extends Observable {
 
     public static ClientGame getCurrentGame() {
         return single_instance.clientGame;
+
     }
 
     private static RootClientModel single_instance = new RootClientModel();
@@ -54,6 +55,8 @@ public class RootClientModel extends Observable {
     public static void startGame(Game game, Player p) {
         single_instance._startGame(game, p);
     }
+
+    public static void setCurrentGame(Game game){ single_instance._setCurrentGame(game);}
 
     public static void addUserToGame(Game game, User user, String userColor) {
         single_instance._addUserToGame(game, user, userColor);
@@ -106,5 +109,9 @@ public class RootClientModel extends Observable {
 
     private void _setGames(List<Game> games) {
         this.games = (ArrayList<Game>)games;
+    }
+
+    private void _setCurrentGame(Game g){
+        clientGame = new ClientGame(g, new Player(user.getUsername(), g.getUsers().get(user.getUsername())));
     }
 }
