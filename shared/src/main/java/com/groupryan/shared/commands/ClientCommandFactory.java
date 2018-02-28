@@ -1,8 +1,13 @@
 package com.groupryan.shared.commands;
 
+import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Color;
+import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.Game;
+import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.User;
+
+import java.util.List;
 
 /**
  * Created by bengu3 on 1/31/18.
@@ -27,10 +32,10 @@ public class ClientCommandFactory {
                 new Object[]{game, user, userColor});
     }
 
-    public ClientCommand createStartGameCommand(Game game) {
+    public ClientCommand createStartGameCommand(Game game, Player p) {
         return new ClientCommand("com.groupryan.client.ClientFacade", "startGame",
-                new String[]{Game.class.getTypeName()},
-                new Object[]{game});
+                new String[]{Game.class.getTypeName(), Player.class.getTypeName()},
+                new Object[]{game, p});
     }
 
     public ClientCommand createLoginCommand(User user) {
@@ -44,4 +49,29 @@ public class ClientCommandFactory {
                 new String[]{User.class.getTypeName()},
                 new Object[]{user});
     }
+    public ClientCommand createDiscardDestinationCardCommand(List<Integer> cardIDs, String username) {
+        return new ClientCommand("com.groupryan.client.ClientFacade", "discardDestCard",
+                new String[]{List.class.getTypeName(), String.class.getTypeName()},
+                new Object[]{cardIDs, username});
+        //todo idk if this is correct syntax
+    }
+
+    public ClientCommand createDrawThreeCardsCommand(List<DestCard> cards){
+        return new ClientCommand("com.groupryan.client.ClientFacade", "drawThreeCards",
+                new String[]{List.class.getTypeName()},
+                new Object[]{cards});
+    }
+
+    public ClientCommand createChatCommand(String msg){
+        return new ClientCommand("com.groupryan.client.ClientFacade", "updateChat",
+                new String[]{String.class.getTypeName()},
+                new Object[]{msg});
+    }
+
+    public ClientCommand createHistoryCommand(String msg){
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "updateHistory",
+                new String[]{String.class.getTypeName()},
+                new Object[]{msg});
+    }
+
 }

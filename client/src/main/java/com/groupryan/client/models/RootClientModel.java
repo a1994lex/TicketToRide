@@ -2,6 +2,7 @@ package com.groupryan.client.models;
 
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
+import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.User;
 
 import java.util.ArrayList;
@@ -13,6 +14,7 @@ public class RootClientModel extends Observable {
 
     private ArrayList<Game> games;
     private User user;
+    private ClientGame clientGame;
 
     public static RootClientModel getInstance() {
         if (single_instance == null) {
@@ -33,6 +35,10 @@ public class RootClientModel extends Observable {
         return single_instance.user;
     }
 
+    public static ClientGame getCurrentGame() {
+        return single_instance.clientGame;
+    }
+
     private static RootClientModel single_instance = new RootClientModel();
 
 
@@ -45,8 +51,8 @@ public class RootClientModel extends Observable {
         single_instance._addGame(game);
     }
 
-    public static void startGame(Game game) {
-        single_instance._startGame(game);
+    public static void startGame(Game game, Player p) {
+        single_instance._startGame(game, p);
     }
 
     public static void addUserToGame(Game game, User user, String userColor) {
@@ -73,7 +79,9 @@ public class RootClientModel extends Observable {
         notifyObservers();
     }
 
-    private void _startGame(Game game) {
+    private void _startGame(Game game, Player p) {
+        clientGame = new ClientGame(game, p);
+        //MAKE THE PLAYA LIVEEEEE
         for (Game g : games) {
             if (g.equals(game)) {
                 g.setStarted(true);

@@ -48,7 +48,7 @@ public class LobbyPresenter implements Observer {
 
     private void _startGame(Game game) {
         game_title = game.getGameName();
-        uifacade.startGame(game);
+        uifacade.startGame(game.getGameId());
     }
 
 
