@@ -124,10 +124,9 @@ public class RootServerModel {
     }
 
     public Game getGame(String gameId) {
-        for (Game g : gameMap.values()) {
-            if (g.getGameId().equals(gameId)) {
-                return g;
-            }
+        if (gameMap.containsKey(gameId))
+        {
+            return gameMap.get(gameId);
         }
         return null;
     }

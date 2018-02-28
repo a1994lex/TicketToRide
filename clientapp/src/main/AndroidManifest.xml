@@ -28,23 +28,17 @@
             android:screenOrientation="landscape" />
         <activity
             android:name=".JoinGameActivity"
-            android:screenOrientation="landscape"></activity>
+            android:screenOrientation="landscape" />
         <activity
             android:name=".dialogs.CreateGameDialogActivity"
-            android:theme="@android:style/Theme.Holo.Light.Dialog"></activity>
+            android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <activity
-            android:name="com.example.clientapp.dialogs.JoinGameDialogActivity"
-            android:theme="@android:style/Theme.Holo.Light.Dialog"></activity>
+            android:name=".dialogs.JoinGameDialogActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <activity
             android:name=".GamePlayActivity"
-            android:screenOrientation="landscape"></activity>
-
+            android:screenOrientation="landscape" />
+        <activity android:name=".TestChatActivity"></activity>
     </application>
 
-
 </manifest>
-
-
-
-
-

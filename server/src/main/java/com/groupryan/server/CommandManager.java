@@ -48,11 +48,17 @@ public class CommandManager {
     public List<ClientCommand> getCommands(User user) {
         List<ClientCommand> commands = this.usersCommands.get(user);
         this.usersCommands.put(user, new ArrayList<>());
-        System.out.println(user);
-        System.out.println(commands);
         return commands;
     }
     public List<ClientCommand> getGameCommands(String gameId, String playerId){
+        if (!this.gamePlayerCommands.containsKey(gameId)){
+            // Creates an entry for game in the gamePlayerCommands Map using all the users from the game
+            HashMap<String, List<ClientCommand>> userCmdMap = new HashMap<>();
+            for (String user:RootServerModel.getInstance().getGame(gameId).getUsers().keySet()){
+                userCmdMap.put(user, new ArrayList<>());
+            }
+            this.gamePlayerCommands.put(gameId, userCmdMap);
+        }
         List<ClientCommand> playerCommands = this.gamePlayerCommands.get(gameId).get(playerId);
         this.gamePlayerCommands.get(gameId).get(playerId).clear(); // Clears the players list of commands
         return playerCommands;

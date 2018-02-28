@@ -80,8 +80,8 @@ public class RootClientModel extends Observable {
     }
 
     private void _startGame(Game game, Player p) {
+        // Builds a client game along with the Player
         clientGame = new ClientGame(game, p);
-        //MAKE THE PLAYA LIVEEEEE
         for (Game g : games) {
             if (g.equals(game)) {
                 g.setStarted(true);

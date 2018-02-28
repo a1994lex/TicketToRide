@@ -27,4 +27,6 @@ public class ClientFacade {
     public void register(User user) {
         RootClientModel.addUser(user);
     }
+
+    public void updateChat(String msg){ RootClientModel.getCurrentGame().updateChat(msg);}
 }
