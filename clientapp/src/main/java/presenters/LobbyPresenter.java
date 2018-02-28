@@ -56,7 +56,10 @@ public class LobbyPresenter implements Observer {
     public void update(Observable observable, Object o) {
         if (observable == root) {
             int secondSize = currentGame.getUsers().size();
-            if (secondSize == maxGameSize) {
+            if(currentGame.isStarted()){
+                lobbyView.onStartGame();
+            }
+            else if (secondSize == maxGameSize) {
                 lobbyView.enableStartButton();
             } else {
                 lobbyView.onUserJoined();
