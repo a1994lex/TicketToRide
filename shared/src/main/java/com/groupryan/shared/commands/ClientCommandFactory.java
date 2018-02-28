@@ -6,7 +6,6 @@ import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.User;
-import com.sun.security.ntlm.Client;
 
 import java.util.List;
 
@@ -65,6 +64,12 @@ public class ClientCommandFactory {
 
     public ClientCommand createChatCommand(String msg){
         return new ClientCommand("com.groupryan.client.ClientFacade", "updateChat",
+                new String[]{String.class.getTypeName()},
+                new Object[]{msg});
+    }
+
+    public ClientCommand createHistoryCommand(String msg){
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "updateHistory",
                 new String[]{String.class.getTypeName()},
                 new Object[]{msg});
     }
