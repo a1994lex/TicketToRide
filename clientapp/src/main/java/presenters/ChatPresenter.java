@@ -47,7 +47,7 @@ public class ChatPresenter implements Observer, IChatPresenter {
 
     @Override
     public void updateChat() {
-
+        chatView.onChatAdd();
     }
 
 

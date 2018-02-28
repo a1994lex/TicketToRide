@@ -2,8 +2,10 @@ package presenters;
 
 import com.example.clientapp.ILobbyView;
 import com.groupryan.client.UIFacade;
+import com.groupryan.client.models.ClientGame;
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.Game;
+import com.groupryan.shared.models.Player;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -26,6 +28,8 @@ public class LobbyPresenter implements Observer {
     public static void setView(ILobbyView view) {
         instance._setView(view);
     }
+
+    public static void createTestClientGame(){  RootClientModel.getInstance().setCurrentGame(instance.currentGame);}
 
     public static void setGame(Game game) {
         instance._setGame(game);
