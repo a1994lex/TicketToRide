@@ -73,4 +73,10 @@ public class ClientGame extends Observable {
         notifyObservers(utils.CHAT);
     }
 
+    public void updateHistory(String msg){
+        history.add(msg);
+        setChanged();
+        notifyObservers(utils.HISTORY);
+    }
+
 }

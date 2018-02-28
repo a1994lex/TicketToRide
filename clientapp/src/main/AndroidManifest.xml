@@ -38,7 +38,10 @@
         <activity
             android:name=".GamePlayActivity"
             android:screenOrientation="landscape" />
-        <activity android:name=".TestChatActivity"></activity>
+        <activity
+            android:name=".ChatAndHistoryActivity"
+            android:label="@string/title_activity_chat_and_history"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

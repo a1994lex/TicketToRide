@@ -68,4 +68,10 @@ public class ClientCommandFactory {
                 new Object[]{msg});
     }
 
+    public ClientCommand createHistoryCommand(String msg){
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "updateHistory",
+                new String[]{String.class.getTypeName()},
+                new Object[]{msg});
+    }
+
 }

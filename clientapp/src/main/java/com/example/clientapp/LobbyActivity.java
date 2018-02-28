@@ -59,7 +59,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
         mStartGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //LobbyPresenter.startGame(mGame);
+//                LobbyPresenter.startGame(mGame);
                 if (mGame.getMaxPlayers() == (double) mGame.getUsers().size()) {
                     Intent i = new Intent(LobbyActivity.this, GamePlayActivity.class);
                     startActivity(i);

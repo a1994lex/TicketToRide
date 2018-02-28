@@ -1,5 +1,6 @@
 package com.groupryan.server.models;
 
+import com.groupryan.server.CommandManager;
 import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Deck;
 import com.groupryan.shared.models.DestCard;
@@ -34,6 +35,7 @@ public class ServerGame {
         history=new ArrayList<>();
         playaMap=new HashMap<>();
         stats=new HashMap<>();
+        makeFakeHistory();
     }
     public void addHistory(String note){
         history.add(note);
@@ -83,5 +85,22 @@ public class ServerGame {
             trainCards.discard(c);
             playaMap.get(username).removeTrainCard(c);
         }
+    }
+
+    public String getServerGameID() {
+        return serverGameID;
+    }
+
+    public void makeFakeHistory(){
+        String hi = "first fake history";
+        String hello = "second fake history";
+        String indeed = "thirdFakeHistory";
+        history.add(hi);
+        history.add(hello);
+        history.add(indeed);
+        Map.Entry<String, Player> entry = playaMap.entrySet().iterator().next();
+        CommandManager.getInstance().addHistoryCommand(hi, getServerGameID(), entry.getKey());
+        CommandManager.getInstance().addHistoryCommand(hello, getServerGameID(), entry.getKey());
+        CommandManager.getInstance().addHistoryCommand(indeed, getServerGameID(), entry.getKey());
     }
 }

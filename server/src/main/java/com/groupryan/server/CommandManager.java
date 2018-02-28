@@ -126,6 +126,12 @@ public class CommandManager {
         this._addCommandToGameMap(command, gameId, playerId);
     }
 
+    public ClientCommand addHistoryCommand(String history, String gameId, String playerId){
+        ClientCommand command = factory.createHistoryCommand(history);
+        this._addCommandToGameMap(command, gameId, playerId);
+        return command;
+    }
+
     public ClientCommand makeJoinGameCommand(Game game, User user, String userColor) {
         ClientCommand command = factory.createJoinGameCommand(game, user, userColor);
         this._addCommandToMap(command, user, utils.JOIN_GAME);
