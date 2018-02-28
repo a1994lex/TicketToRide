@@ -30,6 +30,10 @@ public class DestinationCardFacade {
         cr.addClientCommand(CommandManager.getInstance().makeDiscardDestinationCardCommand(cardIDs, username));
         //CommandManager.getInstance().add(getStat(username));
 //playa stat updates, needs to be sent to everyone
+        String history = username + " discarded " + cardIDs.size() + " cards.";
+        ServerGame serverGame = RootServerModel.getInstance().getServerGame(username);
+        serverGame.addHistory(history);
+        cr.addClientCommand(CommandManager.getInstance().addHistoryCommand(history, serverGame.getServerGameID(), username));
 
         //create the 2 necessary commands
         return cr;
@@ -42,6 +46,9 @@ public class DestinationCardFacade {
         sg.getPlayer(username).addDestCards(cards);
         cr.addClientCommand(CommandManager.getInstance().makeDrawThreeCardsCommand(cards));
         //update the history by making a command saying that this username drew three cards
+        String history = username + " drew three destination cards.";
+        sg.addHistory(history);
+        cr.addClientCommand(CommandManager.getInstance().addHistoryCommand(history, sg.getServerGameID(), username));
         //CommandManager.getInstance().add(getStat(username));
         return cr;
     }

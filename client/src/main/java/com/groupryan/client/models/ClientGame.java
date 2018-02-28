@@ -5,7 +5,6 @@ import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.utils;
-import com.sun.security.ntlm.Client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -72,6 +71,12 @@ public class ClientGame extends Observable {
         chat.add(msg);
         setChanged();
         notifyObservers(utils.CHAT);
+    }
+
+    public void updateHistory(String msg){
+        history.add(msg);
+        setChanged();
+        notifyObservers(utils.HISTORY);
     }
 
 }
