@@ -33,10 +33,6 @@ public class LobbyPresenter implements Observer {
         instance._setView(view);
     }
 
-    public static void createTestClientGame(){
-        RootClientModel.getInstance().setCurrentGame(instance.currentGame);
- }
-
     public static void setGame(Game game) {
         instance._setGame(game);
     }
