@@ -107,9 +107,7 @@ public class CommandManager {
 
     private void _addCreateGameCommand(ClientCommand command) {
         for (Map.Entry<String, List<ClientCommand>> entry : this.usersCommands.entrySet()) {
-            List<ClientCommand> commands = entry.getValue();
-            commands.add(command);
-            this.usersCommands.put(entry.getKey(), commands);
+            entry.getValue().add(command);
         }
     }
 
@@ -122,23 +120,18 @@ public class CommandManager {
 
     private void _addJoinGameCommand(ClientCommand command) {
         for (Map.Entry<String, List<ClientCommand>> entry : this.usersCommands.entrySet()) {
-            List<ClientCommand> commands = entry.getValue();
-            commands.add(command);
-            this.usersCommands.put(entry.getKey(), commands);
+            entry.getValue().add(command);
         }
     }
+
+    // ------------------------------ Game Commands -----------------------------
 
     // StartGameCommand goes to all users
     public ClientCommand makeStartGameCommand(Game game, Player p) {
         ClientCommand command = factory.createStartGameCommand(game, p);
-        List<ClientCommand> commands = this.usersCommands.get(p.getUsername());
-        commands.add(command);
-        this.usersCommands.put(p.getUsername(), commands);
+        this.gamePlayerCommands.get(game.getGameId()).get(p.getUsername()).add(command);
         return command;
     }
-
-
-    // ------------------------------ Game Commands -----------------------------
 
     public void addChatCommand(String chat_msg, String gameId, String playerId) {
         ClientCommand command = factory.createChatCommand(chat_msg);
