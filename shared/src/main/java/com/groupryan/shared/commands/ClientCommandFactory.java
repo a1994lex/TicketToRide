@@ -53,7 +53,6 @@ public class ClientCommandFactory {
         return new ClientCommand("com.groupryan.client.ClientFacade", "discardDestCard",
                 new String[]{List.class.getTypeName(), String.class.getTypeName()},
                 new Object[]{cardIDs, username});
-        //todo idk if this is correct syntax
     }
 
     public ClientCommand createDrawThreeCardsCommand(List<DestCard> cards){

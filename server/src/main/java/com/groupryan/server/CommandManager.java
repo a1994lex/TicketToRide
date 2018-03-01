@@ -178,7 +178,7 @@ public class CommandManager {
     public ClientCommand makeUpdateFaceUpCommand() {
         // TODO create commandFactory method
         ClientCommand command = null;
-        // TODO put in each playa of game list
+        // TODO put in each player of game list
         return command;
     }
 
