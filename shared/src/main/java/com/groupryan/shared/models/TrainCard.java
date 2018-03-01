@@ -12,8 +12,8 @@ public class TrainCard extends Card {
 
     public static TrainCard mapToObject(LinkedTreeMap map){
         String color = (String)map.get("color");
-        int cardId = (Integer)map.get("cardId");
-        return new TrainCard(color, cardId);
+        double cardId = (double)map.get("cardId");
+        return new TrainCard(color, (int)cardId);
     }
 
     public TrainCard(String color, int cardID){
