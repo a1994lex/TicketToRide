@@ -10,7 +10,9 @@ public class ClientFacade {
 
     public void joinGame(Game game, User user, String userColor) {
         RootClientModel.addUserToGame(game, user, userColor);
-        RootClientModel.setCurrentGame(game, new Player(user.getUsername(), game.getUsers().get(user.getUsername())));
+        if (user.equals(RootClientModel.getUser())){
+            RootClientModel.setCurrentGame(game, new Player(user.getUsername(), game.getUsers().get(user.getUsername())));
+        }
     }
 
     public void createGame(Game game) {
