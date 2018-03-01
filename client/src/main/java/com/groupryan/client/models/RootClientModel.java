@@ -4,6 +4,7 @@ import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.User;
+import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -87,9 +88,9 @@ public class RootClientModel extends Observable {
         for (Game g : games) {
             if (g.equals(game)) {
                 g.setStarted(true);
-                games.remove(game);
+                games.remove(g);
                 setChanged();
-                notifyObservers();
+                notifyObservers(g.getGameId());
             }
         }
     }

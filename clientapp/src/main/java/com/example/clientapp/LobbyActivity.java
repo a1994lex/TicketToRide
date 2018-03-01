@@ -24,6 +24,8 @@ import com.groupryan.shared.utils;
 import java.util.ArrayList;
 import java.util.Set;
 
+import async.GamePoller;
+import async.Poller;
 import presenters.JoinGamePresenter;
 import presenters.LobbyPresenter;
 
@@ -66,6 +68,8 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
 
             }
         });
+
+        LobbyPresenter.startGamePoller();
     }
 
     @Override

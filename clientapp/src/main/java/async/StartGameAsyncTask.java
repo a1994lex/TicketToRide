@@ -24,8 +24,6 @@ public class StartGameAsyncTask extends AsyncTask<Game, Void, Void> {
     }
 
     public void onPostExecute(Void param) {
-        Poller.get().stop();
-        String gameId = RootClientModel.getCurrentGame().getGameId();
-        GamePoller.get(gameId).poll();
+        
     }
 }

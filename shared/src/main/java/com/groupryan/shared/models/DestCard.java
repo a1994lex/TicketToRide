@@ -19,7 +19,7 @@ public class DestCard extends Card {
         value = (double)map.get("value");
         cityOne = (String)map.get("cityOne");
         cityTwo = (String)map.get("cityTwo");
-        cardID = (double)map.get("cardID");
+        cardID = (double)map.get("cardId");
         return new DestCard((int)value, cityOne, cityTwo, (int)cardID);
     }
 
