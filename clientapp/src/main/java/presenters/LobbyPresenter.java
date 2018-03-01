@@ -13,6 +13,8 @@ import com.groupryan.shared.models.Player;
 import java.util.Observable;
 import java.util.Observer;
 
+import async.GamePoller;
+import async.Poller;
 import async.StartGameAsyncTask;
 
 public class LobbyPresenter implements Observer {
@@ -32,7 +34,6 @@ public class LobbyPresenter implements Observer {
     public static void setView(ILobbyView view) {
         instance._setView(view);
     }
-
 
     public static void setGame(Game game) {
         instance._setGame(game);
@@ -67,12 +68,22 @@ public class LobbyPresenter implements Observer {
         startGameAsyncTask.execute(game);
     }
 
+    public static void startGamePoller() {
+        instance._startGamePoller();
+    }
+
+    private void _startGamePoller() {
+        Poller.get().stop();
+        String gameId = currentGame.getGameId();
+        GamePoller.get(gameId).poll();
+    }
+
 
     @Override
     public void update(Observable observable, Object o) {
         if (observable == root) {
             int secondSize = currentGame.getUsers().size();
-            if (o != null && o.equals(currentGame.getGameId())){
+            if (o != null && o.equals(currentGame.getGameId())) {
                 lobbyView.onStartGame();
             } else if (secondSize == maxGameSize) {
                 lobbyView.enableStartButton();
