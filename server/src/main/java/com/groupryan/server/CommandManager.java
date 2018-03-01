@@ -52,13 +52,11 @@ public class CommandManager {
     public List<ClientCommand> getGameCommands(String gameId, String playerId) {
         if (!this.gamePlayerCommands.containsKey(gameId)) {
             // Creates an entry for game in the gamePlayerCommands Map using all the users from the game
-            HashMap<String, List<ClientCommand>> userCmdMap = new HashMap<>();
-            for (String user : RootServerModel.getInstance().getGame(gameId).getUsers().keySet()) {
-                userCmdMap.put(user, new ArrayList<>());
-            }
-            this.gamePlayerCommands.put(gameId, userCmdMap);
+           createGameCommandMapEntry(gameId);
         }
-        List<ClientCommand> playerCommands = this.gamePlayerCommands.get(gameId).get(playerId);
+        int size = this.gamePlayerCommands.get(gameId).get(playerId).size();
+        System.out.println("command size in server: "+ size);
+        List<ClientCommand> playerCommands = new ArrayList<>(this.gamePlayerCommands.get(gameId).get(playerId));
         this.gamePlayerCommands.get(gameId).get(playerId).clear(); // Clears the players list of commands
         return playerCommands;
     }
@@ -80,6 +78,14 @@ public class CommandManager {
                 this.gamePlayerCommands.get(gameId).get(playerId).add(command); //add the command to list
             }
         }
+    }
+
+    private void createGameCommandMapEntry(String gameId){
+        HashMap<String, List<ClientCommand>> userCmdMap = new HashMap<>();
+        for (String user : RootServerModel.getInstance().getGame(gameId).getUsers().keySet()) {
+            userCmdMap.put(user, new ArrayList<>());
+        }
+        this.gamePlayerCommands.put(gameId, userCmdMap);
     }
 
     // ------------------------------ Phase 1 Commands -----------------------------
@@ -129,7 +135,12 @@ public class CommandManager {
     // StartGameCommand goes to all users
     public ClientCommand makeStartGameCommand(Game game, Player p) {
         ClientCommand command = factory.createStartGameCommand(game, p);
-        this.gamePlayerCommands.get(game.getGameId()).get(p.getUsername()).add(command);
+        String gameId = game.getGameId();
+        if (!this.gamePlayerCommands.containsKey(gameId)) {
+            // Creates an entry for game in the gamePlayerCommands Map using all the users from the game
+            createGameCommandMapEntry(gameId);
+        }
+        this.gamePlayerCommands.get(gameId).get(p.getUsername()).add(command);
         return command;
     }
 
