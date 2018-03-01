@@ -22,9 +22,9 @@ public class Player {
     public static Player mapToObject(LinkedTreeMap map) {
         String username = (String) map.get("username");
         String color = (String) map.get("color");
-        int points = (Integer) map.get("points");
-        // TODO: fix the route map to object
-        int trainpieces = (Integer) map.get("trainPieces");
+//        double points = (double) map.get("points");
+//        // TODO: fix the route map to object
+//        double trainpieces = (double) map.get("trainPieces");
         List<DestCard> destCards = new ArrayList<>();
         ArrayList<LinkedTreeMap> dcards = (ArrayList<LinkedTreeMap>) map.get("destCards");
         for (LinkedTreeMap cardMap : dcards) {
