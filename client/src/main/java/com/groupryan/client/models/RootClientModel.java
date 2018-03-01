@@ -113,4 +113,6 @@ public class RootClientModel extends Observable {
     private void _setCurrentGame(Game gm, Player p){
         clientGame = new ClientGame(gm, p);
     }
+
+
 }
