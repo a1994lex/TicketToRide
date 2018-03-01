@@ -1,5 +1,6 @@
 package com.groupryan.client;
 
+import com.groupryan.client.models.ClientGame;
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.*;
 
@@ -17,6 +18,9 @@ public class ClientFacade {
     }
 
     public void startGame(Game game, Player p) {
+        if (game.getUsers().containsKey(RootClientModel.getUser().getUsername())){
+            RootClientModel.setCurrentGame(game, p);
+        }
         RootClientModel.startGame(game, p);
     }
 
@@ -28,5 +32,5 @@ public class ClientFacade {
         RootClientModel.addUser(user);
     }
 
-    public void updateChat(String msg){ RootClientModel.getCurrentGame().updateChat(msg);}
+
 }

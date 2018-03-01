@@ -63,7 +63,7 @@ public class ClientCommandFactory {
     }
 
     public ClientCommand createChatCommand(String msg){
-        return new ClientCommand("com.groupryan.client.ClientFacade", "updateChat",
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "updateChat",
                 new String[]{String.class.getTypeName()},
                 new Object[]{msg});
     }

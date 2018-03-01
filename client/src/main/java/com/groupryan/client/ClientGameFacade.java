@@ -13,4 +13,6 @@ public class ClientGameFacade {
     public void updateHistory(String event){
         RootClientModel.getInstance().getCurrentGame().updateHistory(event);
     }
+
+    public void updateChat(String msg){ RootClientModel.getCurrentGame().updateChat(msg);}
 }

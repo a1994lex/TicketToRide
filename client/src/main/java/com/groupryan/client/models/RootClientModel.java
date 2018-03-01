@@ -56,7 +56,7 @@ public class RootClientModel extends Observable {
         single_instance._startGame(game, p);
     }
 
-    public static void setCurrentGame(Game game){ single_instance._setCurrentGame(game);}
+    public static void setCurrentGame(Game game, Player p){ single_instance._setCurrentGame(game, p);}
 
     public static void addUserToGame(Game game, User user, String userColor) {
         single_instance._addUserToGame(game, user, userColor);
@@ -84,7 +84,6 @@ public class RootClientModel extends Observable {
 
     private void _startGame(Game game, Player p) {
         // Builds a client game along with the Player
-        clientGame = new ClientGame(game, p);
         for (Game g : games) {
             if (g.equals(game)) {
                 g.setStarted(true);
@@ -111,7 +110,7 @@ public class RootClientModel extends Observable {
         this.games = (ArrayList<Game>)games;
     }
 
-    private void _setCurrentGame(Game g){
-        clientGame = new ClientGame(g, new Player(user.getUsername(), g.getUsers().get(user.getUsername())));
+    private void _setCurrentGame(Game gm, Player p){
+        clientGame = new ClientGame(gm, p);
     }
 }
