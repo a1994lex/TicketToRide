@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,7 +60,6 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
         mStartGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (mGame.getMaxPlayers() == (double) mGame.getUsers().size()) {
                     LobbyPresenter.startGame(mGame);
                 }
@@ -77,7 +77,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
     public void onStartGame() {
         Intent i = new Intent(LobbyActivity.this, GamePlayActivity.class);
         startActivity(i);
-        mAdapter.notifyDataSetChanged();
+//        mAdapter.notifyDataSetChanged();
     }
 
     @Override
