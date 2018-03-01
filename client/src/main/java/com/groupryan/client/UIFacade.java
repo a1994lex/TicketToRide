@@ -4,6 +4,7 @@ import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.commands.ServerCommandFactory;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
+import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
@@ -65,6 +66,7 @@ public class UIFacade {
     }
 
     public void startGame(String gameId) {
+
         ServerProxy.getInstance().startGame(gameId);
     }
 
