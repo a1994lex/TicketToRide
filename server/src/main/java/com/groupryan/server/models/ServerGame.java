@@ -35,7 +35,7 @@ public class ServerGame {
         history=new ArrayList<>();
         playaMap=new HashMap<>();
         stats=new HashMap<>();
-        //makeFakeHistory();
+//        makeFakeHistory();
     }
     public void addHistory(String note){
         history.add(note);
