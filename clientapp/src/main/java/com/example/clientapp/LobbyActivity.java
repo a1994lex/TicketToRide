@@ -114,6 +114,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
                     break;
                 case utils.BLUE:
                     c=Color.BLUE;
+                    mPlayerName.setTextColor(Color.WHITE);
                     break;
                 case utils.YELLOW:
                     c=Color.YELLOW;
