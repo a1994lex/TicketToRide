@@ -131,7 +131,9 @@ public class CommandManager {
     // StartGameCommand goes to all users
     public ClientCommand makeStartGameCommand(Game game, Player p) {
         ClientCommand command = factory.createStartGameCommand(game, p);
-        this.usersCommands.put(p.getUsername(), new ArrayList<>());
+        List<ClientCommand> commands = this.usersCommands.get(p.getUsername());
+        commands.add(command);
+        this.usersCommands.put(p.getUsername(), commands);
         return command;
     }
 
