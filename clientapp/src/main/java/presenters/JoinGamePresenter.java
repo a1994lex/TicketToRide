@@ -92,10 +92,11 @@ public class JoinGamePresenter implements Observer, IJoinGamePresenter{
 //            else if (){
 ////                gameView.onGameDisable(id);
 //            }
-
-            for (Game game : root.getUser().getGameList()){
-                if (game.getGameName().equals(game_title)){
-                    dialogView.join(game.getGameId());
+            if (o == null) {
+                for (Game game : root.getUser().getGameList()) {
+                    if (game.getGameName().equals(game_title)) {
+                        dialogView.join(game.getGameId());
+                    }
                 }
             }
         }
