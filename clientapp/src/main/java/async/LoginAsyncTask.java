@@ -32,8 +32,7 @@ public class LoginAsyncTask extends AsyncTask<User, Void, LoginResult> {
         if (!loginResult.isSucceeded()) {
             Toast.makeText(loginActivity, loginResult.getUserMessage(), Toast.LENGTH_SHORT).show(); //might not need this?
         } else {
-            Poller poller = new Poller();
-            poller.poll();
+            Poller.get().poll();
         }
 
     }

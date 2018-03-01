@@ -1,6 +1,9 @@
 package presenters;
 
+import android.app.Activity;
+
 import com.example.clientapp.ILobbyView;
+import com.example.clientapp.LobbyActivity;
 import com.groupryan.client.UIFacade;
 import com.groupryan.client.models.ClientGame;
 import com.groupryan.client.models.RootClientModel;
@@ -10,15 +13,16 @@ import com.groupryan.shared.models.Player;
 import java.util.Observable;
 import java.util.Observer;
 
+import async.StartGameAsyncTask;
+
 public class LobbyPresenter implements Observer {
 
     RootClientModel root;
     int maxGameSize;
-    String game_title;
     Game currentGame;
     ILobbyView lobbyView;
+    private Activity lobbyActivity;
     private static LobbyPresenter instance = new LobbyPresenter(RootClientModel.getSingle_instance());
-    private UIFacade uifacade = UIFacade.getInstance();
 
     private LobbyPresenter(RootClientModel root) {
         this.root = root;
@@ -29,7 +33,9 @@ public class LobbyPresenter implements Observer {
         instance._setView(view);
     }
 
-    public static void createTestClientGame(){  RootClientModel.getInstance().setCurrentGame(instance.currentGame);}
+    public static void createTestClientGame(){
+        RootClientModel.getInstance().setCurrentGame(instance.currentGame);
+ }
 
     public static void setGame(Game game) {
         instance._setGame(game);
@@ -39,11 +45,20 @@ public class LobbyPresenter implements Observer {
         instance._startGame(game);
     }
 
+    public static void setActivity(Activity activity) {
+        instance._setActivity(activity);
+    }
+
     private static void _setView(ILobbyView view) {
         if (instance.lobbyView == null) {
             instance.lobbyView = view;
         }
     }
+
+    private static void _setActivity(Activity activity) {
+        instance.lobbyActivity = activity;
+    }
+
 
     private static void _setGame(Game game) {
         instance.currentGame = game;
@@ -51,8 +66,8 @@ public class LobbyPresenter implements Observer {
     }
 
     private void _startGame(Game game) {
-        game_title = game.getGameName();
-        uifacade.startGame(game.getGameId());
+        StartGameAsyncTask startGameAsyncTask = new StartGameAsyncTask(instance.lobbyActivity);
+        startGameAsyncTask.execute(game);
     }
 
 
@@ -60,10 +75,9 @@ public class LobbyPresenter implements Observer {
     public void update(Observable observable, Object o) {
         if (observable == root) {
             int secondSize = currentGame.getUsers().size();
-            if(currentGame.isStarted()){
+            if (currentGame.isStarted()) {
                 lobbyView.onStartGame();
-            }
-            else if (secondSize == maxGameSize) {
+            } else if (secondSize == maxGameSize) {
                 lobbyView.enableStartButton();
             } else {
                 lobbyView.onUserJoined();
