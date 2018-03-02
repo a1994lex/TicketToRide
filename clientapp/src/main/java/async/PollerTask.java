@@ -16,7 +16,6 @@ public class PollerTask extends AsyncTask<Void, Void, List<ClientCommand>> {
 
     @Override
     protected List<ClientCommand> doInBackground(Void... voids) {
-        System.out.println("PollerTask polling.....");
         ServerProxy serverProxy = ServerProxy.getInstance();
         CommandResult commandResult = serverProxy.getCommands(RootClientModel.getUser());
         List<ClientCommand> commandList = commandResult.getClientCommands();
@@ -26,7 +25,6 @@ public class PollerTask extends AsyncTask<Void, Void, List<ClientCommand>> {
 
     @Override
     protected void onPostExecute(List<ClientCommand> commandList) {
-        System.out.println(commandList);
         for (ClientCommand command : commandList) {
             command.execute();
         }

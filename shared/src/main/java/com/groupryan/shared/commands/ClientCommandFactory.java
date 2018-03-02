@@ -53,7 +53,6 @@ public class ClientCommandFactory {
         return new ClientCommand("com.groupryan.client.ClientFacade", "discardDestCard",
                 new String[]{List.class.getTypeName(), String.class.getTypeName()},
                 new Object[]{cardIDs, username});
-        //todo idk if this is correct syntax
     }
 
     public ClientCommand createDrawThreeCardsCommand(List<DestCard> cards){
@@ -63,7 +62,7 @@ public class ClientCommandFactory {
     }
 
     public ClientCommand createChatCommand(String msg){
-        return new ClientCommand("com.groupryan.client.ClientFacade", "updateChat",
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "updateChat",
                 new String[]{String.class.getTypeName()},
                 new Object[]{msg});
     }

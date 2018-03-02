@@ -23,7 +23,7 @@ public class GamePollerTask extends AsyncTask<Void, Void, List<ClientCommand>> {
 
     @Override
     protected List<ClientCommand> doInBackground(Void... voids) {
-        System.out.println("PollerTask polling.....");
+        System.out.println("GamePollerTask polling.....");
         ServerProxy serverProxy = ServerProxy.getInstance();
         CommandResult commandResult = serverProxy.getGameCommands(gameId, playerId);
         List<ClientCommand> commandList = commandResult.getClientCommands();

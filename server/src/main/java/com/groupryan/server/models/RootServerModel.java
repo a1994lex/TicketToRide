@@ -430,11 +430,11 @@ public class RootServerModel {
 
     public Player createPlayer(String gameId, Map.Entry<String, String> entry){
         ServerGame sg=serverGameIdMap.get(gameId);
-        List<Card> tCards=new ArrayList<>();
-        tCards.add(sg.drawTrainCard());
-        tCards.add(sg.drawTrainCard());
-        tCards.add(sg.drawTrainCard());
-        tCards.add(sg.drawTrainCard());
+        List<TrainCard> tCards=new ArrayList<>();
+        tCards.add((TrainCard)sg.drawTrainCard());
+        tCards.add((TrainCard) sg.drawTrainCard());
+        tCards.add((TrainCard) sg.drawTrainCard());
+        tCards.add((TrainCard)sg.drawTrainCard());
         Player p=new Player(entry.getValue(), sg.drawDestinationCards(),tCards ,entry.getKey());
         //get the top 4 train cards
         //get the top 3 D cards,

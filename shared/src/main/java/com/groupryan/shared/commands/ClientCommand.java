@@ -74,7 +74,7 @@ public class ClientCommand implements IClientCommand {
 
             }
             catch (Exception e) {
-                e.getCause().printStackTrace();
+                e.printStackTrace();
             }
         }
         return objects;

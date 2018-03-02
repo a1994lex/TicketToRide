@@ -6,8 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="horizontal"
     android:background="@drawable/map"
-    tools:context="com.example.clientapp.GamePlayActivity"
-    android:layout_gravity="center">
+    tools:context="com.example.clientapp.GamePlayActivity">
 
     <Button
         android:id="@+id/button2"
@@ -15,9 +14,7 @@
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:text="Chat/History"
-        android:textColor="@color/colorAccent"
-        tools:layout_editor_absoluteX="39dp"
-        tools:layout_editor_absoluteY="265dp" />
+        android:textColor="@color/colorAccent"/>
 
     <ImageView
         android:id="@+id/imageView2"

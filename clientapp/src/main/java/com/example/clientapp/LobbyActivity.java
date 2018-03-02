@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,8 @@ import com.groupryan.shared.utils;
 import java.util.ArrayList;
 import java.util.Set;
 
+import async.GamePoller;
+import async.Poller;
 import presenters.JoinGamePresenter;
 import presenters.LobbyPresenter;
 
@@ -59,15 +62,14 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
         mStartGameBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                LobbyPresenter.startGame(mGame);
                 if (mGame.getMaxPlayers() == (double) mGame.getUsers().size()) {
-                    Intent i = new Intent(LobbyActivity.this, GamePlayActivity.class);
-                    LobbyPresenter.createTestClientGame();
-                    startActivity(i);
+                    LobbyPresenter.startGame(mGame);
                 }
 
             }
         });
+
+        LobbyPresenter.startGamePoller();
     }
 
     @Override
@@ -77,8 +79,9 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
 
     @Override
     public void onStartGame() {
-        // ???????
-        mAdapter.notifyDataSetChanged();
+        Intent i = new Intent(LobbyActivity.this, GamePlayActivity.class);
+        startActivity(i);
+//        mAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -12,15 +12,15 @@ public class DestCard extends Card {
 
 
     public static DestCard mapToObject(LinkedTreeMap map){
-        int value;
+        double value;
         String cityOne;
         String cityTwo;
-        int cardID;
-        value = (Integer)map.get("value");
+        double cardID;
+        value = (double)map.get("value");
         cityOne = (String)map.get("cityOne");
         cityTwo = (String)map.get("cityTwo");
-        cardID = (Integer)map.get("cardID");
-        return new DestCard(value, cityOne, cityTwo, cardID);
+        cardID = (double)map.get("cardId");
+        return new DestCard((int)value, cityOne, cityTwo, (int)cardID);
     }
 
 

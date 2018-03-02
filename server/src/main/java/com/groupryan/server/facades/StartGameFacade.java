@@ -16,14 +16,14 @@ import java.util.Map;
  */
 
 public class StartGameFacade {
-    ArrayList<ClientCommand> commands=new ArrayList<>();
+    ArrayList<ClientCommand> commands = new ArrayList<>();
 
 
     public CommandResult start(String gameId) {
         //sets the game id = to TRUE and returns the literal VALID
         String result = RootServerModel.getInstance().startGame(gameId);
         CommandResult cr = new CommandResult();
-        if(result.equals(utils.VALID)){
+        if (result.equals(utils.VALID)) {
             //if valid it will create a start game command
             activateGame(gameId);
             //then it will prepare the game to be started
@@ -34,16 +34,16 @@ public class StartGameFacade {
     }
 
     void activateGame(String gameId) {
-        RootServerModel root= RootServerModel.getInstance();
-        Game g=root.getGame(gameId);
+        RootServerModel root = RootServerModel.getInstance();
+        Game g = root.getGame(gameId);
         root.createServerGame(gameId);
         for (Map.Entry<String, String> entry : g.getUsers().entrySet()) {
-            Player p=root.createPlayer(gameId, entry);
+            Player p = root.createPlayer(gameId, entry);
             root.addPlayertoGame(p.getUsername(), gameId);
             CommandManager.getInstance().makeStartGameCommand(g, p);
             //we create a create playa command call using the last line as the playa value
         }
-      //  return CommandManager.getInstance().makeStartGameCommand(g,p);
+        //  return CommandManager.getInstance().makeStartGameCommand(g,p);
     }
 
 

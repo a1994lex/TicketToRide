@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import async.Poller;
+
 public class GamePlayActivity extends AppCompatActivity {
 
     Button chatHistoryButton;
@@ -22,6 +24,9 @@ public class GamePlayActivity extends AppCompatActivity {
                 startActivity();
             }
         });
+
+        // TODO: Move to Presenter eventually
+        Poller.get().stop();
     }
 
     public void startActivity(){
