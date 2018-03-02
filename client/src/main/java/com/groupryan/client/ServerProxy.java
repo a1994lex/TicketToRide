@@ -101,6 +101,7 @@ public class ServerProxy implements IServer {
     public CommandResult getCommands(User user) {
         ServerCommand command = serverCommandFactory.createGetCommands(user);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.GET_COMMANDS, command);
+        //executeCommands(commandResult.getClientCommands());
         return commandResult;
     }
 

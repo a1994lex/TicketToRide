@@ -108,14 +108,6 @@ public class Game{
         this.gameId = gameId;
     }
 
-    public String getCreatorId() {
-        return null;
-    }
-
-    public void setCreatorId(String creatorId) {
-        //this.creatorId = creatorId;
-    }
-
     public void makeGameId(){
 
         gameId = UUID.randomUUID().toString();
