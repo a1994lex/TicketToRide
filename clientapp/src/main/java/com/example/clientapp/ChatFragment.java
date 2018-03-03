@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -75,21 +76,35 @@ public class ChatFragment extends Fragment implements IChatView {
     protected class ChatHolder extends RecyclerView.ViewHolder{
 
         private TextView mChat;
+        private LinearLayout mView;
         public ChatHolder(View itemView){
             super(itemView);
             mChat = itemView.findViewById(R.id.chat_content);
+            mView = itemView.findViewById(R.id.color_holder);
         }
 
         public void bindChat(Chat chat){
             mChat.setText(chat.getMesssage());
             String color = chat.getColor();
-
+            int cid = 0;
             switch(color){
-                case utils.BLACK:
-
+                case utils.BLUE:
+                    cid = R.color.blue_back;
+                    break;
+                case utils.YELLOW:
+                    cid = R.color.yellow_back;
+                    break;
+                case utils.GREEN:
+                    cid = R.color.green_back;
+                    break;
+                case utils.RED:
+                    cid = R.color.red_back;
+                    break;
+                default:
+                    cid = R.color.black_back;
             }
 
-            mChat.setBackgroundColor(chat.getColor());
+            mView.setBackgroundColor(cid);
         }
     }
 
@@ -112,7 +127,6 @@ public class ChatFragment extends Fragment implements IChatView {
         @Override
         public void onBindViewHolder(ChatHolder holder, int position) {
             holder.bindChat(mChats.get(position));
-           ;
         }
 
 

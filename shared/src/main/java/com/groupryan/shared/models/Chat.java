@@ -1,5 +1,7 @@
 package com.groupryan.shared.models;
 
+import com.groupryan.shared.utils;
+
 /**
  * Created by alex on 3/3/18.
  */
@@ -20,4 +22,9 @@ public class Chat {
     public String getColor() {
         return color;
     }
+
+
+
+
+
 }

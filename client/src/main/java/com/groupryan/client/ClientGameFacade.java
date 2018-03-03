@@ -1,6 +1,7 @@
 package com.groupryan.client;
 
 import com.groupryan.client.models.RootClientModel;
+import com.groupryan.shared.models.Chat;
 import com.groupryan.shared.models.Stat;
 
 import java.util.ArrayList;
@@ -22,5 +23,5 @@ public class ClientGameFacade {
     }
 
     public void updateChat(String msg, String username){
-        RootClientModel.getCurrentGame().updateChat(msg, username);}
+        RootClientModel.getCurrentGame().updateChat(new Chat(msg, username));}
 }

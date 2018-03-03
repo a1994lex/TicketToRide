@@ -47,8 +47,8 @@ public class ChatPresenter implements Observer, IChatPresenter {
     }
 
     @Override
-    public void updateChat(Chat chat) {
-        chatView.onChatAdd(chat);
+    public void updateChat() {
+        chatView.onChatAdd();
     }
 
 
@@ -57,8 +57,8 @@ public class ChatPresenter implements Observer, IChatPresenter {
     @Override
     public void update(Observable o, Object arg) {
         if (o == game){
-            if (arg.getClass()==Chat.class){
-                updateChat((Chat)arg);
+            if (arg.equals(utils.CHAT)){
+                updateChat();
             }
         }
     }
