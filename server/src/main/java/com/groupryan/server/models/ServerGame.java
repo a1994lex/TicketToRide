@@ -99,8 +99,8 @@ public class ServerGame {
         history.add(hello);
         history.add(indeed);
         Map.Entry<String, Player> entry = playaMap.entrySet().iterator().next();
-        CommandManager.getInstance().addHistoryCommand(hi, getServerGameID(), entry.getKey());
-        CommandManager.getInstance().addHistoryCommand(hello, getServerGameID(), entry.getKey());
+        CommandManager.getInstance().addHistoryCommand(hi, getServerGameID(), null);
+        CommandManager.getInstance().addHistoryCommand(hello, getServerGameID(), null);
         CommandManager.getInstance().addHistoryCommand(indeed, getServerGameID(), entry.getKey());
     }
 }

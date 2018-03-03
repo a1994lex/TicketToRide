@@ -11,6 +11,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.UUID;
 
+import static com.groupryan.shared.utils.BLACK;
 import static com.groupryan.shared.utils.BLUE;
 import static com.groupryan.shared.utils.GREEN;
 import static com.groupryan.shared.utils.RED;
@@ -137,8 +138,16 @@ public class Game{
         u3.addGame(game2);
         u4.addGame(game2);
 
+        User u5 = new User("kate", "gammon");
+        User u6 = new User("grace", "gammon");
+
+        Game game3 = new Game("game3", "gameID3", 3);
+        game3.addUser(u5, BLACK);
+        game3.addUser(u6, RED);
+
         games.put(game.gameId, game);
         games.put(game2.gameId, game2);
+        games.put(game3.gameId, game3);
         return games;
 
     }

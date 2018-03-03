@@ -11,6 +11,7 @@ import async.Poller;
 public class GamePlayActivity extends AppCompatActivity {
 
     Button chatHistoryButton;
+    Button statsButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,14 @@ public class GamePlayActivity extends AppCompatActivity {
                 startActivity();
             }
         });
+        statsButton = findViewById(R.id.stats_button);
+        statsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startStats();
+            }
+        });
+
 
         // TODO: Move to Presenter eventually
         Poller.get().stop();
@@ -31,6 +40,11 @@ public class GamePlayActivity extends AppCompatActivity {
 
     public void startActivity(){
         Intent intent = new Intent(this, ChatAndHistoryActivity.class);
+        startActivity(intent);
+    }
+
+    public void startStats(){
+        Intent intent = new Intent(this, GameStatActivity.class);
         startActivity(intent);
     }
 }

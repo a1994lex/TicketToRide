@@ -36,7 +36,7 @@ public class HistoryPresenter implements Observer, IHistoryPresenter {
     @Override
     public void update(Observable o, Object arg) {
         if (o == game){
-            if (arg.equals(utils.CHAT)){
+            if (arg.equals(utils.HISTORY)){
                 historyView.updateHistory();
             }
         }

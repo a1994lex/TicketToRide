@@ -34,4 +34,24 @@ public class Stat {
         this.trainCards=trainCards;
         this.destinationCards=destinationCards;
     }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public int getTrains() {
+        return trains;
+    }
+
+    public int getTrainCards() {
+        return trainCards;
+    }
+
+    public int getDestinationCards() {
+        return destinationCards;
+    }
 }
