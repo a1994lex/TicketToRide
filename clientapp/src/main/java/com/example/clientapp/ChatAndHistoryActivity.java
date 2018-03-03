@@ -45,7 +45,7 @@ public class ChatAndHistoryActivity extends AppCompatActivity {
     }
 
     private void setUpViewPager(){
-        mSectionsPageAdapter.addFragment(new HistoryFragment(), "Game History");
+//        mSectionsPageAdapter.addFragment(new HistoryActivity(), "Game History");
         mSectionsPageAdapter.addFragment(new ChatFragment(), "Chat");
         mViewPager.setAdapter(mSectionsPageAdapter);
     }

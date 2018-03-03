@@ -35,7 +35,7 @@ public class GameActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.history:
-                    startActivity();
+                    startHistory();
                     return true;
                 case R.id.chat:
                     startActivity();
@@ -104,6 +104,11 @@ public class GameActivity extends AppCompatActivity {
 
     public void startStats(){
         Intent intent = new Intent(this, GameStatActivity.class);
+        startActivity(intent);
+    }
+
+    public void startHistory(){
+        Intent intent = new Intent(this, HistoryActivity.class);
         startActivity(intent);
     }
 
