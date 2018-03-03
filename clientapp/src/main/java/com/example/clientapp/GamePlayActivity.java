@@ -7,6 +7,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.groupryan.client.models.RootClientModel;
+
 import async.Poller;
 import presenters.GamePlayPresenter;
 
@@ -63,6 +65,8 @@ public class GamePlayActivity extends AppCompatActivity {
     }
       
     public void testClaimRoute() {
+        RootClientModel.getCurrentGame().updateHistory("this is testing from claim route");
+        RootClientModel.getCurrentGame().updateHistory("hello again");
         claimedRouteImg.setVisibility(View.VISIBLE);
         gamePlayPresenter.testClaimRoute();
     }

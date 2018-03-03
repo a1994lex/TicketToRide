@@ -12,6 +12,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.groupryan.client.models.RootClientModel;
+
 import async.Poller;
 import presenters.GamePlayPresenter;
 
@@ -40,6 +42,7 @@ public class GameActivity extends AppCompatActivity {
                     return true;
                 case R.id.stats:
 //                    mTextMessage.setText(R.string.title_notifications);
+                    startStats();
                     return true;
 //                case R.id.bank:
 //                    mTextMessage.setText("BANK");
@@ -89,11 +92,18 @@ public class GameActivity extends AppCompatActivity {
     }
 
     public void testClaimRoute() {
+        RootClientModel.getCurrentGame().updateHistory("this is testing from claim route");
+        RootClientModel.getCurrentGame().updateHistory("hello again");
         claimedRouteImg.setVisibility(View.VISIBLE);
         gamePlayPresenter.testClaimRoute();
     }
     public void startActivity(){
         Intent intent = new Intent(this, ChatAndHistoryActivity.class);
+        startActivity(intent);
+    }
+
+    public void startStats(){
+        Intent intent = new Intent(this, GameStatActivity.class);
         startActivity(intent);
     }
 
