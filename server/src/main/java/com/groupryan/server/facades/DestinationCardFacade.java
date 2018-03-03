@@ -34,7 +34,8 @@ public class DestinationCardFacade {
         ServerGame serverGame = RootServerModel.getInstance().getServerGame(username);
         serverGame.addHistory(history);
         CommandManager.getInstance().addHistoryCommand(history, serverGame.getServerGameID(), null);
-
+        cr.addClientCommand(CommandManager.getInstance().addHistoryCommand(history, serverGame.getServerGameID(), username));
+        CommandManager.getInstance().makeStatCommand(serverGame.getServerGameID(), serverGame.getStat(username));
         //create the 2 necessary commands
         return cr;
     }
@@ -50,6 +51,7 @@ public class DestinationCardFacade {
         sg.addHistory(history);
         CommandManager.getInstance().addHistoryCommand(history, sg.getServerGameID(), null);
         //CommandManager.getInstance().add(getStat(username));
+        CommandManager.getInstance().makeStatCommand(sg.getServerGameID(), sg.getStat(username));
         return cr;
     }
 
@@ -59,9 +61,6 @@ public class DestinationCardFacade {
 
     }
 
-    private Stat getStat(String username){
-        return (RootServerModel.getInstance().getServerGame(username)).getStat(username);
-    }
 }
 
 

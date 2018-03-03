@@ -5,13 +5,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import async.Poller;
+import presenters.GamePlayPresenter;
 
 public class GamePlayActivity extends AppCompatActivity {
 
-    Button chatHistoryButton;
-    Button statsButton;
+    private Button statsButton;
+    private Button chatHistoryButton;
+    private Button claimRouteButton;
+    private ImageView claimedRouteImg;
+    private GamePlayPresenter gamePlayPresenter = new GamePlayPresenter(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -19,6 +24,8 @@ public class GamePlayActivity extends AppCompatActivity {
         setContentView(R.layout.activity_game_play);
 
         chatHistoryButton = findViewById(R.id.button2);
+        claimRouteButton = findViewById(R.id.claim_route_button);
+        claimedRouteImg = findViewById(R.id.claimed_route);
         chatHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -34,6 +41,13 @@ public class GamePlayActivity extends AppCompatActivity {
         });
 
 
+        claimRouteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                testClaimRoute();
+            }
+        });
+
         // TODO: Move to Presenter eventually
         Poller.get().stop();
     }
@@ -46,5 +60,9 @@ public class GamePlayActivity extends AppCompatActivity {
     public void startStats(){
         Intent intent = new Intent(this, GameStatActivity.class);
         startActivity(intent);
+      
+    public void testClaimRoute() {
+        claimedRouteImg.setVisibility(View.VISIBLE);
+        gamePlayPresenter.testClaimRoute();
     }
 }

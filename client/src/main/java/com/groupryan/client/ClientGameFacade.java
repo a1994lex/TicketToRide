@@ -1,6 +1,7 @@
 package com.groupryan.client;
 
 import com.groupryan.client.models.RootClientModel;
+import com.groupryan.shared.models.Stat;
 
 import java.util.ArrayList;
 
@@ -14,6 +15,10 @@ public class ClientGameFacade {
 
     public void updateHistory(String event){
         RootClientModel.getCurrentGame().updateHistory(event);
+    }
+
+    public void updateStat(Stat stat){
+        RootClientModel.getInstance().getCurrentGame().updateStat(stat);
     }
 
     public void updateChat(String msg){ RootClientModel.getCurrentGame().updateChat(msg);}

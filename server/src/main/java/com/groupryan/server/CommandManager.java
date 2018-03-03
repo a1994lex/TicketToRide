@@ -8,6 +8,7 @@ import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
+import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.utils;
@@ -187,6 +188,11 @@ public class CommandManager {
         ClientCommand command = null;
         // TODO put in each player of game list
         return command;
+    }
+
+    public void makeStatCommand(String gameId, Stat stat){
+        ClientCommand command=factory.createStatCommand(stat);
+        _addCommandToGameMap(command, gameId,null);
     }
 
     // ------------------------------ Methods for Testing  -----------------------------

@@ -3,6 +3,7 @@ package async;
 import android.os.AsyncTask;
 
 import com.groupryan.client.ServerProxy;
+import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.results.CommandResult;
 
@@ -37,5 +38,6 @@ public class GamePollerTask extends AsyncTask<Void, Void, List<ClientCommand>> {
         for (ClientCommand command : commandList) {
             command.execute();
         }
+       // RootClientModel.getInstance();
     }
 }

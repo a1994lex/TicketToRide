@@ -1,6 +1,8 @@
 package com.groupryan.client;
 
 import com.groupryan.shared.models.Color;
+import com.groupryan.shared.models.Game;
+import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
 
@@ -48,6 +50,8 @@ public class UIFacadeTest {
 
     @Test
     public void startGame() throws Exception {
+
+        int i=0;
     }
 
 }

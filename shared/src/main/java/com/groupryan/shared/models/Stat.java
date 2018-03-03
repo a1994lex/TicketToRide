@@ -10,16 +10,16 @@ public class Stat {
 
     public static Stat mapToObject(LinkedTreeMap map){
         String username;
-        int points;
-        int trains;
-        int trainCards;
-        int destinationCards;
+        double points;
+        double trains;
+        double trainCards;
+        double destinationCards;
         username = (String)map.get("username");
-        points = (Integer)map.get("points");
-        trains = (Integer)map.get("trains");
-        trainCards = (Integer)map.get("trainCards");
-        destinationCards = (Integer)map.get("destinationCards");
-        return new Stat(username, points, trains, trainCards, destinationCards);
+        points = (double)map.get("points");
+        trains = (double)map.get("trains");
+        trainCards = (double)map.get("trainCards");
+        destinationCards = (double)map.get("destinationCards");
+        return new Stat(username, (int) points, (int)trains,(int) trainCards, (int)destinationCards);
     }
     String username;
     int points;
