@@ -57,9 +57,10 @@ public class GamePlayActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
-    public void startStats(){
+    public void startStats() {
         Intent intent = new Intent(this, GameStatActivity.class);
         startActivity(intent);
+    }
       
     public void testClaimRoute() {
         claimedRouteImg.setVisibility(View.VISIBLE);
