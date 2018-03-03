@@ -34,7 +34,6 @@ public class DestinationCardFacade {
         ServerGame serverGame = RootServerModel.getInstance().getServerGame(username);
         serverGame.addHistory(history);
         CommandManager.getInstance().addHistoryCommand(history, serverGame.getServerGameID(), null);
-        cr.addClientCommand(CommandManager.getInstance().addHistoryCommand(history, serverGame.getServerGameID(), username));
         CommandManager.getInstance().makeStatCommand(serverGame.getServerGameID(), serverGame.getStat(username));
         //create the 2 necessary commands
         return cr;

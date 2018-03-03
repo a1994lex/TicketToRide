@@ -80,8 +80,8 @@ public class ClientGame extends Observable {
         notifyObservers(utils.HISTORY);
     }
   
-    public void updateStat(){
-        //update stats here.
+    public void updateStat(Stat stat){
+        stats.put(stat.getUsername(), stat);
         setChanged();
         notifyObservers(utils.STAT);
     }
