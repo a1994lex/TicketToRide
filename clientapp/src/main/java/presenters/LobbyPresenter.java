@@ -73,7 +73,6 @@ public class LobbyPresenter implements Observer {
     }
 
     private void _startGamePoller() {
-        Poller.get().stop();
         String gameId = currentGame.getGameId();
         GamePoller.get(gameId).poll();
     }

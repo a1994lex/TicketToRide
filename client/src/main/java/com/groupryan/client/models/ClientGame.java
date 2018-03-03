@@ -80,4 +80,8 @@ public class ClientGame extends Observable {
         notifyObservers(utils.HISTORY);
     }
 
+    public void updateStat(Stat stat){
+        stats.put(stat.getUsername(), stat);
+    }
+
 }

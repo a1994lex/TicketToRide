@@ -8,6 +8,7 @@ import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
+import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.utils;
@@ -50,6 +51,7 @@ public class CommandManager {
     }
 
     public List<ClientCommand> getGameCommands(String gameId, String playerId) {
+        assert((gameId != null) && (playerId != null));
         if (!this.gamePlayerCommands.containsKey(gameId)) {
             // Creates an entry for game in the gamePlayerCommands Map using all the users from the game
            createGameCommandMapEntry(gameId);
@@ -120,6 +122,7 @@ public class CommandManager {
     // JoinGameCommand goes to all users
     public ClientCommand makeJoinGameCommand(Game game, User user, String userColor) {
         ClientCommand command = factory.createJoinGameCommand(game, user, userColor);
+        addUsertoGameMap(game.getGameId(), user.getUsername());
         this._addJoinGameCommand(command);
         return command;
     }
@@ -127,6 +130,12 @@ public class CommandManager {
     private void _addJoinGameCommand(ClientCommand command) {
         for (Map.Entry<String, List<ClientCommand>> entry : this.usersCommands.entrySet()) {
             entry.getValue().add(command);
+        }
+    }
+
+    private void addUsertoGameMap(String gid, String uid){
+        if (gamePlayerCommands.containsKey(gid) && !gamePlayerCommands.get(gid).containsKey(uid)) {
+            gamePlayerCommands.get(gid).put(uid, new ArrayList<>());
         }
     }
 
@@ -178,8 +187,13 @@ public class CommandManager {
     public ClientCommand makeUpdateFaceUpCommand() {
         // TODO create commandFactory method
         ClientCommand command = null;
-        // TODO put in each playa of game list
+        // TODO put in each player of game list
         return command;
+    }
+
+    public void makeStatCommand(String gameId, Stat stat){
+        ClientCommand command=factory.createStatCommand(stat);
+        _addCommandToGameMap(command, gameId,null);
     }
 
     // ------------------------------ Methods for Testing  -----------------------------

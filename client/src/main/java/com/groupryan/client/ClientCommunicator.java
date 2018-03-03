@@ -183,6 +183,4 @@ public class ClientCommunicator {
         return result;
     }
 
-
-    // which kind of command is sent
 }

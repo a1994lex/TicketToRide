@@ -36,7 +36,7 @@ import static com.groupryan.shared.utils.GREEN;
 import static com.groupryan.shared.utils.RED;
 import static com.groupryan.shared.utils.YELLOW;
 
-public class JoinGameDialogActivity extends Activity implements IJoinGameView, OnJoinOrCreate {
+public class JoinGameDialogActivity extends Activity implements IJoinGameView, OnJoinOrCreate{
     private RadioGroup mColors;
     private Button mContinue;
     private TextView mError;
@@ -56,13 +56,13 @@ public class JoinGameDialogActivity extends Activity implements IJoinGameView, O
     }
 
     @Override
-    public void onGameDelete() {//int position) {
+    public void onGameDelete(){//int position) {
 //        This is really implemented in the JoinGameActivity
 
     }
 
     @Override
-    public void error(String msg) {
+    public void error(String msg){
         Toast.makeText(this, msg, Toast.LENGTH_LONG).show();
     }
 
@@ -85,8 +85,8 @@ public class JoinGameDialogActivity extends Activity implements IJoinGameView, O
         JoinGamePresenter.setJoinDialogActivity(this);
         Intent incoming = getIntent();
         String gameID = incoming.getStringExtra(utils.GAME_ID_TAG);
-        for (Game g : RootClientModel.getGames()) {
-            if (g.getGameId().equals(gameID)) {
+        for (Game g: RootClientModel.getGames()){
+            if (g.getGameId().equals(gameID)){
                 mGame = g;
                 break;
             }
@@ -107,9 +107,9 @@ public class JoinGameDialogActivity extends Activity implements IJoinGameView, O
 
         mGameTitle.setText(mGame.getGameName());
 
-        try {
+        try{
             enableColors();
-        } catch (IOException e) {
+        }catch(IOException e){
             mError.setText("Error enabling colors from game map");
         }
 
@@ -155,10 +155,10 @@ public class JoinGameDialogActivity extends Activity implements IJoinGameView, O
         return color;
     }
 
-    public void enableColors() throws IOException {
+    public void enableColors() throws IOException{
         Map<String, String> colorMap = mGame.getUsers();
-        for (String color : colorMap.values()) {
-            switch (color) {
+        for (String color: colorMap.values()) {
+            switch (color){
                 case RED:
                     mradioRed.setEnabled(false);
                     break;
@@ -166,7 +166,7 @@ public class JoinGameDialogActivity extends Activity implements IJoinGameView, O
                     mradioBlue.setEnabled(false);
                     break;
                 case BLACK:
-                    mradioBlack.setEnabled(false);
+                   mradioBlack.setEnabled(false);
                     break;
                 case GREEN:
                     mradioGreen.setEnabled(false);
@@ -182,7 +182,7 @@ public class JoinGameDialogActivity extends Activity implements IJoinGameView, O
 
     @Override
     public void onJoinOrCreate(String errormsg) {
-        if (errormsg != null) {
+        if (errormsg != null){
             this.error(errormsg);
         }
 

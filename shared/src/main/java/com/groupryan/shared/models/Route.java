@@ -10,12 +10,14 @@ public class Route {
     String cityTwo;
     int worth;
     String color;
+    int id;
 
-    public Route(int length, String one, String two, int worth, String color){
+    public Route(int length, String one, String two, int worth, String color, int id){
         this.length=length;
         cityOne=one;
         cityTwo=two;
         this.worth=worth;
         this.color=color;
+        this.id=id;
     }
 }
