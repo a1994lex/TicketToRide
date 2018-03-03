@@ -16,8 +16,8 @@ public class RootClientModel extends Observable {
     private ArrayList<Game> games;
     private User user;
     private ClientGame clientGame;
-    private Player playerAvatar;
     private Map<String, String> players;
+    //private GameStat gameStat;
 
     public static RootClientModel getInstance() {
         if (single_instance == null) {
@@ -69,7 +69,9 @@ public class RootClientModel extends Observable {
         single_instance._setGames(games);
     }
 
-    public void createPlayerAvatar(Player player) { single_instance._setPlayerAvatar(player); }
+    public Map<String, String> getPlayers() {
+        return single_instance._getPlayers();
+    }
 
     public void addPlayers(Map<String, String> players) {
         single_instance._setPlayers(players);
@@ -129,13 +131,5 @@ public class RootClientModel extends Observable {
 
     private void _setPlayers(Map<String, String> players) {
         this.players = players;
-    }
-
-    private Player _getPlayerAvatar() {
-        return playerAvatar;
-    }
-
-    private void _setPlayerAvatar(Player player) {
-        this.playerAvatar = player;
     }
 }
