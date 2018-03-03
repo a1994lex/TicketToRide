@@ -50,6 +50,7 @@ public class DestinationCardFacade {
         sg.addHistory(history);
         cr.addClientCommand(CommandManager.getInstance().addHistoryCommand(history, sg.getServerGameID(), username));
         //CommandManager.getInstance().add(getStat(username));
+        CommandManager.getInstance().makeStatCommand(sg.getServerGameID(), null);
         return cr;
     }
 
