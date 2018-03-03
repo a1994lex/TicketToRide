@@ -12,6 +12,7 @@ import presenters.GamePlayPresenter;
 
 public class GamePlayActivity extends AppCompatActivity {
 
+    private Button statsButton;
     private Button chatHistoryButton;
     private Button claimRouteButton;
     private ImageView claimedRouteImg;
@@ -31,6 +32,14 @@ public class GamePlayActivity extends AppCompatActivity {
                 startActivity();
             }
         });
+        statsButton = findViewById(R.id.stats_button);
+        statsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startStats();
+            }
+        });
+
 
         claimRouteButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,6 +57,10 @@ public class GamePlayActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    public void startStats(){
+        Intent intent = new Intent(this, GameStatActivity.class);
+        startActivity(intent);
+      
     public void testClaimRoute() {
         claimedRouteImg.setVisibility(View.VISIBLE);
         gamePlayPresenter.testClaimRoute();
