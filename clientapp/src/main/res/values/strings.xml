@@ -21,6 +21,7 @@
     <string name="sendChat">Send</string>
     <string name="title_activity_chat_and_history">ChatAndHistoryActivity</string>
     <string name="game_stat">Game Statistics</string>
+    <string name="game_history">Game History</string>
     <string name="tab_text_1">Chat</string>
     <string name="tab_text_2">Game History</string>
     <string name="action_settings">Settings</string>
