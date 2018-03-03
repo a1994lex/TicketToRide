@@ -5,6 +5,7 @@ import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
+import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.models.User;
 
 import java.util.List;
@@ -73,4 +74,9 @@ public class ClientCommandFactory {
                 new Object[]{msg});
     }
 
+    public ClientCommand createStatCommand(Stat stat){
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "updateStat",
+                new String[]{Stat.class.getTypeName()},
+                new Object[]{stat});
+    }
 }
