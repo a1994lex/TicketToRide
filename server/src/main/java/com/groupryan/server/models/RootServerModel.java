@@ -451,5 +451,8 @@ public class RootServerModel {
         }
         return utils.INVALID_GAMEID;
     }
+    public ServerGame getServerGameByGameId (String gameId){
+        return serverGameIdMap.get(gameId);
+    }
 
 }

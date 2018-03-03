@@ -37,6 +37,13 @@ public class ServerGame {
         stats=new HashMap<>();
 //        makeFakeHistory();
     }
+    public List<Player> getPlayers(){
+        List<Player> players=new ArrayList<>();
+        for (Player p:playaMap.values()) {
+            players.add(p);
+        }
+        return players;
+    }
     public void addHistory(String note){
         history.add(note);
     }
