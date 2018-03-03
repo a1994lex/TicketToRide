@@ -112,7 +112,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
     }
 
     public void register(){
-        //Toast.makeText(this, "registerrrr", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "registerrrr", Toast.LENGTH_SHORT).show();
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         regPresenter.register(username, password);

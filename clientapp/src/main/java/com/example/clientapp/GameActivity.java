@@ -2,20 +2,21 @@ package com.example.clientapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.NavigationView;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import async.Poller;
 import presenters.GamePlayPresenter;
 
-public class GameActivity extends AppCompatActivity {
+public class GameActivity extends FragmentActivity {
 
 
     private BottomNavigationView mNav;
@@ -33,10 +34,10 @@ public class GameActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.history:
-                    startActivity();
                     return true;
                 case R.id.chat:
-                    startActivity();
+                    addFragment(R.id.chat_fragment,
+                            new ChatFragment());
                     return true;
                 case R.id.stats:
 //                    mTextMessage.setText(R.string.title_notifications);
@@ -92,9 +93,13 @@ public class GameActivity extends AppCompatActivity {
         claimedRouteImg.setVisibility(View.VISIBLE);
         gamePlayPresenter.testClaimRoute();
     }
-    public void startActivity(){
-        Intent intent = new Intent(this, ChatAndHistoryActivity.class);
-        startActivity(intent);
+    public void addFragment(@IdRes int containerViewId,
+                            @NonNull Fragment fragment){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(containerViewId, fragment)
+                .disallowAddToBackStack()
+                .commit();
     }
 
 }
