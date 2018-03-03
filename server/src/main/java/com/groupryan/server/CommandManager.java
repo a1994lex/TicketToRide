@@ -158,10 +158,9 @@ public class CommandManager {
         this._addCommandToGameMap(command, gameId, null);
     }
 
-    public ClientCommand addHistoryCommand(String history, String gameId, String playerId) {
+    public void addHistoryCommand(String history, String gameId, String playerId) {
         ClientCommand command = factory.createHistoryCommand(history);
         this._addCommandToGameMap(command, gameId, playerId);
-        return command;
     }
 
     // DiscardDestinationCardCommand goes to caller only

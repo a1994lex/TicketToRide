@@ -22,6 +22,16 @@
         android:textColor="@color/colorAccent"/>
 
     <Button
+        android:id="@+id/stats_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        android:text="StatsButton"
+        android:textColor="@color/colorAccent"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="51dp" />
+
+    <Button
         android:id="@+id/claim_route_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -42,20 +52,37 @@
 
     <ImageView
         android:id="@+id/claimed_route"
-        android:layout_width="270dp"
-        android:layout_height="44dp"
+        android:layout_width="276dp"
+        android:layout_height="47dp"
         android:layout_marginBottom="8dp"
         android:layout_marginEnd="8dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
+        android:tint="@color/red"
+        android:visibility="visible"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.44"
+        app:layout_constraintHorizontal_bias="0.43"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.27999997"
-        app:srcCompat="@drawable/ic_horizontal"
+        app:srcCompat="@drawable/ic_horizontal" />
+
+    <ImageView
+        android:id="@+id/claimedRoute2"
+        android:layout_width="292dp"
+        android:layout_height="61dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
         android:tint="@color/red"
-        android:visibility="invisible"/>
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.75"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.23000002"
+        app:srcCompat="@drawable/ic_horizontal2" />
 
 </android.support.constraint.ConstraintLayout>
