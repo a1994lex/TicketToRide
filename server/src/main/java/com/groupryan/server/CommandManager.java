@@ -154,8 +154,8 @@ public class CommandManager {
     }
 
     public void addChatCommand(String chat_msg, String gameId, String playerId) {
-        ClientCommand command = factory.createChatCommand(chat_msg);
-        this._addCommandToGameMap(command, gameId, playerId);
+        ClientCommand command = factory.createChatCommand(chat_msg, playerId);
+        this._addCommandToGameMap(command, gameId, null);
     }
 
     public ClientCommand addHistoryCommand(String history, String gameId, String playerId) {

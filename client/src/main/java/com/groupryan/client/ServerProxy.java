@@ -78,8 +78,8 @@ public class ServerProxy implements IServer {
     public CommandResult sendChat(String gameId, String msg, String username) {
         ServerCommand command = serverCommandFactory.createSendChat(gameId, msg, username);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.GET_COMMANDS, command);
-        executeCommands(commandResult.getClientCommands());
-        return null;
+//        executeCommands(commandResult.getClientCommands());
+        return commandResult;
     }
 
     @Override

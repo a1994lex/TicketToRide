@@ -62,10 +62,10 @@ public class ClientCommandFactory {
                 new Object[]{cards});
     }
 
-    public ClientCommand createChatCommand(String msg){
+    public ClientCommand createChatCommand(String msg, String username){
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "updateChat",
-                new String[]{String.class.getTypeName()},
-                new Object[]{msg});
+                new String[]{String.class.getTypeName(), String.class.getTypeName()},
+                new Object[]{msg, username});
     }
 
     public ClientCommand createHistoryCommand(String msg){

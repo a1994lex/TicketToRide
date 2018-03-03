@@ -79,7 +79,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
 
     @Override
     public void onStartGame() {
-        Intent i = new Intent(LobbyActivity.this, GamePlayActivity.class);
+        Intent i = new Intent(LobbyActivity.this, GameActivity.class);
         startActivity(i);
 //        mAdapter.notifyDataSetChanged();
     }

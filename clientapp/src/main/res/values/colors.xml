@@ -8,6 +8,14 @@
     <color name="yellow">#ffaa00</color>
     <color name="blue">#0000ff</color>
     <color name="black">#000000</color>
+    <color name = "yellow_back">#FFFF7F</color>
+    <color name = "green_back">#99FF99</color>
+    <color name = "red_back">#FF9999</color>
+    <color name = "black_back">#999999</color>
+    <color name = "blue_back">#9999FF</color>
+
+    <color name="yellow">#ffaa00</color>
+
 
 
 

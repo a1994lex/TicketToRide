@@ -19,5 +19,6 @@ public class ClientGameFacade {
         RootClientModel.getInstance().getCurrentGame().updateStat(stat);
     }
 
-    public void updateChat(String msg){ RootClientModel.getCurrentGame().updateChat(msg);}
+    public void updateChat(String msg, String username){
+        RootClientModel.getCurrentGame().updateChat(msg, username);}
 }

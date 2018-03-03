@@ -1,5 +1,7 @@
 package com.example.clientapp;
 
+import com.groupryan.shared.models.Chat;
+
 /**
  * Created by alex on 2/26/18.
  */

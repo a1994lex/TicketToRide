@@ -26,14 +26,12 @@ public class ChatAsyncTask extends AsyncTask<String, Void, CommandResult> {
 
     @Override
     protected void onPostExecute(CommandResult result){
+        // do nothing
         if(result.getResultType().equals(utils.VALID)) {
-            executeCommands(result.getClientCommands());
+            for (com.groupryan.shared.commands.ClientCommand command : result.getClientCommands()) {
+                command.execute();
+            }
         }
     }
 
-    public void executeCommands(List<ClientCommand> commandList){
-        for (com.groupryan.shared.commands.ClientCommand command : commandList) {
-            command.execute();
-        }
-    }
 }

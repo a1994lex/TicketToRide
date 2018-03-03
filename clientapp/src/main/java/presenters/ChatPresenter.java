@@ -6,6 +6,7 @@ import com.example.clientapp.IChatView;
 import com.example.clientapp.IJoinGameView;
 import com.groupryan.client.models.ClientGame;
 import com.groupryan.client.models.RootClientModel;
+import com.groupryan.shared.models.Chat;
 import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
@@ -46,8 +47,8 @@ public class ChatPresenter implements Observer, IChatPresenter {
     }
 
     @Override
-    public void updateChat() {
-        chatView.onChatAdd();
+    public void updateChat(Chat chat) {
+        chatView.onChatAdd(chat);
     }
 
 
@@ -56,8 +57,8 @@ public class ChatPresenter implements Observer, IChatPresenter {
     @Override
     public void update(Observable o, Object arg) {
         if (o == game){
-            if (arg.equals(utils.CHAT)){
-                updateChat();
+            if (arg.getClass()==Chat.class){
+                updateChat((Chat)arg);
             }
         }
     }

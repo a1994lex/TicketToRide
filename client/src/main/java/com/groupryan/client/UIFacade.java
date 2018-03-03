@@ -70,7 +70,9 @@ public class UIFacade {
         ServerProxy.getInstance().startGame(gameId);
     }
 
-    public CommandResult sendChat(String msg){
+    public CommandResult sendChat(String raw_msg){
+        String sender = RootClientModel.getUser().getUsername();
+        String msg = raw_msg + "\t(" + sender+")";
         String gid =RootClientModel.getCurrentGame().getGameId();
         String uid = RootClientModel.getUser().getUsername();
         return ServerProxy.getInstance().sendChat(gid, msg, uid);

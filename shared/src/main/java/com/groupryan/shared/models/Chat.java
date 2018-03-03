@@ -5,4 +5,19 @@ package com.groupryan.shared.models;
  */
 
 public class Chat {
+    private String messsage;
+    private String color;
+
+    public Chat(String message, String color) {
+        this.messsage = message;
+        this.color = color;
+    }
+
+    public String getMesssage() {
+        return messsage;
+    }
+
+    public String getColor() {
+        return color;
+    }
 }

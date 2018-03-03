@@ -14,6 +14,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.groupryan.client.models.RootClientModel;
+import com.groupryan.shared.models.Chat;
+import com.groupryan.shared.utils;
 
 
 import java.util.ArrayList;
@@ -70,7 +72,7 @@ public class ChatFragment extends Fragment implements IChatView {
         return view;
     }
 
-    private class ChatHolder extends RecyclerView.ViewHolder{
+    protected class ChatHolder extends RecyclerView.ViewHolder{
 
         private TextView mChat;
         public ChatHolder(View itemView){
@@ -78,17 +80,25 @@ public class ChatFragment extends Fragment implements IChatView {
             mChat = itemView.findViewById(R.id.chat_content);
         }
 
-        public void bindChat(String chat){
-            mChat.setText(chat);
+        public void bindChat(Chat chat){
+            mChat.setText(chat.getMesssage());
+            String color = chat.getColor();
+
+            switch(color){
+                case utils.BLACK:
+
+            }
+
+            mChat.setBackgroundColor(chat.getColor());
         }
     }
 
-    private class ChatAdapter extends RecyclerView.Adapter<ChatHolder>{
-        private ArrayList<String> mChats = combineLists();
+    protected class ChatAdapter extends RecyclerView.Adapter<ChatHolder>{
+        private ArrayList<Chat> mChats = combineLists();
 
 
         public ArrayList combineLists(){
-            ArrayList<String> chats = RootClientModel.getCurrentGame().getChat();
+            ArrayList<Chat> chats = RootClientModel.getCurrentGame().getChat();
             return chats;
         }
 
@@ -101,9 +111,10 @@ public class ChatFragment extends Fragment implements IChatView {
 
         @Override
         public void onBindViewHolder(ChatHolder holder, int position) {
-            String chat = mChats.get(position);
-            holder.bindChat(chat);
+            holder.bindChat(mChats.get(position));
+           ;
         }
+
 
         @Override
         public int getItemCount() {

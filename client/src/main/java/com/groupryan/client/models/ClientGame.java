@@ -1,5 +1,6 @@
 package com.groupryan.client.models;
 
+import com.groupryan.shared.models.Chat;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Stat;
@@ -26,7 +27,7 @@ public class ClientGame extends Observable {
     String gameId;
     Player myPlayer;
     ArrayList<String> history;
-    ArrayList<String> chat;
+    ArrayList<Chat> chat;
     ArrayList<TrainCard> bankCards;
     HashMap<String, Stat> stats;
     Map<String, String> playersColors;
@@ -56,7 +57,7 @@ public class ClientGame extends Observable {
         return history;
     }
 
-    public ArrayList<String> getChat() {
+    public ArrayList<Chat> getChat() {
         return chat;
     }
 
@@ -68,8 +69,9 @@ public class ClientGame extends Observable {
         return stats;
     }
 
-    public void updateChat(String msg){
-        chat.add(msg);
+    public void updateChat(Chat mychat){
+
+        chat.add(mychat);
         setChanged();
         notifyObservers(utils.CHAT);
     }
