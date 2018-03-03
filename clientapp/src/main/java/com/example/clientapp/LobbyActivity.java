@@ -96,17 +96,41 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
         public LobbyHolder(View itemView) {
             super(itemView);
             mPlayerName = itemView.findViewById(R.id.player_name);
+
         }
 
-        public void bindUser(String userId) {
+        public void bindUser(String userId, String color) {
             this.mUserId = userId;
-//            mPlayerName.setBackgroundColor();
             mPlayerName.setText(mUserId);
+            mPlayerName.setTextColor(Color.BLACK);
+            int c=Color.RED;
+            switch(color){
+                case utils.BLACK:
+                    c=Color.BLACK;
+                    mPlayerName.setTextColor(Color.WHITE);
+                    break;
+                case utils.RED:
+                    c=Color.RED;
+                    break;
+                case utils.BLUE:
+                    c=Color.BLUE;
+                    mPlayerName.setTextColor(Color.WHITE);
+                    break;
+                case utils.YELLOW:
+                    c=Color.YELLOW;
+                    break;
+                case utils.GREEN:
+                    c=Color.GREEN;
+                    break;
+            }
+            itemView.setBackgroundColor(c);
+
         }
     }
 
     private class LobbyAdapter extends RecyclerView.Adapter<LobbyActivity.LobbyHolder> {
         private ArrayList<String> mUserIds = new ArrayList<>(mGame.getUsers().keySet());
+        private ArrayList<String> mColors = new ArrayList<>(mGame.getUsers().values());
 
         @Override
         public LobbyActivity.LobbyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -118,7 +142,8 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
         @Override
         public void onBindViewHolder(LobbyActivity.LobbyHolder holder, int position) {
             String userId = mUserIds.get(position);
-            holder.bindUser(userId);
+            String color=mColors.get(position);
+            holder.bindUser(userId, color);
         }
 
         @Override

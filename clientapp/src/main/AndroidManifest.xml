@@ -42,6 +42,7 @@
             android:name=".ChatAndHistoryActivity"
             android:label="@string/title_activity_chat_and_history"
             android:theme="@style/AppTheme" />
+        <activity android:name=".GameStatActivity"></activity>
     </application>
 
 </manifest>

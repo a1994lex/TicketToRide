@@ -37,6 +37,13 @@ public class ServerGame {
         stats=new HashMap<>();
 //        makeFakeHistory();
     }
+    public List<Player> getPlayers(){
+        List<Player> players=new ArrayList<>();
+        for (Player p:playaMap.values()) {
+            players.add(p);
+        }
+        return players;
+    }
     public void addHistory(String note){
         history.add(note);
     }
@@ -99,8 +106,8 @@ public class ServerGame {
         history.add(hello);
         history.add(indeed);
         Map.Entry<String, Player> entry = playaMap.entrySet().iterator().next();
-        CommandManager.getInstance().addHistoryCommand(hi, getServerGameID(), entry.getKey());
-        CommandManager.getInstance().addHistoryCommand(hello, getServerGameID(), entry.getKey());
+        CommandManager.getInstance().addHistoryCommand(hi, getServerGameID(), null);
+        CommandManager.getInstance().addHistoryCommand(hello, getServerGameID(), null);
         CommandManager.getInstance().addHistoryCommand(indeed, getServerGameID(), entry.getKey());
     }
 }

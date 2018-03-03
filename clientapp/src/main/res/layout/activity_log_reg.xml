@@ -27,6 +27,7 @@
             android:inputType="text"
             android:layout_gravity="center_horizontal"
             android:hint="@string/username"
+                                   android:text="q"
             android:maxLength="25"/>
 
         <EditText

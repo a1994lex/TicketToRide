@@ -33,8 +33,8 @@ public class DestinationCardFacade {
         String history = username + " discarded " + cardIDs.size() + " cards.";
         ServerGame serverGame = RootServerModel.getInstance().getServerGame(username);
         serverGame.addHistory(history);
-        cr.addClientCommand(CommandManager.getInstance().addHistoryCommand(history, serverGame.getServerGameID(), username));
-
+        CommandManager.getInstance().addHistoryCommand(history, serverGame.getServerGameID(), null);
+        CommandManager.getInstance().makeStatCommand(serverGame.getServerGameID(), serverGame.getStat(username));
         //create the 2 necessary commands
         return cr;
     }
@@ -48,8 +48,9 @@ public class DestinationCardFacade {
         //update the history by making a command saying that this username drew three cards
         String history = username + " drew three destination cards.";
         sg.addHistory(history);
-        cr.addClientCommand(CommandManager.getInstance().addHistoryCommand(history, sg.getServerGameID(), username));
+        CommandManager.getInstance().addHistoryCommand(history, sg.getServerGameID(), null);
         //CommandManager.getInstance().add(getStat(username));
+        CommandManager.getInstance().makeStatCommand(sg.getServerGameID(), sg.getStat(username));
         return cr;
     }
 
@@ -59,9 +60,6 @@ public class DestinationCardFacade {
 
     }
 
-    private Stat getStat(String username){
-        return (RootServerModel.getInstance().getServerGame(username)).getStat(username);
-    }
 }
 
 

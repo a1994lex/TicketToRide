@@ -2,6 +2,7 @@ package com.groupryan.server.facades;
 
 import com.groupryan.server.CommandManager;
 import com.groupryan.server.models.RootServerModel;
+import com.groupryan.server.models.ServerGame;
 import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
@@ -26,6 +27,7 @@ public class StartGameFacade {
         if (result.equals(utils.VALID)) {
             //if valid it will create a start game command
             activateGame(gameId);
+            setStats(gameId);
             //then it will prepare the game to be started
         }
         cr.setResultType(result);
@@ -44,6 +46,14 @@ public class StartGameFacade {
             //we create a create playa command call using the last line as the playa value
         }
         //  return CommandManager.getInstance().makeStartGameCommand(g,p);
+    }
+
+    void setStats(String gameId){
+        RootServerModel root = RootServerModel.getInstance();
+        ServerGame g=root.getServerGameByGameId(gameId);
+        for (Player p:g.getPlayers()) {
+            CommandManager.getInstance().makeStatCommand(g.getServerGameID(), p.makeStat());
+        }
     }
 
 
