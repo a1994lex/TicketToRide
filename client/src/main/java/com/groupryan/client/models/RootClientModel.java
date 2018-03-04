@@ -15,7 +15,7 @@ public class RootClientModel extends Observable {
 
     private ArrayList<Game> games;
     private User user;
-    private ClientGame clientGame;
+    private ClientGame clientGame = null;
     private Map<String, String> players;
     //private GameStat gameStat;
 

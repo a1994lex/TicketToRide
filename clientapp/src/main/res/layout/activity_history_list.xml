@@ -60,7 +60,7 @@
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@drawable/mapsepia"
+    android:background="@drawable/game_list_backg"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     tools:context="com.example.clientapp.HistoryActivity"

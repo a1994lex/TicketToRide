@@ -98,6 +98,10 @@ public class ServerGame {
         return serverGameID;
     }
 
+    public Map<String, Player> getPlayaMap() {
+        return playaMap;
+    }
+
     public void makeFakeHistory(){
         String hi = "first fake history";
         String hello = "second fake history";

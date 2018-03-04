@@ -120,8 +120,14 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
     public void onLogin(){
         RootClientModel.getSingle_instance().deleteObserver(regPresenter);
-        Intent intent = new Intent(this, JoinGameActivity.class);
-        startActivity(intent);
+        if(regPresenter.checkIfJoinedGame()){
+            Intent intent = new Intent(this, GameActivity.class);
+            startActivity(intent);
+        }
+        else{
+            Intent intent = new Intent(this, JoinGameActivity.class);
+            startActivity(intent);
+        }
     }
 
 }

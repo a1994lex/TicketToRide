@@ -455,4 +455,8 @@ public class RootServerModel {
         return serverGameIdMap.get(gameId);
     }
 
+    public Map<String, ServerGame> getServerGameIdMap(){
+        return serverGameIdMap;
+    }
+
 }
