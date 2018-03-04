@@ -1,5 +1,6 @@
 package com.groupryan.shared.commands;
 
+import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCard;
@@ -78,5 +79,11 @@ public class ClientCommandFactory {
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "updateStat",
                 new String[]{Stat.class.getTypeName()},
                 new Object[]{stat});
+    }
+
+    public ClientCommand createBankCommand(Bank bank){
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "setBank",
+                new String[]{Bank.class.getTypeName()},
+                new Object[]{bank});
     }
 }

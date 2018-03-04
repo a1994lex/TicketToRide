@@ -1,5 +1,6 @@
 package com.groupryan.client.models;
 
+import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Chat;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
@@ -74,6 +75,10 @@ public class ClientGame extends Observable {
         chat.add(mychat);
         setChanged();
         notifyObservers(utils.CHAT);
+    }
+
+    public void setBank(Bank bank){
+        bankCards=bank.convertToArray();
     }
 
     public void updateHistory(String msg){
