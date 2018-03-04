@@ -1,5 +1,7 @@
 package presenters;
 
+import android.view.View;
+
 import com.example.clientapp.IGameStatView;
 import com.example.clientapp.IHistoryView;
 import com.groupryan.client.models.ClientGame;
@@ -17,6 +19,7 @@ public class GameStatPresenter implements Observer, IGameStatPresenter {
 
 
     private IGameStatView statView;
+    private View fragView;
     private ClientGame game;
     private static GameStatPresenter instance = new GameStatPresenter(RootClientModel.getInstance().getCurrentGame());
 
@@ -30,15 +33,17 @@ public class GameStatPresenter implements Observer, IGameStatPresenter {
     }
 
 
-    public void setView(IGameStatView gameView) {
+    public void setView(IGameStatView gameView, View view)
+    {
         this.statView = statView;
+        this.fragView = view;
     }
 
     @Override
     public void update(Observable o, Object arg) {
         if (o == game){
             if (arg.equals(utils.STAT)){
-                statView.init();
+                statView.init(fragView);
             }
         }
     }

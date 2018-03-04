@@ -57,7 +57,9 @@ public class ChatFragment extends Fragment implements IChatView {
             @Override
             public void onClick(View v) {
                 if (mNewChat.getText().length()>0) {
-                    ChatPresenter.getInstance().sendChat(mNewChat.getText().toString());
+                    String chat = mNewChat.getText().toString();
+                    mNewChat.clearComposingText();
+                    ChatPresenter.getInstance().sendChat(chat);
                 }
                 else {
                     Toast.makeText(getActivity(), "Write a message", Toast.LENGTH_LONG).show();

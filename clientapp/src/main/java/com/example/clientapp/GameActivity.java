@@ -13,6 +13,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.groupryan.shared.utils;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import async.Poller;
 import presenters.GamePlayPresenter;
 
@@ -34,17 +39,22 @@ public class GameActivity extends FragmentActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.history:
+                    removePrevFrag(utils.HISTORY);
+                    addFragment(R.id.chat_history_fragment,
+                            new HistoryFragment(), utils.HISTORY);
                     return true;
                 case R.id.chat:
-                    addFragment(R.id.chat_fragment,
-                            new ChatFragment());
+                    removePrevFrag(utils.CHAT);
+                    addFragment(R.id.chat_history_fragment,
+                            new ChatFragment(), utils.CHAT);
                     return true;
                 case R.id.stats:
-//                    mTextMessage.setText(R.string.title_notifications);
+                    removePrevFrag(utils.STAT);
+                    addFragment(R.id.stat_fragment,
+                            new GameStatFragment(), utils.STAT);
                     return true;
-//                case R.id.bank:
-//                    mTextMessage.setText("BANK");
                 case R.id.game:
+                    removePrevFrag("home");
                     return true;
                 case R.id.hide:
                     mNav.setVisibility(View.INVISIBLE);
@@ -60,8 +70,6 @@ public class GameActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-
-
         mNav = findViewById(R.id.navigation);
         mMenuBtn = findViewById(R.id.menu_btn);
         mClaimRoute = findViewById(R.id.claim_route_btn);
@@ -94,12 +102,41 @@ public class GameActivity extends FragmentActivity {
         gamePlayPresenter.testClaimRoute();
     }
     public void addFragment(@IdRes int containerViewId,
-                            @NonNull Fragment fragment){
+                            @NonNull Fragment fragment,
+                            @NonNull String FRAGMENT_ID){
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(containerViewId, fragment)
+                .add(containerViewId, fragment, FRAGMENT_ID)
                 .disallowAddToBackStack()
                 .commit();
+    }
+
+    private void removePrevFrag(String tag){
+        List<String> removeFragIds = new ArrayList<>();
+        switch(tag){
+            case utils.CHAT:
+                removeFragIds.add(utils.STAT);
+                removeFragIds.add(utils.HISTORY);
+                break;
+            case utils.HISTORY:
+                removeFragIds.add(utils.STAT);
+                removeFragIds.add(utils.CHAT);
+                break;
+            case utils.STAT:
+                removeFragIds.add(utils.CHAT);
+                removeFragIds.add(utils.HISTORY);
+                break;
+            default:
+                removeFragIds.add(utils.CHAT);
+                removeFragIds.add(utils.HISTORY);
+                removeFragIds.add(utils.STAT);
+        }
+        for (String fragmentId : removeFragIds){
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(fragmentId);
+            if(fragment != null)
+                getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+        }
+
     }
 
 }

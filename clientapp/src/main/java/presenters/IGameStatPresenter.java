@@ -5,4 +5,5 @@ package presenters;
  */
 
 public interface IGameStatPresenter {
+
 }
