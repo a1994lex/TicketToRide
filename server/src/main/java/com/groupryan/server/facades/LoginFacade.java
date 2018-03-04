@@ -20,6 +20,7 @@ public class LoginFacade {
 
     LoginResult login(User user) {
         String result = verifyUser(user);//checks the username and password against the model
+
         LoginResult lr = new LoginResult();//create the specific login result instead of a command result
         if (result.equals(utils.VALID)) {
             user=RootServerModel.getUser(user.getUsername());

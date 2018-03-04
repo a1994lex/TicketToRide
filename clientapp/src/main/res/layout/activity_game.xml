@@ -109,6 +109,38 @@
         android:tint="@color/red"
         android:visibility="invisible"/>
 
+    <FrameLayout
+        android:id="@+id/chat_history_fragment"
+        android:layout_width="313dp"
+        android:elevation="5dp"
+
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/stat_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        app:layout_constraintBottom_toTopOf="@+id/navigation"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
+
 
 
 </android.support.constraint.ConstraintLayout>

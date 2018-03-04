@@ -63,7 +63,7 @@
     android:background="@drawable/game_list_backg"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    tools:context="com.example.clientapp.HistoryActivity"
+    tools:context="com.example.clientapp.HistoryFragment"
     tools:listitem="@layout/activity_history_item"
     android:orientation="vertical">
 
