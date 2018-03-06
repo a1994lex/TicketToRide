@@ -1,5 +1,7 @@
 package com.example.clientapp;
 
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -74,6 +76,19 @@ public class GameActivity extends FragmentActivity {
         mMenuBtn = findViewById(R.id.menu_btn);
         mClaimRoute = findViewById(R.id.claim_route_btn);
         mDrawCards = findViewById(R.id.draw_card_btn);
+        mDrawCards.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //removePrevFrag(utils.BANK);
+                addFragment(R.id.bank_fragment,
+                        new BankFragment(), utils.BANK);
+               /* FragmentManager manager = getFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.add(R.id.bank_fragment,new BankFragment(),utils.BANK);
+                transaction.addToBackStack(null);
+                transaction.commit();*/
+            }
+        });
         claimedRouteImg = findViewById(R.id.claimed_route);
         mNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         mMenuBtn.setOnClickListener(new View.OnClickListener() {

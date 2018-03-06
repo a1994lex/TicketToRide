@@ -20,4 +20,9 @@ public class TrainCard extends Card {
         this.color=color;
         cardId=cardID;
     }
+    public String getColor(){
+        return color;
+    }
+    public int getID(){return cardId;}
+
 }

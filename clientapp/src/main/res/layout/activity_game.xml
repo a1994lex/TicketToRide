@@ -109,6 +109,18 @@
         android:tint="@color/red"
         android:visibility="invisible"/>
 
+
+    <FrameLayout
+        android:id="@+id/bank_fragment"
+        android:layout_width="wrap_content"
+        android:background="@color/colorAccent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:elevation="10dp"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"></FrameLayout>
+
     <FrameLayout
         android:id="@+id/chat_history_fragment"
         android:layout_width="313dp"
