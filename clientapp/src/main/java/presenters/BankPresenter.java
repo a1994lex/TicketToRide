@@ -5,8 +5,10 @@ import android.view.View;
 import com.example.clientapp.IBankView;
 import com.groupryan.client.models.ClientGame;
 import com.groupryan.client.models.RootClientModel;
+import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.utils;
 
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -30,11 +32,25 @@ public class BankPresenter implements Observer, IBankPresenter {
         return instance;
     }
 
+    @Override
+    public void updateBank() {
 
+    }
+
+    public ArrayList<TrainCard> getBank(){
+        return RootClientModel.getCurrentGame().getBankCards();
+    }
+
+    @Override
     public void setView(IBankView bankView, View view)
     {
         this.bankView = bankView;
         this.fragView = view;
+    }
+
+    @Override
+    public void cardOneClicked() {
+
     }
 
     @Override
