@@ -52,13 +52,13 @@ public class ClientCommandFactory {
                 new Object[]{user});
     }
     public ClientCommand createDiscardDestinationCardCommand(List<Integer> cardIDs, String username) {
-        return new ClientCommand("com.groupryan.client.ClientFacade", "discardDestCard",
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "discardDestCard",
                 new String[]{List.class.getTypeName(), String.class.getTypeName()},
                 new Object[]{cardIDs, username});
     }
 
     public ClientCommand createDrawThreeCardsCommand(List<DestCard> cards){
-        return new ClientCommand("com.groupryan.client.ClientFacade", "drawThreeCards",
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "drawThreeCards",
                 new String[]{List.class.getTypeName()},
                 new Object[]{cards});
     }

@@ -4,6 +4,8 @@ import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 
+import java.util.List;
+
 
 /**
  * Created by bengu3 on 1/31/18.
@@ -71,6 +73,12 @@ public class ServerCommandFactory {
         return new ServerCommand("com.groupryan.server.facades.MainFacade", "sendChat",
                 new String[]{String.class.getTypeName(), String.class.getTypeName(), String.class.getTypeName()},
                 new Object[]{gameId, msg, username});
+    }
+
+    public ServerCommand createDiscardDestinationCardCommand(List<Integer> cardIDs, String username) {
+        return new ServerCommand("com.groupryan.server.facades.MainFacade", "discardDestinationCard",
+                new String[]{List.class.getTypeName(), String.class.getTypeName()},
+                new Object[]{cardIDs, username});
     }
 
 }

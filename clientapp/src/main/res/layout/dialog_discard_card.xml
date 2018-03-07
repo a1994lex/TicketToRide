@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="700dp"
+    android:layout_height="wrap_content"
+    tools:context="com.example.clientapp.dialogs.DiscardDestCardDialogActivity">
+
+    <ImageView
+        android:id="@+id/destCard1"
+        android:layout_width="180dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="35dp"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="25dp"
+        android:src="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/destCard1_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/destCard1"
+        android:layout_alignRight="@+id/destCard1"
+        android:layout_alignTop="@+id/destCard1"
+        android:layout_marginEnd="65dp"
+        android:layout_marginRight="65dp"
+        android:layout_marginTop="20dp"
+        android:text="Route1" />
+
+    <TextView
+        android:id="@+id/destCard1_points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/destCard1"
+        android:layout_alignEnd="@+id/destCard1_title"
+        android:layout_alignRight="@+id/destCard1_title"
+        android:layout_marginBottom="23dp"
+        android:text="Points1" />
+
+    <CheckBox
+        android:id="@+id/destCard1_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/destCard1_title"
+        android:layout_alignStart="@+id/destCard1_title"
+        android:layout_below="@+id/destCard1_points"
+        android:checked="true" />
+
+    <ImageView
+        android:id="@+id/destCard2"
+        android:layout_width="180dp"
+        android:layout_height="120dp"
+        android:layout_alignTop="@+id/destCard1"
+        android:layout_centerHorizontal="true"
+        android:src="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/destCard2_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/destCard1_title"
+        android:layout_alignBottom="@+id/destCard1_title"
+        android:layout_centerHorizontal="true"
+        android:text="Route2" />
+
+    <TextView
+        android:id="@+id/destCard2_points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/destCard3_points"
+        android:layout_alignBottom="@+id/destCard3_points"
+        android:layout_alignEnd="@+id/destCard2_title"
+        android:layout_alignRight="@+id/destCard2_title"
+        android:text="Points1" />
+
+    <CheckBox
+        android:id="@+id/destCard2_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/destCard2"
+        android:layout_centerHorizontal="true"
+        android:checked="true" />
+
+    <ImageView
+        android:id="@+id/destCard3"
+        android:layout_width="180dp"
+        android:layout_height="120dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignTop="@+id/destCard2"
+        android:layout_marginEnd="35dp"
+        android:layout_marginRight="35dp"
+        android:src="@color/colorAccent" />
+
+    <TextView
+        android:id="@+id/destCard3_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/destCard2_title"
+        android:layout_alignBottom="@+id/destCard2_title"
+        android:layout_alignLeft="@+id/destCard3"
+        android:layout_alignStart="@+id/destCard3"
+        android:layout_marginLeft="62dp"
+        android:layout_marginStart="62dp"
+        android:text="Route3" />
+
+    <TextView
+        android:id="@+id/destCard3_points"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/destCard1_points"
+        android:layout_alignBottom="@+id/destCard1_points"
+        android:layout_alignEnd="@+id/destCard3_title"
+        android:layout_alignRight="@+id/destCard3_title"
+        android:text="Points3" />
+
+    <CheckBox
+        android:id="@+id/destCard3_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignEnd="@+id/destCard3_points"
+        android:layout_alignRight="@+id/destCard3_points"
+        android:layout_below="@+id/destCard3"
+        android:checked="true" />
+
+    <TextView
+        android:id="@+id/discardErrorText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/destCard2_points"
+        android:layout_alignStart="@+id/destCard2_points"
+        android:layout_below="@+id/destCard2_checkbox"
+        android:layout_marginTop="42dp"
+        android:textColor="@color/red" />
+
+    <Button
+        android:id="@+id/selectCardsButton"
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="250dp"
+        android:text="@string/continue_btn" />
+
+</RelativeLayout>

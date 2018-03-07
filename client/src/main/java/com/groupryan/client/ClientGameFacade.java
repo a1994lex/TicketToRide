@@ -3,9 +3,11 @@ package com.groupryan.client;
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Chat;
+import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.Stat;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by clairescout on 2/27/18.
@@ -28,5 +30,14 @@ public class ClientGameFacade {
 
     public void setBank(Bank bank){
         RootClientModel.getCurrentGame().setBank(bank);
+    }
+
+    public void discardDestCard(List<Integer> cardIDs, String username) {
+        assert (RootClientModel.getCurrentGame().getMyPlayer().getUsername().equals(username));
+        RootClientModel.getCurrentGame().discardDestCards(cardIDs);
+    }
+
+    public void drawThreeCards(List<DestCard> cards) {
+
     }
 }

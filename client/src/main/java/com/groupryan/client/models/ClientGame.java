@@ -10,18 +10,18 @@ import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Observable;
 
 /**
  * Created by alex on 2/26/18.
- - gameId: String
- - history: List<String>
- - stats: Map<String, Stat>
- - players: List<String>
- - chat: List<String>
- - bankCards: List<Card>
-
+ * - gameId: String
+ * - history: List<String>
+ * - stats: Map<String, Stat>
+ * - players: List<String>
+ * - chat: List<String>
+ * - bankCards: List<Card>
  */
 
 public class ClientGame extends Observable {
@@ -33,8 +33,7 @@ public class ClientGame extends Observable {
     HashMap<String, Stat> stats;
     Map<String, String> playersColors;
 
-    public ClientGame(Game game, Player player)
-    {
+    public ClientGame(Game game, Player player) {
         history = new ArrayList<>();
         chat = new ArrayList<>();
         bankCards = new ArrayList<>();
@@ -70,27 +69,35 @@ public class ClientGame extends Observable {
         return stats;
     }
 
-    public void updateChat(Chat mychat){
+    public void updateChat(Chat mychat) {
 
         chat.add(mychat);
         setChanged();
         notifyObservers(utils.CHAT);
     }
 
-    public void setBank(Bank bank){
-        bankCards=bank.convertToArray();
+    public void setBank(Bank bank) {
+        bankCards = bank.convertToArray();
     }
 
-    public void updateHistory(String msg){
+    public void updateHistory(String msg) {
         history.add(msg);
         setChanged();
         notifyObservers(utils.HISTORY);
     }
-  
-    public void updateStat(Stat stat){
+
+    public void updateStat(Stat stat) {
         stats.put(stat.getUsername(), stat);
         setChanged();
         notifyObservers(utils.STAT);
+    }
+
+    public void discardDestCards(List<Integer> cardIDs) {
+        for (Integer cardID : cardIDs) {
+            myPlayer.removeDestinationCard(cardID);
+        }
+        setChanged();
+        notifyObservers();
     }
 
 }

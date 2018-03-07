@@ -1,27 +1,36 @@
 package presenters;
 
 //import com.groupryan.client.RegisterAsyncTask;
+
 import android.app.Activity;
 
+import com.groupryan.client.UIFacade;
 import com.groupryan.client.models.RootClientModel;
+import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.LoginResult;
 
+import java.util.List;
 import java.util.Observable;
 import java.util.Observer;
 
+import async.DiscardDestCardAsyncTask;
 import async.LoginAsyncTask;
 import async.OnLogin;
+import async.Poller;
 import async.RegisterAsyncTask;
 
-public class GamePlayPresenter implements Observer{
+public class GamePlayPresenter implements Observer {
 
     private Activity gamePlayActivity;
     private RootClientModel root = RootClientModel.getSingle_instance();
-    public GamePlayPresenter(Activity gamePlayActivity ){ this.gamePlayActivity = gamePlayActivity;}
+
+    public GamePlayPresenter(Activity gamePlayActivity) {
+        this.gamePlayActivity = gamePlayActivity;
+    }
 
 
     @Override
@@ -29,7 +38,7 @@ public class GamePlayPresenter implements Observer{
         // phase 3
     }
 
-    public void testClaimRoute(){
+    public void testClaimRoute() {
 //        Game game2 = new Game("game2", "gameID2", 3);
 //
 //        User u3 = new User("jimbob", "duggar");
@@ -38,7 +47,7 @@ public class GamePlayPresenter implements Observer{
 //        game2.addUser(u4, YELLOW);
 
         // route from Helena to Duluth
-        Route route1 = new Route(6,"HELENA", "DULUTH", 15, "orange", 26);
+        Route route1 = new Route(6, "HELENA", "DULUTH", 15, "orange", 26);
         // route from Duluth to Toronto
         Route route2 = new Route(6, "DULUTH", "TORONTO", 15, "pink", 42);
         // route from St. Louis to Nashville
@@ -57,5 +66,14 @@ public class GamePlayPresenter implements Observer{
 //        root.getCurrentGame().getStats().get("joanna").subtractTrains(2);
 //        root.getCurrentGame().getStats().get("joanna").addPoints(2);
 //        root.getCurrentGame().getStats().get("joanna").incrementTotalRoutes();
+    }
+
+    public void discardDestinationCard(List<Integer> cardIDs) {
+        DiscardDestCardAsyncTask task = new DiscardDestCardAsyncTask(gamePlayActivity);
+        task.execute(cardIDs);
+    }
+
+    public void stopLobbyPolling() {
+        Poller.get().stop();
     }
 }

@@ -1,7 +1,5 @@
 package com.example.clientapp;
 
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -10,17 +8,16 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.example.clientapp.dialogs.DiscardDestCardDialogActivity;
 import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import async.Poller;
 import presenters.GamePlayPresenter;
 
 public class GameActivity extends FragmentActivity {
@@ -107,18 +104,24 @@ public class GameActivity extends FragmentActivity {
             }
         });
 
+        gamePlayPresenter.stopLobbyPolling();
+        startDiscardDestCardActivity();
+    }
 
-        // TODO: Move to Presenter eventually
-        Poller.get().stop();
+    public void startDiscardDestCardActivity() {
+        Intent intent = new Intent(this, DiscardDestCardDialogActivity.class);
+        intent.putExtra(utils.GAME_SETUP, true);
+        startActivity(intent);
     }
 
     public void testClaimRoute() {
         claimedRouteImg.setVisibility(View.VISIBLE);
         gamePlayPresenter.testClaimRoute();
     }
+
     public void addFragment(@IdRes int containerViewId,
                             @NonNull Fragment fragment,
-                            @NonNull String FRAGMENT_ID){
+                            @NonNull String FRAGMENT_ID) {
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(containerViewId, fragment, FRAGMENT_ID)
@@ -126,9 +129,9 @@ public class GameActivity extends FragmentActivity {
                 .commit();
     }
 
-    private void removePrevFrag(String tag){
+    private void removePrevFrag(String tag) {
         List<String> removeFragIds = new ArrayList<>();
-        switch(tag){
+        switch (tag) {
             case utils.CHAT:
                 removeFragIds.add(utils.STAT);
                 removeFragIds.add(utils.HISTORY);
@@ -146,9 +149,9 @@ public class GameActivity extends FragmentActivity {
                 removeFragIds.add(utils.HISTORY);
                 removeFragIds.add(utils.STAT);
         }
-        for (String fragmentId : removeFragIds){
+        for (String fragmentId : removeFragIds) {
             Fragment fragment = getSupportFragmentManager().findFragmentByTag(fragmentId);
-            if(fragment != null)
+            if (fragment != null)
                 getSupportFragmentManager().beginTransaction().remove(fragment).commit();
         }
 

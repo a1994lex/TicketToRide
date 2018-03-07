@@ -3,6 +3,7 @@ package com.groupryan.client;
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.commands.ServerCommandFactory;
 import com.groupryan.shared.models.Color;
+import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.User;
@@ -12,6 +13,7 @@ import com.groupryan.shared.utils;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UIFacade {
@@ -43,7 +45,7 @@ public class UIFacade {
     public LoginResult login(String username, String password) {
         User user = new User(username, password);
         LoginResult lr = ServerProxy.getInstance().login(user);
-        if (lr.getGameList() != null){
+        if (lr.getGameList() != null) {
             RootClientModel.setGames(lr.getGameList());
 
         }
@@ -53,7 +55,7 @@ public class UIFacade {
     public LoginResult register(String username, String password) {
         User user = new User(username, password);
         LoginResult lr = ServerProxy.getInstance().register(user);
-        if (lr.getGameList() != null){
+        if (lr.getGameList() != null) {
             RootClientModel.setGames(lr.getGameList());
         }
         return lr;
@@ -70,11 +72,15 @@ public class UIFacade {
         ServerProxy.getInstance().startGame(gameId);
     }
 
-    public CommandResult sendChat(String raw_msg){
+    public CommandResult sendChat(String raw_msg) {
         String sender = RootClientModel.getUser().getUsername();
-        String msg = raw_msg + "\t(" + sender+")";
-        String gid =RootClientModel.getCurrentGame().getGameId();
+        String msg = raw_msg + "\t(" + sender + ")";
+        String gid = RootClientModel.getCurrentGame().getGameId();
         String uid = RootClientModel.getUser().getUsername();
         return ServerProxy.getInstance().sendChat(gid, msg, uid);
+    }
+
+    public CommandResult discardDestinationCard(List<Integer> cardIDs, String username) {
+        return ServerProxy.getInstance().discardDestinationCard(cardIDs, username);
     }
 }

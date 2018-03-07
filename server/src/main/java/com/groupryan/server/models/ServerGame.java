@@ -110,7 +110,7 @@ public class ServerGame {
         if (deckType.equals(utils.DESTINATION)) {
             Card c = RootServerModel.getInstance().getCard(deckType, cardID);
             destinationCards.discard(c);
-            playaMap.get(username).removeDestinationCard(c);
+            playaMap.get(username).removeDestinationCard(cardID);
         } else {
             Card c = RootServerModel.getInstance().getCard(deckType, cardID);
             trainCards.discard(c);

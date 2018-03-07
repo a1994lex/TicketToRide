@@ -1,10 +1,11 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 27
     defaultConfig {
         applicationId "com.example.clientapp"
-        minSdkVersion 15
+        minSdkVersion 25
         targetSdkVersion 27
         versionCode 1
         multiDexEnabled true
@@ -19,6 +20,12 @@ android {
         }
     }
     buildToolsVersion '27.0.2'
+    productFlavors {
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {

@@ -35,4 +35,15 @@ public class DestCard extends Card {
         this.cardId=cardId;
     }
 
+    public String getRoute() {
+        return this.cityOne + " - " + this.cityTwo;
+    }
+
+    public int getValue() {
+        return this.value;
+    }
+
+    public int getCardId() {
+        return this.cardId;
+    }
 }

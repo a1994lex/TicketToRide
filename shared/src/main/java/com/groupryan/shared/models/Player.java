@@ -23,7 +23,7 @@ public class Player {
     public static Player mapToObject(LinkedTreeMap map) {
         String username = (String) map.get("username");
         String color = (String) map.get("color");
-        double turn=(double)map.get("turn");
+        double turn = (double) map.get("turn");
 //        double points = (double) map.get("points");
 //        // TODO: fix the route map to object
 //        double trainpieces = (double) map.get("trainPieces");
@@ -37,7 +37,7 @@ public class Player {
         for (LinkedTreeMap tMap : tCards) {
             trainCards.add(TrainCard.mapToObject(tMap));
         }
-        return new Player(color, destCards, trainCards, username, (int)turn);
+        return new Player(color, destCards, trainCards, username, (int) turn);
 
 
     }
@@ -50,7 +50,7 @@ public class Player {
         this.trainCards = trainCards;
         this.trainPieces = 45;
         this.username = username;
-        this.turn=turn;
+        this.turn = turn;
     }
 
     public Player(String username, String color) { // for testing only
@@ -62,8 +62,8 @@ public class Player {
         return username;
     }
 
-    public void removeDestinationCard(Card c) {
-        destCards.remove(c);
+    public void removeDestinationCard(Integer cardId) {
+        destCards.removeIf(card -> card.getCardId() == cardId);
     }
 
     public void removeTrainCard(Card c) {
@@ -84,6 +84,10 @@ public class Player {
         for (TrainCard c : cards) {
             trainCards.add(c);
         }
+    }
+
+    public List<DestCard> getDestCards() {
+        return this.destCards;
     }
 
 }
