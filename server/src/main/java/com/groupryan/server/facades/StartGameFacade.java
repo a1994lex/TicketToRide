@@ -39,12 +39,15 @@ public class StartGameFacade {
         RootServerModel root = RootServerModel.getInstance();
         Game g = root.getGame(gameId);
         root.createServerGame(gameId);
+        int turn=1;
         for (Map.Entry<String, String> entry : g.getUsers().entrySet()) {
-            Player p = root.createPlayer(gameId, entry);
+            Player p = root.createPlayer(gameId, entry, turn);
             root.addPlayertoGame(p.getUsername(), gameId);
             CommandManager.getInstance().makeStartGameCommand(g, p);
+            turn++;
             //we create a create playa command call using the last line as the playa value
         }
+        CommandManager.getInstance().makeBankCommand(root.getServerGameByGameId(gameId).getServerGameID(), root.getServerGameByGameId(gameId).getBank());
         //  return CommandManager.getInstance().makeStartGameCommand(g,p);
     }
 
@@ -53,6 +56,7 @@ public class StartGameFacade {
         ServerGame g=root.getServerGameByGameId(gameId);
         for (Player p:g.getPlayers()) {
             CommandManager.getInstance().makeStatCommand(g.getServerGameID(), p.makeStat());
+
         }
     }
 

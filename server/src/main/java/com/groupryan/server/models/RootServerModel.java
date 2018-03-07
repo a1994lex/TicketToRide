@@ -428,14 +428,14 @@ public class RootServerModel {
         userGames.put(username, serverGameIdMap.get(gameID));
     }
 
-    public Player createPlayer(String gameId, Map.Entry<String, String> entry){
+    public Player createPlayer(String gameId, Map.Entry<String, String> entry, int i){
         ServerGame sg=serverGameIdMap.get(gameId);
         List<TrainCard> tCards=new ArrayList<>();
         tCards.add((TrainCard)sg.drawTrainCard());
         tCards.add((TrainCard) sg.drawTrainCard());
         tCards.add((TrainCard) sg.drawTrainCard());
         tCards.add((TrainCard)sg.drawTrainCard());
-        Player p=new Player(entry.getValue(), sg.drawDestinationCards(),tCards ,entry.getKey());
+        Player p=new Player(entry.getValue(), sg.drawDestinationCards(),tCards ,entry.getKey(), i);
         //get the top 4 train cards
         //get the top 3 D cards,
         //store the player ,
@@ -453,6 +453,10 @@ public class RootServerModel {
     }
     public ServerGame getServerGameByGameId (String gameId){
         return serverGameIdMap.get(gameId);
+    }
+
+    public Map<String, ServerGame> getServerGameIdMap(){
+        return serverGameIdMap;
     }
 
 }

@@ -4,9 +4,12 @@ package presenters;
 import android.app.Activity;
 
 import com.groupryan.client.models.RootClientModel;
+import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.LoginResult;
 
+import java.util.ArrayList;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -39,5 +42,16 @@ public class RegisterPresenter implements Observer{
         User u = new User(username, password);
         RegisterAsyncTask registerAsyncTask = new RegisterAsyncTask(registerActivity);
         registerAsyncTask.execute(u);
+    }
+
+    public boolean checkIfJoinedGame(){
+        //checks to see if a user has already joined a game, and if they have, takes them directly to game activity
+        if(RootClientModel.getCurrentGame() == null){
+            return false;
+        }
+        else{
+            return true;
+        }
+
     }
 }

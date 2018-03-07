@@ -1,6 +1,7 @@
 package com.groupryan.server.models;
 
 import com.groupryan.server.CommandManager;
+import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Deck;
 import com.groupryan.shared.models.DestCard;
@@ -25,70 +26,93 @@ public class ServerGame {
     List<String> history;
     Map<String, Player> playaMap;
     Map<String, Stat> stats;
-// playamap after  stats also null
-    public ServerGame( String serverGameID, Deck trainCards, Deck destinationCards){
-        this.serverGameID=serverGameID;
-        this.trainCards=trainCards;
+    List<Player> turnOrder;
+    List<TrainCard> bank;
+
+    // playamap after  stats also null
+    public ServerGame(String serverGameID, Deck trainCards, Deck destinationCards) {
+        this.serverGameID = serverGameID;
+        this.trainCards = trainCards;
         this.trainCards.shuffle();
-        this.destinationCards=destinationCards;
+        this.destinationCards = destinationCards;
         this.destinationCards.shuffle();
-        history=new ArrayList<>();
-        playaMap=new HashMap<>();
-        stats=new HashMap<>();
+        history = new ArrayList<>();
+        playaMap = new HashMap<>();
+        stats = new HashMap<>();
+        turnOrder = new ArrayList<>();
+        bank = new ArrayList<>();
+        setRiver();//river is a poker term referring to the cards on the table to see
 //        makeFakeHistory();
     }
-    public List<Player> getPlayers(){
-        List<Player> players=new ArrayList<>();
-        for (Player p:playaMap.values()) {
+
+    private void setRiver() {
+        List<Card> cards=trainCards.draw(5);
+        for (Card c:cards) {
+            bank.add((TrainCard)c);
+        }
+    }
+
+    public List<Player> getPlayers() {
+        List<Player> players = new ArrayList<>();
+        for (Player p : playaMap.values()) {
             players.add(p);
         }
         return players;
     }
-    public void addHistory(String note){
+
+    public void addHistory(String note) {
         history.add(note);
     }
-    public void addPlayer(Player p){
-        playaMap.put(p.getUsername(), p);
-    }
-    public Player getPlayer(String username){return playaMap.get(username);}
 
-    public Stat getStat(String username){
-        Stat s=(playaMap.get(username)).makeStat();
+    public void addPlayer(Player p) {
+        playaMap.put(p.getUsername(), p);
+        turnOrder.add(p);
+    }
+
+    public Player getPlayer(String username) {
+        return playaMap.get(username);
+    }
+
+    public Stat getStat(String username) {
+        Stat s = (playaMap.get(username)).makeStat();
         stats.put(username, s);
         return s;
     }
 
-    public List<String> getAllHistory(){
+    public List<String> getAllHistory() {
         return history;
     }
-    public void removeTrainCardsFromPlayer(String username, List<Integer> cardID){
+
+    public void removeTrainCardsFromPlayer(String username, List<Integer> cardID) {
         //voided by the discard funciton
         //not necessary
     }
-    public void removeDestinationCardsFromPlayer(String username, List<Integer> cardID){
+
+    public void removeDestinationCardsFromPlayer(String username, List<Integer> cardID) {
         //needs to do something
         //not    now voided by discard function
     }
-    public List<DestCard> drawDestinationCards(){
-        List<Card> list =destinationCards.draw(3);
-        List<DestCard> returnList=new ArrayList<>();
-        for (Card c:list) {
-            returnList.add((DestCard)c);
+
+    public List<DestCard> drawDestinationCards() {
+        List<Card> list = destinationCards.draw(3);
+        List<DestCard> returnList = new ArrayList<>();
+        for (Card c : list) {
+            returnList.add((DestCard) c);
         }
         return returnList;
     }
-    public Card drawTrainCard(){
+
+    public Card drawTrainCard() {
         return (trainCards.draw(1)).get(0);
     }
 
-    public void discard(String deckType, int cardID, String username){
-        if(deckType.equals(utils.DESTINATION)){
-            Card c=RootServerModel.getInstance().getCard(deckType, cardID);
+    public void discard(String deckType, int cardID, String username) {
+        if (deckType.equals(utils.DESTINATION)) {
+            Card c = RootServerModel.getInstance().getCard(deckType, cardID);
             destinationCards.discard(c);
-            playaMap.get(username).removeDestinationCard(c);
-        }
-        else{
-            Card c=RootServerModel.getInstance().getCard(deckType, cardID);
+            playaMap.get(username).removeDestinationCard(cardID);
+        } else {
+            Card c = RootServerModel.getInstance().getCard(deckType, cardID);
             trainCards.discard(c);
             playaMap.get(username).removeTrainCard(c);
         }
@@ -98,7 +122,11 @@ public class ServerGame {
         return serverGameID;
     }
 
-    public void makeFakeHistory(){
+    public Map<String, Player> getPlayaMap() {
+        return playaMap;
+    }
+
+    public void makeFakeHistory() {
         String hi = "first fake history";
         String hello = "second fake history";
         String indeed = "thirdFakeHistory";
@@ -109,5 +137,9 @@ public class ServerGame {
         CommandManager.getInstance().addHistoryCommand(hi, getServerGameID(), null);
         CommandManager.getInstance().addHistoryCommand(hello, getServerGameID(), null);
         CommandManager.getInstance().addHistoryCommand(indeed, getServerGameID(), entry.getKey());
+    }
+
+    public Bank getBank(){
+        return new Bank(bank);
     }
 }

@@ -1,6 +1,5 @@
 package presenters;
 
-//import com.groupryan.client.RegisterAsyncTask;
 import android.app.Activity;
 import android.widget.Toast;
 
@@ -17,13 +16,23 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
+import async.DiscardDestCardAsyncTask;
+import async.LoginAsyncTask;
+import async.OnLogin;
+import async.Poller;
+import async.RegisterAsyncTask;
+
 
 public class GamePlayPresenter implements Observer, IGamePlayPresenter{
 
     private RootClientModel root = RootClientModel.getInstance();
     int totalClaimedRoutes = root.getClaimedRoutes().size();
     private UIGameFacade uiGameFacade = UIGameFacade.getInstance();
-    Activity gameActivity;
+    private Activity gameActivity;
 
     public GamePlayPresenter(Activity gameActivity ){
         this.gameActivity = gameActivity;
@@ -107,4 +116,12 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter{
 
     }
 
+    public void discardDestinationCard(List<Integer> cardIDs) {
+        DiscardDestCardAsyncTask task = new DiscardDestCardAsyncTask(gameActivity);
+        task.execute(cardIDs);
+    }
+
+    public void stopLobbyPolling() {
+        Poller.get().stop();
+    }
 }

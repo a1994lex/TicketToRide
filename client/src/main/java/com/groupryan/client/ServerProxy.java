@@ -70,8 +70,10 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public CommandResult discardDestinationCard(List<Integer> cardID, String username) {
-        return null;
+    public CommandResult discardDestinationCard(List<Integer> cardIDs, String username) {
+        ServerCommand command = serverCommandFactory.createDiscardDestinationCardCommand(cardIDs, username);
+        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.DISCARD_DESTCARD, command);
+        return commandResult;
     }
 
     @Override

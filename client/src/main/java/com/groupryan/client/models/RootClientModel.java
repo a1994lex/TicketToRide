@@ -20,10 +20,10 @@ public class RootClientModel extends Observable {
 
     private ArrayList<Game> games;
     private User user;
-    private ClientGame clientGame;
     private HashMap<String, String> players; // username, Color
     private HashMap<String, Route> claimedRoutes = new HashMap<String, Route>();
     private HashMap<Integer, HashSet<RouteSegment>> routeSegments = new HashMap<>();
+    private ClientGame clientGame = null;
     //private GameStat gameStat;
 
     public Map<Integer, HashSet<RouteSegment>> getRouteSegments() {

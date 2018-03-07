@@ -3,12 +3,14 @@ package com.groupryan.server;
 import com.groupryan.server.models.RootServerModel;
 import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.commands.ClientCommandFactory;
+import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Stat;
+import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.utils;
@@ -192,6 +194,11 @@ public class CommandManager {
 
     public void makeStatCommand(String gameId, Stat stat){
         ClientCommand command=factory.createStatCommand(stat);
+        _addCommandToGameMap(command, gameId,null);
+    }
+
+    public void makeBankCommand(String gameId, Bank bank){
+        ClientCommand command=factory.createBankCommand(bank);
         _addCommandToGameMap(command, gameId,null);
     }
 

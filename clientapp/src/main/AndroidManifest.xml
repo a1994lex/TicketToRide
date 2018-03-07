@@ -19,7 +19,6 @@
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -42,10 +41,12 @@
         <activity
             android:name=".GameActivity"
             android:label="@string/title_activity_game"></activity>
-        <activity android:name=".GameStatActivity"
+        <activity android:name=".GameStatFragment"
             android:screenOrientation="landscape"></activity>
         <activity android:name=".HistoryActivity"
             android:screenOrientation="landscape"></activity>
+            android:name=".dialogs.DiscardDestCardDialogActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog" />
     </application>
 
 </manifest>

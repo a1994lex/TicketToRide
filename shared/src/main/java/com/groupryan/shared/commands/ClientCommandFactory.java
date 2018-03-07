@@ -1,5 +1,6 @@
 package com.groupryan.shared.commands;
 
+import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCard;
@@ -51,13 +52,13 @@ public class ClientCommandFactory {
                 new Object[]{user});
     }
     public ClientCommand createDiscardDestinationCardCommand(List<Integer> cardIDs, String username) {
-        return new ClientCommand("com.groupryan.client.ClientFacade", "discardDestCard",
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "discardDestCard",
                 new String[]{List.class.getTypeName(), String.class.getTypeName()},
                 new Object[]{cardIDs, username});
     }
 
     public ClientCommand createDrawThreeCardsCommand(List<DestCard> cards){
-        return new ClientCommand("com.groupryan.client.ClientFacade", "drawThreeCards",
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "drawThreeCards",
                 new String[]{List.class.getTypeName()},
                 new Object[]{cards});
     }
@@ -78,5 +79,11 @@ public class ClientCommandFactory {
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "updateStat",
                 new String[]{Stat.class.getTypeName()},
                 new Object[]{stat});
+    }
+
+    public ClientCommand createBankCommand(Bank bank){
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "setBank",
+                new String[]{Bank.class.getTypeName()},
+                new Object[]{bank});
     }
 }

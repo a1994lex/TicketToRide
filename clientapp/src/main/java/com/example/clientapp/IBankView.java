@@ -3,10 +3,9 @@ package com.example.clientapp;
 import android.view.View;
 
 /**
- * Created by clairescout on 3/3/18.
+ * Created by ryanm on 3/3/2018.
  */
 
-public interface IGameStatView {
-
+public interface IBankView {
     public void init(View view);
 }

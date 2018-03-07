@@ -18,10 +18,12 @@ public class Player {
     List<TrainCard> trainCards;
     int trainPieces;
     String username;
+    int turn;
 
     public static Player mapToObject(LinkedTreeMap map) {
         String username = (String) map.get("username");
         String color = (String) map.get("color");
+        double turn = (double) map.get("turn");
 //        double points = (double) map.get("points");
 //        // TODO: fix the route map to object
 //        double trainpieces = (double) map.get("trainPieces");
@@ -35,12 +37,12 @@ public class Player {
         for (LinkedTreeMap tMap : tCards) {
             trainCards.add(TrainCard.mapToObject(tMap));
         }
-        return new Player(color, destCards, trainCards, username);
+        return new Player(color, destCards, trainCards, username, (int) turn);
 
 
     }
 
-    public Player(String color, List<DestCard> destCards, List<TrainCard> trainCards, String username) {
+    public Player(String color, List<DestCard> destCards, List<TrainCard> trainCards, String username, int turn) {
         this.color = color;
         this.routes = new ArrayList<>();
         this.points = 0;
@@ -48,6 +50,7 @@ public class Player {
         this.trainCards = trainCards;
         this.trainPieces = 45;
         this.username = username;
+        this.turn = turn;
     }
 
     public Player(String username, String color) { // for testing only
@@ -59,8 +62,8 @@ public class Player {
         return username;
     }
 
-    public void removeDestinationCard(Card c) {
-        destCards.remove(c);
+    public void removeDestinationCard(Integer cardId) {
+        destCards.removeIf(card -> card.getCardId() == cardId);
     }
 
     public void removeTrainCard(Card c) {
@@ -107,10 +110,6 @@ public class Player {
         this.points = points;
     }
 
-    public List<DestCard> getDestCards() {
-        return destCards;
-    }
-
     public void setDestCards(List<DestCard> destCards) {
         this.destCards = destCards;
     }
@@ -134,4 +133,9 @@ public class Player {
     public void setUsername(String username) {
         this.username = username;
     }
+
+    public List<DestCard> getDestCards() {
+        return this.destCards;
+    }
+
 }

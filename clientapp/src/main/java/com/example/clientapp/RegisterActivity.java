@@ -112,7 +112,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
     }
 
     public void register(){
-        //Toast.makeText(this, "registerrrr", Toast.LENGTH_SHORT).show();
+//        Toast.makeText(this, "registerrrr", Toast.LENGTH_SHORT).show();
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
         regPresenter.register(username, password);
@@ -120,8 +120,14 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
     public void onLogin(){
         RootClientModel.getSingle_instance().deleteObserver(regPresenter);
-        Intent intent = new Intent(this, JoinGameActivity.class);
-        startActivity(intent);
+        if(regPresenter.checkIfJoinedGame()){
+            Intent intent = new Intent(this, GameActivity.class);
+            startActivity(intent);
+        }
+        else{
+            Intent intent = new Intent(this, JoinGameActivity.class);
+            startActivity(intent);
+        }
     }
 
 }

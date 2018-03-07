@@ -1,36 +1,29 @@
 package com.example.clientapp;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.PointF;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
-
-import com.groupryan.client.models.RootClientModel;
-import com.groupryan.shared.models.Player;
-import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.RouteSegment;
 import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 
-import async.Poller;
+import com.example.clientapp.dialogs.DiscardDestCardDialogActivity;
 import presenters.GamePlayPresenter;
 
-public class GameActivity extends AppCompatActivity implements IGameView {
+public class GameActivity extends FragmentActivity implements IGameView {
 
     private BottomNavigationView mNav;
     private FloatingActionButton mMenuBtn;
@@ -46,18 +39,22 @@ public class GameActivity extends AppCompatActivity implements IGameView {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
                 case R.id.history:
-                    startHistory();
+                    removePrevFrag(utils.HISTORY);
+                    addFragment(R.id.chat_history_fragment,
+                            new HistoryFragment(), utils.HISTORY);
                     return true;
                 case R.id.chat:
-                    startActivity();
+                    removePrevFrag(utils.CHAT);
+                    addFragment(R.id.chat_history_fragment,
+                            new ChatFragment(), utils.CHAT);
                     return true;
                 case R.id.stats:
-//                    mTextMessage.setText(R.string.title_notifications);
-                    startStats();
+                    removePrevFrag(utils.STAT);
+                    addFragment(R.id.stat_fragment,
+                            new GameStatFragment(), utils.STAT);
                     return true;
-//                case R.id.bank:
-//                    mTextMessage.setText("BANK");
                 case R.id.game:
+                    removePrevFrag("home");
                     return true;
                 case R.id.hide:
                     mNav.setVisibility(View.INVISIBLE);
@@ -74,12 +71,23 @@ public class GameActivity extends AppCompatActivity implements IGameView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         mapUpdatePhase = 0;
-
         mNav = findViewById(R.id.navigation);
         mMenuBtn = findViewById(R.id.menu_btn);
         mClaimRoute = findViewById(R.id.claim_route_btn);
         mDrawCards = findViewById(R.id.draw_card_btn);
-
+        mDrawCards.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //removePrevFrag(utils.BANK);
+                addFragment(R.id.bank_fragment,
+                        new BankFragment(), utils.BANK);
+               /* FragmentManager manager = getFragmentManager();
+                FragmentTransaction transaction = manager.beginTransaction();
+                transaction.add(R.id.bank_fragment,new BankFragment(),utils.BANK);
+                transaction.addToBackStack(null);
+                transaction.commit();*/
+            }
+        });
         mNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         mMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -97,9 +105,14 @@ public class GameActivity extends AppCompatActivity implements IGameView {
             }
         });
 
+        gamePlayPresenter.stopLobbyPolling();
+        startDiscardDestCardActivity();
+    }
 
-        // TODO: Move to Presenter eventually
-        Poller.get().stop();
+    public void startDiscardDestCardActivity() {
+        Intent intent = new Intent(this, DiscardDestCardDialogActivity.class);
+        intent.putExtra(utils.GAME_SETUP, true);
+        startActivity(intent);
     }
 
     public void modifyRoot() {
@@ -171,18 +184,46 @@ public class GameActivity extends AppCompatActivity implements IGameView {
         }
     }
 
-    public void startActivity(){
+    public void startActivity() {
         Intent intent = new Intent(this, ChatAndHistoryActivity.class);
         startActivity(intent);
     }
 
-    public void startStats(){
-        Intent intent = new Intent(this, GameStatActivity.class);
-        startActivity(intent);
+    public void addFragment(@IdRes int containerViewId,
+                            @NonNull Fragment fragment,
+                            @NonNull String FRAGMENT_ID) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(containerViewId, fragment, FRAGMENT_ID)
+                .disallowAddToBackStack()
+                .commit();
     }
 
-    public void startHistory(){
-        Intent intent = new Intent(this, HistoryActivity.class);
-        startActivity(intent);
+    private void removePrevFrag(String tag) {
+        List<String> removeFragIds = new ArrayList<>();
+        switch (tag) {
+            case utils.CHAT:
+                removeFragIds.add(utils.STAT);
+                removeFragIds.add(utils.HISTORY);
+                break;
+            case utils.HISTORY:
+                removeFragIds.add(utils.STAT);
+                removeFragIds.add(utils.CHAT);
+                break;
+            case utils.STAT:
+                removeFragIds.add(utils.CHAT);
+                removeFragIds.add(utils.HISTORY);
+                break;
+            default:
+                removeFragIds.add(utils.CHAT);
+                removeFragIds.add(utils.HISTORY);
+                removeFragIds.add(utils.STAT);
+        }
+        for (String fragmentId : removeFragIds) {
+            Fragment fragment = getSupportFragmentManager().findFragmentByTag(fragmentId);
+            if (fragment != null)
+                getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+        }
+
     }
 }
