@@ -3,6 +3,7 @@ package com.groupryan.client.models;
 import com.groupryan.shared.models.Chat;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
+import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.utils;
@@ -88,4 +89,11 @@ public class ClientGame extends Observable {
         notifyObservers(utils.STAT);
     }
 
+    public Map<String, String> getPlayersColors() {
+        return playersColors;
+    }
+
+    public void setPlayersColors(Map<String, String> playersColors) {
+        this.playersColors = playersColors;
+    }
 }

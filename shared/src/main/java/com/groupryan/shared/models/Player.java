@@ -83,4 +83,55 @@ public class Player {
         }
     }
 
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public List<Route> getRoutes() {
+        return routes;
+    }
+
+    public void setRoutes(List<Route> routes) {
+        this.routes = routes;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public List<DestCard> getDestCards() {
+        return destCards;
+    }
+
+    public void setDestCards(List<DestCard> destCards) {
+        this.destCards = destCards;
+    }
+
+    public List<TrainCard> getTrainCards() {
+        return trainCards;
+    }
+
+    public void setTrainCards(List<TrainCard> trainCards) {
+        this.trainCards = trainCards;
+    }
+
+    public int getTrainPieces() {
+        return trainPieces;
+    }
+
+    public void setTrainPieces(int trainPieces) {
+        this.trainPieces = trainPieces;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
 }
