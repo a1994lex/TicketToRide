@@ -45,7 +45,7 @@ public class CreateGameAsyncTask extends AsyncTask<Object, Void, CommandResult>{
     }
 
     public void executeCommands(List<ClientCommand> commandList){
-        for (com.groupryan.shared.commands.ClientCommand command : commandList) {
+        for (ClientCommand command : commandList) {
             command.execute();
         }
     }

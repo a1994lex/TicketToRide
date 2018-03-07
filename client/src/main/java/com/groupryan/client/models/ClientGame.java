@@ -92,6 +92,14 @@ public class ClientGame extends Observable {
         notifyObservers(utils.STAT);
     }
 
+    public Map<String, String> getPlayersColors() {
+        return playersColors;
+    }
+
+    public void setPlayersColors(Map<String, String> playersColors) {
+        this.playersColors = playersColors;
+    }
+
     public void discardDestCards(List<Integer> cardIDs) {
         for (Integer cardID : cardIDs) {
             myPlayer.removeDestinationCard(cardID);
@@ -99,5 +107,4 @@ public class ClientGame extends Observable {
         setChanged();
         notifyObservers();
     }
-
 }

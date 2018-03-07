@@ -128,19 +128,19 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
         }
     }
 
-    private class LobbyAdapter extends RecyclerView.Adapter<LobbyActivity.LobbyHolder> {
+    private class LobbyAdapter extends RecyclerView.Adapter<LobbyHolder> {
         private ArrayList<String> mUserIds = new ArrayList<>(mGame.getUsers().keySet());
         private ArrayList<String> mColors = new ArrayList<>(mGame.getUsers().values());
 
         @Override
-        public LobbyActivity.LobbyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public LobbyHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(LobbyActivity.this);
             View view = layoutInflater.inflate(R.layout.item_player_in_lobby, parent, false);
             return new LobbyHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(LobbyActivity.LobbyHolder holder, int position) {
+        public void onBindViewHolder(LobbyHolder holder, int position) {
             String userId = mUserIds.get(position);
             String color=mColors.get(position);
             holder.bindUser(userId, color);

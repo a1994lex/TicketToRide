@@ -2,7 +2,6 @@ package com.example.clientapp;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -30,10 +29,7 @@ public class HistoryFragment extends Fragment implements  IHistoryView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_history_list, container, false);
-
         HistoryPresenter.getInstance().setHistoryView(this);
-
-
         mRecyclerView = view.findViewById(R.id.history_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new HistoryFragment.HistoryAdapter();
@@ -61,7 +57,7 @@ public class HistoryFragment extends Fragment implements  IHistoryView {
         }
     }
 
-    private class HistoryAdapter extends RecyclerView.Adapter<HistoryFragment.HistoryHolder>{
+    private class HistoryAdapter extends RecyclerView.Adapter<HistoryHolder> {
         private ArrayList<String> mGameHistory = combineLists();
 
 
@@ -78,7 +74,7 @@ public class HistoryFragment extends Fragment implements  IHistoryView {
         }
 
         @Override
-        public void onBindViewHolder(HistoryFragment.HistoryHolder holder, int position) {
+        public void onBindViewHolder(HistoryHolder holder, int position) {
             String chat = mGameHistory.get(position);
             holder.bindChat(chat);
         }
