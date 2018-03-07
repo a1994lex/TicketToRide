@@ -3,6 +3,7 @@ package com.groupryan.server.facades;
 import com.groupryan.server.CommandManager;
 import com.groupryan.shared.IServer;
 import com.groupryan.shared.models.Color;
+import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
@@ -53,20 +54,21 @@ public class MainFacade implements IServer {
     }
 
     @Override
-    public CommandResult discardDestinationCard(List<Integer> cardIDs, String username) {
-        DestinationCardFacade dcf= new DestinationCardFacade();
+    public CommandResult discardDestinationCard(DestCardList destCardList, String username) {
+        DestinationCardFacade dcf = new DestinationCardFacade();
+        List<Integer> cardIDs = destCardList.getDestCardList();
         return dcf.discard(cardIDs, username);
     }
 
     @Override
-    public CommandResult drawDestinationCards(String username){
-        DestinationCardFacade dcf=new DestinationCardFacade();
+    public CommandResult drawDestinationCards(String username) {
+        DestinationCardFacade dcf = new DestinationCardFacade();
         return dcf.drawDestinationCards(username);
     }
 
     @Override
-    public CommandResult sendChat(String gameId, String msg, String username){
-        CommandManager.getInstance().addChatCommand(msg,gameId,username);
+    public CommandResult sendChat(String gameId, String msg, String username) {
+        CommandManager.getInstance().addChatCommand(msg, gameId, username);
         CommandResult cm = new CommandResult();
         cm.setClientCommands(CommandManager.getInstance().getGameCommands(gameId, username));
         cm.setResultType(utils.VALID);
@@ -74,14 +76,14 @@ public class MainFacade implements IServer {
     }
 
     @Override
-    public CommandResult drawColorCard(String gameId){
-        ColorCardFacade ccf= new ColorCardFacade();
+    public CommandResult drawColorCard(String gameId) {
+        ColorCardFacade ccf = new ColorCardFacade();
         return ccf.drawCard();
     }
 
     @Override
-    public CommandResult updateFaceUp(String gameId){
-        ColorCardFacade ccf=new ColorCardFacade();
+    public CommandResult updateFaceUp(String gameId) {
+        ColorCardFacade ccf = new ColorCardFacade();
         return ccf.updateFaceUp();
 
     }

@@ -1,6 +1,7 @@
 package com.groupryan.shared;
 
 import com.groupryan.shared.models.Color;
+import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
@@ -23,7 +24,7 @@ public interface IServer {
 
     CommandResult getGameCommands(String gameId, String playerId);
 
-    CommandResult discardDestinationCard(List<Integer> cardID, String username);
+    CommandResult discardDestinationCard(DestCardList destCardList, String username);
 
     CommandResult sendChat(String gameId, String msg, String username);
 
