@@ -91,7 +91,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
             List<TrainCard> trainCards = root.getCurrentGame().getMyPlayer().getTrainCards();
             trainCards.remove(trainCards.size() - 1);
             trainCards.remove(trainCards.size() - 1);
-            Stat stat = new Stat(myPlayerName, 2, 43, 2, 3);
+            Stat stat = new Stat(myPlayerName, 3,2, 43, 3, 3);
             root.getCurrentGame().updateStat(stat);
             root.addClaimedRoute(myPlayerName, new Route(2, "OKLAHOMA CITY",
                     "LITTLE ROCK", 2, playerColor, 50));
@@ -106,7 +106,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                     int trainCards = s.getTrainCards();
                     if (trainCards == 4) {
                         Toast.makeText(this.gameActivity, "Updating Green player cards.", Toast.LENGTH_SHORT);
-                        Stat stat = new Stat(keyValue, 0, 45, 6, 3);
+                        Stat stat = new Stat(keyValue, 1, 0, 45, 6, 3);
                         root.getCurrentGame().updateStat(stat);
                         root.getCurrentGame().updateHistory("Green player now has 6 cards.");
                         break;
@@ -114,7 +114,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                         root.addClaimedRoute(keyValue, new Route(6, "HELENA",
                                 "DULUTH", 15, utils.GREEN, 26));
                         Toast.makeText(this.gameActivity, "Green player is claiming route.", Toast.LENGTH_SHORT);
-                        Stat stat = new Stat(keyValue, 15, 39, 0, 3);
+                        Stat stat = new Stat(keyValue,1, 15, 39, 0, 3);
                         root.getCurrentGame().updateStat(stat);
                         root.getCurrentGame().updateHistory("Green player claimed Helena to Duluth.");
                         break;
@@ -122,7 +122,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                 }
                 case utils.YELLOW: {
                     Toast.makeText(this.gameActivity, "Yellow player is claiming route.", Toast.LENGTH_SHORT);
-                    Stat stat = new Stat(keyValue, 2, 43, 3, 3);
+                    Stat stat = new Stat(keyValue, 2, 2, 43, 3, 3);
                     root.getCurrentGame().updateStat(stat);
                     root.addClaimedRoute(keyValue, new Route(2, "ATLANTA",
                             "CHARLESTON", 2, utils.YELLOW, 86));
@@ -135,7 +135,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
     public void changeDestinationCards(String username) {
         Toast.makeText(this.gameActivity, "Yellow player now has 2 destination cards.", Toast.LENGTH_SHORT);
-        Stat stat = new Stat(username, 2, 43, 3, 2);
+        Stat stat = new Stat(username, 3,2, 43, 3, 2);
         root.getCurrentGame().updateStat(stat);
         root.getCurrentGame().updateHistory("Yellow discarded 1 destination card.");
     }
