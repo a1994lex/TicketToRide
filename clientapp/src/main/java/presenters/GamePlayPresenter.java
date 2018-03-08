@@ -62,45 +62,45 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter{
 
     public void claimRouteTest(String username) {
         String playerColor = root.getCurrentGame().getPlayersColors().get(username);
-        switch (playerColor) {
-            case utils.GREEN: {
-                HashMap<String, Stat> stats = root.getCurrentGame().getStats();
-                Stat s = stats.get(username);
-                int trainCards = s.getTrainCards();
-                if (trainCards == 4) {
-                    Toast.makeText(this.gameActivity, "Updating Green player cards.", Toast.LENGTH_SHORT);
-                    Stat stat = new Stat(username, 0, 45, 6, 3);
+        if (username.equals(root.getCurrentGame().getMyPlayer().getUsername())) {
+            Toast.makeText(this.gameActivity, "Red player is claiming route.", Toast.LENGTH_SHORT);
+            Stat stat = new Stat(username, 2, 43, 3, 3);
+            root.getCurrentGame().updateStat(stat);
+            root.addClaimedRoute(username, new Route(2, "OKLAHOMA CITY",
+                    "LITTLE ROCK", 2, playerColor, 50));
+            root.getCurrentGame().updateHistory("Red player claimed Oklahoma City to Little Rock.");
+        }
+        else {
+            switch (playerColor) {
+                case utils.GREEN: {
+                    HashMap<String, Stat> stats = root.getCurrentGame().getStats();
+                    Stat s = stats.get(username);
+                    int trainCards = s.getTrainCards();
+                    if (trainCards == 4) {
+                        Toast.makeText(this.gameActivity, "Updating Green player cards.", Toast.LENGTH_SHORT);
+                        Stat stat = new Stat(username, 0, 45, 6, 3);
+                        root.getCurrentGame().updateStat(stat);
+                        root.getCurrentGame().updateHistory("Green player now has 6 cards.");
+                        break;
+                    } else {
+                        root.addClaimedRoute(username, new Route(6, "HELENA",
+                                "DULUTH", 15, utils.GREEN, 26));
+                        Toast.makeText(this.gameActivity, "Green player is claiming route.", Toast.LENGTH_SHORT);
+                        Stat stat = new Stat(username, 15, 39, 0, 3);
+                        root.getCurrentGame().updateStat(stat);
+                        root.getCurrentGame().updateHistory("Green player claimed Helena to Duluth.");
+                        break;
+                    }
+                }
+                case utils.YELLOW: {
+                    Toast.makeText(this.gameActivity, "Yellow player is claiming route.", Toast.LENGTH_SHORT);
+                    Stat stat = new Stat(username, 2, 43, 3, 3);
                     root.getCurrentGame().updateStat(stat);
-                    root.getCurrentGame().updateHistory("Green player now has 6 cards.");
+                    root.addClaimedRoute(username, new Route(2, "ATLANTA",
+                            "CHARLESTON", 2, utils.YELLOW, 86));
+                    root.getCurrentGame().updateHistory("Yellow player claimed Atlanta to Charleston.");
                     break;
                 }
-                else {
-                    root.addClaimedRoute(username, new Route(6, "HELENA",
-                            "DULUTH", 15, utils.GREEN, 26));
-                    Toast.makeText(this.gameActivity, "Green player is claiming route.", Toast.LENGTH_SHORT);
-                    Stat stat = new Stat(username, 15, 39, 0, 3);
-                    root.getCurrentGame().updateStat(stat);
-                    root.getCurrentGame().updateHistory("Green player claimed Helena to Duluth.");
-                    break;
-                }
-            }
-            case utils.RED: {
-                Toast.makeText(this.gameActivity, "Red player is claiming route.", Toast.LENGTH_SHORT);
-                Stat stat = new Stat(username, 2, 43, 3, 3);
-                root.getCurrentGame().updateStat(stat);
-                root.addClaimedRoute(username, new Route(2, "OKLAHOMA CITY",
-                                "LITTLE ROCK", 2, utils.RED, 50));
-                root.getCurrentGame().updateHistory("Red player claimed Oklahoma City to Little Rock.");
-                break;
-            }
-            case utils.YELLOW: {
-                Toast.makeText(this.gameActivity, "Yellow player is claiming route.", Toast.LENGTH_SHORT);
-                Stat stat = new Stat(username, 2, 43, 3, 3);
-                root.getCurrentGame().updateStat(stat);
-                root.addClaimedRoute(username, new Route(2, "ATLANTA",
-                                "CHARLESTON", 2, utils.YELLOW, 86));
-                root.getCurrentGame().updateHistory("Yellow player claimed Atlanta to Charleston.");
-                break;
             }
         }
     }
