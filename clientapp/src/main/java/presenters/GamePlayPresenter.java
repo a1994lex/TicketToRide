@@ -91,7 +91,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
             List<TrainCard> trainCards = root.getCurrentGame().getMyPlayer().getTrainCards();
             trainCards.remove(trainCards.size() - 1);
             trainCards.remove(trainCards.size() - 1);
-            Stat stat = new Stat(myPlayerName, 2, 43, 3, 3);
+            Stat stat = new Stat(myPlayerName, 2, 43, 2, 3);
             root.getCurrentGame().updateStat(stat);
             root.addClaimedRoute(myPlayerName, new Route(2, "OKLAHOMA CITY",
                     "LITTLE ROCK", 2, playerColor, 50));
