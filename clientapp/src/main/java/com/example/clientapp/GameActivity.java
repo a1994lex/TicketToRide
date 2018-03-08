@@ -177,7 +177,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
             case 5:
                 Toast.makeText(this, "Testing...adding chat message from jimbob",
                         Toast.LENGTH_SHORT).show();
-                gamePlayPresenter.addChatMessage("jimbob", "herro! (jimbob)");
+                gamePlayPresenter.addChatMessage("jimbob", "hewwo! (jimbob)");
                 mapUpdatePhase++;
                 break;
             case 6:

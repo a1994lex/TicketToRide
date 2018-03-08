@@ -50,6 +50,7 @@ public class ChatFragment extends Fragment implements IChatView {
         View view = inflater.inflate(R.layout.fragment_chat_list, container, false);
         ChatPresenter.getInstance().setView(this);
 
+
         mNewChat = view.findViewById(R.id.msg);
         mSendChat = view.findViewById(R.id.sendChatBtn);
 
@@ -72,6 +73,7 @@ public class ChatFragment extends Fragment implements IChatView {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(context));
         mAdapter = new ChatAdapter();
         mRecyclerView.setAdapter(mAdapter);
+        //view.setZ(15);
         return view;
     }
 

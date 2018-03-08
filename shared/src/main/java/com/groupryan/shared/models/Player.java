@@ -73,7 +73,7 @@ public class Player {
     }
 
     public Stat makeStat() {
-        return new Stat(username, points, trainPieces, trainCards.size(), destCards.size());
+        return new Stat(username, turn, points, trainPieces, trainCards.size(), destCards.size());
     }
 
     public void addDestCards(List<DestCard> cards) {

@@ -29,7 +29,8 @@ public class BankFragment extends Fragment implements IBankView {
     ImageButton mCardButtonFour;
     ImageButton mCardButtonFive;
     ImageButton mExit;
-    TextView mCardsLeft;
+    TextView mTCardsLeft;
+    TextView mDCardsLeft;
 
     public int colorFinder(String color){
         switch(color){
@@ -127,8 +128,10 @@ public class BankFragment extends Fragment implements IBankView {
                 finish();
             }
         });
-        mCardsLeft= view.findViewById(R.id.cards_left);
-        mCardsLeft.setText("93");
+        mTCardsLeft= view.findViewById(R.id.tcards_left);
+        mTCardsLeft.setText("93");
+        mDCardsLeft= view.findViewById(R.id.dcards_left);
+        mDCardsLeft.setText("21");
     }
 
     private void finish(){

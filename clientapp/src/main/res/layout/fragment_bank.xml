@@ -75,7 +75,7 @@
             android:background="@color/colorPrimaryDark">
 
             <TextView
-                android:id="@+id/cards_left"
+                android:id="@+id/tcards_left"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/white"
@@ -84,11 +84,27 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/cards_left"
-                android:text="Cards Left"
+                android:layout_below="@+id/tcards_left"
+                android:text="Train Cards Left"
                 android:textColor="@android:color/white"
                 tools:layout_below="@+id/cards_left"
                 android:id="@+id/textView3" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView3"
+                android:text=""
+                android:textColor="@android:color/white"
+                android:id="@+id/dcards_left" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/dcards_left"
+                android:text="Destination Cards Left"
+                android:textColor="@android:color/white"
+                android:id="@+id/textView5" />
 
             <ImageButton
                 android:id="@+id/exit"
