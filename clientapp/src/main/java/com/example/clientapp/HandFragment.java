@@ -120,4 +120,7 @@ public class HandFragment extends Fragment implements IHandView {
         }
     }
 
+    public void cardsDiscarded() {
+        mAdapter.notifyDataSetChanged();
+    }
 }

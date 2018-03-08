@@ -123,6 +123,12 @@ public class GameActivity extends FragmentActivity implements IGameView {
         startDiscardDestCardActivity();
     }
 
+    public void cardsDiscarded() {
+        HandFragment fragment = (HandFragment) getSupportFragmentManager()
+                                                .findFragmentById(R.id.hand_fragment);
+        fragment.cardsDiscarded();
+    }
+
     public void startDiscardDestCardActivity() {
         Intent intent = new Intent(this, DiscardDestCardDialogActivity.class);
         intent.putExtra(utils.GAME_SETUP, true);
@@ -132,7 +138,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
     public void modifyRoot() {
         switch (mapUpdatePhase) {
             case 0:
-                Toast.makeText(this, "Testing...adding points to Green player--just because",
+                Toast.makeText(this, "Testing...adding train cards to Green player--just because",
                         Toast.LENGTH_SHORT).show();
                 gamePlayPresenter.claimRouteTest("jimbob");
                 mapUpdatePhase++;
@@ -170,6 +176,9 @@ public class GameActivity extends FragmentActivity implements IGameView {
                 mapUpdatePhase++;
                 break;
             case 6:
+                Toast.makeText(this, "Testing...adding train cards to current player",
+                        Toast.LENGTH_SHORT).show();
+                gamePlayPresenter.changeTrainCards("q");
                 break;
         }
     }
