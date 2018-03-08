@@ -1,0 +1,55 @@
+package com.groupryan.shared.models;
+
+import com.google.gson.internal.LinkedTreeMap;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * Created by ryanm on 3/7/2018.
+ */
+
+public class DestCardList {
+    double one=-1;
+    double two=-1;
+    double three=-1;
+
+    public static DestCardList mapToObject(LinkedTreeMap map){
+        double Qone = (double)map.get("one");
+        double Qtwo = (double)map.get("two");
+        double Qthree = (double)map.get("three");
+        List<Integer> cards = new ArrayList<>();
+        if(Qone!=-1)
+            cards.add((int)Qone);
+        if(Qtwo!=-1)
+            cards.add((int)Qtwo);
+        if(Qthree!=-1)
+            cards.add((int)Qthree);
+        return new DestCardList(cards);
+    }
+
+    public DestCardList(List<Integer> cardIds){
+        if(cardIds.size()>0){
+            two=cardIds.get(0);
+        }
+        if(cardIds.size()>1){
+            two=cardIds.get(1);
+        }
+        if(cardIds.size()>2){
+            three=cardIds.get(3);
+        }
+
+    }
+
+    public List<Integer> getList(){
+        List<Integer> cards=new ArrayList<>();
+        if(one!=-1)
+            cards.add((int)one);
+        cards.add((int)one);
+        if(two!=-1)
+            cards.add((int)two);
+        if(three!=-1)
+            cards.add((int)three);
+        return cards;
+    }
+}
