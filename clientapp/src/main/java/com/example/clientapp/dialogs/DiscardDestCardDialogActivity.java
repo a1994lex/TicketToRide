@@ -21,7 +21,7 @@ import java.util.List;
 
 import presenters.GamePlayPresenter;
 
-public class DiscardDestCardDialogActivity extends AppCompatActivity {
+public class DiscardDestCardDialogActivity extends Activity {
 
     private TextView mDestCardTitle1;
     private TextView mDestCardTitle2;

@@ -3,6 +3,7 @@ package presenters;
 import android.app.Activity;
 import android.widget.Toast;
 
+import com.example.clientapp.GameActivity;
 import com.example.clientapp.IGameView;
 import com.groupryan.client.UIGameFacade;
 import com.groupryan.client.models.RootClientModel;
@@ -53,7 +54,8 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter{
                 }
             }
             else if (o.equals(utils.DISCARD_DESTCARD)) {
-
+                IGameView gameView = (IGameView)gameActivity;
+                gameView.cardsDiscarded();
             }
         }
     }
@@ -130,7 +132,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter{
 
     public void changeTrainCards(String username) {
         Toast.makeText(this.gameActivity, "Adding train card to current player", Toast.LENGTH_SHORT);
-        root.getCurrentGame()
+        root.getCurrentGame().getMyPlayer();
     }
 
     public void stopLobbyPolling() {

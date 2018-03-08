@@ -56,7 +56,7 @@ public class MainFacade implements IServer {
     @Override
     public CommandResult discardDestinationCard(DestCardList destCardList, String username) {
         DestinationCardFacade dcf = new DestinationCardFacade();
-        List<Integer> cardIDs = destCardList.getDestCardList();
+        List<Integer> cardIDs = destCardList.getList();
         return dcf.discard(cardIDs, username);
     }
 

@@ -124,7 +124,9 @@ public class GameActivity extends FragmentActivity implements IGameView {
     }
 
     public void cardsDiscarded() {
-
+        HandFragment fragment = (HandFragment) getSupportFragmentManager()
+                                                .findFragmentById(R.id.hand_fragment);
+        fragment.cardsDiscarded();
     }
 
     public void startDiscardDestCardActivity() {

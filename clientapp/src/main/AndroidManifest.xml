@@ -41,10 +41,11 @@
             android:theme="@style/AppTheme" />
         <activity
             android:name=".GameActivity"
-            android:label="@string/title_activity_game"></activity>
+            android:label="@string/title_activity_game">
+        </activity>
         <activity android:name=".dialogs.DiscardDestCardDialogActivity"
-            android:theme="@android:style/Theme.Holo.Light.Dialog"
-            android:screenOrientation="landscape"></activity>
+            android:theme="@android:style/Theme.Holo.Light.Dialog">
+        </activity>
     </application>
 
 </manifest>
