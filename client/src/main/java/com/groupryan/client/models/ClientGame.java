@@ -105,6 +105,6 @@ public class ClientGame extends Observable {
             myPlayer.removeDestinationCard(cardID);
         }
         setChanged();
-        notifyObservers();
+        notifyObservers(utils.DISCARD_DESTCARD);
     }
 }
