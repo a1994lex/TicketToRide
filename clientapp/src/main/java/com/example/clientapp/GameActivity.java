@@ -200,6 +200,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
         ConstraintLayout.LayoutParams constraintLayoutParams = new ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT);
         ConstraintLayout constraintLayout = findViewById(R.id.container);
+
         for (RouteSegment routeSegment : routeSegments) {
             LineView lineView = new LineView(this);
             lineView.setLayoutParams(constraintLayoutParams);

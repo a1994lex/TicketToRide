@@ -73,7 +73,7 @@ public class GameStatFragment extends Fragment implements IGameStatView {
         header.addView(tv4);
         tableLayout.addView(header);
 
-       // view.setZ(20);
+        view.setZ(1000);
 
         for(Map.Entry<String, Stat> entry : theStats.entrySet()){
             Stat stat = entry.getValue();
