@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.utils;
 
@@ -127,7 +128,7 @@ public class BankFragment extends Fragment implements IBankView {
             }
         });
         mCardsLeft= view.findViewById(R.id.cards_left);
-        mCardsLeft.setText("Cards Left\n"+99);
+        mCardsLeft.setText("93");
     }
 
     private void finish(){

@@ -4,10 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="wrap_content"
     android:layout_height="match_parent">
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimaryDark">
+        android:background="@color/colorPrimaryDark"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="156dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -16,80 +19,88 @@
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:background="@color/colorPrimary"
-            android:orientation="vertical"  >
+            android:orientation="vertical">
 
             <ImageButton
-
-                android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
 
                 android:id="@+id/deck"
                 android:layout_width="160dp"
-                android:layout_height="115dp" />
+
+                android:layout_height="115dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
 
             <ImageButton
-                android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
                 android:id="@+id/card1"
                 android:layout_width="160dp"
-                android:layout_height="115dp" />
+                android:layout_height="115dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
 
             <ImageButton
-                android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
                 android:id="@+id/card2"
                 android:layout_width="160dp"
-                android:layout_height="115dp" />
+                android:layout_height="115dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
 
             <ImageButton
-                android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
                 android:id="@+id/card3"
                 android:layout_width="160dp"
-                android:layout_height="115dp" />
+                android:layout_height="115dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
 
             <ImageButton
-                android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
                 android:id="@+id/card4"
                 android:layout_width="160dp"
-                android:layout_height="115dp" />
+                android:layout_height="115dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
 
             <ImageButton
-                android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
                 android:id="@+id/card5"
                 android:layout_width="160dp"
-                android:layout_height="115dp" />
+                android:layout_height="115dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
         </LinearLayout>
 
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_marginEnd="8dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
-            android:orientation="vertical"
-            android:gravity="bottom"
-
             android:background="@color/colorPrimaryDark">
+
             <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:id="@+id/cards_left"
-                android:text=""
-                android:layout_marginBottom="@+id/exit"
-                />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:text="" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cards_left"
+                android:text="Cards Left"
+                android:textColor="@android:color/white"
+                tools:layout_below="@+id/cards_left"
+                android:id="@+id/textView3" />
 
             <ImageButton
-                android:scaleType="fitCenter"
-                android:adjustViewBounds="true"
                 android:id="@+id/exit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignEnd="@+id/textView3"
+                android:layout_alignParentBottom="true"
                 android:layout_gravity="bottom"
                 android:layout_weight="1"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
                 app:srcCompat="@android:drawable/btn_dialog" />
-        </LinearLayout>
+        </RelativeLayout>
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
