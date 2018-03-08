@@ -4,6 +4,7 @@ import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.commands.ServerCommandFactory;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCard;
+import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.User;
@@ -81,6 +82,7 @@ public class UIFacade {
     }
 
     public CommandResult discardDestinationCard(List<Integer> cardIDs, String username) {
-        return ServerProxy.getInstance().discardDestinationCard(cardIDs, username);
+        DestCardList destCardList = new DestCardList(cardIDs);
+        return ServerProxy.getInstance().discardDestinationCard(destCardList, username);
     }
 }

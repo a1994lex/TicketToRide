@@ -4,6 +4,7 @@ import com.groupryan.shared.IServer;
 import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.commands.ServerCommand;
 import com.groupryan.shared.commands.ServerCommandFactory;
+import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
@@ -70,8 +71,8 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public CommandResult discardDestinationCard(List<Integer> cardIDs, String username) {
-        ServerCommand command = serverCommandFactory.createDiscardDestinationCardCommand(cardIDs, username);
+    public CommandResult discardDestinationCard(DestCardList destCardList, String username) {
+        ServerCommand command = serverCommandFactory.createDiscardDestinationCardCommand(destCardList, username);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.DISCARD_DESTCARD, command);
         return commandResult;
     }

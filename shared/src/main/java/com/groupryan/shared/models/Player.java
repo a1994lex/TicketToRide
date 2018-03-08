@@ -1,8 +1,10 @@
 package com.groupryan.shared.models;
 
 import com.google.gson.internal.LinkedTreeMap;
+import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -136,6 +138,26 @@ public class Player {
 
     public List<DestCard> getDestCards() {
         return this.destCards;
+    }
+
+    public Map<String, Integer> getTrainCardsMap() {
+
+        //TODO move this somewhere else
+        Map<String, Integer> trainCardsMap = new HashMap<>();
+        trainCardsMap.put(utils.RED, 0);
+        trainCardsMap.put(utils.ORANGE, 0);
+        trainCardsMap.put(utils.YELLOW, 0);
+        trainCardsMap.put(utils.GREEN, 0);
+        trainCardsMap.put(utils.BLUE, 0);
+        trainCardsMap.put(utils.PINK, 0);
+        trainCardsMap.put(utils.WHITE, 0);
+        trainCardsMap.put(utils.BLACK, 0);
+        trainCardsMap.put(utils.LOCOMOTIVE, 0);
+
+        for (TrainCard tCard : this.trainCards) {
+            trainCardsMap.put(tCard.getColor(), trainCardsMap.get(tCard.getColor()) + 1);
+        }
+        return trainCardsMap;
     }
 
 }

@@ -1,6 +1,8 @@
 package com.groupryan.shared.commands;
 
 import com.groupryan.shared.models.Color;
+import com.groupryan.shared.models.DestCard;
+import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 
@@ -63,7 +65,7 @@ public class ServerCommandFactory {
                 new Object[]{gameId, playerId});
     }
 
-    public ServerCommand createDrawThreeCardsCommand(String username){
+    public ServerCommand createDrawThreeCardsCommand(String username) {
         return new ServerCommand("com.groupryan.server.facades.MainFacade", "drawDestinationCards",
                 new String[]{String.class.getTypeName()},
                 new Object[]{username});
@@ -75,10 +77,10 @@ public class ServerCommandFactory {
                 new Object[]{gameId, msg, username});
     }
 
-    public ServerCommand createDiscardDestinationCardCommand(List<Integer> cardIDs, String username) {
+    public ServerCommand createDiscardDestinationCardCommand(DestCardList destCardList, String username) {
         return new ServerCommand("com.groupryan.server.facades.MainFacade", "discardDestinationCard",
-                new String[]{List.class.getTypeName(), String.class.getTypeName()},
-                new Object[]{cardIDs, username});
+                new String[]{DestCardList.class.getTypeName(), String.class.getTypeName()},
+                new Object[]{destCardList, username});
     }
 
 }
