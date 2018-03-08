@@ -7,6 +7,7 @@ import com.example.clientapp.IGameView;
 import com.groupryan.client.UIGameFacade;
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.Chat;
+import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.RouteSegment;
 import com.groupryan.shared.models.Stat;
@@ -122,6 +123,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter{
     }
 
     public void discardDestinationCard(List<Integer> cardIDs) {
+        DestCardList dcl= new DestCardList(cardIDs);
         DiscardDestCardAsyncTask task = new DiscardDestCardAsyncTask(gameActivity);
         task.execute(cardIDs);
     }
