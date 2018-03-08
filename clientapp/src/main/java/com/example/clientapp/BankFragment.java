@@ -126,7 +126,7 @@ public class BankFragment extends Fragment implements IBankView {
         });
     }
 
-    public void finish(){
+    private void finish(){
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
 
