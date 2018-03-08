@@ -88,6 +88,10 @@ public class Player {
         }
     }
 
+    public void removeTrains(int cost) {
+        this.trainPieces = trainPieces - cost;
+    }
+
     public String getColor() {
         return color;
     }

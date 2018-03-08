@@ -34,7 +34,6 @@ public class GameActivity extends FragmentActivity implements IGameView {
     private FloatingActionButton mDrawCards;
     private FloatingActionButton mClaimRoute;
     private FloatingActionButton mHandButton;
-    private ImageView claimedRouteImg;
 
     private int mapUpdatePhase;
     private GamePlayPresenter gamePlayPresenter = GamePlayPresenter.getInstance();
@@ -160,7 +159,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
                         Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, "Also changing number of trains and train cards",
                         Toast.LENGTH_SHORT).show();
-                gamePlayPresenter.claimRouteTest("q");
+                gamePlayPresenter.claimRouteTest(utils.CURRENT_PLAYER);
                 mapUpdatePhase++;
                 break;
             case 3:
@@ -178,13 +177,20 @@ public class GameActivity extends FragmentActivity implements IGameView {
             case 5:
                 Toast.makeText(this, "Testing...adding chat message from jimbob",
                         Toast.LENGTH_SHORT).show();
-                gamePlayPresenter.addChatMessage("jimbob", "herro!");
+                gamePlayPresenter.addChatMessage("jimbob", "herro! (jimbob)");
                 mapUpdatePhase++;
                 break;
             case 6:
-                Toast.makeText(this, "Testing...adding train cards to current player",
+                Toast.makeText(this, "Testing...removing train card from current player",
                         Toast.LENGTH_SHORT).show();
-                gamePlayPresenter.changeTrainCards("q");
+                gamePlayPresenter.changeTrainCards();
+                mapUpdatePhase++;
+                break;
+            case 7:
+                Toast.makeText(this, "Testing...removing destination card from current player",
+                        Toast.LENGTH_SHORT).show();
+                gamePlayPresenter.changeDestCards();
+                mapUpdatePhase++;
                 break;
         }
     }

@@ -54,4 +54,24 @@ public class Stat {
     public int getDestinationCards() {
         return destinationCards;
     }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public void setTrains(int trains) {
+        this.trains = trains;
+    }
+
+    public void setTrainCards(int trainCards) {
+        this.trainCards = trainCards;
+    }
+
+    public void setDestinationCards(int destinationCards) {
+        this.destinationCards = destinationCards;
+    }
 }
