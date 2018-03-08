@@ -29,21 +29,40 @@ import async.Poller;
 import async.RegisterAsyncTask;
 
 
-public class GamePlayPresenter implements Observer, IGamePlayPresenter{
+public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
     private RootClientModel root = RootClientModel.getInstance();
     int totalClaimedRoutes = root.getClaimedRoutes().size();
     private UIGameFacade uiGameFacade = UIGameFacade.getInstance();
     private Activity gameActivity;
+    private Activity discardActivity;
 
-    public GamePlayPresenter(Activity gameActivity ){
+
+    private static GamePlayPresenter instance;
+
+    private GamePlayPresenter() {
+    }
+
+    public static GamePlayPresenter getInstance() {
+        if (instance == null) {
+            instance = new GamePlayPresenter();
+        }
+        return instance;
+    }
+
+    public void setGameActivity(Activity gameActivity) {
         this.gameActivity = gameActivity;
         root.addObserver(this);
     }
 
+    public void setDiscardActivity(Activity discardActivity) {
+        this.discardActivity = discardActivity;
+    }
+
+
     @Override
     public void update(Observable observable, Object o) {
-        if (observable == root){
+        if (observable == root) {
             int secondSize = root.getClaimedRoutes().size();
             if (o.getClass().equals(Route.class)) {
                 if (secondSize > totalClaimedRoutes) {
@@ -52,9 +71,8 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter{
                     HashSet<RouteSegment> routeSegments = root.getRouteSegmentSet(r.getId());
                     gameView.drawRoute(r.getColor(), routeSegments);
                 }
-            }
-            else if (o.equals(utils.DISCARD_DESTCARD)) {
-                IGameView gameView = (IGameView)gameActivity;
+            } else if (o.equals(utils.DISCARD_DESTCARD)) {
+                IGameView gameView = (IGameView) gameActivity;
                 gameView.cardsDiscarded();
             }
         }
@@ -73,8 +91,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter{
                     root.getCurrentGame().updateStat(stat);
                     root.getCurrentGame().updateHistory("Green player now has 6 cards.");
                     break;
-                }
-                else {
+                } else {
                     root.addClaimedRoute(username, new Route(6, "HELENA",
                             "DULUTH", 15, utils.GREEN, 26));
                     Toast.makeText(this.gameActivity, "Green player is claiming route.", Toast.LENGTH_SHORT);
@@ -89,7 +106,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter{
                 Stat stat = new Stat(username, 2, 43, 3, 3);
                 root.getCurrentGame().updateStat(stat);
                 root.addClaimedRoute(username, new Route(2, "OKLAHOMA CITY",
-                                "LITTLE ROCK", 2, utils.RED, 50));
+                        "LITTLE ROCK", 2, utils.RED, 50));
                 root.getCurrentGame().updateHistory("Red player claimed Oklahoma City to Little Rock.");
                 break;
             }
@@ -98,7 +115,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter{
                 Stat stat = new Stat(username, 2, 43, 3, 3);
                 root.getCurrentGame().updateStat(stat);
                 root.addClaimedRoute(username, new Route(2, "ATLANTA",
-                                "CHARLESTON", 2, utils.YELLOW, 86));
+                        "CHARLESTON", 2, utils.YELLOW, 86));
                 root.getCurrentGame().updateHistory("Yellow player claimed Atlanta to Charleston.");
                 break;
             }
@@ -125,7 +142,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter{
     }
 
     public void discardDestinationCard(List<Integer> cardIDs) {
-        DiscardDestCardAsyncTask task = new DiscardDestCardAsyncTask(gameActivity);
+        DiscardDestCardAsyncTask task = new DiscardDestCardAsyncTask(discardActivity);
         task.execute(cardIDs);
     }
 
