@@ -31,7 +31,6 @@ public class GameActivity extends FragmentActivity implements IGameView {
     private FloatingActionButton mDrawCards;
     private FloatingActionButton mClaimRoute;
     private FloatingActionButton mHandButton;
-    private ImageView claimedRouteImg;
 
     private int mapUpdatePhase;
     private GamePlayPresenter gamePlayPresenter = new GamePlayPresenter(this);
@@ -123,6 +122,12 @@ public class GameActivity extends FragmentActivity implements IGameView {
         startDiscardDestCardActivity();
     }
 
+    public void cardsDiscarded() {
+        HandFragment fragment = (HandFragment) getSupportFragmentManager()
+                                                .findFragmentById(R.id.hand_fragment);
+        fragment.cardsDiscarded();
+    }
+
     public void startDiscardDestCardActivity() {
         Intent intent = new Intent(this, DiscardDestCardDialogActivity.class);
         intent.putExtra(utils.GAME_SETUP, true);
@@ -148,7 +153,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
                         Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, "Also changing number of trains and train cards",
                         Toast.LENGTH_SHORT).show();
-                gamePlayPresenter.claimRouteTest("q");
+                gamePlayPresenter.claimRouteTest(utils.CURRENT_PLAYER);
                 mapUpdatePhase++;
                 break;
             case 3:
@@ -170,9 +175,16 @@ public class GameActivity extends FragmentActivity implements IGameView {
                 mapUpdatePhase++;
                 break;
             case 6:
-                Toast.makeText(this, "Testing...adding train cards to current player",
+                Toast.makeText(this, "Testing...removing train card from current player",
                         Toast.LENGTH_SHORT).show();
-                gamePlayPresenter.changeTrainCards("q");
+                gamePlayPresenter.changeTrainCards();
+                mapUpdatePhase++;
+                break;
+            case 7:
+                Toast.makeText(this, "Testing...removing destination card from current player",
+                        Toast.LENGTH_SHORT).show();
+                gamePlayPresenter.changeDestCards();
+                mapUpdatePhase++;
                 break;
         }
     }

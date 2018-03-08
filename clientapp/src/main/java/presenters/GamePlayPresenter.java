@@ -8,10 +8,13 @@ import com.example.clientapp.IGameView;
 import com.groupryan.client.UIGameFacade;
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.Chat;
+import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.DestCardList;
+import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.RouteSegment;
 import com.groupryan.shared.models.Stat;
+import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.utils;
 
 import java.util.HashMap;
@@ -62,8 +65,12 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter{
 
     public void claimRouteTest(String username) {
         String playerColor = root.getCurrentGame().getPlayersColors().get(username);
-        if (username.equals(root.getCurrentGame().getMyPlayer().getUsername())) {
-            Toast.makeText(this.gameActivity, "Red player is claiming route.", Toast.LENGTH_SHORT);
+        if (username.equals(utils.CURRENT_PLAYER)) {
+            Toast.makeText(this.gameActivity, "Current player is claiming route.", Toast.LENGTH_SHORT);
+            root.getCurrentGame().getMyPlayer().removeTrains(2);
+            List<TrainCard> trainCards = root.getCurrentGame().getMyPlayer().getTrainCards();
+            trainCards.remove(trainCards.size() - 1);
+            trainCards.remove(trainCards.size() - 1);
             Stat stat = new Stat(username, 2, 43, 3, 3);
             root.getCurrentGame().updateStat(stat);
             root.addClaimedRoute(username, new Route(2, "OKLAHOMA CITY",
@@ -129,9 +136,18 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter{
         task.execute(cardIDs);
     }
 
-    public void changeTrainCards(String username) {
-        Toast.makeText(this.gameActivity, "Adding train card to current player", Toast.LENGTH_SHORT);
-        root.getCurrentGame().getMyPlayer();
+    public void changeTrainCards() {
+        Toast.makeText(this.gameActivity, "Removing train card from current player", Toast.LENGTH_SHORT);
+        List<TrainCard> trainCards = root.getCurrentGame().getMyPlayer().getTrainCards();
+        trainCards.remove(trainCards.size() - 1);
+        root.getCurrentGame().getMyPlayer().setTrainCards(trainCards);
+    }
+
+    public void changeDestCards() {
+        Toast.makeText(this.gameActivity, "Removing destination card from current player", Toast.LENGTH_SHORT);
+        List<DestCard> destCards = root.getCurrentGame().getMyPlayer().getDestCards();
+        destCards.remove(destCards.size() - 1);
+        root.getCurrentGame().getMyPlayer().setDestCards(destCards);
     }
 
     public void stopLobbyPolling() {
