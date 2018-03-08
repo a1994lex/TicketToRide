@@ -1,0 +1,206 @@
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent"
+    tools:context="com.example.clientapp.HandFragment">
+
+    <ImageView
+        android:id="@+id/red_train_card"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="42dp"
+        android:layout_marginStart="20dp"
+        android:layout_weight="1"
+        android:src="@drawable/trainred"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/red_count"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="88dp"
+        android:text="RedCount"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/red_train_card" />
+
+    <ImageView
+        android:id="@+id/orange_train_card"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="42dp"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:src="@drawable/trainorange"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/red_train_card" />
+
+    <TextView
+        android:id="@+id/orange_count"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="88dp"
+        android:text="OrangeCount"
+        app:layout_constraintStart_toEndOf="@+id/red_count"
+        app:layout_constraintTop_toTopOf="@+id/orange_train_card" />
+
+    <ImageView
+        android:id="@+id/yellow_train_card"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="42dp"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:src="@drawable/trainyellow"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/orange_train_card" />
+
+    <TextView
+        android:id="@+id/yellow_count"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="88dp"
+        android:text="YellowCount"
+        app:layout_constraintStart_toEndOf="@+id/orange_count"
+        app:layout_constraintTop_toTopOf="@+id/yellow_train_card" />
+
+    <ImageView
+        android:id="@+id/green_train_card"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="42dp"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:src="@drawable/traingreen"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/yellow_train_card" />
+
+    <TextView
+        android:id="@+id/green_count"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="88dp"
+        android:text="GreenCount"
+        app:layout_constraintStart_toEndOf="@+id/yellow_train_card"
+        app:layout_constraintTop_toTopOf="@+id/green_train_card" />
+
+    <ImageView
+        android:id="@+id/blue_train_card"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="42dp"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:src="@drawable/trainblue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/green_train_card" />
+
+    <TextView
+        android:id="@+id/blue_count"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="88dp"
+        android:text="BlueCount"
+        app:layout_constraintStart_toEndOf="@+id/green_train_card"
+        app:layout_constraintTop_toTopOf="@+id/blue_train_card" />
+
+    <ImageView
+        android:id="@+id/pink_train_card"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="42dp"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:src="@drawable/trainpink"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/blue_train_card" />
+
+    <TextView
+        android:id="@+id/pink_count"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="88dp"
+        android:text="PinkCount"
+        app:layout_constraintStart_toEndOf="@+id/blue_train_card"
+        app:layout_constraintTop_toTopOf="@+id/pink_train_card" />
+
+    <ImageView
+        android:id="@+id/white_train_card"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="42dp"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:src="@drawable/trainwhite"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/pink_train_card" />
+
+    <TextView
+        android:id="@+id/white_count"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="88dp"
+        android:text="WhiteCount"
+        app:layout_constraintStart_toEndOf="@+id/pink_train_card"
+        app:layout_constraintTop_toTopOf="@+id/white_train_card" />
+
+    <ImageView
+        android:id="@+id/black_train_card"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="42dp"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:src="@drawable/trainblack"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/white_train_card" />
+
+    <TextView
+        android:id="@+id/black_count"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="88dp"
+        android:text="BlackCount"
+        app:layout_constraintStart_toEndOf="@+id/white_train_card"
+        app:layout_constraintTop_toTopOf="@+id/black_train_card" />
+
+    <ImageView
+        android:id="@+id/loco_train_card"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:layout_marginBottom="42dp"
+        android:layout_marginStart="10dp"
+        android:layout_weight="1"
+        android:src="@drawable/trainloco"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/black_train_card" />
+
+    <TextView
+        android:id="@+id/loco_count"
+        android:layout_width="90dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="88dp"
+        android:text="LocoCount"
+        app:layout_constraintStart_toEndOf="@+id/black_train_card"
+        app:layout_constraintTop_toTopOf="@+id/loco_train_card" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/destCard_recycler_view"
+        android:layout_width="300dp"
+        android:layout_height="120dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+    </android.support.v7.widget.RecyclerView>
+
+</android.support.constraint.ConstraintLayout>

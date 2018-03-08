@@ -47,7 +47,8 @@ public class utils {
     public static final String CHAT = "CHAT";
     public static final String HISTORY = "HISTORY";
     public static final String STAT = "STAT";
-    public static final String BANK="BANK";
+    public static final String BANK = "BANK";
+    public static final String HAND = "HAND";
 
 
     public static int convertStringToRColor(String color) {

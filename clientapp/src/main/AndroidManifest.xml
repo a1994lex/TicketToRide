@@ -35,6 +35,7 @@
             android:name=".dialogs.JoinGameDialogActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <activity
+
             android:name=".ChatAndHistoryActivity"
             android:label="@string/title_activity_chat_and_history"
             android:theme="@style/AppTheme" />
