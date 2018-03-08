@@ -10,7 +10,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
+import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.utils;
 
@@ -27,6 +29,7 @@ public class BankFragment extends Fragment implements IBankView {
     ImageButton mCardButtonFour;
     ImageButton mCardButtonFive;
     ImageButton mExit;
+    TextView mCardsLeft;
 
     public int colorFinder(String color){
         switch(color){
@@ -124,6 +127,8 @@ public class BankFragment extends Fragment implements IBankView {
                 finish();
             }
         });
+        mCardsLeft= view.findViewById(R.id.cards_left);
+        mCardsLeft.setText("93");
     }
 
     private void finish(){
