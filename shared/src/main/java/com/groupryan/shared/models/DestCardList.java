@@ -12,19 +12,15 @@ import java.util.List;
 public class DestCardList {
     double one=-1;
     double two=-1;
-    double three=-1;
 
     public static DestCardList mapToObject(LinkedTreeMap map){
         double Qone = (double)map.get("one");
         double Qtwo = (double)map.get("two");
-        double Qthree = (double)map.get("three");
         List<Integer> cards = new ArrayList<>();
         if(Qone!=-1)
             cards.add((int)Qone);
         if(Qtwo!=-1)
             cards.add((int)Qtwo);
-        if(Qthree!=-1)
-            cards.add((int)Qthree);
         return new DestCardList(cards);
     }
 
@@ -34,9 +30,6 @@ public class DestCardList {
         }
         if(cardIds.size()>1){
             two=cardIds.get(1);
-        }
-        if(cardIds.size()>2){
-            three=cardIds.get(3);
         }
 
     }
@@ -48,8 +41,6 @@ public class DestCardList {
         cards.add((int)one);
         if(two!=-1)
             cards.add((int)two);
-        if(three!=-1)
-            cards.add((int)three);
         return cards;
     }
 }

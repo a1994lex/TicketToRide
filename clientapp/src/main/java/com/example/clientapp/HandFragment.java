@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.support.v4.app.Fragment;
 
@@ -32,6 +33,7 @@ public class HandFragment extends Fragment implements IHandView {
     private TextView mWhiteTrainCardCount;
     private TextView mBlackTrainCardCount;
     private TextView mLocoTrainCardCount;
+    private ImageButton mExit;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
@@ -72,6 +74,17 @@ public class HandFragment extends Fragment implements IHandView {
         mLocoTrainCardCount = view.findViewById(R.id.loco_count);
         mLocoTrainCardCount.setText(Integer.toString(trainCardsMap.get(utils.LOCOMOTIVE)));
 
+
+        mExit=view.findViewById(R.id.exit);
+        mExit.setZ(5);
+        mExit.setImageResource(R.drawable.ic_home_black_24dp);
+        mExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         mRecyclerView = view.findViewById(R.id.destCard_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
         mAdapter = new HandFragment.DestCardAdapter();
@@ -80,6 +93,10 @@ public class HandFragment extends Fragment implements IHandView {
         return view;
     }
 
+
+    private void finish(){
+        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+    }
 
     private class DestCardHolder extends RecyclerView.ViewHolder {
         private TextView mDestCardRoute;
@@ -120,4 +137,7 @@ public class HandFragment extends Fragment implements IHandView {
         }
     }
 
+    public void cardsDiscarded() {
+        mAdapter.notifyDataSetChanged();
+    }
 }
