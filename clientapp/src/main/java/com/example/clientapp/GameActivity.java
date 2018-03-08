@@ -12,16 +12,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import com.groupryan.shared.models.RouteSegment;
 import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.example.clientapp.dialogs.DiscardDestCardDialogActivity;
+
 import presenters.GamePlayPresenter;
 
 public class GameActivity extends FragmentActivity implements IGameView {
@@ -34,7 +37,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
     private ImageView claimedRouteImg;
 
     private int mapUpdatePhase;
-    private GamePlayPresenter gamePlayPresenter = new GamePlayPresenter(this);
+    private GamePlayPresenter gamePlayPresenter = GamePlayPresenter.getInstance();
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -75,6 +78,9 @@ public class GameActivity extends FragmentActivity implements IGameView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        // hotfix
+        this.gamePlayPresenter.setGameActivity(this);
+        // ------
         mapUpdatePhase = 0;
         mNav = findViewById(R.id.navigation);
         mMenuBtn = findViewById(R.id.menu_btn);
@@ -125,7 +131,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
 
     public void cardsDiscarded() {
         HandFragment fragment = (HandFragment) getSupportFragmentManager()
-                                                .findFragmentById(R.id.hand_fragment);
+                .findFragmentById(R.id.hand_fragment);
         fragment.cardsDiscarded();
     }
 
