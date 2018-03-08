@@ -123,12 +123,6 @@ public class GameActivity extends FragmentActivity implements IGameView {
         startDiscardDestCardActivity();
     }
 
-    public void cardsDiscarded() {
-        HandFragment fragment = (HandFragment) getSupportFragmentManager()
-                                                .findFragmentById(R.id.hand_fragment);
-        fragment.cardsDiscarded();
-    }
-
     public void startDiscardDestCardActivity() {
         Intent intent = new Intent(this, DiscardDestCardDialogActivity.class);
         intent.putExtra(utils.GAME_SETUP, true);
