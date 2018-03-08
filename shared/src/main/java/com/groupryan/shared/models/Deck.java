@@ -1,5 +1,7 @@
 package com.groupryan.shared.models;
 
+import com.groupryan.shared.utils;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -21,6 +23,12 @@ public class Deck{
         return deck.size();
     }
     public List<Card> draw(int amount){
+        if(deck.size()<amount){
+            Collections.shuffle(discardPile);
+            while(discardPile.size()>0) {
+                deck.add(discardPile.remove(0));
+            }
+        }
         List<Card> newCards=new ArrayList<>();
         for(int i=0; i<amount; i++){
             newCards.add(deck.get(0));

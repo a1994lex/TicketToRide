@@ -46,7 +46,6 @@ public class ServerCommand implements IServerCommand {
         try {
             Class<?> receiver = Class.forName(_className);
             Class<?>[] types = getClassParamTypes();
-
             ArrayList<Object> objects = getObjects(types, _paramValues);
             Object[] objectParamVals = objects.toArray(new Object[objects.size()]);
             Method method = receiver.getMethod(_methodName, types);

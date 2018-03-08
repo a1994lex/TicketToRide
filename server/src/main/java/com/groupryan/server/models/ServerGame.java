@@ -47,8 +47,17 @@ public class ServerGame {
 
     private void setRiver() {
         List<Card> cards=trainCards.draw(5);
+        int locos=0;
         for (Card c:cards) {
             bank.add((TrainCard)c);
+            if(((TrainCard) c).getColor().equals(utils.LOCOMOTIVE))
+                locos++;
+        }
+        if(locos>2){
+            while(bank.size()>0){
+                trainCards.discard(bank.remove( 0));
+            }
+            setRiver();
         }
     }
 
