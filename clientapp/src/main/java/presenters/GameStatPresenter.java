@@ -33,7 +33,7 @@ public class GameStatPresenter implements Observer, IGameStatPresenter {
     }
 
 
-    public void setView(IGameStatView gameView, View view)
+    public void setView(IGameStatView statView, View view)
     {
         this.statView = statView;
         this.fragView = view;
@@ -43,7 +43,7 @@ public class GameStatPresenter implements Observer, IGameStatPresenter {
     public void update(Observable o, Object arg) {
         if (o == game){
             if (arg.equals(utils.STAT)){
-                statView.init(fragView);
+                //statView.init(fragView);
             }
         }
     }
