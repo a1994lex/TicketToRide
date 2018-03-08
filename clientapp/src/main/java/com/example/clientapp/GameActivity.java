@@ -10,6 +10,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.groupryan.shared.models.RouteSegment;
 import com.groupryan.shared.utils;
@@ -29,6 +30,9 @@ public class GameActivity extends FragmentActivity implements IGameView {
     private FloatingActionButton mMenuBtn;
     private FloatingActionButton mDrawCards;
     private FloatingActionButton mClaimRoute;
+    private FloatingActionButton mHandButton;
+    private ImageView claimedRouteImg;
+
     private int mapUpdatePhase;
     private GamePlayPresenter gamePlayPresenter = new GamePlayPresenter(this);
 
@@ -61,6 +65,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
                     mMenuBtn.setVisibility(View.VISIBLE);
                     mClaimRoute.setVisibility(View.VISIBLE);
                     mDrawCards.setVisibility(View.VISIBLE);
+                    mHandButton.setVisibility(View.VISIBLE);
             }
             return false;
         }
@@ -96,12 +101,21 @@ public class GameActivity extends FragmentActivity implements IGameView {
                 mClaimRoute.setVisibility(View.INVISIBLE);
                 mDrawCards.setVisibility(View.INVISIBLE);
                 mMenuBtn.setVisibility(View.INVISIBLE);
+                mHandButton.setVisibility(View.INVISIBLE);
             }
         });
         mClaimRoute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 modifyRoot();
+            }
+        });
+        mHandButton = findViewById(R.id.hand_btn);
+        mHandButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addFragment(R.id.hand_fragment,
+                        new HandFragment(), utils.HAND);
             }
         });
 
