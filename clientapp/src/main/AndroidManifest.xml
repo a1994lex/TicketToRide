@@ -35,11 +35,16 @@
             android:name=".dialogs.JoinGameDialogActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <activity
-            android:name=".dialogs.DiscardDestCardDialogActivity"
-            android:theme="@android:style/Theme.Holo.Light.Dialog" />
+
+            android:name=".ChatAndHistoryActivity"
+            android:label="@string/title_activity_chat_and_history"
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".GameActivity"
-            android:screenOrientation="landscape" />
+            android:label="@string/title_activity_game"></activity>
+        <activity android:name=".dialogs.DiscardDestCardDialogActivity"
+            android:theme="@android:style/Theme.Holo.Light.Dialog"
+            android:screenOrientation="landscape"></activity>
     </application>
 
 </manifest>
