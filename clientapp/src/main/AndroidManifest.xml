@@ -41,10 +41,7 @@
         <activity
             android:name=".GameActivity"
             android:label="@string/title_activity_game"></activity>
-        <activity android:name=".GameStatFragment"
-            android:screenOrientation="landscape"></activity>
-        <activity android:name=".HistoryActivity"
-            android:screenOrientation="landscape"></activity>
+        <activity
             android:name=".dialogs.DiscardDestCardDialogActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog" />
     </application>
