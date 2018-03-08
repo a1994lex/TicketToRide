@@ -125,7 +125,6 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter{
     }
 
     public void discardDestinationCard(List<Integer> cardIDs) {
-        DestCardList dcl= new DestCardList(cardIDs);
         DiscardDestCardAsyncTask task = new DiscardDestCardAsyncTask(gameActivity);
         task.execute(cardIDs);
     }

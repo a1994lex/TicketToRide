@@ -194,6 +194,19 @@
         app:layout_constraintStart_toEndOf="@+id/black_train_card"
         app:layout_constraintTop_toTopOf="@+id/loco_train_card" />
 
+    <ImageButton
+        android:id="@+id/exit"
+        android:paddingRight="10dp"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_width="45dp"
+        android:layout_height="45dp"
+        android:layout_weight="1"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:srcCompat="@android:drawable/btn_dialog"
+        tools:layout_editor_absoluteX="755dp" />
+
     <android.support.v7.widget.RecyclerView
         android:id="@+id/destCard_recycler_view"
         android:layout_width="300dp"
