@@ -38,7 +38,6 @@ public class DestCardList {
         List<Integer> cards=new ArrayList<>();
         if(one!=-1)
             cards.add((int)one);
-        cards.add((int)one);
         if(two!=-1)
             cards.add((int)two);
         return cards;
