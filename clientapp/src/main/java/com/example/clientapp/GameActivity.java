@@ -1,6 +1,8 @@
 package com.example.clientapp;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -10,8 +12,10 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.RouteSegment;
 import com.groupryan.shared.utils;
 
@@ -218,7 +222,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
     @Override
     public void drawRoute(String playerColor, HashSet<RouteSegment> routeSegments) {
         ConstraintLayout.LayoutParams constraintLayoutParams = new ConstraintLayout.LayoutParams(
-                ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT);
+                ConstraintLayout.LayoutParams.WRAP_CONTENT, ConstraintLayout.LayoutParams.WRAP_CONTENT);
         ConstraintLayout constraintLayout = findViewById(R.id.container);
 
         for (RouteSegment routeSegment : routeSegments) {

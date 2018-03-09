@@ -20,11 +20,11 @@ public class RootClientModel extends Observable {
 
     private ArrayList<Game> games;
     private User user;
-    private HashMap<String, String> players; // username, Color
+    private HashMap<String, String> players; // <username, Color>
     private HashMap<String, Route> claimedRoutes = new HashMap<String, Route>();
     private HashMap<Integer, HashSet<RouteSegment>> routeSegments = new HashMap<>();
     private ClientGame clientGame = null;
-    private boolean showRoutes = false;
+    private boolean showRoutes = true;
 
     public Map<Integer, HashSet<RouteSegment>> getRouteSegments() {
         return routeSegments;
@@ -212,46 +212,75 @@ public class RootClientModel extends Observable {
         notifyObservers();
     }
 
+    // create a set of RouteSegment objects
+    // create new RouteSegments representing each segment of the route
+    // put in x and y coordinates of point A and B
+    // put in route id
+    // add the segments to the set
+    // routeSegments.put(routeId, set of routeSegments)
+    // each segment is about 40 units long and 10 units thick
+    // x values increase from left to right
+    // y values increase from top to bottom (annoying)
     private void initializeRouteSegmentData() {
         // Helena to Duluth, id 26
         HashSet<RouteSegment> helenaDuluth = new HashSet<>();
         RouteSegment rs1 = new RouteSegment(440, 220,
-                480, 219, 26, utils.BLACK);
+                480, 219, 26);
         helenaDuluth.add(rs1);
         RouteSegment rs2 = new RouteSegment(485, 219,
-                526, 218, 26, utils.BLACK);
+                526, 218, 26);
         helenaDuluth.add(rs2);
         RouteSegment rs3 = new RouteSegment(531, 218,
-                572, 217, 26, utils.BLACK);
+                572, 217, 26);
         helenaDuluth.add(rs3);
         RouteSegment rs4 = new RouteSegment(577, 217,
-                618, 216, 26, utils.BLACK);
+                618, 216, 26);
         helenaDuluth.add(rs4);
         RouteSegment rs5 = new RouteSegment(623, 215,
-                664, 215, 26, utils.BLACK);
+                664, 215, 26);
         helenaDuluth.add(rs5);
         RouteSegment rs6 = new RouteSegment(672, 215,
-                713, 215, 26, utils.BLACK);
+                713, 215, 26);
         helenaDuluth.add(rs6);
         routeSegments.put(26, helenaDuluth);
         // OKC to Little Rock, id 50
         HashSet<RouteSegment> okcLittleRock = new HashSet<>();
         RouteSegment rs7 = new RouteSegment(706, 481,
-                746, 480, 50, utils.BLACK);
+                746, 480, 50);
         okcLittleRock.add(rs7);
         RouteSegment rs8 = new RouteSegment(752, 480,
-                792, 480, 50, utils.BLACK);
+                792, 480, 50);
         okcLittleRock.add(rs8);
         routeSegments.put(50, okcLittleRock);
-        // Atlanta to Charleston
+        // Atlanta to Charleston, id 86
         HashSet<RouteSegment> atlantaCharleston = new HashSet<>();
         RouteSegment rs9 = new RouteSegment(1034, 480,
-                1074, 480, 86, utils.BLACK);
+                1074, 480, 86);
         atlantaCharleston.add(rs9);
         RouteSegment rs10 = new RouteSegment(1080, 480,
-                1121, 483, 86, utils.BLACK);
+                1121, 483, 86);
         atlantaCharleston.add(rs10);
         routeSegments.put(86, atlantaCharleston);
-
+        // Duluth to Toronto, id 42
+        HashSet<RouteSegment> duluthToronto = new HashSet<>();
+        RouteSegment rs11 = new RouteSegment(740, 212,
+                780, 206, 42);
+        duluthToronto.add(rs11);
+        RouteSegment rs12 = new RouteSegment(786, 204,
+                826, 198, 42);
+        duluthToronto.add(rs12);
+        RouteSegment rs13 = new RouteSegment(832, 196,
+                872, 190, 42);
+        duluthToronto.add(rs13);
+        RouteSegment rs14 = new RouteSegment(878, 189,
+                918, 183, 42);
+        duluthToronto.add(rs14);
+        RouteSegment rs15 = new RouteSegment(924, 182,
+                964, 176, 42);
+        duluthToronto.add(rs15);
+        RouteSegment rs16 = new RouteSegment(970, 174,
+                1010, 168, 42);
+        duluthToronto.add(rs16);
+        routeSegments.put(42, duluthToronto);
     }
 }

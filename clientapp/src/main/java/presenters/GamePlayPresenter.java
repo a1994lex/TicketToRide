@@ -83,20 +83,24 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                 IGameView gameView = (IGameView) gameActivity;
                 gameView.cardsDiscarded();
             } else if (o.equals(utils.REDRAW_ROUTES)) {
-                IGameView gameView = (IGameView) gameActivity;
-                List<Route> claimedRoutes = root.getClaimedRoutes();
-                List<Integer> routeIds = new ArrayList<>();
-                List<String> routeColors = new ArrayList<>();
-                for (Route route : claimedRoutes) {
-                    routeIds.add(route.getId());
-                    routeColors.add(route.getColor());
-                }
-                HashSet<RouteSegment> routeSegments = new HashSet<>();
-                for (int i = 0; i < routeIds.size(); i++) {
-                    routeSegments = root.getRouteSegmentSet(routeIds.get(i));
-                    gameView.drawRoute(routeColors.get(i), routeSegments);
-                }
+                drawRoutes();
             }
+        }
+    }
+
+    public void drawRoutes() {
+        IGameView gameView = (IGameView) gameActivity;
+        List<Route> claimedRoutes = root.getClaimedRoutes();
+        List<Integer> routeIds = new ArrayList<>();
+        List<String> routeColors = new ArrayList<>();
+        for (Route route : claimedRoutes) {
+            routeIds.add(route.getId());
+            routeColors.add(route.getColor());
+        }
+        HashSet<RouteSegment> routeSegments;
+        for (int i = 0; i < routeIds.size(); i++) {
+            routeSegments = root.getRouteSegmentSet(routeIds.get(i));
+            gameView.drawRoute(routeColors.get(i), routeSegments);
         }
     }
 
@@ -131,6 +135,8 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                     } else {
                         root.addClaimedRoute(keyValue, new Route(6, "HELENA",
                                 "DULUTH", 15, utils.GREEN, 26));
+                        root.addClaimedRoute(keyValue, new Route(6, "HELENA",
+                                "DULUTH", 15, utils.GREEN, 42));
                         Toast.makeText(this.gameActivity, "Green player is claiming route.", Toast.LENGTH_SHORT);
                         Stat stat = new Stat(keyValue,1, 15, 39, 0, 3);
                         root.getCurrentGame().updateStat(stat);

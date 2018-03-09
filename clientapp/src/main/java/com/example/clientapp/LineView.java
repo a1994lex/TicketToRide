@@ -5,9 +5,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PointF;
+import android.graphics.drawable.VectorDrawable;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.groupryan.shared.utils;
 
@@ -47,7 +49,6 @@ public class LineView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-//        paint.setColor(Color.RED);
         paint.setStrokeWidth(10);
         canvas.drawLine(pointA.x, pointA.y, pointB.x, pointB.y, paint);
         super.onDraw(canvas);
