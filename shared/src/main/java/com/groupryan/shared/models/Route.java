@@ -11,7 +11,7 @@ public class Route {
     int worth;
     String color;
     int id;
-
+//todo make maptoobject
     public Route(int length, String one, String two, int worth, String color, int id){
         this.length=length;
         cityOne=one;

@@ -23,6 +23,7 @@ public class CommandHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         //System.out.println("Entering CommandHandler...");
+        Boolean goodRequest=true;
         CommandResult commandResult = null;
         try {
             InputStream is = httpExchange.getRequestBody();
@@ -31,9 +32,10 @@ public class CommandHandler implements HttpHandler {
             commandResult = command.execute();
         } catch (Exception e) {
             e.printStackTrace();
+            goodRequest=false;
         }
-        // TODO: check if error and send ResponseHeaders back with HttpURLConnection.HTTP_BAD_REQUEST
-        httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);
+        if(goodRequest){httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_OK, 0);}
+        else{httpExchange.sendResponseHeaders(HttpURLConnection.HTTP_BAD_REQUEST, 0);}
         OutputStream os = httpExchange.getResponseBody();
         OutputStreamWriter osw = new OutputStreamWriter(os);
         osw.write(Serializer.encode(commandResult));

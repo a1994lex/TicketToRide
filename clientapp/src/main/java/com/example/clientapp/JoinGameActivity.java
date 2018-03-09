@@ -34,6 +34,7 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
     RecyclerView mRecyclerView;
 //    Boolean addGame;
 //    Boolean removeGame;
+    //todo check to see why the person cant join when they re login
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {

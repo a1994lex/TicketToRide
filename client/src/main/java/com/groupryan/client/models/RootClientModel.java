@@ -70,7 +70,6 @@ public class RootClientModel extends Observable {
 
 
     public static void addUser(User user) {
-        // TODO: check if i am doing add user as intended
         single_instance._addUser(user);
     }
 

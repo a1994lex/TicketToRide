@@ -27,7 +27,6 @@ public class Player {
         String color = (String) map.get("color");
         double turn = (double) map.get("turn");
 //        double points = (double) map.get("points");
-//        // TODO: fix the route map to object
 //        double trainpieces = (double) map.get("trainPieces");
         List<DestCard> destCards = new ArrayList<>();
         ArrayList<LinkedTreeMap> dcards = (ArrayList<LinkedTreeMap>) map.get("destCards");

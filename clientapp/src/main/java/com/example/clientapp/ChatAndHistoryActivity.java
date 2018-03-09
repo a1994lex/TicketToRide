@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChatAndHistoryActivity extends AppCompatActivity {
-
+//not necesary
     private ViewPager mViewPager;
     private SectionsPageAdapter mSectionsPageAdapter;
 
