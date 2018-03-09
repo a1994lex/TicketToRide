@@ -30,7 +30,7 @@ public class utils {
     public static final String WHITE = "WHITE";
     public static final String ORANGE = "ORANGE";
     public static final String LOCOMOTIVE = "LOCOMOTIVE";
-
+    public static final String CURRENT_PLAYER = "CURRENT_PLAYER";
 
     public static final String DESTINATION = "DESTINATION";
     public static final String TRAIN = "TRAIN";
@@ -39,7 +39,7 @@ public class utils {
     public static final String EXEC_COMMAND = "/executeCommand";  // url for command API
     public static final String SERVER_HOST = "localhost";
     public static final int PORT_NUMBER = 8080;
-    public static final String URL_PREFIX = "http://" + "192.168.1.194" + ":" + PORT_NUMBER;
+    public static final String URL_PREFIX = "http://" + "10.24.65.190" + ":" + PORT_NUMBER;
     public static final String HTTP_POST = "POST";
     public static final String COMMAND_NAME = "CommandName";   // HTTP request header to determine
 

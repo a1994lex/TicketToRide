@@ -35,12 +35,16 @@ public class DiscardDestCardDialogActivity extends Activity {
     private TextView mErrorMsg;
     private Button mContinueButton;
 
-    private GamePlayPresenter gamePlayPresenter = new GamePlayPresenter(this);
+    private GamePlayPresenter gamePlayPresenter = GamePlayPresenter.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        // hotfix
+        this.gamePlayPresenter.setDiscardActivity(this);
+        // -----
 
         setContentView(R.layout.dialog_discard_card);
 

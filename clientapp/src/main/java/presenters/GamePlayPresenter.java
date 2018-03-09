@@ -8,14 +8,18 @@ import com.example.clientapp.IGameView;
 import com.groupryan.client.UIGameFacade;
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.Chat;
+import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.DestCardList;
+import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.RouteSegment;
 import com.groupryan.shared.models.Stat;
+import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.utils;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.List;
@@ -29,21 +33,40 @@ import async.Poller;
 import async.RegisterAsyncTask;
 
 
-public class GamePlayPresenter implements Observer, IGamePlayPresenter{
+public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
     private RootClientModel root = RootClientModel.getInstance();
     int totalClaimedRoutes = root.getClaimedRoutes().size();
     private UIGameFacade uiGameFacade = UIGameFacade.getInstance();
     private Activity gameActivity;
+    private Activity discardActivity;
 
-    public GamePlayPresenter(Activity gameActivity ){
+
+    private static GamePlayPresenter instance;
+
+    private GamePlayPresenter() {
+    }
+
+    public static GamePlayPresenter getInstance() {
+        if (instance == null) {
+            instance = new GamePlayPresenter();
+        }
+        return instance;
+    }
+
+    public void setGameActivity(Activity gameActivity) {
         this.gameActivity = gameActivity;
         root.addObserver(this);
     }
 
+    public void setDiscardActivity(Activity discardActivity) {
+        this.discardActivity = discardActivity;
+    }
+
+
     @Override
     public void update(Observable observable, Object o) {
-        if (observable == root){
+        if (observable == root) {
             int secondSize = root.getClaimedRoutes().size();
             if (o.getClass().equals(Route.class)) {
                 if (secondSize > totalClaimedRoutes) {
@@ -52,62 +75,67 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter{
                     HashSet<RouteSegment> routeSegments = root.getRouteSegmentSet(r.getId());
                     gameView.drawRoute(r.getColor(), routeSegments);
                 }
-            }
-            else if (o.equals(utils.DISCARD_DESTCARD)) {
-                IGameView gameView = (IGameView)gameActivity;
+            } else if (o.equals(utils.DISCARD_DESTCARD)) {
+                IGameView gameView = (IGameView) gameActivity;
                 gameView.cardsDiscarded();
             }
         }
     }
 
-    public void claimRouteTest(String username) {
-        String playerColor = root.getCurrentGame().getPlayersColors().get(username);
-        switch (playerColor) {
-            case utils.GREEN: {
-                HashMap<String, Stat> stats = root.getCurrentGame().getStats();
-                Stat s = stats.get(username);
-                int trainCards = s.getTrainCards();
-                if (trainCards == 4) {
-                    Toast.makeText(this.gameActivity, "Updating Green player cards.", Toast.LENGTH_SHORT);
-                    Stat stat = new Stat(username, 0, 45, 6, 3);
+    public void claimRouteTest(String keyValue) {
+        if (keyValue.equals(utils.CURRENT_PLAYER)) {
+            String playerColor = root.getCurrentGame().getMyPlayer().getColor();
+            String myPlayerName = root.getCurrentGame().getMyPlayer().getUsername();
+            Toast.makeText(this.gameActivity, "Current player is claiming route.", Toast.LENGTH_SHORT);
+            root.getCurrentGame().getMyPlayer().removeTrains(2);
+            List<TrainCard> trainCards = root.getCurrentGame().getMyPlayer().getTrainCards();
+            trainCards.remove(trainCards.size() - 1);
+            trainCards.remove(trainCards.size() - 1);
+            Stat stat = new Stat(myPlayerName, 3,2, 43, 3, 3);
+            root.getCurrentGame().updateStat(stat);
+            root.addClaimedRoute(myPlayerName, new Route(2, "OKLAHOMA CITY",
+                    "LITTLE ROCK", 2, playerColor, 50));
+            root.getCurrentGame().updateHistory("Red player claimed Oklahoma City to Little Rock.");
+        }
+        else {
+            String playerColor = root.getCurrentGame().getPlayersColors().get(keyValue);
+            switch (playerColor) {
+                case utils.GREEN: {
+                    HashMap<String, Stat> stats = root.getCurrentGame().getStats();
+                    Stat s = stats.get(keyValue);
+                    int trainCards = s.getTrainCards();
+                    if (trainCards == 4) {
+                        Toast.makeText(this.gameActivity, "Updating Green player cards.", Toast.LENGTH_SHORT);
+                        Stat stat = new Stat(keyValue, 1, 0, 45, 6, 3);
+                        root.getCurrentGame().updateStat(stat);
+                        root.getCurrentGame().updateHistory("Green player now has 6 cards.");
+                        break;
+                    } else {
+                        root.addClaimedRoute(keyValue, new Route(6, "HELENA",
+                                "DULUTH", 15, utils.GREEN, 26));
+                        Toast.makeText(this.gameActivity, "Green player is claiming route.", Toast.LENGTH_SHORT);
+                        Stat stat = new Stat(keyValue,1, 15, 39, 0, 3);
+                        root.getCurrentGame().updateStat(stat);
+                        root.getCurrentGame().updateHistory("Green player claimed Helena to Duluth.");
+                        break;
+                    }
+                }
+                case utils.YELLOW: {
+                    Toast.makeText(this.gameActivity, "Yellow player is claiming route.", Toast.LENGTH_SHORT);
+                    Stat stat = new Stat(keyValue, 2, 2, 43, 3, 3);
                     root.getCurrentGame().updateStat(stat);
-                    root.getCurrentGame().updateHistory("Green player now has 6 cards.");
+                    root.addClaimedRoute(keyValue, new Route(2, "ATLANTA",
+                            "CHARLESTON", 2, utils.YELLOW, 86));
+                    root.getCurrentGame().updateHistory("Yellow player claimed Atlanta to Charleston.");
                     break;
                 }
-                else {
-                    root.addClaimedRoute(username, new Route(6, "HELENA",
-                            "DULUTH", 15, utils.GREEN, 26));
-                    Toast.makeText(this.gameActivity, "Green player is claiming route.", Toast.LENGTH_SHORT);
-                    Stat stat = new Stat(username, 15, 39, 0, 3);
-                    root.getCurrentGame().updateStat(stat);
-                    root.getCurrentGame().updateHistory("Green player claimed Helena to Duluth.");
-                    break;
-                }
-            }
-            case utils.RED: {
-                Toast.makeText(this.gameActivity, "Red player is claiming route.", Toast.LENGTH_SHORT);
-                Stat stat = new Stat(username, 2, 43, 3, 3);
-                root.getCurrentGame().updateStat(stat);
-                root.addClaimedRoute(username, new Route(2, "OKLAHOMA CITY",
-                                "LITTLE ROCK", 2, utils.RED, 50));
-                root.getCurrentGame().updateHistory("Red player claimed Oklahoma City to Little Rock.");
-                break;
-            }
-            case utils.YELLOW: {
-                Toast.makeText(this.gameActivity, "Yellow player is claiming route.", Toast.LENGTH_SHORT);
-                Stat stat = new Stat(username, 2, 43, 3, 3);
-                root.getCurrentGame().updateStat(stat);
-                root.addClaimedRoute(username, new Route(2, "ATLANTA",
-                                "CHARLESTON", 2, utils.YELLOW, 86));
-                root.getCurrentGame().updateHistory("Yellow player claimed Atlanta to Charleston.");
-                break;
             }
         }
     }
 
     public void changeDestinationCards(String username) {
         Toast.makeText(this.gameActivity, "Yellow player now has 2 destination cards.", Toast.LENGTH_SHORT);
-        Stat stat = new Stat(username, 2, 43, 3, 2);
+        Stat stat = new Stat(username, 3,2, 43, 3, 2);
         root.getCurrentGame().updateStat(stat);
         root.getCurrentGame().updateHistory("Yellow discarded 1 destination card.");
     }
@@ -125,13 +153,28 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter{
     }
 
     public void discardDestinationCard(List<Integer> cardIDs) {
-        DiscardDestCardAsyncTask task = new DiscardDestCardAsyncTask(gameActivity);
+        DiscardDestCardAsyncTask task = new DiscardDestCardAsyncTask(discardActivity);
         task.execute(cardIDs);
     }
 
-    public void changeTrainCards(String username) {
-        Toast.makeText(this.gameActivity, "Adding train card to current player", Toast.LENGTH_SHORT);
-        root.getCurrentGame().getMyPlayer();
+    public void changeTrainCards() {
+        Toast.makeText(this.gameActivity, "Removing train card from current player", Toast.LENGTH_SHORT);
+        List<TrainCard> trainCards = root.getCurrentGame().getMyPlayer().getTrainCards();
+        trainCards.remove(trainCards.size() - 1);
+        Stat stat = root.getCurrentGame().getMyPlayer().makeStat();
+        stat.setTrainCards(stat.getTrainCards() - 1);
+        root.getCurrentGame().updateStat(stat);
+        root.getCurrentGame().getMyPlayer().setTrainCards(trainCards);
+    }
+
+    public void changeDestCards() {
+        Toast.makeText(this.gameActivity, "Removing destination card from current player", Toast.LENGTH_SHORT);
+        List<DestCard> destCards = root.getCurrentGame().getMyPlayer().getDestCards();
+        destCards.remove(destCards.size() - 1);
+        Stat stat = root.getCurrentGame().getMyPlayer().makeStat();
+        stat.setDestinationCards(stat.getDestinationCards() - 1);
+        root.getCurrentGame().updateStat(stat);
+        root.getCurrentGame().getMyPlayer().setDestCards(destCards);
     }
 
     public void stopLobbyPolling() {

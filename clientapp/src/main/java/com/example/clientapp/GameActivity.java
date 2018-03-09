@@ -12,16 +12,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
+
 import com.groupryan.shared.models.RouteSegment;
 import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.example.clientapp.dialogs.DiscardDestCardDialogActivity;
+
 import presenters.GamePlayPresenter;
 
 public class GameActivity extends FragmentActivity implements IGameView {
@@ -31,10 +34,9 @@ public class GameActivity extends FragmentActivity implements IGameView {
     private FloatingActionButton mDrawCards;
     private FloatingActionButton mClaimRoute;
     private FloatingActionButton mHandButton;
-    private ImageView claimedRouteImg;
 
     private int mapUpdatePhase;
-    private GamePlayPresenter gamePlayPresenter = new GamePlayPresenter(this);
+    private GamePlayPresenter gamePlayPresenter = GamePlayPresenter.getInstance();
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -75,10 +77,30 @@ public class GameActivity extends FragmentActivity implements IGameView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
+        // hotfix
+        this.gamePlayPresenter.setGameActivity(this);
+        // ------
         mapUpdatePhase = 0;
         mNav = findViewById(R.id.navigation);
+        mNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         mMenuBtn = findViewById(R.id.menu_btn);
+        mMenuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mNav.setVisibility(View.VISIBLE);
+                mClaimRoute.setVisibility(View.INVISIBLE);
+                mDrawCards.setVisibility(View.INVISIBLE);
+                mMenuBtn.setVisibility(View.INVISIBLE);
+                mHandButton.setVisibility(View.INVISIBLE);
+            }
+        });
         mClaimRoute = findViewById(R.id.claim_route_btn);
+        mClaimRoute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                modifyRoot();
+            }
+        });
         mDrawCards = findViewById(R.id.draw_card_btn);
         mDrawCards.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,23 +113,6 @@ public class GameActivity extends FragmentActivity implements IGameView {
                 transaction.add(R.id.bank_fragment,new BankFragment(),utils.BANK);
                 transaction.addToBackStack(null);
                 transaction.commit();*/
-            }
-        });
-        mNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        mMenuBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mNav.setVisibility(View.VISIBLE);
-                mClaimRoute.setVisibility(View.INVISIBLE);
-                mDrawCards.setVisibility(View.INVISIBLE);
-                mMenuBtn.setVisibility(View.INVISIBLE);
-                mHandButton.setVisibility(View.INVISIBLE);
-            }
-        });
-        mClaimRoute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                modifyRoot();
             }
         });
         mHandButton = findViewById(R.id.hand_btn);
@@ -125,7 +130,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
 
     public void cardsDiscarded() {
         HandFragment fragment = (HandFragment) getSupportFragmentManager()
-                                                .findFragmentById(R.id.hand_fragment);
+                .findFragmentById(R.id.hand_fragment);
         fragment.cardsDiscarded();
     }
 
@@ -154,7 +159,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
                         Toast.LENGTH_SHORT).show();
                 Toast.makeText(this, "Also changing number of trains and train cards",
                         Toast.LENGTH_SHORT).show();
-                gamePlayPresenter.claimRouteTest("q");
+                gamePlayPresenter.claimRouteTest(utils.CURRENT_PLAYER);
                 mapUpdatePhase++;
                 break;
             case 3:
@@ -172,13 +177,20 @@ public class GameActivity extends FragmentActivity implements IGameView {
             case 5:
                 Toast.makeText(this, "Testing...adding chat message from jimbob",
                         Toast.LENGTH_SHORT).show();
-                gamePlayPresenter.addChatMessage("jimbob", "herro!");
+                gamePlayPresenter.addChatMessage("jimbob", "hewwo! (jimbob)");
                 mapUpdatePhase++;
                 break;
             case 6:
-                Toast.makeText(this, "Testing...adding train cards to current player",
+                Toast.makeText(this, "Testing...removing train card from current player",
                         Toast.LENGTH_SHORT).show();
-                gamePlayPresenter.changeTrainCards("q");
+                gamePlayPresenter.changeTrainCards();
+                mapUpdatePhase++;
+                break;
+            case 7:
+                Toast.makeText(this, "Testing...removing destination card from current player",
+                        Toast.LENGTH_SHORT).show();
+                gamePlayPresenter.changeDestCards();
+                mapUpdatePhase++;
                 break;
         }
     }
@@ -188,6 +200,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
         ConstraintLayout.LayoutParams constraintLayoutParams = new ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT);
         ConstraintLayout constraintLayout = findViewById(R.id.container);
+
         for (RouteSegment routeSegment : routeSegments) {
             LineView lineView = new LineView(this);
             lineView.setLayoutParams(constraintLayoutParams);

@@ -10,6 +10,7 @@ public class Stat {
 
     public static Stat mapToObject(LinkedTreeMap map){
         String username;
+        double turn;
         double points;
         double trains;
         double trainCards;
@@ -17,19 +18,22 @@ public class Stat {
         username = (String)map.get("username");
         points = (double)map.get("points");
         trains = (double)map.get("trains");
+        turn=(double)map.get("turn");
         trainCards = (double)map.get("trainCards");
         destinationCards = (double)map.get("destinationCards");
-        return new Stat(username, (int) points, (int)trains,(int) trainCards, (int)destinationCards);
+        return new Stat(username, (int) turn, (int) points, (int)trains,(int) trainCards, (int)destinationCards);
     }
     String username;
     int points;
+    int turn;
     int trains;
     int trainCards;
     int destinationCards;
 
-    public Stat(String username, int points, int trains, int trainCards, int destinationCards){
+    public Stat(String username, int turn, int points, int trains, int trainCards, int destinationCards){
         this.username=username;
         this.points=points;
+        this.turn=turn;
         this.trains=trains;
         this.trainCards=trainCards;
         this.destinationCards=destinationCards;
@@ -50,8 +54,29 @@ public class Stat {
     public int getTrainCards() {
         return trainCards;
     }
+    public int getTurn(){return turn;}
 
     public int getDestinationCards() {
         return destinationCards;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public void setTrains(int trains) {
+        this.trains = trains;
+    }
+
+    public void setTrainCards(int trainCards) {
+        this.trainCards = trainCards;
+    }
+
+    public void setDestinationCards(int destinationCards) {
+        this.destinationCards = destinationCards;
     }
 }

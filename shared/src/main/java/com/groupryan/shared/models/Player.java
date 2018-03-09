@@ -73,7 +73,7 @@ public class Player {
     }
 
     public Stat makeStat() {
-        return new Stat(username, points, trainPieces, trainCards.size(), destCards.size());
+        return new Stat(username, turn, points, trainPieces, trainCards.size(), destCards.size());
     }
 
     public void addDestCards(List<DestCard> cards) {
@@ -86,6 +86,10 @@ public class Player {
         for (TrainCard c : cards) {
             trainCards.add(c);
         }
+    }
+
+    public void removeTrains(int cost) {
+        this.trainPieces = trainPieces - cost;
     }
 
     public String getColor() {

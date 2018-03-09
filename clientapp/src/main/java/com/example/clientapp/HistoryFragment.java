@@ -30,6 +30,8 @@ public class HistoryFragment extends Fragment implements  IHistoryView {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_history_list, container, false);
         HistoryPresenter.getInstance().setHistoryView(this);
+
+        //view.setZ(10);
         mRecyclerView = view.findViewById(R.id.history_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new HistoryFragment.HistoryAdapter();
