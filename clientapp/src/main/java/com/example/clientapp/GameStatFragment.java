@@ -30,14 +30,14 @@ public class GameStatFragment extends Fragment implements IGameStatView {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState){
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game_stat, container, false);
         init(view);
         GameStatPresenter.getInstance().setView(this, view);
         return view;
     }
 
-    public void init(View view){
+    public void init(View view) {
         HashMap<String, Stat> theStats = RootClientModel.getCurrentGame().getStats();
         //HashMap<String, Stat> theStats = new HashMap<>();
         //Stat stats= new Stat("claire", 3, 45, 4, 3);
@@ -45,39 +45,54 @@ public class GameStatFragment extends Fragment implements IGameStatView {
 
 
         TableLayout.LayoutParams tableRowParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
-        tableRowParams.setMargins(15,15,15,15);
+        tableRowParams.setMargins(15, 15, 15, 15);
 
 
         TableLayout tableLayout = (TableLayout) view.findViewById(R.id.stats_table);
         TableRow header = new TableRow(getActivity());
         header.setLayoutParams(tableRowParams);
         TextView tv0 = new TextView(getActivity());
-        tv0.setText("    Player    ");
+        tv0.setText("    Turn Order    ");
         tv0.setTextSize(18);
         header.addView(tv0);
         TextView tv1 = new TextView(getActivity());
-        tv1.setText("    Points    ");
+        tv1.setText("    Player    ");
         tv1.setTextSize(18);
         header.addView(tv1);
         TextView tv2 = new TextView(getActivity());
-        tv2.setText("    Trains    ");
+        tv2.setText("    Points    ");
         tv2.setTextSize(18);
         header.addView(tv2);
         TextView tv3 = new TextView(getActivity());
-        tv3.setText("    Train Cards    ");
+        tv3.setText("    Trains    ");
         tv3.setTextSize(18);
         header.addView(tv3);
         TextView tv4 = new TextView(getActivity());
-        tv4.setText("    Destination Cards    ");
+        tv4.setText("    Train Cards    ");
         tv4.setTextSize(18);
         header.addView(tv4);
+        TextView tv5 = new TextView(getActivity());
+        tv5.setText("    Destination Cards    ");
+        tv5.setTextSize(18);
+        header.addView(tv5);
         tableLayout.addView(header);
 
-       // view.setZ(20);
 
-        for(Map.Entry<String, Stat> entry : theStats.entrySet()){
+        int currentTurn = RootClientModel.getCurrentGame().getCurrentTurn();
+        Map<Integer, String> turnOrderMap = RootClientModel.getCurrentGame().getTurnOrderMap();
+
+        for (Map.Entry<String, Stat> entry : theStats.entrySet()) {
             Stat stat = entry.getValue();
             TableRow row = new TableRow(getActivity());
+            TextView turn = new TextView(getActivity());
+            if (turnOrderMap.get(currentTurn).equals(entry.getKey())) {
+                turn.setText("->" + Integer.toString(stat.getTurn()));
+            } else {
+                turn.setText(Integer.toString(stat.getTurn()));
+            }
+            turn.setGravity(Gravity.CENTER);
+            turn.setTextSize(18);
+            row.addView(turn);
             TextView player = new TextView(getActivity());
             player.setText(entry.getKey());
             player.setGravity(Gravity.CENTER);

@@ -2,6 +2,7 @@ package com.groupryan.client.models;
 
 import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Chat;
+import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Stat;
@@ -32,17 +33,27 @@ public class ClientGame extends Observable {
     ArrayList<TrainCard> bankCards;
     HashMap<String, Stat> stats;
     Map<String, String> playersColors;
+    Integer currentTurn;
+    Map<Integer, String> turnOrderMap;
 
     public ClientGame(Game game, Player player) {
-        history = new ArrayList<>();
-        chat = new ArrayList<>();
-        bankCards = new ArrayList<>();
+        this.history = new ArrayList<>();
+        this.chat = new ArrayList<>();
+        this.bankCards = new ArrayList<>();
 
         this.gameId = game.getGameId();
         this.myPlayer = player;
 
         this.stats = new HashMap<>();
         this.playersColors = game.getUsers();
+
+        this.currentTurn = 1;
+
+        this.turnOrderMap = new HashMap<>();
+        int turnOrder = 1;
+        for (String username : this.playersColors.keySet()) {
+            this.turnOrderMap.put(turnOrder, username);
+        }
     }
 
     public String getGameId() {
@@ -100,11 +111,24 @@ public class ClientGame extends Observable {
         this.playersColors = playersColors;
     }
 
-    public void discardDestCards(List<Integer> cardIDs) {
+    public void discardDestCards(DestCardList destCardList) {
+        List<Integer> cardIDs = destCardList.getList();
         for (Integer cardID : cardIDs) {
             myPlayer.removeDestinationCard(cardID);
         }
         setChanged();
         notifyObservers(utils.DISCARD_DESTCARD);
+    }
+
+    public Integer getCurrentTurn() {
+        return currentTurn;
+    }
+
+    public Map<Integer, String> getTurnOrderMap() {
+        return turnOrderMap;
+    }
+
+    public void endTurn() {
+        this.currentTurn += 1;
     }
 }

@@ -25,14 +25,14 @@ public class RootServerModel {
 
     private Map<String, Game> gameMap;
     private Map<String, User> userMap;
-    private Map<Integer, TrainCard> trainCardMap=new HashMap<>();
-    private Map<Integer, DestCard> destinationCardMap=new HashMap<>();
-    private Map<String, ServerGame> serverGameIdMap=new HashMap<>();
+    private Map<Integer, TrainCard> trainCardMap = new HashMap<>();
+    private Map<Integer, DestCard> destinationCardMap = new HashMap<>();
+    private Map<String, ServerGame> serverGameIdMap = new HashMap<>();
     private List<Card> trainCards;
     private List<Card> destinationCards;
-    private Map<String, ServerGame> userGames=new HashMap<>();
-    private Map<Integer, Route> routeMap=new HashMap<>();
-    private Map<Integer, Integer> routeLengthPoints=new HashMap<>();
+    private Map<String, ServerGame> userGames = new HashMap<>();
+    private Map<Integer, Route> routeMap = new HashMap<>();
+    private Map<Integer, Integer> routeLengthPoints = new HashMap<>();
 
     private static RootServerModel single_instance; /*= new RootServerModel();*/
 
@@ -47,9 +47,9 @@ public class RootServerModel {
     }
 
     public ArrayList<Game> getGames() {
-        ArrayList<Game> notStartedGames=new ArrayList<>();
-        for (Game g:gameMap.values()) {
-            if(!g.isStarted()){
+        ArrayList<Game> notStartedGames = new ArrayList<>();
+        for (Game g : gameMap.values()) {
+            if (!g.isStarted()) {
                 notStartedGames.add(g);
             }
         }
@@ -57,7 +57,7 @@ public class RootServerModel {
     }
 
     public ArrayList<User> getUsers() {
-        return (ArrayList<User>)userMap.values();
+        return (ArrayList<User>) userMap.values();
     }
 
     public static String addUser(User user) {
@@ -101,20 +101,19 @@ public class RootServerModel {
     }
 
     private User _getUser(String userId) {
-        if (userMap.containsKey((userId)))
-        {
+        if (userMap.containsKey((userId))) {
             return userMap.get(userId);
         }
         return null;
     }
 
     private String _addGame(Game game) {
-        if(game.getGameId()==null){
+        if (game.getGameId() == null) {
             game.makeGameId();
         }
-        gameMap.put(game.getGameId(),game);
+        gameMap.put(game.getGameId(), game);
         Set<String> keys = game.getUsers().keySet();
-        for (String s:keys) {
+        for (String s : keys) {
             getUser(s).addGame(game);
             break;
         }
@@ -124,15 +123,15 @@ public class RootServerModel {
     }
 
     public Game getGame(String gameId) {
-        if (gameMap.containsKey(gameId))
-        {
+        if (gameMap.containsKey(gameId)) {
             return gameMap.get(gameId);
         }
         return null;
     }
-    public String _createGame(Game game){
-        for (Game g:gameMap.values()) {
-            if(g.getGameName().equals(game.getGameName())){
+
+    public String _createGame(Game game) {
+        for (Game g : gameMap.values()) {
+            if (g.getGameName().equals(game.getGameName())) {
                 return utils.GAME_NAME_IN_USE;
             }
         }
@@ -140,8 +139,7 @@ public class RootServerModel {
     }
 
     private String _confirmUser(User user) {
-        if (userMap.containsKey(user.getUsername()))
-        {
+        if (userMap.containsKey(user.getUsername())) {
             User u = userMap.get(user.getUsername());
             if (u.getPassword().equals(user.getPassword())) {
                 return utils.VALID;
@@ -166,147 +164,155 @@ public class RootServerModel {
         return utils.INVALID_GAMEID;
     }
 
-    private  void makeBank(){
-        destinationCards=new ArrayList<>();
-        trainCards=new ArrayList<>();
+    private void makeBank() {
+        destinationCards = new ArrayList<>();
+        trainCards = new ArrayList<>();
 
-        DestCard d=new DestCard(11, "WINNIPEG", "LITTLE ROCK", 1);
+        DestCard d = new DestCard(11, "WINNIPEG", "LITTLE ROCK", 1);
         destinationCardMap.put(1, d);
         destinationCards.add(d);
-        d=new DestCard(7, "CALGARY", "SALT LAKE CITY", 2);
+        d = new DestCard(7, "CALGARY", "SALT LAKE CITY", 2);
         destinationCardMap.put(2, d);
         destinationCards.add(d);
-        d=new DestCard(10, "TORONTO", "MIAMI", 3);
+        d = new DestCard(10, "TORONTO", "MIAMI", 3);
         destinationCardMap.put(3, d);
         destinationCards.add(d);
-        d=new DestCard(11, "DALLAS", "NEW YORK", 4);
+        d = new DestCard(11, "DALLAS", "NEW YORK", 4);
         destinationCardMap.put(4, d);
         destinationCards.add(d);
-        d=new DestCard(12, "BOSTON", "MIAMI", 5);
+        d = new DestCard(12, "BOSTON", "MIAMI", 5);
         destinationCardMap.put(5, d);
         destinationCards.add(d);
-        d=new DestCard(21, "LOS ANGELES", "NEW YORK", 6);
+        d = new DestCard(21, "LOS ANGELES", "NEW YORK", 6);
         destinationCardMap.put(6, d);
         destinationCards.add(d);
-        d=new DestCard(8, "HELENA", "LOS ANGELES", 7);
+        d = new DestCard(8, "HELENA", "LOS ANGELES", 7);
         destinationCardMap.put(7, d);
         destinationCards.add(d);
-        d=new DestCard(13, "MONTREAL", "NEW ORLEANS", 8);
+        d = new DestCard(13, "MONTREAL", "NEW ORLEANS", 8);
         destinationCardMap.put(8, d);
         destinationCards.add(d);
-        d=new DestCard(10, "DULUTH", "EL PASO", 9);
+        d = new DestCard(10, "DULUTH", "EL PASO", 9);
         destinationCardMap.put(9, d);
         destinationCards.add(d);
-        d=new DestCard(9, "SAULT STE. MARIE", "OKLAHOMA CITY", 10);
+        d = new DestCard(9, "SAULT STE. MARIE", "OKLAHOMA CITY", 10);
         destinationCardMap.put(10, d);
         destinationCards.add(d);
-        d=new DestCard(17, "SAN FRANCISCO", "ATLANTA", 11);
+        d = new DestCard(17, "SAN FRANCISCO", "ATLANTA", 11);
         destinationCardMap.put(11, d);
         destinationCards.add(d);
-        d=new DestCard(22, "SEATTLE", "NEW YORK", 12);
+        d = new DestCard(22, "SEATTLE", "NEW YORK", 12);
         destinationCardMap.put(12, d);
         destinationCards.add(d);
-        d=new DestCard(12, "WINNIPEG", "HOUSTON", 13);
+        d = new DestCard(12, "WINNIPEG", "HOUSTON", 13);
         destinationCardMap.put(13, d);
         destinationCards.add(d);
-        d=new DestCard(20, "LOS ANGELES", "MIAMI", 14);
+        d = new DestCard(20, "LOS ANGELES", "MIAMI", 14);
         destinationCardMap.put(14, d);
         destinationCards.add(d);
-        d=new DestCard(9, "CHICAGO", "SANTA FE", 15);
+        d = new DestCard(9, "CHICAGO", "SANTA FE", 15);
         destinationCardMap.put(15, d);
         destinationCards.add(d);
-        d=new DestCard(8, "DULUTH", "HOUSTON", 16);
+        d = new DestCard(8, "DULUTH", "HOUSTON", 16);
         destinationCardMap.put(16, d);
         destinationCards.add(d);
-        d=new DestCard(6, "NEW YORK", "ATLANTA", 17);
+        d = new DestCard(6, "NEW YORK", "ATLANTA", 17);
         destinationCardMap.put(17, d);
         destinationCards.add(d);
-        d=new DestCard(11, "PORTLAND", "PHOENIX", 18);
+        d = new DestCard(11, "PORTLAND", "PHOENIX", 18);
         destinationCardMap.put(18, d);
         destinationCards.add(d);
-        d=new DestCard(20, "VANCOUVER", "MONTREAL", 19);
+        d = new DestCard(20, "VANCOUVER", "MONTREAL", 19);
         destinationCardMap.put(19, d);
         destinationCards.add(d);
-        d=new DestCard(7, "CHICAGO", "NEW ORLEANS", 20);
+        d = new DestCard(7, "CHICAGO", "NEW ORLEANS", 20);
         destinationCardMap.put(20, d);
         destinationCards.add(d);
-        d=new DestCard(5, "KANSAS CITY", "HOUSTON", 21);
+        d = new DestCard(5, "KANSAS CITY", "HOUSTON", 21);
         destinationCardMap.put(21, d);
         destinationCards.add(d);
-        d=new DestCard(13, "CALGARY", "PHOENIX", 22);
+        d = new DestCard(13, "CALGARY", "PHOENIX", 22);
         destinationCardMap.put(22, d);
         destinationCards.add(d);
-        d=new DestCard(16, "LOS ANGELES", "CHICAGO", 23);
+        d = new DestCard(16, "LOS ANGELES", "CHICAGO", 23);
         destinationCardMap.put(23, d);
         destinationCards.add(d);
-        d=new DestCard(13, "VANCOUVER", "SANTA FE", 24);
+        d = new DestCard(13, "VANCOUVER", "SANTA FE", 24);
         destinationCardMap.put(24, d);
         destinationCards.add(d);
-        d=new DestCard(9, "SEATTLE", "LOS ANGELES", 25);
+        d = new DestCard(9, "SEATTLE", "LOS ANGELES", 25);
         destinationCardMap.put(25, d);
         destinationCards.add(d);
-        d=new DestCard(9, "MONTREAL", "ATLANTA", 26);
+        d = new DestCard(9, "MONTREAL", "ATLANTA", 26);
         destinationCardMap.put(26, d);
         destinationCards.add(d);
-        d=new DestCard(4, "DENVER", "EL PASO", 27);
+        d = new DestCard(4, "DENVER", "EL PASO", 27);
         destinationCardMap.put(27, d);
         destinationCards.add(d);
-        d=new DestCard(8, "SAULT STE. MARIE", "NASHVILLE", 28);
+        d = new DestCard(8, "SAULT STE. MARIE", "NASHVILLE", 28);
         destinationCardMap.put(28, d);
         destinationCards.add(d);
-        d=new DestCard(11, "DENVER", "PITTSBURGH", 29);
+        d = new DestCard(11, "DENVER", "PITTSBURGH", 29);
         destinationCardMap.put(29, d);
         destinationCards.add(d);
-        d=new DestCard(17, "PORTLAND", "NASHVILLE", 30);
+        d = new DestCard(17, "PORTLAND", "NASHVILLE", 30);
         destinationCardMap.put(30, d);
         destinationCards.add(d);
 
-        int id=1;
+        int id = 1;
         TrainCard t;
-        for(int i=0; i<12; i++) {
-            t=new TrainCard(utils.PINK, id);
+        for (int i = 0; i < 12; i++) {
+            t = new TrainCard(utils.PINK, id);
             trainCards.add(t);
-            trainCardMap.put(id,t);
+            trainCardMap.put(id, t);
             id++;
-        } for(int i=0; i<12; i++) {
-            t=new TrainCard(utils.WHITE, id);
+        }
+        for (int i = 0; i < 12; i++) {
+            t = new TrainCard(utils.WHITE, id);
             trainCards.add(t);
-            trainCardMap.put(id,t);
+            trainCardMap.put(id, t);
             id++;
-        } for(int i=0; i<12; i++) {
-            t=new TrainCard(utils.BLUE, id);
+        }
+        for (int i = 0; i < 12; i++) {
+            t = new TrainCard(utils.BLUE, id);
             trainCards.add(t);
-            trainCardMap.put(id,t);
+            trainCardMap.put(id, t);
             id++;
-        } for(int i=0; i<12; i++) {
-            t=new TrainCard(utils.YELLOW, id);
+        }
+        for (int i = 0; i < 12; i++) {
+            t = new TrainCard(utils.YELLOW, id);
             trainCards.add(t);
-            trainCardMap.put(id,t);
+            trainCardMap.put(id, t);
             id++;
-        } for(int i=0; i<12; i++) {
-            t=new TrainCard(utils.ORANGE, id);
+        }
+        for (int i = 0; i < 12; i++) {
+            t = new TrainCard(utils.ORANGE, id);
             trainCards.add(t);
-            trainCardMap.put(id,t);
+            trainCardMap.put(id, t);
             id++;
-        } for(int i=0; i<12; i++) {
-            t=new TrainCard(utils.BLACK, id);
+        }
+        for (int i = 0; i < 12; i++) {
+            t = new TrainCard(utils.BLACK, id);
             trainCards.add(t);
-            trainCardMap.put(id,t);
+            trainCardMap.put(id, t);
             id++;
-        } for(int i=0; i<12; i++) {
-            t=new TrainCard(utils.RED, id);
+        }
+        for (int i = 0; i < 12; i++) {
+            t = new TrainCard(utils.RED, id);
             trainCards.add(t);
-            trainCardMap.put(id,t);
+            trainCardMap.put(id, t);
             id++;
-        } for(int i=0; i<12; i++) {
-            t=new TrainCard(utils.GREEN, id);
+        }
+        for (int i = 0; i < 12; i++) {
+            t = new TrainCard(utils.GREEN, id);
             trainCards.add(t);
-            trainCardMap.put(id,t);
+            trainCardMap.put(id, t);
             id++;
-        } for(int i=0; i<14; i++) {
-            t=new TrainCard(utils.LOCOMOTIVE, id);
+        }
+        for (int i = 0; i < 14; i++) {
+            t = new TrainCard(utils.LOCOMOTIVE, id);
             trainCards.add(t);
-            trainCardMap.put(id,t);
+            trainCardMap.put(id, t);
             id++;
         }
 
@@ -405,37 +411,37 @@ public class RootServerModel {
 
     }
 
-    public Card getCard(String type, int cardID){
-        if(type.equals(utils.DESTINATION)){
+    public Card getCard(String type, int cardID) {
+        if (type.equals(utils.DESTINATION)) {
             return destinationCardMap.get(cardID);
-        }
-        else{
+        } else {
             return trainCardMap.get(cardID);
         }
     }
 
-    public void createServerGame(String gameId){
-        ServerGame sg=new ServerGame(gameId, new Deck(trainCards), new Deck(destinationCards));
+    public void createServerGame(String gameId) {
+        ServerGame sg = new ServerGame(gameId, new Deck(trainCards), new Deck(destinationCards));
 
         serverGameIdMap.put(gameId, sg);
 
     }
 
-    public ServerGame getServerGame(String username){
+    public ServerGame getServerGame(String username) {
         return userGames.get(username);
     }
-    public void addPlayertoGame(String username, String gameID){
+
+    public void addPlayertoGame(String username, String gameID) {
         userGames.put(username, serverGameIdMap.get(gameID));
     }
 
-    public Player createPlayer(String gameId, Map.Entry<String, String> entry, int i){
-        ServerGame sg=serverGameIdMap.get(gameId);
-        List<TrainCard> tCards=new ArrayList<>();
-        tCards.add((TrainCard)sg.drawTrainCard());
+    public Player createPlayer(String gameId, Map.Entry<String, String> entry, int i) {
+        ServerGame sg = serverGameIdMap.get(gameId);
+        List<TrainCard> tCards = new ArrayList<>();
         tCards.add((TrainCard) sg.drawTrainCard());
         tCards.add((TrainCard) sg.drawTrainCard());
-        tCards.add((TrainCard)sg.drawTrainCard());
-        Player p=new Player(entry.getValue(), sg.drawDestinationCards(),tCards ,entry.getKey(), i);
+        tCards.add((TrainCard) sg.drawTrainCard());
+        tCards.add((TrainCard) sg.drawTrainCard());
+        Player p = new Player(entry.getValue(), sg.drawDestinationCards(), tCards, entry.getKey(), i);
         //get the top 4 train cards
         //get the top 3 D cards,
         //store the player ,
@@ -444,18 +450,18 @@ public class RootServerModel {
     }
 
     private String _startGame(String gameId) {
-        if (gameMap.containsKey(gameId))
-        {
+        if (gameMap.containsKey(gameId)) {
             gameMap.get(gameId).setStarted(true);
             return utils.VALID;
         }
         return utils.INVALID_GAMEID;
     }
-    public ServerGame getServerGameByGameId (String gameId){
+
+    public ServerGame getServerGameByGameId(String gameId) {
         return serverGameIdMap.get(gameId);
     }
 
-    public Map<String, ServerGame> getServerGameIdMap(){
+    public Map<String, ServerGame> getServerGameIdMap() {
         return serverGameIdMap;
     }
 

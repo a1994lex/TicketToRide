@@ -8,21 +8,22 @@ import com.google.gson.internal.LinkedTreeMap;
 
 public class Stat {
 
-    public static Stat mapToObject(LinkedTreeMap map){
+    public static Stat mapToObject(LinkedTreeMap map) {
         String username;
         double turn;
         double points;
         double trains;
         double trainCards;
         double destinationCards;
-        username = (String)map.get("username");
-        points = (double)map.get("points");
-        trains = (double)map.get("trains");
-        turn=(double)map.get("turn");
-        trainCards = (double)map.get("trainCards");
-        destinationCards = (double)map.get("destinationCards");
-        return new Stat(username, (int) turn, (int) points, (int)trains,(int) trainCards, (int)destinationCards);
+        username = (String) map.get("username");
+        points = (double) map.get("points");
+        trains = (double) map.get("trains");
+        turn = (double) map.get("turn");
+        trainCards = (double) map.get("trainCards");
+        destinationCards = (double) map.get("destinationCards");
+        return new Stat(username, (int) turn, (int) points, (int) trains, (int) trainCards, (int) destinationCards);
     }
+
     String username;
     int points;
     int turn;
@@ -30,13 +31,13 @@ public class Stat {
     int trainCards;
     int destinationCards;
 
-    public Stat(String username, int turn, int points, int trains, int trainCards, int destinationCards){
-        this.username=username;
-        this.points=points;
-        this.turn=turn;
-        this.trains=trains;
-        this.trainCards=trainCards;
-        this.destinationCards=destinationCards;
+    public Stat(String username, int turn, int points, int trains, int trainCards, int destinationCards) {
+        this.username = username;
+        this.points = points;
+        this.turn = turn;
+        this.trains = trains;
+        this.trainCards = trainCards;
+        this.destinationCards = destinationCards;
     }
 
     public String getUsername() {
@@ -54,7 +55,10 @@ public class Stat {
     public int getTrainCards() {
         return trainCards;
     }
-    public int getTurn(){return turn;}
+
+    public int getTurn() {
+        return turn;
+    }
 
     public int getDestinationCards() {
         return destinationCards;

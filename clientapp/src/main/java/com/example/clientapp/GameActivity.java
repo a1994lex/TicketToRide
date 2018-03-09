@@ -82,8 +82,25 @@ public class GameActivity extends FragmentActivity implements IGameView {
         // ------
         mapUpdatePhase = 0;
         mNav = findViewById(R.id.navigation);
+        mNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         mMenuBtn = findViewById(R.id.menu_btn);
+        mMenuBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mNav.setVisibility(View.VISIBLE);
+                mClaimRoute.setVisibility(View.INVISIBLE);
+                mDrawCards.setVisibility(View.INVISIBLE);
+                mMenuBtn.setVisibility(View.INVISIBLE);
+                mHandButton.setVisibility(View.INVISIBLE);
+            }
+        });
         mClaimRoute = findViewById(R.id.claim_route_btn);
+        mClaimRoute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                modifyRoot();
+            }
+        });
         mDrawCards = findViewById(R.id.draw_card_btn);
         mDrawCards.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,23 +113,6 @@ public class GameActivity extends FragmentActivity implements IGameView {
                 transaction.add(R.id.bank_fragment,new BankFragment(),utils.BANK);
                 transaction.addToBackStack(null);
                 transaction.commit();*/
-            }
-        });
-        mNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
-        mMenuBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mNav.setVisibility(View.VISIBLE);
-                mClaimRoute.setVisibility(View.INVISIBLE);
-                mDrawCards.setVisibility(View.INVISIBLE);
-                mMenuBtn.setVisibility(View.INVISIBLE);
-                mHandButton.setVisibility(View.INVISIBLE);
-            }
-        });
-        mClaimRoute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                modifyRoot();
             }
         });
         mHandButton = findViewById(R.id.hand_btn);
@@ -200,6 +200,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
         ConstraintLayout.LayoutParams constraintLayoutParams = new ConstraintLayout.LayoutParams(
                 ConstraintLayout.LayoutParams.MATCH_PARENT, ConstraintLayout.LayoutParams.MATCH_PARENT);
         ConstraintLayout constraintLayout = findViewById(R.id.container);
+
         for (RouteSegment routeSegment : routeSegments) {
             LineView lineView = new LineView(this);
             lineView.setLayoutParams(constraintLayoutParams);

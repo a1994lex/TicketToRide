@@ -4,6 +4,7 @@ import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCard;
+import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Stat;
@@ -51,10 +52,10 @@ public class ClientCommandFactory {
                 new String[]{User.class.getTypeName()},
                 new Object[]{user});
     }
-    public ClientCommand createDiscardDestinationCardCommand(List<Integer> cardIDs, String username) {
+    public ClientCommand createDiscardDestinationCardCommand(DestCardList destCardList, String username) {
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "discardDestCard",
-                new String[]{List.class.getTypeName(), String.class.getTypeName()},
-                new Object[]{cardIDs, username});
+                new String[]{DestCardList.class.getTypeName(), String.class.getTypeName()},
+                new Object[]{destCardList, username});
     }
 
     public ClientCommand createDrawThreeCardsCommand(List<DestCard> cards){
