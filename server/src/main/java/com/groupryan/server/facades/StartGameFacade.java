@@ -39,7 +39,7 @@ public class StartGameFacade {
         RootServerModel root = RootServerModel.getInstance();
         Game g = root.getGame(gameId);
         root.createServerGame(gameId);
-        int turn=1;
+        int turn = 1;
         for (Map.Entry<String, String> entry : g.getUsers().entrySet()) {
             Player p = root.createPlayer(gameId, entry, turn);
             root.addPlayertoGame(p.getUsername(), gameId);
@@ -51,10 +51,10 @@ public class StartGameFacade {
         //  return CommandManager.getInstance().makeStartGameCommand(g,p);
     }
 
-    void setStats(String gameId){
+    void setStats(String gameId) {
         RootServerModel root = RootServerModel.getInstance();
-        ServerGame g=root.getServerGameByGameId(gameId);
-        for (Player p:g.getPlayers()) {
+        ServerGame g = root.getServerGameByGameId(gameId);
+        for (Player p : g.getPlayers()) {
             CommandManager.getInstance().makeStatCommand(g.getServerGameID(), p.makeStat());
 
         }

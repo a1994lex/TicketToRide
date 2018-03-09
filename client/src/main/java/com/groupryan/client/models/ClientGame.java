@@ -33,17 +33,27 @@ public class ClientGame extends Observable {
     ArrayList<TrainCard> bankCards;
     HashMap<String, Stat> stats;
     Map<String, String> playersColors;
+    Integer currentTurn;
+    Map<Integer, String> turnOrderMap;
 
     public ClientGame(Game game, Player player) {
-        history = new ArrayList<>();
-        chat = new ArrayList<>();
-        bankCards = new ArrayList<>();
+        this.history = new ArrayList<>();
+        this.chat = new ArrayList<>();
+        this.bankCards = new ArrayList<>();
 
         this.gameId = game.getGameId();
         this.myPlayer = player;
 
         this.stats = new HashMap<>();
         this.playersColors = game.getUsers();
+
+        this.currentTurn = 1;
+
+        this.turnOrderMap = new HashMap<>();
+        int turnOrder = 1;
+        for (String username : this.playersColors.keySet()) {
+            this.turnOrderMap.put(turnOrder, username);
+        }
     }
 
     public String getGameId() {
@@ -108,5 +118,17 @@ public class ClientGame extends Observable {
         }
         setChanged();
         notifyObservers(utils.DISCARD_DESTCARD);
+    }
+
+    public Integer getCurrentTurn() {
+        return currentTurn;
+    }
+
+    public Map<Integer, String> getTurnOrderMap() {
+        return turnOrderMap;
+    }
+
+    public void endTurn() {
+        this.currentTurn += 1;
     }
 }

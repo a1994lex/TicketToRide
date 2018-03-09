@@ -32,8 +32,8 @@ public class BankFragment extends Fragment implements IBankView {
     TextView mTCardsLeft;
     TextView mDCardsLeft;
 
-    public int colorFinder(String color){
-        switch(color){
+    public int colorFinder(String color) {
+        switch (color) {
             case utils.PINK:
                 return R.drawable.trainpink;
             case utils.WHITE:
@@ -59,8 +59,8 @@ public class BankFragment extends Fragment implements IBankView {
 
     @Override
     public void init(View view) {
-        ArrayList<TrainCard> bank=BankPresenter.getInstance().getBank();
-        mBankButton=view.findViewById(R.id.deck);
+        ArrayList<TrainCard> bank = BankPresenter.getInstance().getBank();
+        mBankButton = view.findViewById(R.id.deck);
         mBankButton.setImageResource(R.drawable.top_of_deck);
         mBankButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,17 +70,17 @@ public class BankFragment extends Fragment implements IBankView {
                 //async reset task and set this card to the user who clicked it
             }
         });
-        mCardButtonOne=view.findViewById(R.id.card1);
+        mCardButtonOne = view.findViewById(R.id.card1);
         mCardButtonOne.setImageResource(colorFinder(bank.get(0).getColor()));
         mCardButtonOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-               //blank it
+                //blank it
                 mCardButtonOne.setImageResource(R.drawable.outline);
-               //async reset task and set this card to the user who clicked it
+                //async reset task and set this card to the user who clicked it
             }
         });
-        mCardButtonTwo=view.findViewById(R.id.card2);
+        mCardButtonTwo = view.findViewById(R.id.card2);
         mCardButtonTwo.setImageResource(colorFinder(bank.get(1).getColor()));
         mCardButtonTwo.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -90,7 +90,7 @@ public class BankFragment extends Fragment implements IBankView {
                 //async reset task and set this card to the user who clicked it
             }
         });
-        mCardButtonThree=view.findViewById(R.id.card3);
+        mCardButtonThree = view.findViewById(R.id.card3);
         mCardButtonThree.setImageResource(colorFinder(bank.get(2).getColor()));
         mCardButtonThree.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +100,7 @@ public class BankFragment extends Fragment implements IBankView {
                 //async reset task and set this card to the user who clicked it
             }
         });
-        mCardButtonFour=view.findViewById(R.id.card4);
+        mCardButtonFour = view.findViewById(R.id.card4);
         mCardButtonFour.setImageResource(colorFinder(bank.get(3).getColor()));
         mCardButtonFour.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +110,7 @@ public class BankFragment extends Fragment implements IBankView {
                 //async reset task and set this card to the user who clicked it
             }
         });
-        mCardButtonFive=view.findViewById(R.id.card5);
+        mCardButtonFive = view.findViewById(R.id.card5);
         mCardButtonFive.setImageResource(colorFinder(bank.get(4).getColor()));
         mCardButtonFive.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -120,21 +120,22 @@ public class BankFragment extends Fragment implements IBankView {
                 //async reset task and set this card to the user who clicked it
             }
         });
-        mExit=view.findViewById(R.id.exit);
+        mExit = view.findViewById(R.id.exit);
         mExit.setImageResource(R.drawable.ic_home_black_24dp);
         mExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                RootClientModel.getCurrentGame().endTurn();
                 finish();
             }
         });
-        mTCardsLeft= view.findViewById(R.id.tcards_left);
+        mTCardsLeft = view.findViewById(R.id.tcards_left);
         mTCardsLeft.setText("93");
-        mDCardsLeft= view.findViewById(R.id.dcards_left);
+        mDCardsLeft = view.findViewById(R.id.dcards_left);
         mDCardsLeft.setText("21");
     }
 
-    private void finish(){
+    private void finish() {
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
     }
 
@@ -142,9 +143,10 @@ public class BankFragment extends Fragment implements IBankView {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState){
+                             Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_bank, container, false);
         init(view);
         BankPresenter.getInstance().setView(this, view);

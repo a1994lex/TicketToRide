@@ -54,13 +54,13 @@ public class CommandManager {
     }
 
     public List<ClientCommand> getGameCommands(String gameId, String playerId) {
-        assert((gameId != null) && (playerId != null));
+        assert ((gameId != null) && (playerId != null));
         if (!this.gamePlayerCommands.containsKey(gameId)) {
             // Creates an entry for game in the gamePlayerCommands Map using all the users from the game
-           createGameCommandMapEntry(gameId);
+            createGameCommandMapEntry(gameId);
         }
         int size = this.gamePlayerCommands.get(gameId).get(playerId).size();
-        System.out.println("command size in server: "+ size);
+        System.out.println("command size in server: " + size);
         List<ClientCommand> playerCommands = new ArrayList<>(this.gamePlayerCommands.get(gameId).get(playerId));
         this.gamePlayerCommands.get(gameId).get(playerId).clear(); // Clears the players list of commands
         return playerCommands;
@@ -85,7 +85,7 @@ public class CommandManager {
         }
     }
 
-    private void createGameCommandMapEntry(String gameId){
+    private void createGameCommandMapEntry(String gameId) {
         HashMap<String, List<ClientCommand>> userCmdMap = new HashMap<>();
         for (String user : RootServerModel.getInstance().getGame(gameId).getUsers().keySet()) {
             userCmdMap.put(user, new ArrayList<>());
@@ -136,7 +136,7 @@ public class CommandManager {
         }
     }
 
-    private void addUsertoGameMap(String gid, String uid){
+    private void addUsertoGameMap(String gid, String uid) {
         if (gamePlayerCommands.containsKey(gid) && !gamePlayerCommands.get(gid).containsKey(uid)) {
             gamePlayerCommands.get(gid).put(uid, new ArrayList<>());
         }
@@ -194,14 +194,14 @@ public class CommandManager {
         return command;
     }
 
-    public void makeStatCommand(String gameId, Stat stat){
-        ClientCommand command=factory.createStatCommand(stat);
-        _addCommandToGameMap(command, gameId,null);
+    public void makeStatCommand(String gameId, Stat stat) {
+        ClientCommand command = factory.createStatCommand(stat);
+        _addCommandToGameMap(command, gameId, null);
     }
 
-    public void makeBankCommand(String gameId, Bank bank){
-        ClientCommand command=factory.createBankCommand(bank);
-        _addCommandToGameMap(command, gameId,null);
+    public void makeBankCommand(String gameId, Bank bank) {
+        ClientCommand command = factory.createBankCommand(bank);
+        _addCommandToGameMap(command, gameId, null);
     }
 
     // ------------------------------ Methods for Testing  -----------------------------

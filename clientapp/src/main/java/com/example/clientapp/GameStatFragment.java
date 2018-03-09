@@ -78,11 +78,18 @@ public class GameStatFragment extends Fragment implements IGameStatView {
         tableLayout.addView(header);
 
 
+        int currentTurn = RootClientModel.getCurrentGame().getCurrentTurn();
+        Map<Integer, String> turnOrderMap = RootClientModel.getCurrentGame().getTurnOrderMap();
+
         for (Map.Entry<String, Stat> entry : theStats.entrySet()) {
             Stat stat = entry.getValue();
             TableRow row = new TableRow(getActivity());
             TextView turn = new TextView(getActivity());
-            turn.setText(Integer.toString(stat.getTurn()));
+            if (turnOrderMap.get(currentTurn).equals(entry.getKey())) {
+                turn.setText("->" + Integer.toString(stat.getTurn()));
+            } else {
+                turn.setText(Integer.toString(stat.getTurn()));
+            }
             turn.setGravity(Gravity.CENTER);
             turn.setTextSize(18);
             row.addView(turn);
