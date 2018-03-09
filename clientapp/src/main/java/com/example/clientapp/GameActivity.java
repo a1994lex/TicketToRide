@@ -10,7 +10,6 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.groupryan.shared.models.RouteSegment;
@@ -34,6 +33,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
     private FloatingActionButton mDrawCards;
     private FloatingActionButton mClaimRoute;
     private FloatingActionButton mHandButton;
+    private List<LineView> lineViews = new ArrayList<>();
 
     private int mapUpdatePhase;
     private GamePlayPresenter gamePlayPresenter = GamePlayPresenter.getInstance();
@@ -75,6 +75,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         // hotfix
@@ -106,6 +107,9 @@ public class GameActivity extends FragmentActivity implements IGameView {
             @Override
             public void onClick(View v) {
                 //removePrevFrag(utils.BANK);
+                for (LineView lineView : lineViews) {
+                    lineView.setVisibility(View.INVISIBLE);
+                }
                 addFragment(R.id.bank_fragment,
                         new BankFragment(), utils.BANK);
                /* FragmentManager manager = getFragmentManager();
@@ -119,6 +123,9 @@ public class GameActivity extends FragmentActivity implements IGameView {
         mHandButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                for (LineView lineView : lineViews) {
+                    lineView.setVisibility(View.INVISIBLE);
+                }
                 addFragment(R.id.hand_fragment,
                         new HandFragment(), utils.HAND);
             }
@@ -128,6 +135,20 @@ public class GameActivity extends FragmentActivity implements IGameView {
         startDiscardDestCardActivity();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        gamePlayPresenter.redrawRoutes();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        for (LineView lineView : lineViews) {
+            lineView.setVisibility(View.INVISIBLE);
+        }
+    }
+
     public void cardsDiscarded() {
         HandFragment fragment = (HandFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.hand_fragment);
@@ -135,6 +156,9 @@ public class GameActivity extends FragmentActivity implements IGameView {
     }
 
     public void startDiscardDestCardActivity() {
+        for (LineView lineView : lineViews) {
+            lineView.setVisibility(View.INVISIBLE);
+        }
         Intent intent = new Intent(this, DiscardDestCardDialogActivity.class);
         intent.putExtra(utils.GAME_SETUP, true);
         startActivity(intent);
@@ -217,6 +241,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
             constraintSet.connect(lineView.getId(), ConstraintSet.LEFT, constraintLayout.getId(), ConstraintSet.RIGHT, 0);
             constraintSet.connect(lineView.getId(), ConstraintSet.LEFT, constraintLayout.getId(), ConstraintSet.LEFT, 0);
             constraintSet.applyTo(constraintLayout);
+            lineViews.add(lineView);
         }
     }
 
@@ -236,6 +261,9 @@ public class GameActivity extends FragmentActivity implements IGameView {
     }
 
     private void removePrevFrag(String tag) {
+        for (LineView lineView : lineViews) {
+            lineView.setVisibility(View.INVISIBLE);
+        }
         List<String> removeFragIds = new ArrayList<>();
         switch (tag) {
             case utils.CHAT:
@@ -254,12 +282,12 @@ public class GameActivity extends FragmentActivity implements IGameView {
                 removeFragIds.add(utils.CHAT);
                 removeFragIds.add(utils.HISTORY);
                 removeFragIds.add(utils.STAT);
+                gamePlayPresenter.redrawRoutes();
         }
         for (String fragmentId : removeFragIds) {
             Fragment fragment = getSupportFragmentManager().findFragmentByTag(fragmentId);
             if (fragment != null)
                 getSupportFragmentManager().beginTransaction().remove(fragment).commit();
         }
-
     }
 }

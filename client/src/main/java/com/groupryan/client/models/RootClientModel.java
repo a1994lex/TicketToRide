@@ -24,7 +24,7 @@ public class RootClientModel extends Observable {
     private HashMap<String, Route> claimedRoutes = new HashMap<String, Route>();
     private HashMap<Integer, HashSet<RouteSegment>> routeSegments = new HashMap<>();
     private ClientGame clientGame = null;
-    //private GameStat gameStat;
+    private boolean showRoutes = false;
 
     public Map<Integer, HashSet<RouteSegment>> getRouteSegments() {
         return routeSegments;
@@ -62,12 +62,20 @@ public class RootClientModel extends Observable {
 
     }
 
+    public static List<Route> getClaimedRoutes() {
+        return single_instance._getClaimedRoutes();
+    }
+
     private static RootClientModel single_instance = new RootClientModel();
 
 
     public static void addUser(User user) {
         // TODO: check if i am doing add user as intended
         single_instance._addUser(user);
+    }
+
+    public static void setShowRoutes() {
+        single_instance._setShowRoutes();
     }
 
     public static void updateStats(Stat stat) {
@@ -92,8 +100,8 @@ public class RootClientModel extends Observable {
         single_instance._addRoute(username, route);
     }
 
-    public static HashMap<String, Route> getClaimedRoutes() {
-        return single_instance._getRoutes();
+    public static HashMap<String, Route> getClaimedRoutesMap() {
+        return single_instance._getRoutesMap();
     }
 
     public static void setGames(List<Game> games){
@@ -148,6 +156,11 @@ public class RootClientModel extends Observable {
         }
     }
 
+    private void _setShowRoutes() {
+        setChanged();
+        notifyObservers(utils.REDRAW_ROUTES);
+    }
+
     private void _addUserToGame(Game game, User user, String userColor) {
         for (Game g : this.games) {
             if (g.equals(game)) {
@@ -175,8 +188,16 @@ public class RootClientModel extends Observable {
         this.players = players;
     }
 
-    private HashMap<String, Route> _getRoutes() {
+    private HashMap<String, Route> _getRoutesMap() {
         return claimedRoutes;
+    }
+
+    private List<Route> _getClaimedRoutes() {
+        List<Route> claimRoutes = new ArrayList<>();
+        for (Map.Entry<String, Route> entry : claimedRoutes.entrySet()) {
+            claimRoutes.add(entry.getValue());
+        }
+        return claimRoutes;
     }
 
     private void _addRoute(String username, Route route) {
