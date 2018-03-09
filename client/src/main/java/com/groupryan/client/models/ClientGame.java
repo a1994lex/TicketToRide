@@ -50,7 +50,8 @@ public class ClientGame extends Observable {
         this.currentTurn = 1;
 
         this.turnOrderMap = new HashMap<>();
-        int turnOrder = 1;
+        this.turnOrderMap.put(1, this.myPlayer.getUsername());
+        int turnOrder = 2;
         for (String username : this.playersColors.keySet()) {
             this.turnOrderMap.put(turnOrder, username);
         }
