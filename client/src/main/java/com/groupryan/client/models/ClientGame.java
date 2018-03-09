@@ -2,6 +2,7 @@ package com.groupryan.client.models;
 
 import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Chat;
+import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Stat;
@@ -100,7 +101,8 @@ public class ClientGame extends Observable {
         this.playersColors = playersColors;
     }
 
-    public void discardDestCards(List<Integer> cardIDs) {
+    public void discardDestCards(DestCardList destCardList) {
+        List<Integer> cardIDs = destCardList.getList();
         for (Integer cardID : cardIDs) {
             myPlayer.removeDestinationCard(cardID);
         }

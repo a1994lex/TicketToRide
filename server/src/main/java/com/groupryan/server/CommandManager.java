@@ -7,6 +7,7 @@ import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCard;
+import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Stat;
@@ -167,7 +168,8 @@ public class CommandManager {
 
     // DiscardDestinationCardCommand goes to caller only
     public ClientCommand makeDiscardDestinationCardCommand(List<Integer> cardIDs, String username) {
-        ClientCommand command = factory.createDiscardDestinationCardCommand(cardIDs, username);
+        DestCardList destCardList = new DestCardList(cardIDs);
+        ClientCommand command = factory.createDiscardDestinationCardCommand(destCardList, username);
         return command;
     }
 
