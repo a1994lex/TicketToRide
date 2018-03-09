@@ -10,16 +10,14 @@ public class RouteSegment {
     private float yCoordinateA;
     private float xCoordinateB;
     private float yCoordinateB;
-    private String color;
 
     public RouteSegment(float xCoordinateA, float yCoordinateA, float xCoordinateB,
-                        float yCoordinateB, int routeId, String color) {
+                        float yCoordinateB, int routeId) {
         this.xCoordinateA = xCoordinateA;
         this.yCoordinateA = yCoordinateA;
         this.xCoordinateB = xCoordinateB;
         this.yCoordinateB = yCoordinateB;
         this.routeId = routeId;
-        this.color = color;
     }
 
     public int getRouteId() {
@@ -62,11 +60,4 @@ public class RouteSegment {
         this.yCoordinateB = yCoordinateB;
     }
 
-    public String getColor() {
-        return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
-    }
 }
