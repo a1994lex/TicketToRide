@@ -144,9 +144,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
     @Override
     protected void onPause() {
         super.onPause();
-        for (LineView lineView : lineViews) {
-            lineView.setVisibility(View.INVISIBLE);
-        }
+        lineViews.clear();
     }
 
     public void cardsDiscarded() {
@@ -156,9 +154,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
     }
 
     public void startDiscardDestCardActivity() {
-        for (LineView lineView : lineViews) {
-            lineView.setVisibility(View.INVISIBLE);
-        }
+        lineViews.clear();
         Intent intent = new Intent(this, DiscardDestCardDialogActivity.class);
         intent.putExtra(utils.GAME_SETUP, true);
         startActivity(intent);
