@@ -222,6 +222,7 @@ public class RootClientModel extends Observable {
     // x values increase from left to right
     // y values increase from top to bottom (annoying)
     private void initializeRouteSegmentData() {
+
         // Helena to Duluth, id 26
         HashSet<RouteSegment> helenaDuluth = new HashSet<>();
         RouteSegment rs1 = new RouteSegment(440, 220,
@@ -243,6 +244,7 @@ public class RootClientModel extends Observable {
                 713, 215, 26);
         helenaDuluth.add(rs6);
         routeSegments.put(26, helenaDuluth);
+
         // OKC to Little Rock, id 50
         HashSet<RouteSegment> okcLittleRock = new HashSet<>();
         RouteSegment rs7 = new RouteSegment(706, 481,
@@ -252,6 +254,7 @@ public class RootClientModel extends Observable {
                 792, 480, 50);
         okcLittleRock.add(rs8);
         routeSegments.put(50, okcLittleRock);
+
         // Atlanta to Charleston, id 86
         HashSet<RouteSegment> atlantaCharleston = new HashSet<>();
         RouteSegment rs9 = new RouteSegment(1034, 480,
@@ -261,6 +264,7 @@ public class RootClientModel extends Observable {
                 1121, 483, 86);
         atlantaCharleston.add(rs10);
         routeSegments.put(86, atlantaCharleston);
+
         // Duluth to Toronto, id 42
         HashSet<RouteSegment> duluthToronto = new HashSet<>();
         RouteSegment rs11 = new RouteSegment(740, 212,
@@ -282,5 +286,25 @@ public class RootClientModel extends Observable {
                 1010, 168, 42);
         duluthToronto.add(rs16);
         routeSegments.put(42, duluthToronto);
+
+        // Atlanta to Miami, id 84
+        HashSet<RouteSegment> atlantaMiami = new HashSet<>();
+        RouteSegment rs17 = new RouteSegment(1022, 487,
+                1045, 517, 84);
+        atlantaMiami.add(rs17);
+        RouteSegment rs18 = new RouteSegment(1050, 520,
+                1075, 550, 84);
+        atlantaMiami.add(rs18);
+        RouteSegment rs19 = new RouteSegment(1078, 553,
+                1105, 583, 84);
+        atlantaMiami.add(rs19);
+        RouteSegment rs20 = new RouteSegment(1106, 586,
+                1133, 614, 84);
+        atlantaMiami.add(rs20);
+        RouteSegment rs21 = new RouteSegment(1135, 620,
+                1162, 646, 84);
+        atlantaMiami.add(rs21);
+        routeSegments.put(84, atlantaMiami);
+
     }
 }
