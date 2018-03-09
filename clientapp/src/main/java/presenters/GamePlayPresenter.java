@@ -17,6 +17,7 @@ import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.utils;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -36,7 +37,7 @@ import async.RegisterAsyncTask;
 public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
     private RootClientModel root = RootClientModel.getInstance();
-    int totalClaimedRoutes = root.getClaimedRoutes().size();
+    int totalClaimedRoutes = root.getClaimedRoutesMap().size();
     private UIGameFacade uiGameFacade = UIGameFacade.getInstance();
     private Activity gameActivity;
     private Activity discardActivity;
@@ -63,11 +64,14 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         this.discardActivity = discardActivity;
     }
 
+    public void redrawRoutes() {
+        root.setShowRoutes();
+    }
 
     @Override
     public void update(Observable observable, Object o) {
         if (observable == root) {
-            int secondSize = root.getClaimedRoutes().size();
+            int secondSize = root.getClaimedRoutesMap().size();
             if (o.getClass().equals(Route.class)) {
                 if (secondSize > totalClaimedRoutes) {
                     IGameView gameView = (IGameView) gameActivity;
@@ -78,6 +82,20 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
             } else if (o.equals(utils.DISCARD_DESTCARD)) {
                 IGameView gameView = (IGameView) gameActivity;
                 gameView.cardsDiscarded();
+            } else if (o.equals(utils.REDRAW_ROUTES)) {
+                IGameView gameView = (IGameView) gameActivity;
+                List<Route> claimedRoutes = root.getClaimedRoutes();
+                List<Integer> routeIds = new ArrayList<>();
+                List<String> routeColors = new ArrayList<>();
+                for (Route route : claimedRoutes) {
+                    routeIds.add(route.getId());
+                    routeColors.add(route.getColor());
+                }
+                HashSet<RouteSegment> routeSegments = new HashSet<>();
+                for (int i = 0; i < routeIds.size(); i++) {
+                    routeSegments = root.getRouteSegmentSet(routeIds.get(i));
+                    gameView.drawRoute(routeColors.get(i), routeSegments);
+                }
             }
         }
     }

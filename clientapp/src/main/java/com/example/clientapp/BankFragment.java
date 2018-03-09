@@ -19,6 +19,7 @@ import com.groupryan.shared.utils;
 import java.util.ArrayList;
 
 import presenters.BankPresenter;
+import presenters.GamePlayPresenter;
 
 
 public class BankFragment extends Fragment implements IBankView {
@@ -137,6 +138,7 @@ public class BankFragment extends Fragment implements IBankView {
 
     private void finish() {
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+        GamePlayPresenter.getInstance().redrawRoutes();
     }
 
     @Override

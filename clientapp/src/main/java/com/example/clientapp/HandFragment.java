@@ -19,6 +19,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import presenters.GamePlayPresenter;
 import presenters.HandPresenter;
 
 
@@ -37,7 +38,7 @@ public class HandFragment extends Fragment implements IHandView {
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
-
+    private GameActivity gameActivity;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -96,6 +97,7 @@ public class HandFragment extends Fragment implements IHandView {
 
     private void finish(){
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+        GamePlayPresenter.getInstance().redrawRoutes();
     }
 
     private class DestCardHolder extends RecyclerView.ViewHolder {
