@@ -139,6 +139,21 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                                 "TORONTO", 15, utils.GREEN, 42));
                         root.addClaimedRoute(keyValue, new Route(5, "ATLANTA",
                                 "MIAMI", 10, utils.GREEN, 84));
+                        root.addClaimedRoute(keyValue, new Route(6, "SEATTLE",
+                                "HELENA", 15, utils.GREEN, 9));
+                        root.addClaimedRoute(keyValue, new Route(6, "LA",
+                                "EL PASO", 15, utils.GREEN, 15));
+                        root.addClaimedRoute(keyValue, new Route(6, "EL PASO",
+                                "HOUSTON", 15, utils.GREEN, 38));
+                        root.addClaimedRoute(keyValue, new Route(6, "NEW ORLEANS",
+                                "MIAMI", 15, utils.GREEN, 83));
+                        root.addClaimedRoute(keyValue, new Route(6, "CALGARY",
+                                "WINNIPEG", 15, utils.BLUE, 16));
+                        root.addClaimedRoute(keyValue, new Route(6, "PORTLAND",
+                                "SALT LAKE CITY", 15, utils.GREEN, 10));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 87));
+
                         Toast.makeText(this.gameActivity, "Green player is claiming route.", Toast.LENGTH_SHORT);
                         Stat stat = new Stat(keyValue,1, 15, 39, 0, 3);
                         root.getCurrentGame().updateStat(stat);

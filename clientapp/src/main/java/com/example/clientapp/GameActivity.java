@@ -1,8 +1,6 @@
 package com.example.clientapp;
 
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.VectorDrawable;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -10,18 +8,32 @@ import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.RouteSegment;
 import com.groupryan.shared.utils;
 
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.logging.FileHandler;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -38,9 +50,15 @@ public class GameActivity extends FragmentActivity implements IGameView {
     private FloatingActionButton mClaimRoute;
     private FloatingActionButton mHandButton;
     private List<LineView> lineViews = new ArrayList<>();
-
     private int mapUpdatePhase;
     private GamePlayPresenter gamePlayPresenter = GamePlayPresenter.getInstance();
+
+    // views for finding the points of the route segments
+    private ImageView mapImage;
+    private Button newRouteButton;
+    private EditText routeName;
+    private Button nameEntry;
+    //---------------------------------------------------
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -89,6 +107,46 @@ public class GameActivity extends FragmentActivity implements IGameView {
         mNav = findViewById(R.id.navigation);
         mNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         mMenuBtn = findViewById(R.id.menu_btn);
+
+        // views for finding the points of the route segments
+        mapImage = findViewById(R.id.map_button);
+        newRouteButton = findViewById(R.id.new_route);
+        routeName = findViewById(R.id.route_name_entry);
+        nameEntry = findViewById(R.id.name_entry_button);
+        Logger logger = Logger.getLogger("MyLog");
+
+        newRouteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logger.severe("New route\n");
+//                System.out.println("New route\n");
+            }
+        });
+
+        mapImage.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_DOWN){
+                        // the following statement is used to log any messages
+                    logger.severe("x value: " + String.valueOf(event.getX()) +
+                            " y value: " + String.valueOf(event.getY()) + "\n");
+//                    System.out.println("x value: " + String.valueOf(event.getX()) +
+//                            " y value: " + String.valueOf(event.getY()) + "\n");
+                }
+                return true;
+            }
+        });
+
+        nameEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                System.out.println(routeName.getText().toString());
+                logger.severe(routeName.getText().toString());
+            }
+        });
+
+        //--------------------------------------------------------------
+
         mMenuBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
