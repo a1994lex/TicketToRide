@@ -55,7 +55,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
 
     // views for finding the points of the route segments
     private ImageView mapImage;
-    private Button newRouteButton;
+   // private Button newRouteButton;
     private EditText routeName;
     private Button nameEntry;
     //---------------------------------------------------
@@ -110,18 +110,18 @@ public class GameActivity extends FragmentActivity implements IGameView {
 
         // views for finding the points of the route segments
         mapImage = findViewById(R.id.map_button);
-        newRouteButton = findViewById(R.id.new_route);
+        //newRouteButton = findViewById(R.id.new_route);
         routeName = findViewById(R.id.route_name_entry);
         nameEntry = findViewById(R.id.name_entry_button);
         Logger logger = Logger.getLogger("MyLog");
 
-        newRouteButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                logger.severe("New route\n");
-//                System.out.println("New route\n");
-            }
-        });
+//        newRouteButton.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                logger.severe("New route\n");
+////                System.out.println("New route\n");
+//            }
+//        });
 
         mapImage.setOnTouchListener(new View.OnTouchListener() {
             @Override
