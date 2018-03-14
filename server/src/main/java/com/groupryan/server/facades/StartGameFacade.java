@@ -13,71 +13,77 @@ import java.util.ArrayList;
 import java.util.Map;
 
 /**
- * Created by bengu3 on 1/31/18.
+ * The startGameFacade is responsible for starting and preparing everything necessary so that a game can successfully transition
+ * to a new activity.
  */
-
 public class StartGameFacade {
     ArrayList<ClientCommand> commands = new ArrayList<>();
 
-
+    /**
+     *
+     * @param gameId-is ensured to be an existing game ID and will be the gameID of the game where the start game button was clicked.
+     * @return a CommandResult saying VALID or INVALID
+     * pre- the caller promises to have already created an existing game and to pass in the correct gameID
+     * post-the callee promises to successfully start the game and to prepare everything for the pollers of the players in the game.
+     */
     public CommandResult start(String gameId) {
-        //sets the game id = to TRUE and returns the literal VALID
+        //sets the game id = to TRUE and returns the literal VALID unless INVALID
         String result = RootServerModel.getInstance().startGame(gameId);
         CommandResult cr = new CommandResult();
         if (result.equals(utils.VALID)) {
             //if valid it will create a start game command
-            activateGame(gameId);
-            setStats(gameId);
             //then it will prepare the game to be started
+            activateGame(gameId);
+            //gives all info necessary to start game to the players via polling
+            setStats(gameId);
         }
         cr.setResultType(result);
         return cr;
-        //takes the game id and uses it ot shutdown the game and start everything
     }
 
+    /**
+     *
+     * @param gameId the same gameID passed into the startGameFacade Start function.
+     * pre-same as before, game guarenteed to exist and the gameID to be the correct game id passed in earlier.
+     * post-ServerGame of gameID created, players added to it, and all necessary commands to be polled are made
+     */
     void activateGame(String gameId) {
+        //get the root
         RootServerModel root = RootServerModel.getInstance();
+        //get the associated gameID
         Game g = root.getGame(gameId);
+        //make an empty server game with new decks
         root.createServerGame(gameId);
         int turn = 1;
+        //for each player in the original game, create a player for them
         for (Map.Entry<String, String> entry : g.getUsers().entrySet()) {
             Player p = root.createPlayer(gameId, entry, turn);
+            //add player to game
             root.addPlayertoGame(p.getUsername(), gameId);
+            //make a start game command for that player
             CommandManager.getInstance().makeStartGameCommand(g, p);
+            //increment the turn counter
             turn++;
-            //we create a create playa command call using the last line as the playa value
         }
+        //sends the bank to all players after they have all been made.
         CommandManager.getInstance().makeBankCommand(root.getServerGameByGameId(gameId).getServerGameID(), root.getServerGameByGameId(gameId).getBank());
-        //  return CommandManager.getInstance().makeStartGameCommand(g,p);
     }
 
+    /**
+     *
+     * @param gameId assured to be the same gameID as the rest of the class
+     * pre- that the servergame was succesfully created earlier and that it has the correct data necessary to perform the next call and
+     * that the GAMEid is still the same as before
+     * post- will create stat commands for all players and place them in their poller map
+     */
     void setStats(String gameId) {
         RootServerModel root = RootServerModel.getInstance();
+        //get servergame by id
         ServerGame g = root.getServerGameByGameId(gameId);
+        //make a stat for each player
         for (Player p : g.getPlayers()) {
             CommandManager.getInstance().makeStatCommand(g.getServerGameID(), p.makeStat());
 
         }
     }
-
-
-    /*
-*   the set up finction{}
-*   takes a game id
-*   create a new bank to be used for the game consisting on new decks and a new starting top 5
-    *   for each username in the game
-    *       get them Dcards x3
-    *       get the Tcards x4
-    *       set their car amount
-    *       set theor points to 0
-    *       create a player object for them
-    *       create a command result so that their pollar can pick it up
-*       COmmandResult=setupGame (PLayer, gameID)
-*       add COmmand to the pollar map(use the result and the username)
-*       create a command so that they can have the top 5 cards in the bank
-*       ""get face up cards""
-*
- */
-
-
 }
