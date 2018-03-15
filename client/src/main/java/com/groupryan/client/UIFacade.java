@@ -81,6 +81,10 @@ public class UIFacade {
         return ServerProxy.getInstance().sendChat(gid, msg, uid);
     }
 
+    public CommandResult drawTrainCard(Integer position, String userID){
+        return ServerProxy.getInstance().drawColorCard(position, userID);
+    }
+
     public CommandResult discardDestinationCard(List<Integer> cardIDs, String username) {
         DestCardList destCardList = new DestCardList(cardIDs);
         return ServerProxy.getInstance().discardDestinationCard(destCardList, username);

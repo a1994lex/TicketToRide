@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import async.DrawTrainCardAsyncTask;
+
 /**
  * Created by ryanm on 3/3/2018.
  */
@@ -35,6 +37,11 @@ public class BankPresenter implements Observer, IBankPresenter {
     @Override
     public void updateBank() {
 
+    }
+
+    public static void drawTrainCard(int position) {
+        DrawTrainCardAsyncTask task = new DrawTrainCardAsyncTask();
+        task.execute(position);
     }
 
     public ArrayList<TrainCard> getBank(){

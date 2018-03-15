@@ -83,4 +83,9 @@ public class ServerCommandFactory {
                 new Object[]{destCardList, username});
     }
 
+    public ServerCommand createDrawColorCardCommand(Integer i, String username) {
+        return new ServerCommand("com.groupryan.server.facades.MainFacade", "drawColorCard",
+                new String[]{Integer.class.getTypeName(), String.class.getTypeName()},
+                new Object[]{i, username});
+    }
 }

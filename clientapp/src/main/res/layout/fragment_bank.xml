@@ -65,7 +65,7 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter" />
             <ImageButton
-                android:id="@+id/card6"
+                android:id="@+id/destdeck"
                 android:layout_width="140dp"
                 android:layout_height="100dp"
                 android:adjustViewBounds="true"

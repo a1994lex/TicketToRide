@@ -76,10 +76,11 @@ public class MainFacade implements IServer {
     }
 
     @Override
-    public CommandResult drawColorCard(String gameId) {
+    public CommandResult drawColorCard(Integer position, String username) {
         ColorCardFacade ccf = new ColorCardFacade();
-        return ccf.drawCard();
+        return ccf.drawCard(position, username);
     }
+
 
     @Override
     public CommandResult updateFaceUp(String gameId) {

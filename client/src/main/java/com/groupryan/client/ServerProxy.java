@@ -86,8 +86,10 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public CommandResult drawColorCard(String username) {
-        return null;
+    public CommandResult drawColorCard(Integer i, String username) {
+        ServerCommand command = serverCommandFactory.createDrawColorCardCommand(i, username);
+        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.DRAW_COLOR_CARD, command);
+        return commandResult;
     }
 
     @Override

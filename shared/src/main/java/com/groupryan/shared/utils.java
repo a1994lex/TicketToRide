@@ -20,6 +20,7 @@ public class utils {
     public static final String GET_GAME_LIST = "getGameList";
     public static final String DISCARD_DESTCARD = "discardDestCard";
     public static final String DRAW_THREE_CARDS = "drawDestinationCards";
+    public static final String DRAW_COLOR_CARD="drawColorCards";
 
     public static final String BLACK = "BLACK";
     public static final String YELLOW = "YELLOW";
