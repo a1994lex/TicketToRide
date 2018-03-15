@@ -180,9 +180,8 @@ public class CommandManager {
     }
 
     // DrawColorCardCommand goes to caller only
-    public ClientCommand makeDrawColorCardCommand() {
-        // TODO create commandFactory method
-        ClientCommand command = null;
+    public ClientCommand makeDrawColorCardCommand(TrainCard tc) {
+        ClientCommand command = factory.createDrawColorCardCommand(tc);
         return command;
     }
 

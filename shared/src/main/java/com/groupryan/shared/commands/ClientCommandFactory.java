@@ -8,6 +8,7 @@ import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Stat;
+import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.models.User;
 
 import java.util.List;
@@ -62,6 +63,12 @@ public class ClientCommandFactory {
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "drawThreeCards",
                 new String[]{List.class.getTypeName()},
                 new Object[]{cards});
+    }
+
+    public ClientCommand createDrawColorCardCommand(TrainCard tc){
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "drawColorCard",
+                new String[]{TrainCard.class.getTypeName()},
+                new Object[]{tc});
     }
 
     public ClientCommand createChatCommand(String msg, String username){

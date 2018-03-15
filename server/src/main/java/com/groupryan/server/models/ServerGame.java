@@ -161,8 +161,9 @@ public class ServerGame {
       return bank;
     }
     public Bank updateFaceUp(int position){
-        TrainCard tc=(TrainCard)trainCards.draw(1);
-        bank.add(position-1, tc);
+        TrainCard tc=(TrainCard)trainCards.draw(1).get(0);
+        bank.set(position-1, tc);
+
         return new Bank(bank);
     }
 

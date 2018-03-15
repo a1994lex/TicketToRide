@@ -6,6 +6,7 @@ import com.groupryan.shared.models.Chat;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Stat;
+import com.groupryan.shared.models.TrainCard;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,10 @@ public class ClientGameFacade {
     public void discardDestCard(DestCardList destCardList, String username) {
         assert (RootClientModel.getCurrentGame().getMyPlayer().getUsername().equals(username));
         RootClientModel.getCurrentGame().discardDestCards(destCardList);
+    }
+
+    public void drawColorCard(TrainCard tc){
+        RootClientModel.getCurrentGame().getMyPlayer().addTrainCard(tc);
     }
 
     public void drawThreeCards(List<DestCard> cards) {
