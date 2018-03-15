@@ -35,6 +35,10 @@ public class GamePollerTask extends AsyncTask<Void, Void, List<ClientCommand>> {
     @Override
     protected void onPostExecute(List<ClientCommand> commandList) {
         System.out.println(commandList);
+        if(commandList.size()>2){
+            int i=0;
+            i++;
+        }
         for (ClientCommand command : commandList) {
             command.execute();
         }

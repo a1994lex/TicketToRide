@@ -87,4 +87,16 @@ public class ClientCommandFactory {
                 new String[]{Bank.class.getTypeName()},
                 new Object[]{bank});
     }
+
+    public ClientCommand createDDeckCommand(double size){
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "setDDeckSize",
+                new String[]{double.class.getTypeName()},
+                new Object[]{size});
+    }
+
+    public ClientCommand createTDeckCommand(double size){
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "setTDeckSize",
+                new String[]{double.class.getTypeName()},
+                new Object[]{size});
+    }
 }

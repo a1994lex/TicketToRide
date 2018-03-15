@@ -117,6 +117,7 @@ public class ServerGame {
 
     public void discard(String deckType, int cardID, String username) {
         if (deckType.equals(utils.DESTINATION)) {
+            //todo maybe check to see if it is already in the discard pile ebcause if you double click this could cause problems
             Card c = RootServerModel.getInstance().getCard(deckType, cardID);
             destinationCards.discard(c);
             playaMap.get(username).removeDestinationCard(cardID);
@@ -125,6 +126,14 @@ public class ServerGame {
             trainCards.discard(c);
             playaMap.get(username).removeTrainCard(c);
         }
+    }
+
+    public int getDDeckSize() {
+        return destinationCards.cardsLeft();
+    }
+
+    public int getTDeckSize() {
+        return trainCards.cardsLeft();
     }
 
     public String getServerGameID() {

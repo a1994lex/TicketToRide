@@ -24,44 +24,50 @@
             <ImageButton
 
                 android:id="@+id/deck"
-                android:layout_width="160dp"
+                android:layout_width="140dp"
 
-                android:layout_height="115dp"
+                android:layout_height="100dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter" />
 
             <ImageButton
                 android:id="@+id/card1"
-                android:layout_width="160dp"
-                android:layout_height="115dp"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter" />
 
             <ImageButton
                 android:id="@+id/card2"
-                android:layout_width="160dp"
-                android:layout_height="115dp"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter" />
 
             <ImageButton
                 android:id="@+id/card3"
-                android:layout_width="160dp"
-                android:layout_height="115dp"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter" />
 
             <ImageButton
                 android:id="@+id/card4"
-                android:layout_width="160dp"
-                android:layout_height="115dp"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter" />
 
             <ImageButton
                 android:id="@+id/card5"
-                android:layout_width="160dp"
-                android:layout_height="115dp"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter" />
+            <ImageButton
+                android:id="@+id/card6"
+                android:layout_width="140dp"
+                android:layout_height="100dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter" />
         </LinearLayout>
@@ -93,7 +99,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textView3"
+                android:layout_above="@+id/textView5"
                 android:text=""
                 android:textColor="@android:color/white"
                 android:id="@+id/dcards_left" />
@@ -101,7 +107,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/dcards_left"
+                android:layout_above="@+id/exit"
                 android:text="Destination Cards Left"
                 android:textColor="@android:color/white"
                 android:id="@+id/textView5" />

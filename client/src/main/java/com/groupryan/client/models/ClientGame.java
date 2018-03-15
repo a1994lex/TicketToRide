@@ -28,6 +28,8 @@ import java.util.Observable;
 public class ClientGame extends Observable {
     String gameId;
     Player myPlayer;
+    int DDeckSize=30;
+    int TDeckSize=110;
     ArrayList<String> history;
     ArrayList<Chat> chat;
     ArrayList<TrainCard> bankCards;
@@ -131,5 +133,21 @@ public class ClientGame extends Observable {
 
     public void endTurn() {
         this.currentTurn += 1;
+    }
+
+    public int getDDeckSize() {
+        return DDeckSize;
+    }
+
+    public void setDDeckSize(int DDeckSize) {
+        this.DDeckSize = DDeckSize;
+    }
+
+    public int getTDeckSize() {
+        return TDeckSize;
+    }
+
+    public void setTDeckSize(int TDeckSize) {
+        this.TDeckSize = TDeckSize;
     }
 }

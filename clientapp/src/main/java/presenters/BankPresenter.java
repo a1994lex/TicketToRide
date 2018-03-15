@@ -40,6 +40,13 @@ public class BankPresenter implements Observer, IBankPresenter {
     public ArrayList<TrainCard> getBank(){
         return RootClientModel.getCurrentGame().getBankCards();
     }
+    public int getTDeckSize(){
+        return RootClientModel.getCurrentGame().getTDeckSize();
+    }
+
+    public int getDDeckSize(){
+        return RootClientModel.getCurrentGame().getDDeckSize();
+    }
 
     @Override
     public void setView(IBankView bankView, View view)

@@ -33,6 +33,15 @@ public class ClientGameFacade {
         RootClientModel.getCurrentGame().setBank(bank);
     }
 
+    public void setTDeckSize(int size){
+        RootClientModel.getCurrentGame().setTDeckSize(size);
+    }
+
+    public void setDDeckSize(double size){
+        int theSize=(int)size;
+        RootClientModel.getCurrentGame().setDDeckSize(theSize);
+    }
+
     public void discardDestCard(DestCardList destCardList, String username) {
         assert (RootClientModel.getCurrentGame().getMyPlayer().getUsername().equals(username));
         RootClientModel.getCurrentGame().discardDestCards(destCardList);

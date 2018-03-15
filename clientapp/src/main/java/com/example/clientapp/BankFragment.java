@@ -29,6 +29,7 @@ public class BankFragment extends Fragment implements IBankView {
     ImageButton mCardButtonThree;
     ImageButton mCardButtonFour;
     ImageButton mCardButtonFive;
+    ImageButton mDestDeck;
     ImageButton mExit;
     TextView mTCardsLeft;
     TextView mDCardsLeft;
@@ -121,6 +122,17 @@ public class BankFragment extends Fragment implements IBankView {
                 //async reset task and set this card to the user who clicked it
             }
         });
+        mDestDeck = view.findViewById(R.id.card6);
+        mDestDeck.setImageResource(R.drawable.dest_card);
+        mDestDeck.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //blank it
+                mDestDeck.setImageResource(R.drawable.outline);
+                //async reset task and set this card to the user who clicked it
+            }
+        });
+
         mExit = view.findViewById(R.id.exit);
         mExit.setImageResource(R.drawable.ic_home_black_24dp);
         mExit.setOnClickListener(new View.OnClickListener() {
@@ -131,9 +143,9 @@ public class BankFragment extends Fragment implements IBankView {
             }
         });
         mTCardsLeft = view.findViewById(R.id.tcards_left);
-        mTCardsLeft.setText("93");
+        mTCardsLeft.setText(Integer.toString(BankPresenter.getInstance().getTDeckSize()));
         mDCardsLeft = view.findViewById(R.id.dcards_left);
-        mDCardsLeft.setText("21");
+        mDCardsLeft.setText(Integer.toString(BankPresenter.getInstance().getDDeckSize()));
     }
 
     private void finish() {

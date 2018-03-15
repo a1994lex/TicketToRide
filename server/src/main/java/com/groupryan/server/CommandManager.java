@@ -204,6 +204,18 @@ public class CommandManager {
         _addCommandToGameMap(command, gameId, null);
     }
 
+    public void makeDDeckCommand(String gameId, int size){
+        double theSize=(double)size;
+        ClientCommand command = factory.createDDeckCommand(theSize);
+        _addCommandToGameMap(command, gameId, null);
+    }
+
+    public void makeTDeckCommand(String gameId, int size){
+        double theSize=(double)size;
+        ClientCommand command = factory.createTDeckCommand(theSize);
+        _addCommandToGameMap(command, gameId, null);
+    }
+
     // ------------------------------ Methods for Testing  -----------------------------
 
     public int numberOfUsers() {

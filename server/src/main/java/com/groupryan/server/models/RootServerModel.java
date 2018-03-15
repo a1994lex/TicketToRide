@@ -41,7 +41,7 @@ public class RootServerModel {
             single_instance = new RootServerModel();
             Game game = new Game();
             single_instance.gameMap = game.makeTestGames();
-            single_instance.makeBank();
+            //single_instance.makeBank();
         }
         return single_instance;
     }
@@ -420,10 +420,9 @@ public class RootServerModel {
     }
 
     public void createServerGame(String gameId) {
+        makeBank();
         ServerGame sg = new ServerGame(gameId, new Deck(trainCards), new Deck(destinationCards));
-
         serverGameIdMap.put(gameId, sg);
-
     }
 
     public ServerGame getServerGame(String username) {
