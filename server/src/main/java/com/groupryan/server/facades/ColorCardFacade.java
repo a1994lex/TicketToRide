@@ -26,7 +26,6 @@ public class ColorCardFacade {
             tc= (TrainCard)sg.drawTrainCard();
             //set history
             history = userID + " drew from the bank.";
-
         }
         //else it is the position in the array that was clicked
         //so then you get a new card, replace it in the bank, and return it to everyone
@@ -49,7 +48,7 @@ public class ColorCardFacade {
             Bank newBank=sg.updateFaceUp(position);
             CommandManager.getInstance().makeBankCommand(sg.getServerGameID(), newBank);
         }
-
+        CommandManager.getInstance().makeTDeckCommand(sg.getServerGameID(), sg.getTDeckSize());
         return cr;
     }
 

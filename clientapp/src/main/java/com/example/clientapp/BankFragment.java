@@ -70,6 +70,7 @@ public class BankFragment extends Fragment implements IBankView {
                 //blank it
                 mBankButton.setImageResource(R.drawable.outline);
                 BankPresenter.drawTrainCard(-1);
+                mBankButton.setImageResource(R.drawable.top_of_deck);
                 //async reset task and set this card to the user who clicked it
             }
         });
@@ -80,6 +81,7 @@ public class BankFragment extends Fragment implements IBankView {
             public void onClick(View view) {
                 //blank it
                 mCardButtonOne.setImageResource(R.drawable.outline);
+                BankPresenter.drawTrainCard(1);
                 //async reset task and set this card to the user who clicked it
             }
         });
