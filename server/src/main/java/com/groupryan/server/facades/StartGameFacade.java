@@ -67,6 +67,8 @@ public class StartGameFacade {
         }
         //sends the bank to all players after they have all been made.
         CommandManager.getInstance().makeBankCommand(root.getServerGameByGameId(gameId).getServerGameID(), root.getServerGameByGameId(gameId).getBank());
+        ServerGame sg=root.getServerGameByGameId(gameId);
+        CommandManager.getInstance().makeTDeckCommand(sg.getServerGameID(), sg.getTDeckSize());
     }
 
     /**
