@@ -157,6 +157,15 @@ public class ServerGame {
         CommandManager.getInstance().addHistoryCommand(indeed, getServerGameID(), entry.getKey());
     }
 
+    public List<TrainCard> getBankList(){
+      return bank;
+    }
+    public Bank updateFaceUp(int position){
+        TrainCard tc=(TrainCard)trainCards.draw(1);
+        bank.add(position-1, tc);
+        return new Bank(bank);
+    }
+
     public Bank getBank(){
         return new Bank(bank);
     }

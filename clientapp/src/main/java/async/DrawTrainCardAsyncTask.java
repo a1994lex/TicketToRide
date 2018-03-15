@@ -2,6 +2,8 @@ package async;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 
 import com.groupryan.client.UIFacade;
@@ -14,12 +16,11 @@ import com.groupryan.shared.utils;
  * Created by arctu on 3/14/2018.
  */
 
+
 public class DrawTrainCardAsyncTask extends AsyncTask<Integer, Void, CommandResult>{
 
-    Activity activity;
     private UIFacade uifacade = UIFacade.getInstance();
     public DrawTrainCardAsyncTask() {
-       // this.activity = activity;
     }
 
 
@@ -34,7 +35,6 @@ public class DrawTrainCardAsyncTask extends AsyncTask<Integer, Void, CommandResu
         for (ClientCommand command : result.getClientCommands()) {
             command.execute();
         }
-       // this.activity.finish();
     }
 }
 
