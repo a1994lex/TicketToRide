@@ -112,7 +112,10 @@ public class ServerGame {
     }
 
     public Card drawTrainCard() {
-        return (trainCards.draw(1)).get(0);
+        List<Card> cards=trainCards.draw(1);
+        if(cards==null)
+            return null;
+        return cards.get(0);
     }
 
     public void discard(String deckType, int cardID, String username) {

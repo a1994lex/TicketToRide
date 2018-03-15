@@ -24,6 +24,10 @@ public class ColorCardFacade {
         //so then return a new card and let it go back to be updated
         if(position==-1){
             tc= (TrainCard)sg.drawTrainCard();
+            if(tc==null){
+                cr.setResultType("No cards in Deck");
+                return cr;
+            }
             //set history
             history = userID + " drew from the bank.";
         }

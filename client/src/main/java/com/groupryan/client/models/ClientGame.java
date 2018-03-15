@@ -92,6 +92,8 @@ public class ClientGame extends Observable {
 
     public void setBank(Bank bank) {
         bankCards = bank.convertToArray();
+        setChanged();
+        notifyObservers(utils.BANK);
     }
 
     public void updateHistory(String msg) {
@@ -141,6 +143,8 @@ public class ClientGame extends Observable {
 
     public void setDDeckSize(int DDeckSize) {
         this.DDeckSize = DDeckSize;
+        setChanged();
+        notifyObservers(utils.BANK);
     }
 
     public int getTDeckSize() {
@@ -149,5 +153,7 @@ public class ClientGame extends Observable {
 
     public void setTDeckSize(int TDeckSize) {
         this.TDeckSize = TDeckSize;
+        setChanged();
+        notifyObservers(utils.BANK);
     }
 }

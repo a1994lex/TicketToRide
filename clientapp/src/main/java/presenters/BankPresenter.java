@@ -64,7 +64,6 @@ public class BankPresenter implements Observer, IBankPresenter {
 
     @Override
     public void cardOneClicked() {
-
     }
 
     @Override
