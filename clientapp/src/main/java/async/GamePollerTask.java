@@ -40,7 +40,7 @@ public class GamePollerTask extends AsyncTask<Void, Void, List<ClientCommand>> {
             i++;
         }
         for (ClientCommand command : commandList) {
-            command.execute();
+             command.execute();
         }
        // RootClientModel.getInstance();
     }

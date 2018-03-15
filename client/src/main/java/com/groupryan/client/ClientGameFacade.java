@@ -33,13 +33,12 @@ public class ClientGameFacade {
         RootClientModel.getCurrentGame().setBank(bank);
     }
 
-    public void setTDeckSize(int size){
+    public void setTDeckSize(Integer size){
         RootClientModel.getCurrentGame().setTDeckSize(size);
     }
 
     public void setDDeckSize(Integer size){
-        int theSize=(int)size;
-        RootClientModel.getCurrentGame().setDDeckSize(theSize);
+        RootClientModel.getCurrentGame().setDDeckSize(size);
     }
 
     public void discardDestCard(DestCardList destCardList, String username) {
