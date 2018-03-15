@@ -37,7 +37,7 @@ public class ClientGameFacade {
         RootClientModel.getCurrentGame().setTDeckSize(size);
     }
 
-    public void setDDeckSize(double size){
+    public void setDDeckSize(Integer size){
         int theSize=(int)size;
         RootClientModel.getCurrentGame().setDDeckSize(theSize);
     }
