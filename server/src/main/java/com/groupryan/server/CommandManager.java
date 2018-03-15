@@ -205,13 +205,13 @@ public class CommandManager {
     }
 
     public void makeDDeckCommand(String gameId, int size){
-        double theSize=(double)size;
+        Integer theSize=(Integer)size;
         ClientCommand command = factory.createDDeckCommand(theSize);
         _addCommandToGameMap(command, gameId, null);
     }
 
     public void makeTDeckCommand(String gameId, int size){
-        double theSize=(double)size;
+        Integer theSize=(Integer)size;
         ClientCommand command = factory.createTDeckCommand(theSize);
         _addCommandToGameMap(command, gameId, null);
     }
