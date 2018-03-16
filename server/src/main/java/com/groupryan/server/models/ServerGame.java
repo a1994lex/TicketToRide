@@ -28,6 +28,7 @@ public class ServerGame {
     Map<String, Stat> stats;
     List<Player> turnOrder;
     List<TrainCard> bank;
+    int ready;
 
     // playamap after  stats also null
     public ServerGame(String serverGameID, Deck trainCards, Deck destinationCards) {
@@ -43,6 +44,18 @@ public class ServerGame {
         bank = new ArrayList<>();
         setRiver();//river is a poker term referring to the cards on the table to see
 //        makeFakeHistory();
+    }
+
+    public void startReady(int i){
+        ready=0-i;
+    }
+    public Boolean updateReady(){
+        ready++;
+        if(ready==0){
+            ready++;
+            return true;
+        }
+        return false;
     }
 
     private void setRiver() {

@@ -85,7 +85,6 @@ public class RootServerModel {
         return single_instance._startGame(gameId);
     }
 
-
     private RootServerModel() {
         gameMap = new HashMap<>();
         userMap = new HashMap<>();
