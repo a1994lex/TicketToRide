@@ -2,7 +2,8 @@ package com.groupryan.client;
 
 import com.google.gson.Gson;
 import com.groupryan.shared.Serializer;
-import com.groupryan.shared.commands.ServerCommand;
+import com.groupryan.shared.commands.*;
+import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.GameListResult;
 import com.groupryan.shared.results.LoginResult;
@@ -14,14 +15,31 @@ import java.io.OutputStreamWriter;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.ArrayList;
 
+/** The ClientCommunicator class is used by the client to send and receive information from the server.
+ * It uses HTTP requests and responses to make these communications. It opens a connection to the
+ * server, serializes a ServerCommand object to a JSON string, sends the string to the server,
+ * and waits for an HTTP response from the server. */
 public class ClientCommunicator {
+
+    /** single instance of the ClientCommunicator */
     public static ClientCommunicator instance = new ClientCommunicator();
 
+    /** static instance of Gson to serialize and deserialize objects */
     private static Gson gson = new Gson();
 
+    /** private constructor for implementing the singleton pattern
+     * @pre must be called by the ClientCommunicator class
+     * @post instantiates an instance of ClientCommunicator class */
     private ClientCommunicator() {}
 
+    /** Returns an instance of the ClientCommunicator class. Implements the singleton method
+     * by returning a static instance of the ClientCommunicator
+     * @return a copy of the ClientCommunicator object
+     * @pre can be called by any class
+     * @post returns an instance of ClientCommunicator class
+     */
     public static ClientCommunicator getInstance() {
         if (instance == null) {
             instance = new ClientCommunicator();
@@ -37,63 +55,97 @@ public class ClientCommunicator {
      * @param command The Command object that holds all of the information for executing a command.
      * @return CommandResult that indicates whether the command was executed properly and returns
      * a list of Commands or success or error messages.
+     * @pre commandName must be the string "login", "register", or "getGameList", the command object
+     * must be a ServerCommand object
+     * @post returns a CommandResult object, LoginResult, or GameListResult
      */
     public Object sendCommand(String commandName, ServerCommand command) {
-        HttpURLConnection connection = openConnection(utils.EXEC_COMMAND, commandName);
+       HttpURLConnection connection = openConnection(utils.EXEC_COMMAND, commandName);
         if (commandName.equals(utils.LOGIN) || commandName.equals(utils.REGISTER)) {
             LoginResult result;
             if (connection != null) {
                 sendToServer(connection, command);
-                return returnResult(connection, LoginResult.class);
+                try {
+                    return returnResult(connection, LoginResult.class);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
             else {
-                result = new LoginResult(); // send result with exception, failed to connect
+                result = new LoginResult(utils.FAILED_CONNECTION, utils.FAILED_CONNECTION_MESSAGE,
+                        new ArrayList<>(), utils.INVALID); // send result with exception, failed to connect
                 return result;
             }
         }
         else {
             if (commandName.equals(utils.GET_GAME_LIST)) {
-                GameListResult result;
-                if (connection != null) {
-                    sendToServer(connection, command);
-                    return returnResult(connection, GameListResult.class);
-                }
-                else {
-                    result = new GameListResult(); // send result with exception, failed to connect
-                    return result;
-                }
+                return returnGameListResult(connection, command);
             }
             else {
-                CommandResult result;
-                if (connection != null) {
-                    sendToServer(connection, command);
-                    return returnResult(connection, CommandResult.class);
-                }
-                else {
-                    result = new CommandResult(); // send result with exception, failed to connect
-                    return result;
-                }
+                return returnCommandResult(connection, command);
             }
         }
+        return new CommandResult(utils.FAILED_CONNECTION, utils.FAILED_CONNECTION_MESSAGE,
+                new ArrayList<>(), utils.INVALID);
     }
 
-    /** Sends a HTTP request by calling the sendCommand() method, but returns only the list of
-     * commands received from the server.
+    /** This method gets called when a GameListResult object is supposed to be sent back to the
+     * UIFacade. Creates a GameListResult object or a CommandResult if there is a problem.
      *
-     * @param commandName The kind of command that is being sent. Added as request header.
+     * @param connection An object that represents a connection to the server.
      * @param command The Command object that holds all of the information for executing a command.
-     * @return CommandResult that indicates whether the command was executed properly and returns
-     * a list of Commands or success or error messages.
+     * @return A CommandResult object representing the results of sending a command to the server.
+     * @pre connection must be a valid connection to the server, command must be a ServerCommand
+     * @post returns a GameListResult object
      */
-    public CommandResult sendGetCommands(String commandName, ServerCommand command) {
-        CommandResult result = (CommandResult) sendCommand(commandName, command);
+    private Object returnGameListResult(HttpURLConnection connection, ServerCommand command) {
+        GameListResult result;
+        if (connection != null) {
+            sendToServer(connection, command);
+            try {
+                return returnResult(connection, GameListResult.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        // send result with exception, failed to connect
+        result = new GameListResult(utils.FAILED_CONNECTION,
+                utils.FAILED_CONNECTION_MESSAGE, new ArrayList<>(), utils.INVALID,
+                null);
         return result;
     }
 
-    /** Turns a Command into a JSON string.
+    /** This method gets called when a GameListResult object is supposed to be sent back to the
+     * UIFacade. Creates a GameListResult object or a CommandResult if there is a problem.
+     *
+     * @param connection An object that represents a connection to the server.
+     * @param command The Command object that holds all of the information for executing a command.
+     * @return A CommandResult object representing the results of sending a command to the server.
+     * @pre connection must be a valid connection to the server, command must be a ServerCommand
+     * @post returns a CommandResult object
+     */
+    private Object returnCommandResult(HttpURLConnection connection, ServerCommand command) {
+        CommandResult result;
+        if (connection != null) {
+            sendToServer(connection, command);
+            try {
+                return returnResult(connection, CommandResult.class);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        // send result with exception, failed to connect
+        result = new CommandResult(utils.FAILED_CONNECTION,
+                utils.FAILED_CONNECTION_MESSAGE, new ArrayList<>(), utils.INVALID);
+        return result;
+    }
+
+    /** Turns a ServerCommand object into a JSON string.
      *
      * @param command The ServerCommand object going to the server.
      * @return A String object.
+     * @pre command must be a ServerCommand
+     * @post returns a JSON String representing a serialized ServerCommand
      */
     private String serializeCommand(ServerCommand command) {
         return Serializer.encode(command);
@@ -105,6 +157,9 @@ public class ClientCommunicator {
      * @param contextIdentifier The URL ending that indicates which web API is called.
      * @param commandName A String that indicates which kind of Command is being sent.
      * @return A connection to the server.
+     * @pre contextIdentifier must be a valid URL ending, commandName must be a valid name for a
+     * Command class
+     * @post returns a valid connection to the server
      */
     private HttpURLConnection openConnection(String contextIdentifier, String commandName) {
         HttpURLConnection result = null;
@@ -120,7 +175,6 @@ public class ClientCommunicator {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         return result;
     }
 
@@ -129,6 +183,9 @@ public class ClientCommunicator {
      *
      * @param connection A connection to the server.
      * @param commandToSend A ServerCommand object being sent to the server.
+     * @pre connection must be a valid connection to the server, the commandToSend must be a
+     * valid ServerCommand
+     * @post a command is sent to the server
      */
     private void sendToServer(HttpURLConnection connection, ServerCommand commandToSend) {
         try {
@@ -141,13 +198,17 @@ public class ClientCommunicator {
         }
     }
 
-    /** Receives a ClientCommand from the server, deserializes it, and returns it.
+    /**Receives a ClientCommand from the server, deserializes it, and returns it.
      *
      * @param connection The connection to the server.
      * @param klass A class that represents the class of the object sent from the server.
      * @return A CommandResult that indicates the success of the command.
+     * @throws Exception when unable to get the input stream or response code from the
+     * HttpURLConnection object
+     * @pre connection must be a valid connection to the server, klass is a valid Java class
+     * @post returns a GameListResult, LoginResult, or CommandResult object
      */
-    private Object returnResult(HttpURLConnection connection, Class<?> klass) {
+    private Object returnResult(HttpURLConnection connection, Class<?> klass) throws Exception {
         Object result = null;
         try {
             if (connection.getResponseCode() == HttpURLConnection.HTTP_OK) {
@@ -168,17 +229,10 @@ public class ClientCommunicator {
             } else {
                 throw new Exception(String.format("http code %d",	connection.getResponseCode()));
             }
-        } catch (Exception e) {   // return result with exception message
+        } catch (IOException e) {   // return result with exception message
             e.printStackTrace();
-            if (klass.equals(LoginResult.class)) {
-                result = new LoginResult();
-            }
-            else if (klass.equals(GameListResult.class)) {
-                result = new GameListResult();
-            }
-            else if (klass.equals(CommandResult.class)) {
-                result = new CommandResult();
-            }
+            result = new CommandResult(e.getCause().getClass().toString(), e.getMessage(),
+                    new ArrayList<ClientCommand>(), utils.INVALID);
         }
         return result;
     }

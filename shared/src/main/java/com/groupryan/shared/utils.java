@@ -48,6 +48,9 @@ public class utils {
     public static final String HISTORY = "HISTORY";
     public static final String STAT = "STAT";
     public static final String BANK = "BANK";
+    public static final String INVALID = "INVALID";
+    public static final String FAILED_CONNECTION = "FAILED CONNECTION";
+    public static final String FAILED_CONNECTION_MESSAGE = "FAILED TO CONNECT";
     public static final String HAND = "HAND";
     public static final String REDRAW_ROUTES = "REDRAW_ROUTES";
 

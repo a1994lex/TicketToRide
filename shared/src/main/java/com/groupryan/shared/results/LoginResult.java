@@ -25,6 +25,11 @@ public class LoginResult extends CommandResult{
         this.gameList = games;
     }
 
+    public LoginResult(String exceptionType, String exceptionMessage, List<ClientCommand> clientCommands,
+                       String resultType){
+        super(exceptionType, exceptionMessage, clientCommands, resultType);
+    }
+
     public LoginResult(){
         super();
     }
