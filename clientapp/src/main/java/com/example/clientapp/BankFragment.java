@@ -69,14 +69,10 @@ public class BankFragment extends Fragment implements IBankView {
             @Override
             public void onClick(View view) {
                 //blank it
-                if(BankPresenter.getInstance().getTDeckSize()==0){
-                    Toast.makeText(getActivity(), "No cards in deck nor cards in discard", Toast.LENGTH_SHORT).show();
-                }
-                else {
                     mBankButton.setImageResource(R.drawable.outline);
                     BankPresenter.drawTrainCard(-1);
                     //async reset task and set this card to the user who clicked it
-                }
+
             }
         });
         mCardButtonOne = view.findViewById(R.id.card1);
