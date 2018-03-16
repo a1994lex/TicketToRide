@@ -63,6 +63,7 @@ public class BankFragment extends Fragment implements IBankView {
     @Override
     public void init(View view) {
         ArrayList<TrainCard> bank = BankPresenter.getInstance().getBank();
+
         mBankButton = view.findViewById(R.id.deck);
         mBankButton.setImageResource(R.drawable.top_of_deck);
         mBankButton.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +80,7 @@ public class BankFragment extends Fragment implements IBankView {
                 }
             }
         });
+
         mCardButtonOne = view.findViewById(R.id.card1);
         mCardButtonOne.setImageResource(colorFinder(bank.get(0).getColor()));
         mCardButtonOne.setOnClickListener(new View.OnClickListener() {
@@ -90,6 +92,7 @@ public class BankFragment extends Fragment implements IBankView {
                 //async reset task and set this card to the user who clicked it
             }
         });
+
         mCardButtonTwo = view.findViewById(R.id.card2);
         mCardButtonTwo.setImageResource(colorFinder(bank.get(1).getColor()));
         mCardButtonTwo.setOnClickListener(new View.OnClickListener() {
@@ -101,6 +104,7 @@ public class BankFragment extends Fragment implements IBankView {
                 //async reset task and set this card to the user who clicked it
             }
         });
+
         mCardButtonThree = view.findViewById(R.id.card3);
         mCardButtonThree.setImageResource(colorFinder(bank.get(2).getColor()));
         mCardButtonThree.setOnClickListener(new View.OnClickListener() {
@@ -112,6 +116,7 @@ public class BankFragment extends Fragment implements IBankView {
                 //async reset task and set this card to the user who clicked it
             }
         });
+
         mCardButtonFour = view.findViewById(R.id.card4);
         mCardButtonFour.setImageResource(colorFinder(bank.get(3).getColor()));
         mCardButtonFour.setOnClickListener(new View.OnClickListener() {
@@ -123,6 +128,7 @@ public class BankFragment extends Fragment implements IBankView {
                 //async reset task and set this card to the user who clicked it
             }
         });
+
         mCardButtonFive = view.findViewById(R.id.card5);
         mCardButtonFive.setImageResource(colorFinder(bank.get(4).getColor()));
         mCardButtonFive.setOnClickListener(new View.OnClickListener() {
@@ -134,6 +140,7 @@ public class BankFragment extends Fragment implements IBankView {
                 //async reset task and set this card to the user who clicked it
             }
         });
+
         mDestDeck = view.findViewById(R.id.destdeck);
         mDestDeck.setImageResource(R.drawable.dest_card);
         mDestDeck.setOnClickListener(new View.OnClickListener() {
@@ -155,6 +162,7 @@ public class BankFragment extends Fragment implements IBankView {
                 finish();
             }
         });
+
         mTCardsLeft = view.findViewById(R.id.tcards_left);
         mTCardsLeft.setText(Integer.toString(BankPresenter.getInstance().getTDeckSize()));
         mDCardsLeft = view.findViewById(R.id.dcards_left);
@@ -178,10 +186,6 @@ public class BankFragment extends Fragment implements IBankView {
         init(view);
         BankPresenter.getInstance().setView(this, view);
         return view;
-    }
-
-    public void toast(){
-        Toast.makeText(this.getActivity(), "No cards in Deck", Toast.LENGTH_SHORT).show();
     }
 
 }
