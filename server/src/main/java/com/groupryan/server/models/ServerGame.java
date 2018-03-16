@@ -179,6 +179,20 @@ public class ServerGame {
     public Bank updateFaceUp(int position){
         TrainCard tc=(TrainCard)trainCards.draw(1).get(0);
         bank.set(position-1, tc);
+        int loco=0;
+        for (TrainCard t:bank) {
+            if(t.getColor().equals(utils.LOCOMOTIVE)){
+                loco++;
+            }
+        }
+        if(loco>2){
+            List<TrainCard> cosos=new ArrayList<>();
+            for(TrainCard t:bank){
+                trainCards.discard(t);
+                cosos.add((TrainCard)trainCards.draw(1));
+            }
+            bank=cosos;
+        }
 
         return new Bank(bank);
     }
