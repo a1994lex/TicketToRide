@@ -12,6 +12,9 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import async.DrawDestinationCardsAsyncTask;
+import async.DrawTrainCardAsyncTask;
+
 /**
  * Created by ryanm on 3/3/2018.
  */
@@ -37,8 +40,26 @@ public class BankPresenter implements Observer, IBankPresenter {
 
     }
 
+    public static void drawTrainCard(int position) {
+        DrawTrainCardAsyncTask task = new DrawTrainCardAsyncTask();
+        task.execute(position);
+    }
+
+    public static void drawDestinationCards(){
+        DrawDestinationCardsAsyncTask task = new DrawDestinationCardsAsyncTask();
+        task.execute();
+    }
+
+
     public ArrayList<TrainCard> getBank(){
         return RootClientModel.getCurrentGame().getBankCards();
+    }
+    public int getTDeckSize(){
+        return RootClientModel.getCurrentGame().getTDeckSize();
+    }
+
+    public int getDDeckSize(){
+        return RootClientModel.getCurrentGame().getDDeckSize();
     }
 
     @Override
@@ -50,7 +71,6 @@ public class BankPresenter implements Observer, IBankPresenter {
 
     @Override
     public void cardOneClicked() {
-
     }
 
     @Override

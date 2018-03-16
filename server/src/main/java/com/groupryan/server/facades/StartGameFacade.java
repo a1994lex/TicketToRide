@@ -65,8 +65,12 @@ public class StartGameFacade {
             //increment the turn counter
             turn++;
         }
+        ServerGame sg=root.getServerGameByGameId(gameId);
         //sends the bank to all players after they have all been made.
-        CommandManager.getInstance().makeBankCommand(root.getServerGameByGameId(gameId).getServerGameID(), root.getServerGameByGameId(gameId).getBank());
+        sg.startReady(turn-1);
+        CommandManager.getInstance().makeBankCommand(sg.getServerGameID(), sg.getBank());
+
+        CommandManager.getInstance().makeTDeckCommand(sg.getServerGameID(), sg.getTDeckSize());
     }
 
     /**

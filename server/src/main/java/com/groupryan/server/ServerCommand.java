@@ -65,8 +65,13 @@ public class ServerCommand implements IServerCommand {
             Class<?> receiver = types[i];
             try {
 
-                if (types[i].getName().startsWith("java.lang")){
+                if (types[i].getName().equals("java.lang.String")){
                     objects.add((String)paramValues[i]);
+                }
+                else if(types[i].getName().equals("java.lang.Integer")){
+                    Double d= (Double) paramValues[i];
+                    Integer a = d.intValue();
+                    objects.add(a);
                 }
                 else{
                     Method method = receiver.getMethod("mapToObject", LinkedTreeMap.class);

@@ -81,6 +81,10 @@ public class Player {
         }
     }
 
+    public void addTrainCard(TrainCard tc){
+        trainCards.add(tc);
+    }
+
     public void addTrainCards(List<TrainCard> cards) {
         for (TrainCard c : cards) {
             trainCards.add(c);

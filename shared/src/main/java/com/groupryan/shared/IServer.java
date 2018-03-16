@@ -28,7 +28,7 @@ public interface IServer {
 
     CommandResult sendChat(String gameId, String msg, String username);
 
-    CommandResult drawColorCard(String username);
+    CommandResult drawColorCard(Integer position, String username);
 
     CommandResult updateFaceUp(String gameId);
 

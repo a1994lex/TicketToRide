@@ -32,9 +32,14 @@ public class DestinationCardFacade {
 //playa stat updates, needs to be sent to everyone
         String history = username + " discarded " + cardIDs.size() + " cards.";
         ServerGame serverGame = RootServerModel.getInstance().getServerGame(username);
+        if(serverGame.updateReady()){
+            //CommandManager.getInstance()       start the game or update the forst player state
+        }
         serverGame.addHistory(history);
         CommandManager.getInstance().addHistoryCommand(history, serverGame.getServerGameID(), null);
         CommandManager.getInstance().makeStatCommand(serverGame.getServerGameID(), serverGame.getStat(username));
+        CommandManager.getInstance().makeDDeckCommand(serverGame.getServerGameID(), serverGame.getDDeckSize());
+
         //create the 2 necessary commands
         return cr;
     }

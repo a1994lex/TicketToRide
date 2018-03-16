@@ -28,6 +28,7 @@ public class ServerGame {
     Map<String, Stat> stats;
     List<Player> turnOrder;
     List<TrainCard> bank;
+    int ready;
 
     // playamap after  stats also null
     public ServerGame(String serverGameID, Deck trainCards, Deck destinationCards) {
@@ -43,6 +44,18 @@ public class ServerGame {
         bank = new ArrayList<>();
         setRiver();//river is a poker term referring to the cards on the table to see
 //        makeFakeHistory();
+    }
+
+    public void startReady(int i){
+        ready=0-i;
+    }
+    public Boolean updateReady(){
+        ready++;
+        if(ready==0){
+            ready++;
+            return true;
+        }
+        return false;
     }
 
     private void setRiver() {
@@ -112,11 +125,15 @@ public class ServerGame {
     }
 
     public Card drawTrainCard() {
-        return (trainCards.draw(1)).get(0);
+        List<Card> cards=trainCards.draw(1);
+        if(cards==null)
+            return null;
+        return cards.get(0);
     }
 
     public void discard(String deckType, int cardID, String username) {
         if (deckType.equals(utils.DESTINATION)) {
+            //todo maybe check to see if it is already in the discard pile ebcause if you double click this could cause problems
             Card c = RootServerModel.getInstance().getCard(deckType, cardID);
             destinationCards.discard(c);
             playaMap.get(username).removeDestinationCard(cardID);
@@ -125,6 +142,14 @@ public class ServerGame {
             trainCards.discard(c);
             playaMap.get(username).removeTrainCard(c);
         }
+    }
+
+    public int getDDeckSize() {
+        return destinationCards.cardsLeft();
+    }
+
+    public int getTDeckSize() {
+        return trainCards.cardsLeft();
     }
 
     public String getServerGameID() {
@@ -147,6 +172,39 @@ public class ServerGame {
         CommandManager.getInstance().addHistoryCommand(hello, getServerGameID(), null);
         CommandManager.getInstance().addHistoryCommand(indeed, getServerGameID(), entry.getKey());
     }
+
+    public List<TrainCard> getBankList(){
+      return bank;
+    }
+
+    public Bank updateFaceUp(int position){
+        TrainCard tc=(TrainCard)trainCards.draw(1).get(0);
+        bank.set(position-1, tc);
+        bank=locoCheck(bank);
+        return new Bank(bank);
+    }
+
+    private List<TrainCard> locoCheck(List<TrainCard> b){
+        int loco=0;
+        for (TrainCard t:b) {
+            if(t.getColor().equals(utils.LOCOMOTIVE)){
+                loco++;
+            }
+        }
+        if(loco>2){
+            List<TrainCard> cosos=new ArrayList<>();
+            for(TrainCard t:b){
+                trainCards.discard(t);
+                cosos.add((TrainCard)trainCards.draw(1).get(0));
+            }
+            b=cosos;
+        }
+        else{
+            return b;
+        }
+        return locoCheck(b);
+    }
+
 
     public Bank getBank(){
         return new Bank(bank);

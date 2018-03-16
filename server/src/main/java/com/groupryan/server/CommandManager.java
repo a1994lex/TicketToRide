@@ -180,9 +180,8 @@ public class CommandManager {
     }
 
     // DrawColorCardCommand goes to caller only
-    public ClientCommand makeDrawColorCardCommand() {
-        // TODO create commandFactory method
-        ClientCommand command = null;
+    public ClientCommand makeDrawColorCardCommand(TrainCard tc) {
+        ClientCommand command = factory.createDrawColorCardCommand(tc);
         return command;
     }
 
@@ -201,6 +200,18 @@ public class CommandManager {
 
     public void makeBankCommand(String gameId, Bank bank) {
         ClientCommand command = factory.createBankCommand(bank);
+        _addCommandToGameMap(command, gameId, null);
+    }
+
+    public void makeDDeckCommand(String gameId, int size){
+        Integer theSize=(Integer)size;
+        ClientCommand command = factory.createDDeckCommand(theSize);
+        _addCommandToGameMap(command, gameId, null);
+    }
+
+    public void makeTDeckCommand(String gameId, int size){
+        Integer theSize=(Integer)size;
+        ClientCommand command = factory.createTDeckCommand(theSize);
         _addCommandToGameMap(command, gameId, null);
     }
 

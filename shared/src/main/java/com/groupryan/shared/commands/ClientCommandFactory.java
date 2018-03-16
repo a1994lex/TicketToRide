@@ -5,9 +5,11 @@ import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.DestCardList;
+import com.groupryan.shared.models.DestCardReturnObject;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Stat;
+import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.models.User;
 
 import java.util.List;
@@ -59,9 +61,16 @@ public class ClientCommandFactory {
     }
 
     public ClientCommand createDrawThreeCardsCommand(List<DestCard> cards){
+        DestCardReturnObject cardss= new DestCardReturnObject(cards);
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "drawThreeCards",
-                new String[]{List.class.getTypeName()},
-                new Object[]{cards});
+                new String[]{DestCardReturnObject.class.getTypeName()},
+                new Object[]{cardss});
+    }
+
+    public ClientCommand createDrawColorCardCommand(TrainCard tc){
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "drawColorCard",
+                new String[]{TrainCard.class.getTypeName()},
+                new Object[]{tc});
     }
 
     public ClientCommand createChatCommand(String msg, String username){
@@ -86,5 +95,17 @@ public class ClientCommandFactory {
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "setBank",
                 new String[]{Bank.class.getTypeName()},
                 new Object[]{bank});
+    }
+
+    public ClientCommand createDDeckCommand(Integer size){
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "setDDeckSize",
+                new String[]{Integer.class.getTypeName()},
+                new Object[]{size});
+    }
+
+    public ClientCommand createTDeckCommand(Integer size){
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "setTDeckSize",
+                new String[]{Integer.class.getTypeName()},
+                new Object[]{size});
     }
 }
