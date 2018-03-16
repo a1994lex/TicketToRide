@@ -176,26 +176,35 @@ public class ServerGame {
     public List<TrainCard> getBankList(){
       return bank;
     }
+
     public Bank updateFaceUp(int position){
         TrainCard tc=(TrainCard)trainCards.draw(1).get(0);
         bank.set(position-1, tc);
+        bank=locoCheck(bank);
+        return new Bank(bank);
+    }
+
+    private List<TrainCard> locoCheck(List<TrainCard> b){
         int loco=0;
-        for (TrainCard t:bank) {
+        for (TrainCard t:b) {
             if(t.getColor().equals(utils.LOCOMOTIVE)){
                 loco++;
             }
         }
         if(loco>2){
             List<TrainCard> cosos=new ArrayList<>();
-            for(TrainCard t:bank){
+            for(TrainCard t:b){
                 trainCards.discard(t);
-                cosos.add((TrainCard)trainCards.draw(1));
+                cosos.add((TrainCard)trainCards.draw(1).get(0));
             }
-            bank=cosos;
+            b=cosos;
         }
-
-        return new Bank(bank);
+        else{
+            return b;
+        }
+        return locoCheck(b);
     }
+
 
     public Bank getBank(){
         return new Bank(bank);
