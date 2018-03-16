@@ -5,6 +5,7 @@ import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Chat;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.DestCardList;
+import com.groupryan.shared.models.DestCardReturnObject;
 import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.models.TrainCard;
 
@@ -51,7 +52,8 @@ public class ClientGameFacade {
         RootClientModel.getCurrentGame().getMyPlayer().addTrainCard(tc);
     }
 
-    public void drawThreeCards(List<DestCard> cards) {
+    public void drawThreeCards(DestCardReturnObject cards) {
+        ArrayList<DestCard> cardss=cards.convertToArray();
         int i=0;
         //they need to be given to the player and a new activity is to be made
 
