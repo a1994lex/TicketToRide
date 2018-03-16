@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
 
+import async.DrawDestinationCardsAsyncTask;
 import async.DrawTrainCardAsyncTask;
 
 /**
@@ -43,6 +44,12 @@ public class BankPresenter implements Observer, IBankPresenter {
         DrawTrainCardAsyncTask task = new DrawTrainCardAsyncTask();
         task.execute(position);
     }
+
+    public static void drawDestinationCards(){
+        DrawDestinationCardsAsyncTask task = new DrawDestinationCardsAsyncTask();
+        task.execute();
+    }
+
 
     public ArrayList<TrainCard> getBank(){
         return RootClientModel.getCurrentGame().getBankCards();

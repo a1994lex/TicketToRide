@@ -97,6 +97,7 @@ public class BankFragment extends Fragment implements IBankView {
             public void onClick(View view) {
                 //blank it
                 mCardButtonTwo.setImageResource(R.drawable.outline);
+                BankPresenter.drawTrainCard(2);
                 //async reset task and set this card to the user who clicked it
             }
         });
@@ -107,6 +108,7 @@ public class BankFragment extends Fragment implements IBankView {
             public void onClick(View view) {
                 //blank it
                 mCardButtonThree.setImageResource(R.drawable.outline);
+                BankPresenter.drawTrainCard(3);
                 //async reset task and set this card to the user who clicked it
             }
         });
@@ -117,6 +119,7 @@ public class BankFragment extends Fragment implements IBankView {
             public void onClick(View view) {
                 //blank it
                 mCardButtonFour.setImageResource(R.drawable.outline);
+                BankPresenter.drawTrainCard(4);
                 //async reset task and set this card to the user who clicked it
             }
         });
@@ -127,6 +130,7 @@ public class BankFragment extends Fragment implements IBankView {
             public void onClick(View view) {
                 //blank it
                 mCardButtonFive.setImageResource(R.drawable.outline);
+                BankPresenter.drawTrainCard(5);
                 //async reset task and set this card to the user who clicked it
             }
         });
@@ -137,6 +141,7 @@ public class BankFragment extends Fragment implements IBankView {
             public void onClick(View view) {
                 //blank it
                 mDestDeck.setImageResource(R.drawable.outline);
+                BankPresenter.drawDestinationCards();
                 //async reset task and set this card to the user who clicked it
             }
         });

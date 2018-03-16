@@ -5,6 +5,7 @@ import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.DestCardList;
+import com.groupryan.shared.models.DestCardReturnObject;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Stat;
@@ -60,9 +61,10 @@ public class ClientCommandFactory {
     }
 
     public ClientCommand createDrawThreeCardsCommand(List<DestCard> cards){
+        DestCardReturnObject cardss= new DestCardReturnObject(cards);
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "drawThreeCards",
-                new String[]{List.class.getTypeName()},
-                new Object[]{cards});
+                new String[]{DestCardReturnObject.class.getTypeName()},
+                new Object[]{cardss});
     }
 
     public ClientCommand createDrawColorCardCommand(TrainCard tc){

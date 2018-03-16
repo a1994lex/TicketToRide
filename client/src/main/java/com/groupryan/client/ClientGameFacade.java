@@ -52,6 +52,8 @@ public class ClientGameFacade {
     }
 
     public void drawThreeCards(List<DestCard> cards) {
+        int i=0;
+        //they need to be given to the player and a new activity is to be made
 
     }
 }
