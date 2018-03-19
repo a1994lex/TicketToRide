@@ -406,6 +406,16 @@ public class RootServerModel {
         routeMap.put(88, new Route(2, "RALEIGH", "CHARLESTON", 2, "", 88));
         routeMap.put(89, new Route(2, "PITTSBURGH", "RALEIGH", 2, "", 89));
         routeMap.put(90, new Route(2, "RALEIGH", "WASHINGTON", 2, "", 90));
+        routeMap.put(91, new Route(1, "VANCOUVER", "SEATTLE", 1, "", 91));
+        routeMap.put(92, new Route(1, "SEATTLE", "PORTLAND", 1, "", 92));
+        routeMap.put(93, new Route(2, "DULUTH", "OMAHA", 2, "", 93));
+        routeMap.put(94, new Route(1, "OMAHA", "KANSAS CITY", 1, "", 94));
+        routeMap.put(95, new Route(2, "KANSAS CITY", "OKLAHOMA CITY", 2, "", 95));
+        routeMap.put(96, new Route(2, "OKLAHOMA CITY", "DALLAS", 2, "", 96));
+        routeMap.put(97, new Route(1, "DALLAS", "HOUSTON", 1, "", 97));
+        routeMap.put(98, new Route(2, "ATLANTA", "RALEIGH", 2, "", 98));
+        routeMap.put(99, new Route(2, "RALEIGH", "WASHINGTON", 2, "", 99));
+        routeMap.put(100, new Route(2, "MONTREAL", "BOSTON", 2, "", 100));
 
 
     }

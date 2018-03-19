@@ -179,6 +179,93 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                                 "MIAMI", 8, utils.GREEN, 33));
                         root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
                                 "MIAMI", 8, utils.GREEN, 36));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 1));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 91));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 2));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 92));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 5));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 6));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 19));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 20));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 31));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 32));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 44));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 93));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 46));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 94));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 49));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 95));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 51));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 96));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 52));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 97));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 47));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 48));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 60));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 61));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 62));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 63));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 73));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 74));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 81));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 82));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 85));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 98));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 90));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 99));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 75));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 76));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 71));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 72));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 69));
+                        root.addClaimedRoute(keyValue, new Route(6, "CHARLESTON",
+                                "MIAMI", 8, utils.GREEN, 100));
+
+
+
+
+
+
+
 
                         Toast.makeText(this.gameActivity, "Green player is claiming route.", Toast.LENGTH_SHORT);
                         Stat stat = new Stat(keyValue,1, 15, 39, 0, 3);
