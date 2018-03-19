@@ -212,24 +212,444 @@ public class RootClientModel extends Observable {
     // y values increase from top to bottom (annoying)
     private void initializeRouteSegmentData() {
 
+        // Vancouver to Seattle, id 1
+        HashSet<RouteSegment> vancouverSeattle1 = new HashSet<>();
+        RouteSegment rs1 = new RouteSegment(112, 102, 111, 134, 1);
+        vancouverSeattle1.add(rs1);
+        routeSegments.put(1, vancouverSeattle1);
+
+        RouteSegment rs2;
+        RouteSegment rs3;
+        RouteSegment rs4;
+        RouteSegment rs5;
+        RouteSegment rs6;
+
+        // Vancouver to Seattle, id 91
+        HashSet<RouteSegment> vancouverSeattle2 = new HashSet<>();
+        rs1 = new RouteSegment(127, 99, 128, 133, 91);
+        vancouverSeattle2.add(rs1);
+        routeSegments.put(91, vancouverSeattle2);
+
+        // Seattle to Portland, id 2
+        HashSet<RouteSegment> seattlePortland1 = new HashSet<>();
+        rs1 = new RouteSegment(102, 159, 89, 191, 2);
+        seattlePortland1.add(rs1);
+        routeSegments.put(2, seattlePortland1);
+
+        // Seattle to Portland, id 92
+        HashSet<RouteSegment> seattlePortland2 = new HashSet<>();
+        rs1 = new RouteSegment(119, 165, 104, 196, 92);
+        seattlePortland2.add(rs1);
+        routeSegments.put(92, seattlePortland2);
+
+        // San Francisco to Los Angeles, id 5
+        HashSet<RouteSegment> SFtoLA1 = new HashSet<>();
+        rs1 = new RouteSegment(75, 456, 90, 489,
+                5);
+        rs2 = new RouteSegment(95, 493, 117, 522,
+                5);
+        rs3 = new RouteSegment(121, 529, 149, 552,
+                5);
+        SFtoLA1.add(rs1);
+        SFtoLA1.add(rs2);
+        SFtoLA1.add(rs3);
+        routeSegments.put(5, SFtoLA1);
+
+        // SF to LA, id 6
+        HashSet<RouteSegment> SFtoLA2 = new HashSet<>();
+        rs1 = new RouteSegment(87, 447, 104, 480,
+                6);
+        rs2 = new RouteSegment(108, 485, 130, 514,
+                6);
+        rs3 = new RouteSegment(135, 519, 161, 543,
+                6);
+        SFtoLA2.add(rs1);
+        SFtoLA2.add(rs2);
+        SFtoLA2.add(rs3);
+        routeSegments.put(6, SFtoLA2);
+
+        // SLC to Denver1, id 19
+        HashSet<RouteSegment> SLCtoDenver1 = new HashSet<>();
+        rs1 = new RouteSegment(345, 356, 383, 363,
+                19);
+        rs2 = new RouteSegment(391, 363, 430, 369,
+                19);
+        rs3 = new RouteSegment(437, 371, 471, 378,
+                19);
+        SLCtoDenver1.add(rs1);
+        SLCtoDenver1.add(rs2);
+        SLCtoDenver1.add(rs3);
+        routeSegments.put(19, SLCtoDenver1);
+
+        // SLC to Denver 2, id 20
+        HashSet<RouteSegment> SLCtoDenver2 = new HashSet<>();
+        rs1 = new RouteSegment(343, 371, 382, 377,
+                20);
+        rs2 = new RouteSegment(389, 378, 428, 384,
+                20);
+        rs3 = new RouteSegment(435, 385, 471, 392,
+                20);
+        SLCtoDenver2.add(rs1);
+        SLCtoDenver2.add(rs2);
+        SLCtoDenver2.add(rs3);
+        routeSegments.put(20, SLCtoDenver2);
+
+        // Denver to Kansas City 1, id 31
+        HashSet<RouteSegment> denverKansasCity1 = new HashSet<>();
+        rs1 = new RouteSegment(520, 396, 559, 399,
+                31);
+        rs2 = new RouteSegment(567, 400, 604, 396,
+                31);
+        rs3 = new RouteSegment(613, 396, 650, 389,
+                31);
+        rs4 = new RouteSegment(660, 386, 693, 374,
+                31);
+        denverKansasCity1.add(rs1);
+        denverKansasCity1.add(rs2);
+        denverKansasCity1.add(rs3);
+        denverKansasCity1.add(rs4);
+        routeSegments.put(31, denverKansasCity1);
+
+        // Denver to Kansas City 2, id 32
+        HashSet<RouteSegment> denverKansasCity2 = new HashSet<>();
+        rs1 = new RouteSegment(520, 412, 559, 415,
+                32);
+        rs2 = new RouteSegment(567, 415, 604, 412,
+                32);
+        rs3 = new RouteSegment(613, 411, 650, 406,
+                32);
+        rs4 = new RouteSegment(660, 403, 693, 389,
+                32);
+        denverKansasCity2.add(rs1);
+        denverKansasCity2.add(rs2);
+        denverKansasCity2.add(rs3);
+        denverKansasCity2.add(rs4);
+        routeSegments.put(32, denverKansasCity2);
+
+        // Duluth to Omaha 1, id 44
+        HashSet<RouteSegment> duluthOmaha1 = new HashSet<>();
+        rs1 = new RouteSegment(711, 229, 698, 259,
+                44);
+        rs2 = new RouteSegment(694, 266, 681, 299,
+                44);
+        duluthOmaha1.add(rs1);
+        duluthOmaha1.add(rs2);
+        routeSegments.put(44, duluthOmaha1);
+
+        // Duluth to Omaha 2, id 93
+        HashSet<RouteSegment> duluthOmaha2 = new HashSet<>();
+        rs1 = new RouteSegment(726, 234, 715, 265,
+                93);
+        rs2 = new RouteSegment(711, 273, 697, 304,
+                93);
+        duluthOmaha2.add(rs1);
+        duluthOmaha2.add(rs2);
+        routeSegments.put(93, duluthOmaha2);
+
+        // Omaha to Kansas City 1, id 46
+        HashSet<RouteSegment> omahaKansasCity1 = new HashSet<>();
+        rs1 = new RouteSegment(689, 337, 704, 367,
+                46);
+        omahaKansasCity1.add(rs1);
+        routeSegments.put(46, omahaKansasCity1);
+
+        // Omaha to Kansas City 2, id 94
+        HashSet<RouteSegment> omahaKansasCity2 = new HashSet<>();
+        rs1 = new RouteSegment(704, 329, 719, 359,
+                94);
+        omahaKansasCity2.add(rs1);
+        routeSegments.put(94, omahaKansasCity2);
+
+        // Kansas City to OKC 1, id 49
+        HashSet<RouteSegment> kansasCityOKC1 = new HashSet<>();
+        rs1 = new RouteSegment(709, 392, 698, 423,
+                49);
+        rs2 = new RouteSegment(696, 430, 687, 463,
+                49);
+        kansasCityOKC1.add(rs1);
+        kansasCityOKC1.add(rs2);
+        routeSegments.put(49, kansasCityOKC1);
+
+        // Kansas City to OKC 2, id 95
+        HashSet<RouteSegment> kansasCityOKC2 = new HashSet<>();
+        rs1 = new RouteSegment(726, 395, 715, 428,
+                95);
+        rs2 = new RouteSegment(711, 434, 703, 467,
+                95);
+        kansasCityOKC2.add(rs1);
+        kansasCityOKC2.add(rs2);
+        routeSegments.put(95, kansasCityOKC2);
+
+        // OKC to Dallas 1, id 51
+        HashSet<RouteSegment> okcDallas1 = new HashSet<>();
+        rs1 = new RouteSegment(693, 493, 697, 528,
+                51);
+        rs2 = new RouteSegment(698, 534, 703, 569,
+                51);
+        okcDallas1.add(rs1);
+        okcDallas1.add(rs2);
+        routeSegments.put(51, okcDallas1);
+
+        // OKC to Dallas, id 96
+        HashSet<RouteSegment> okcDallas2 = new HashSet<>();
+        rs1 = new RouteSegment(708, 491, 712, 523,
+                96);
+        rs2 = new RouteSegment(715, 530, 719, 566,
+                96);
+        okcDallas2.add(rs1);
+        okcDallas2.add(rs2);
+        routeSegments.put(96, okcDallas2);
+
+        // Dallas to Houston 1, id 52
+        HashSet<RouteSegment> dallasHouston1 = new HashSet<>();
+        rs1 = new RouteSegment(722, 595, 746, 619,
+                52);
+        dallasHouston1.add(rs1);
+        routeSegments.put(52, dallasHouston1);
+
+        // Dallas to Houston 2, id 97
+        HashSet<RouteSegment> dallasHouston2 = new HashSet<>();
+        rs1 = new RouteSegment(734, 585, 757, 610,
+                97);
+        dallasHouston2.add(rs1);
+        routeSegments.put(97, dallasHouston2);
+
+        // Kansas to St Louis 1, id 47
+        HashSet<RouteSegment> kansasStLouis1 = new HashSet<>();
+        rs1 = new RouteSegment(729, 369, 764, 367,
+                47);
+        rs2 = new RouteSegment(774, 369, 811, 366,
+                47);
+        kansasStLouis1.add(rs1);
+        kansasStLouis1.add(rs2);
+        routeSegments.put(47, kansasStLouis1);
+
+        // Kansas to St Louis 2, id 48
+        HashSet<RouteSegment> kansasStLouis2 = new HashSet<>();
+        rs1 = new RouteSegment(727, 384, 766, 382,
+                48);
+        rs2 = new RouteSegment(772, 384, 811, 381,
+                48);
+        kansasStLouis2.add(rs1);
+        kansasStLouis2.add(rs2);
+        routeSegments.put(48, kansasStLouis2);
+
+        // St Louis to Chicago 1, id 60
+        HashSet<RouteSegment> STLChicago1 = new HashSet<>();
+        rs1 = new RouteSegment(820, 359, 838, 330,
+                60);
+        rs2 = new RouteSegment(844, 323, 863, 296,
+                60);
+        STLChicago1.add(rs1);
+        STLChicago1.add(rs2);
+        routeSegments.put(60, STLChicago1);
+
+        // St Louis to Chicago 2, id 61
+        HashSet<RouteSegment> STLChicago2 = new HashSet<>();
+        rs1 = new RouteSegment(833, 366, 853, 339,
+                61);
+        rs2 = new RouteSegment(857, 332, 878, 303,
+                61);
+        STLChicago2.add(rs1);
+        STLChicago2.add(rs2);
+        routeSegments.put(61, STLChicago2);
+
+        // Chicago to Pittsburgh 1, id 62
+        HashSet<RouteSegment> chicagoPittsburgh1 = new HashSet<>();
+        rs1 = new RouteSegment(896, 265, 933, 255,
+                62);
+        rs2 = new RouteSegment(941, 255, 979, 248,
+                62);
+        rs3 = new RouteSegment(988, 247, 1026, 251,
+                62);
+        chicagoPittsburgh1.add(rs1);
+        chicagoPittsburgh1.add(rs2);
+        chicagoPittsburgh1.add(rs3);
+        routeSegments.put(62, chicagoPittsburgh1);
+
+        // Chicago to Pittsburgh 2, id 63
+        HashSet<RouteSegment> chicagoPittsburgh2 = new HashSet<>();
+        rs1 = new RouteSegment(903, 281, 938, 271,
+                63);
+        rs2 = new RouteSegment(948, 270, 985, 265,
+                63);
+        rs3 = new RouteSegment(994, 265, 1031, 266,
+                63);
+        chicagoPittsburgh2.add(rs1);
+        chicagoPittsburgh2.add(rs2);
+        chicagoPittsburgh2.add(rs3);
+        routeSegments.put(63, chicagoPittsburgh2);
+
+        // Pitts to NYC 1, id 73
+        HashSet<RouteSegment> pittsNYC1 = new HashSet<>();
+        rs1 = new RouteSegment(1064, 249, 1097, 232,
+                73);
+        rs2 = new RouteSegment(1105, 228, 1137, 210,
+                73);
+        pittsNYC1.add(rs1);
+        pittsNYC1.add(rs2);
+        routeSegments.put(73, pittsNYC1);
+
+        // Pitts to NYC 2, id 74
+        HashSet<RouteSegment> pittsNYC2 = new HashSet<>();
+        rs1 = new RouteSegment(1073, 262, 1104, 245,
+                74);
+        rs2 = new RouteSegment(1114, 240, 1144, 222,
+                74);
+        pittsNYC2.add(rs1);
+        pittsNYC2.add(rs2);
+        routeSegments.put(74, pittsNYC2);
+
+        // New Orleans to Atlanta 1, id 81
+        HashSet<RouteSegment> newOrleansAtlanta1 = new HashSet<>();
+        rs1 = new RouteSegment(892, 596, 907, 565,
+                81);
+        rs2 = new RouteSegment(909, 558, 931, 529,
+                81);
+        rs3 = new RouteSegment(937, 523, 962, 497,
+                81);
+        rs4 = new RouteSegment(966, 492, 996, 469,
+                81);
+        newOrleansAtlanta1.add(rs1);
+        newOrleansAtlanta1.add(rs2);
+        newOrleansAtlanta1.add(rs3);
+        newOrleansAtlanta1.add(rs4);
+        routeSegments.put(81, newOrleansAtlanta1);
+
+        // New Orleans to Atlanta 2, id 82
+        HashSet<RouteSegment> newOrleansAtlanta2 = new HashSet<>();
+        rs1 = new RouteSegment(905, 607, 915, 576,
+                82);
+        rs2 = new RouteSegment(922, 569, 942, 540,
+                82);
+        rs3 = new RouteSegment(948, 534, 971, 508,
+                82);
+        rs4 = new RouteSegment(978, 502, 1007, 480,
+                82);
+        newOrleansAtlanta2.add(rs1);
+        newOrleansAtlanta2.add(rs2);
+        newOrleansAtlanta2.add(rs3);
+        newOrleansAtlanta2.add(rs4);
+        routeSegments.put(82, newOrleansAtlanta2);
+
+        // Atlanta to Raleigh 1, id 85
+        HashSet<RouteSegment> atlantaRaleigh1 = new HashSet<>();
+        rs1 = new RouteSegment(1016, 451, 1045, 429,
+                85);
+        rs2 = new RouteSegment(1053, 423, 1081, 402,
+                85);
+        atlantaRaleigh1.add(rs1);
+        atlantaRaleigh1.add(rs2);
+        routeSegments.put(85, atlantaRaleigh1);
+
+        // Atlanta to Raleigh 2, id 98
+        HashSet<RouteSegment> atlantaRaleigh2 = new HashSet<>();
+        rs1 = new RouteSegment(1027, 462, 1056, 440,
+                98);
+        rs2 = new RouteSegment(1063, 433, 1092, 414,
+                98);
+        atlantaRaleigh2.add(rs1);
+        atlantaRaleigh2.add(rs2);
+        routeSegments.put(98, atlantaRaleigh2);
+
+        // Raleigh to DC 1, id 90
+        HashSet<RouteSegment> raleighDC1 = new HashSet<>();
+        rs1 = new RouteSegment(1103, 384, 1125, 358,
+                90);
+        rs2 = new RouteSegment(1131, 351, 1156, 326,
+                90);
+        raleighDC1.add(rs1);
+        raleighDC1.add(rs2);
+        routeSegments.put(90, raleighDC1);
+
+        // Raleigh to DC 2, id 99
+        HashSet<RouteSegment> raleighDC2 = new HashSet<>();
+        rs1 = new RouteSegment(1115, 393, 1138, 366,
+                99);
+        rs2 = new RouteSegment(1145, 358, 1170, 336,
+                99);
+        raleighDC2.add(rs1);
+        raleighDC2.add(rs2);
+        routeSegments.put(99, raleighDC2);
+
+        // DC to NYC 1, id 75
+        HashSet<RouteSegment> dcNYC1 = new HashSet<>();
+        rs1 = new RouteSegment(1166, 304, 1163, 270,
+                75);
+        rs2 = new RouteSegment(1163, 262, 1160, 230,
+                75);
+        dcNYC1.add(rs1);
+        dcNYC1.add(rs2);
+        routeSegments.put(75, dcNYC1);
+
+        // DC to NYC 2, id 76
+        HashSet<RouteSegment> dcNYC2 = new HashSet<>();
+        rs1 = new RouteSegment(1179, 303, 1178, 271,
+                76);
+        rs2 = new RouteSegment(1178, 263, 1175,229,
+                76);
+        dcNYC2.add(rs1);
+        dcNYC2.add(rs2);
+        routeSegments.put(76, dcNYC2);
+
+        // Boston to DC 1, id 71
+        HashSet<RouteSegment> bostonDC1 = new HashSet<>();
+        rs1 = new RouteSegment(1171, 203, 1192, 174,
+                71);
+        rs2 = new RouteSegment(1197, 167, 1218, 140,
+                71);
+        bostonDC1.add(rs1);
+        bostonDC1.add(rs2);
+        routeSegments.put(71, bostonDC1);
+
+        // Boston to DC 2, id 72
+        HashSet<RouteSegment> bostonDC2 = new HashSet<>();
+        rs1 = new RouteSegment(1185, 210, 1204, 181,
+                72);
+        rs2 = new RouteSegment(1208, 174, 1229, 145,
+                72);
+        bostonDC2.add(rs1);
+        bostonDC2.add(rs2);
+        routeSegments.put(72, bostonDC2);
+
+        // Boston to Montreal 1, id 69
+        HashSet<RouteSegment> bostonMontreal1 = new HashSet<>();
+        rs1 = new RouteSegment(1147, 73, 1175, 96,
+                69);
+        rs2 = new RouteSegment(1184, 97, 1212, 122,
+                69);
+        bostonMontreal1.add(rs1);
+        bostonMontreal1.add(rs2);
+        routeSegments.put(69, bostonMontreal1);
+
+        // Boston to Montreal 2, id 100
+        HashSet<RouteSegment> bostonMontreal2 = new HashSet<>();
+        rs1 = new RouteSegment(1156, 62, 1186, 84,
+                100);
+        rs2 = new RouteSegment(1193, 88, 1223, 110,
+                100);
+        bostonMontreal2.add(rs1);
+        bostonMontreal2.add(rs2);
+        routeSegments.put(100, bostonMontreal2);
+
         // Helena to Duluth, id 26
         HashSet<RouteSegment> helenaDuluth = new HashSet<>();
-        RouteSegment rs1 = new RouteSegment(440, 220,
+        rs1 = new RouteSegment(440, 220,
                 480, 219, 26);
         helenaDuluth.add(rs1);
-        RouteSegment rs2 = new RouteSegment(485, 219,
+        rs2 = new RouteSegment(485, 219,
                 526, 218, 26);
         helenaDuluth.add(rs2);
-        RouteSegment rs3 = new RouteSegment(531, 218,
+        rs3 = new RouteSegment(531, 218,
                 572, 217, 26);
         helenaDuluth.add(rs3);
-        RouteSegment rs4 = new RouteSegment(577, 217,
+        rs4 = new RouteSegment(577, 217,
                 618, 216, 26);
         helenaDuluth.add(rs4);
-        RouteSegment rs5 = new RouteSegment(623, 215,
+        rs5 = new RouteSegment(623, 215,
                 664, 215, 26);
         helenaDuluth.add(rs5);
-        RouteSegment rs6 = new RouteSegment(672, 215,
+        rs6 = new RouteSegment(672, 215,
                 713, 215, 26);
         helenaDuluth.add(rs6);
         routeSegments.put(26, helenaDuluth);
@@ -683,7 +1103,6 @@ public class RootClientModel extends Observable {
         elPasoOKC.add(rs4);
         elPasoOKC.add(rs5);
         routeSegments.put(36, elPasoOKC);
-
 
     }
 
