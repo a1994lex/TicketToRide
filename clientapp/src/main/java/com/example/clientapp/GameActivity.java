@@ -360,7 +360,7 @@ public class GameActivity extends FragmentActivity implements IGameView, Observe
                 lineViews.clear();
                 Intent intent = new Intent(this, DiscardDestCardDialogActivity.class);
                 //intent.putExtra(utils.GAME_SETUP, true);
-                startActivity(intent);
+               // startActivity(intent);
             }
         }
     }
