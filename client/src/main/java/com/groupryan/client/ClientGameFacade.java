@@ -54,8 +54,7 @@ public class ClientGameFacade {
 
     public void drawThreeCards(DestCardReturnObject cards) {
         ArrayList<DestCard> cardss=cards.convertToArray();
-        int i=0;
-        //they need to be given to the player and a new activity is to be made
+        RootClientModel.getCurrentGame().updateDestCards(cardss);
 
     }
 }

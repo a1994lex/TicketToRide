@@ -1,8 +1,10 @@
 package presenters;
 
+import android.content.Intent;
 import android.view.View;
 
 import com.example.clientapp.IBankView;
+import com.example.clientapp.dialogs.DiscardDestCardDialogActivity;
 import com.groupryan.client.models.ClientGame;
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.TrainCard;
@@ -79,6 +81,12 @@ public class BankPresenter implements Observer, IBankPresenter {
             if (arg.equals(utils.BANK)){
                 bankView.init(fragView);
             }
+//            else if (arg.equals(utils.DRAW_THREE_CARDS)){
+//                lineViews.clear();
+//                Intent intent = new Intent(bankView, DiscardDestCardDialogActivity.class);
+//                intent.putExtra(utils.GAME_SETUP, true);
+//                startActivity(intent);
+//            }
         }
     }
 

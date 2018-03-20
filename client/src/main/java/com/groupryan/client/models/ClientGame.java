@@ -2,6 +2,7 @@ package com.groupryan.client.models;
 
 import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Chat;
+import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
@@ -125,6 +126,12 @@ public class ClientGame extends Observable {
         notifyObservers(utils.DISCARD_DESTCARD);
     }
 
+    public void updateDestCards(ArrayList<DestCard> cards){
+        myPlayer.addDestCards(cards);
+        setChanged();
+        notifyObservers(utils.DRAW_THREE_CARDS);
+    }
+
     public Integer getCurrentTurn() {
         return currentTurn;
     }
@@ -156,4 +163,6 @@ public class ClientGame extends Observable {
         setChanged();
         notifyObservers(utils.BANK);
     }
+
+
 }

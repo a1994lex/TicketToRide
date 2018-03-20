@@ -75,7 +75,7 @@ public class Player {
         return new Stat(username, turn, points, trainPieces, trainCards.size(), destCards.size());
     }
 
-    public void addDestCards(List<DestCard> cards) {
+    public void addDestCards(ArrayList<DestCard> cards) {
         for (DestCard c : cards) {
             destCards.add(c);
         }
