@@ -116,6 +116,7 @@ public class ServerGame {
     }
 
     public List<DestCard> drawDestinationCards() {
+        //reshuffle if <3
         List<Card> list = destinationCards.draw(3);
         List<DestCard> returnList = new ArrayList<>();
         for (Card c : list) {
