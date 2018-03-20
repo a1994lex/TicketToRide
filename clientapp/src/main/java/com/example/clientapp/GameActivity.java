@@ -201,7 +201,7 @@ public class GameActivity extends FragmentActivity implements IGameView, Observe
         });
 
         gamePlayPresenter.stopLobbyPolling();
-        startDiscardDestCardActivity();
+        gamePlayPresenter.drawDestCards();
     }
 
     @Override
@@ -220,13 +220,6 @@ public class GameActivity extends FragmentActivity implements IGameView, Observe
         HandFragment fragment = (HandFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.hand_fragment);
         fragment.cardsDiscarded();
-    }
-
-    public void startDiscardDestCardActivity() {
-        lineViews.clear();
-        Intent intent = new Intent(this, DiscardDestCardDialogActivity.class);
-        intent.putExtra(utils.GAME_SETUP, true);
-        startActivity(intent);
     }
 
     public void modifyRoot() {
@@ -308,6 +301,10 @@ public class GameActivity extends FragmentActivity implements IGameView, Observe
             constraintSet.applyTo(constraintLayout);
             lineViews.add(lineView);
         }
+    }
+
+    public void clearLines(){
+        lineViews.clear();
     }
 
     public void startActivity() {

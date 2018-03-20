@@ -53,6 +53,7 @@ public class BankPresenter implements Observer, IBankPresenter {
     }
 
 
+
     public ArrayList<TrainCard> getBank(){
         return RootClientModel.getCurrentGame().getBankCards();
     }
@@ -81,12 +82,11 @@ public class BankPresenter implements Observer, IBankPresenter {
             if (arg.equals(utils.BANK)){
                 bankView.init(fragView);
             }
-//            else if (arg.equals(utils.DRAW_THREE_CARDS)){
-//                lineViews.clear();
-//                Intent intent = new Intent(bankView, DiscardDestCardDialogActivity.class);
-//                intent.putExtra(utils.GAME_SETUP, true);
-//                startActivity(intent);
-//            }
+            else if (arg.equals(utils.DRAW_THREE_CARDS)){
+
+                GamePlayPresenter.getInstance().drawDestCards();
+
+            }
         }
     }
 

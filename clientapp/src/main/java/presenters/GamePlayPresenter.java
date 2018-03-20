@@ -1,10 +1,12 @@
 package presenters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.widget.Toast;
 
 import com.example.clientapp.GameActivity;
 import com.example.clientapp.IGameView;
+import com.example.clientapp.dialogs.DiscardDestCardDialogActivity;
 import com.groupryan.client.UIGameFacade;
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.Chat;
@@ -39,7 +41,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     private RootClientModel root = RootClientModel.getInstance();
     int totalClaimedRoutes = root.getClaimedRoutesMap().size();
     private UIGameFacade uiGameFacade = UIGameFacade.getInstance();
-    private Activity gameActivity;
+    private GameActivity gameActivity;
     private Activity discardActivity;
 
 
@@ -55,7 +57,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         return instance;
     }
 
-    public void setGameActivity(Activity gameActivity) {
+    public void setGameActivity(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
         root.addObserver(this);
     }
@@ -329,6 +331,13 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         stat.setDestinationCards(stat.getDestinationCards() - 1);
         root.getCurrentGame().updateStat(stat);
         root.getCurrentGame().getMyPlayer().setDestCards(destCards);
+    }
+
+    public void drawDestCards(){
+        gameActivity.clearLines();
+        Intent intent = new Intent(gameActivity, DiscardDestCardDialogActivity.class);
+        intent.putExtra(utils.GAME_SETUP, true);
+        gameActivity.startActivity(intent);
     }
 
     public void stopLobbyPolling() {
