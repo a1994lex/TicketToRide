@@ -8,6 +8,7 @@ import com.example.clientapp.GameActivity;
 import com.example.clientapp.IGameView;
 import com.example.clientapp.dialogs.DiscardDestCardDialogActivity;
 import com.groupryan.client.UIGameFacade;
+import com.groupryan.client.models.ClientGame;
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.Chat;
 import com.groupryan.shared.models.DestCard;
@@ -43,6 +44,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     private UIGameFacade uiGameFacade = UIGameFacade.getInstance();
     private GameActivity gameActivity;
     private Activity discardActivity;
+    private ClientGame game=RootClientModel.getCurrentGame();
 
 
     private static GamePlayPresenter instance;
@@ -60,6 +62,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     public void setGameActivity(GameActivity gameActivity) {
         this.gameActivity = gameActivity;
         root.addObserver(this);
+        game.addObserver(this);
     }
 
     public void setDiscardActivity(Activity discardActivity) {
@@ -86,6 +89,13 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                 gameView.cardsDiscarded();
             } else if (o.equals(utils.REDRAW_ROUTES)) {
                 drawRoutes();
+            }
+            else if(observable==game){
+                if (o.equals(utils.DISCARD_DESTCARD)) {
+                    IGameView gameView = (IGameView) gameActivity;
+                    gameView.cardsDiscarded();
+                   // this.gameActivity.finish();
+                }
             }
         }
     }
