@@ -38,6 +38,7 @@ public class ClientGame extends Observable {
     Map<String, String> playersColors;
     Integer currentTurn;
     Map<Integer, String> turnOrderMap;
+    Boolean original=true;
 
     public ClientGame(Game game, Player player) {
         this.history = new ArrayList<>();
@@ -122,8 +123,13 @@ public class ClientGame extends Observable {
         for (Integer cardID : cardIDs) {
             myPlayer.removeDestinationCard(cardID);
         }
+        original=false;
         setChanged();
         notifyObservers(utils.DISCARD_DESTCARD);
+    }
+
+    public Boolean getOriginal(){
+        return original;
     }
 
     public void updateDestCards(ArrayList<DestCard> cards){

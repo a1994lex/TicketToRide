@@ -28,9 +28,9 @@ public class DestCardReturnObject {
 
     public ArrayList<DestCard> convertToArray(){
         ArrayList<DestCard> tc=new ArrayList<>();
-        tc.add(cards.get(0));
-        tc.add(cards.get(1));
-        tc.add(cards.get(2));
+        for(int i=0; i<cards.size(); i++){
+            tc.add(cards.get(i));
+        }
         return tc;
     }
 }

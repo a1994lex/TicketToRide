@@ -34,6 +34,7 @@ public class DiscardDestCardDialogActivity extends Activity {
     private CheckBox mDestCardCheckBox3;
     private TextView mErrorMsg;
     private Button mContinueButton;
+    private Boolean original=RootClientModel.getCurrentGame().getOriginal();
 
     private GamePlayPresenter gamePlayPresenter = GamePlayPresenter.getInstance();
 
@@ -89,7 +90,7 @@ public class DiscardDestCardDialogActivity extends Activity {
                 if (!mDestCardCheckBox3.isChecked()) {
                     cardIDs.add(destCard3.getCardId());
                 }
-                if (isGameSetup) {
+                if (original) {
                     if (cardIDs.size() <= 1) {
                         gamePlayPresenter.discardDestinationCard(cardIDs);
                     } else {
