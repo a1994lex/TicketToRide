@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.groupryan.client.models.RootClientModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import presenters.HistoryPresenter;
 
@@ -65,7 +66,11 @@ public class HistoryFragment extends Fragment implements  IHistoryView {
 
         public ArrayList combineLists(){
             ArrayList<String> history = RootClientModel.getCurrentGame().getHistory();
-            return history;
+            ArrayList<String> invertedList = new ArrayList();
+            for (int i = history.size() - 1; i >= 0; i--) {
+                invertedList.add(history.get(i));
+            }
+            return invertedList;
         }
 
         @Override
