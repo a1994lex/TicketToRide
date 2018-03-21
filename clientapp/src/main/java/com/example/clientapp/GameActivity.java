@@ -19,6 +19,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.groupryan.client.models.ClientGame;
+import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.RouteSegment;
 import com.groupryan.shared.utils;
 
@@ -30,6 +32,8 @@ import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,8 +46,9 @@ import com.example.clientapp.dialogs.DiscardDestCardDialogActivity;
 
 import presenters.GamePlayPresenter;
 
-public class GameActivity extends FragmentActivity implements IGameView {
+public class GameActivity extends FragmentActivity implements IGameView, Observer {
 
+    private ClientGame game = RootClientModel.getCurrentGame();
     private BottomNavigationView mNav;
     private FloatingActionButton mMenuBtn;
     private FloatingActionButton mDrawCards;
@@ -123,6 +128,8 @@ public class GameActivity extends FragmentActivity implements IGameView {
 //            }
 //        });
 
+        game.addObserver(this);
+
         mapImage.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -194,7 +201,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
         });
 
         gamePlayPresenter.stopLobbyPolling();
-        startDiscardDestCardActivity();
+        gamePlayPresenter.drawDestCards();
     }
 
     @Override
@@ -213,13 +220,6 @@ public class GameActivity extends FragmentActivity implements IGameView {
         HandFragment fragment = (HandFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.hand_fragment);
         fragment.cardsDiscarded();
-    }
-
-    public void startDiscardDestCardActivity() {
-        lineViews.clear();
-        Intent intent = new Intent(this, DiscardDestCardDialogActivity.class);
-        intent.putExtra(utils.GAME_SETUP, true);
-        startActivity(intent);
     }
 
     public void modifyRoot() {
@@ -303,6 +303,10 @@ public class GameActivity extends FragmentActivity implements IGameView {
         }
     }
 
+    public void clearLines(){
+        lineViews.clear();
+    }
+
     public void startActivity() {
         Intent intent = new Intent(this, ChatAndHistoryActivity.class);
         startActivity(intent);
@@ -346,6 +350,18 @@ public class GameActivity extends FragmentActivity implements IGameView {
             Fragment fragment = getSupportFragmentManager().findFragmentByTag(fragmentId);
             if (fragment != null)
                 getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+        }
+    }
+
+    @Override
+    public void update(Observable o, Object arg) {
+        if (o == game){
+            if (arg.equals(utils.DRAW_THREE_CARDS)){
+                lineViews.clear();
+                Intent intent = new Intent(this, DiscardDestCardDialogActivity.class);
+                //intent.putExtra(utils.GAME_SETUP, true);
+               // startActivity(intent);
+            }
         }
     }
 }

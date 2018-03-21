@@ -31,6 +31,8 @@ public class Deck{
         }
         List<Card> newCards=new ArrayList<>();
         for(int i=0; i<amount; i++){
+            if(deck.size()<1)
+                break;
             newCards.add(deck.get(0));
             deck.remove(0);
         }

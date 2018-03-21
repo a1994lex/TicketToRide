@@ -2,6 +2,7 @@ package com.groupryan.client.models;
 
 import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Chat;
+import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
@@ -37,6 +38,7 @@ public class ClientGame extends Observable {
     Map<String, String> playersColors;
     Integer currentTurn;
     Map<Integer, String> turnOrderMap;
+    Boolean original=true;
 
     public ClientGame(Game game, Player player) {
         this.history = new ArrayList<>();
@@ -121,8 +123,19 @@ public class ClientGame extends Observable {
         for (Integer cardID : cardIDs) {
             myPlayer.removeDestinationCard(cardID);
         }
+        original=false;
         setChanged();
         notifyObservers(utils.DISCARD_DESTCARD);
+    }
+
+    public Boolean getOriginal(){
+        return original;
+    }
+
+    public void updateDestCards(ArrayList<DestCard> cards){
+        myPlayer.addDestCards(cards);
+        setChanged();
+        notifyObservers(utils.DRAW_THREE_CARDS);
     }
 
     public Integer getCurrentTurn() {
@@ -156,4 +169,6 @@ public class ClientGame extends Observable {
         setChanged();
         notifyObservers(utils.BANK);
     }
+
+
 }
