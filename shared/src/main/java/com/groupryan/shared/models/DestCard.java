@@ -46,4 +46,20 @@ public class DestCard extends Card {
     public int getCardId() {
         return this.cardId;
     }
+
+    public String getCityOne() {
+        return cityOne;
+    }
+
+    public void setCityOne(String cityOne) {
+        this.cityOne = cityOne;
+    }
+
+    public String getCityTwo() {
+        return cityTwo;
+    }
+
+    public void setCityTwo(String cityTwo) {
+        this.cityTwo = cityTwo;
+    }
 }
