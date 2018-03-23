@@ -118,7 +118,7 @@ public class BankPresenter implements Observer, IBankPresenter {
             }
             else if (arg.equals(utils.DRAW_THREE_CARDS)){
 
-                    GamePlayPresenter.getInstance().drawDestCards();
+                GamePlayPresenter.getInstance().callDrawDestCards();
 
             }
         }

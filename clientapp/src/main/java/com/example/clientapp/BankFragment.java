@@ -36,6 +36,92 @@ public class BankFragment extends Fragment implements IBankView {
     TextView mTCardsLeft;
     TextView mDCardsLeft;
 
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_bank, container, false);
+        init(view);
+        BankPresenter.getInstance().setView(this, view);
+        return view;
+    }
+
+    @Override
+    public void showCardDrawn(){
+        this.setOutlineCard();
+    }
+
+    @Override
+    public void finish() {
+        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+        GamePlayPresenter.getInstance().redrawRoutes();
+    }
+
+    @Override
+    public void init(View view) {
+        ArrayList<TrainCard> bank = BankPresenter.getInstance().getBank();
+        /*Bind to xml*/
+        mBankButton = view.findViewById(R.id.deck);
+        mCardButtonOne = view.findViewById(R.id.card1);
+        mCardButtonTwo = view.findViewById(R.id.card2);
+        mCardButtonThree = view.findViewById(R.id.card3);
+        mCardButtonFour = view.findViewById(R.id.card4);
+        mCardButtonFive = view.findViewById(R.id.card5);
+        mDestDeck = view.findViewById(R.id.destdeck);
+        mExit = view.findViewById(R.id.exit);
+        mTCardsLeft = view.findViewById(R.id.tcards_left);
+        mDCardsLeft = view.findViewById(R.id.dcards_left);
+        /* Set images for ImageViews*/
+        mBankButton.setImageResource(R.drawable.top_of_deck);
+        mCardButtonOne.setImageResource(colorFinder(bank.get(0).getColor()));
+        mCardButtonTwo.setImageResource(colorFinder(bank.get(1).getColor()));
+        mCardButtonThree.setImageResource(colorFinder(bank.get(2).getColor()));
+        mCardButtonFour.setImageResource(colorFinder(bank.get(3).getColor()));
+        mCardButtonFive.setImageResource(colorFinder(bank.get(4).getColor()));
+        mDestDeck.setImageResource(R.drawable.dest_card);
+        mExit.setImageResource(R.drawable.ic_home_black_24dp);
+        /* Set texts for TextViews*/
+        String text = "";
+        mTCardsLeft.setText(String.format(text, BankPresenter.getInstance().getTDeckSize()));
+        mDCardsLeft.setText(String.format(text, BankPresenter.getInstance().getDDeckSize()));
+        /* Set listeners for ImageButtonViews */
+        mBankButton.setOnClickListener((View v) -> {
+            chosenCard = mBankButton;
+            BankPresenter.getInstance().clickTCard(-1);
+        });
+        mCardButtonOne.setOnClickListener((View v) -> {
+            chosenCard = mCardButtonOne;
+            BankPresenter.getInstance().clickTCard(0);
+        });
+        mCardButtonTwo.setOnClickListener((View v) -> {
+            chosenCard = mCardButtonTwo;
+            BankPresenter.getInstance().clickTCard(1);
+        });
+        mCardButtonThree.setOnClickListener((View v) -> {
+            chosenCard = mCardButtonThree;
+            BankPresenter.getInstance().clickTCard(2);
+        });
+        mCardButtonFour.setOnClickListener((View v) -> {
+            chosenCard = mCardButtonFour;
+            BankPresenter.getInstance().clickTCard(3);
+        });
+        mCardButtonFive.setOnClickListener((View v) -> {
+            chosenCard = mCardButtonFive;
+            BankPresenter.getInstance().clickTCard(4);
+        });
+        mDestDeck.setOnClickListener((View v) -> {
+            chosenCard = mDestDeck;
+            BankPresenter.getInstance().clickDCard();
+        });
+        mExit.setOnClickListener((View v) -> {
+            BankPresenter.getInstance().exit();
+        });
+    }
+
     public int colorFinder(String color) {
         switch (color) {
             case utils.PINK:
@@ -56,144 +142,14 @@ public class BankFragment extends Fragment implements IBankView {
                 return R.drawable.traingreen;
             case utils.LOCOMOTIVE:
                 return R.drawable.trainloco;
-
         }
         return R.drawable.train_icon;
     }
-
 
     public void setOutlineCard(){
         if (chosenCard!=null) {
             chosenCard.setImageResource(R.drawable.outline);
         }
-    }
-    @Override
-    public void showCardDrawn(){
-        this.setOutlineCard();
-    }
-
-    @Override
-    public void init(View view) {
-        ArrayList<TrainCard> bank = BankPresenter.getInstance().getBank();
-
-        mBankButton = view.findViewById(R.id.deck);
-        mBankButton.setImageResource(R.drawable.top_of_deck);
-        mBankButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //blank it
-                    chosenCard = mBankButton;
-                    BankPresenter.getInstance().clickTCard(-1);
-                    //async reset task and set this card to the user who clicked it
-
-            }
-        });
-
-        mCardButtonOne = view.findViewById(R.id.card1);
-        mCardButtonOne.setImageResource(colorFinder(bank.get(0).getColor()));
-        mCardButtonOne.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                chosenCard = mCardButtonOne;
-                BankPresenter.getInstance().clickTCard(0);
-                //async reset task and set this card to the user who clicked it
-            }
-        });
-
-        mCardButtonTwo = view.findViewById(R.id.card2);
-        mCardButtonTwo.setImageResource(colorFinder(bank.get(1).getColor()));
-        mCardButtonTwo.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //blank it
-                chosenCard = mCardButtonTwo;
-                BankPresenter.getInstance().clickTCard(1);
-                //async reset task and set this card to the user who clicked it
-            }
-        });
-
-        mCardButtonThree = view.findViewById(R.id.card3);
-        mCardButtonThree.setImageResource(colorFinder(bank.get(2).getColor()));
-        mCardButtonThree.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //blank it
-                chosenCard = mCardButtonThree;
-                BankPresenter.getInstance().clickTCard(2);
-                //async reset task and set this card to the user who clicked it
-            }
-        });
-
-        mCardButtonFour = view.findViewById(R.id.card4);
-        mCardButtonFour.setImageResource(colorFinder(bank.get(3).getColor()));
-        mCardButtonFour.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //blank it
-                chosenCard = mCardButtonFour;
-                BankPresenter.getInstance().clickTCard(3);
-                //async reset task and set this card to the user who clicked it
-            }
-        });
-
-        mCardButtonFive = view.findViewById(R.id.card5);
-        mCardButtonFive.setImageResource(colorFinder(bank.get(4).getColor()));
-        mCardButtonFive.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //blank it
-                chosenCard = mCardButtonFive;
-                BankPresenter.getInstance().clickTCard(4);
-                //async reset task and set this card to the user who clicked it
-            }
-        });
-
-        mDestDeck = view.findViewById(R.id.destdeck);
-        mDestDeck.setImageResource(R.drawable.dest_card);
-        mDestDeck.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //blank it
-                chosenCard = mDestDeck;
-                BankPresenter.getInstance().clickDCard();
-                //async reset task and set this card to the user who clicked it
-            }
-        });
-
-        mExit = view.findViewById(R.id.exit);
-        mExit.setImageResource(R.drawable.ic_home_black_24dp);
-        mExit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                BankPresenter.getInstance().exit();
-            }
-        });
-
-        mTCardsLeft = view.findViewById(R.id.tcards_left);
-        mTCardsLeft.setText(Integer.toString(BankPresenter.getInstance().getTDeckSize()));
-        mDCardsLeft = view.findViewById(R.id.dcards_left);
-        mDCardsLeft.setText(Integer.toString(BankPresenter.getInstance().getDDeckSize()));
-    }
-
-    @Override
-    public void finish() {
-        getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
-        GamePlayPresenter.getInstance().redrawRoutes();
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_bank, container, false);
-        init(view);
-        BankPresenter.getInstance().setView(this, view);
-        return view;
     }
 
 }

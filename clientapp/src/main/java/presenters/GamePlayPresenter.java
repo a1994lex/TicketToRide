@@ -42,7 +42,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     private RootClientModel root = RootClientModel.getInstance();
     int totalClaimedRoutes = root.getClaimedRoutesMap().size();
     private UIGameFacade uiGameFacade = UIGameFacade.getInstance();
-    private GameActivity gameActivity;
+    private IGameView gameActivity;
     private Activity discardActivity;
     private ClientGame game=RootClientModel.getCurrentGame();
 
@@ -59,16 +59,26 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         return instance;
     }
 
-    public void setGameActivity(GameActivity gameActivity) {
+    @Override
+    public void setGameActivity(IGameView gameView) {
         this.gameActivity = gameActivity;
         root.addObserver(this);
         game.addObserver(this);
+    }
+
+    @Override
+    public void setUpIfFirst() {
+        if (this.game.getCurrentTurn()<0){
+            stopLobbyPolling();
+            callDrawDestCards();
+        }
     }
 
     public void setDiscardActivity(Activity discardActivity) {
         this.discardActivity = discardActivity;
     }
 
+    @Override
     public void redrawRoutes() {
         root.setShowRoutes();
     }
@@ -134,19 +144,13 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
     }
 
-
     public void discardDestinationCard(List<Integer> cardIDs) {
         DiscardDestCardAsyncTask task = new DiscardDestCardAsyncTask(discardActivity);
         task.execute(cardIDs);
     }
 
-
-
-    public void drawDestCards(){
-        gameActivity.clearLines();
-        Intent intent = new Intent(gameActivity, DiscardDestCardDialogActivity.class);
-        intent.putExtra(utils.GAME_SETUP, true);
-        gameActivity.startActivity(intent);
+    public void callDrawDestCards(){
+        gameActivity.goToDrawDestActivity();
     }
 
     public void stopLobbyPolling() {

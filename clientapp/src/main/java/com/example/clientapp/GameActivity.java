@@ -46,8 +46,9 @@ import android.support.v4.app.FragmentActivity;
 import com.example.clientapp.dialogs.DiscardDestCardDialogActivity;
 
 import presenters.GamePlayPresenter;
+import presenters.IGamePlayPresenter;
 
-public class GameActivity extends FragmentActivity implements IGameView, Observer {
+public class GameActivity extends FragmentActivity implements IGameView {
 
     private ClientGame game = RootClientModel.getCurrentGame();
     private BottomNavigationView mNav;
@@ -56,7 +57,7 @@ public class GameActivity extends FragmentActivity implements IGameView, Observe
     private FloatingActionButton mClaimRoute;
     private FloatingActionButton mHandButton;
     private List<LineView> lineViews = new ArrayList<>();
-    private GamePlayPresenter gamePlayPresenter = GamePlayPresenter.getInstance();
+    private IGamePlayPresenter gamePlayPresenter = GamePlayPresenter.getInstance();
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
         @Override
@@ -106,9 +107,7 @@ public class GameActivity extends FragmentActivity implements IGameView, Observe
         mClaimRoute = findViewById(R.id.claim_route_btn);
         mDrawCards = findViewById(R.id.draw_card_btn);
         mHandButton = findViewById(R.id.hand_btn);
-
-        gamePlayPresenter.stopLobbyPolling();
-        gamePlayPresenter.drawDestCards();
+        gamePlayPresenter.setUpIfFirst();
         RouteLogHelper logger = new RouteLogHelper(this);
 
         // SET UP LISTENERS
@@ -152,7 +151,6 @@ public class GameActivity extends FragmentActivity implements IGameView, Observe
         // create a dialog ClaimRouteActivity where client can choose their route they would like to buy
     }
 
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -171,7 +169,13 @@ public class GameActivity extends FragmentActivity implements IGameView, Observe
         fragment.cardsDiscarded();
     }
 
-
+    @Override
+    public void goToDrawDestActivity() {
+        this.clearLines();
+        Intent intent = new Intent(this, DiscardDestCardDialogActivity.class);
+        intent.putExtra(utils.GAME_SETUP, true);
+        this.startActivity(intent);
+    }
 
     @Override
     public void drawRoute(String playerColor, HashSet<RouteSegment> routeSegments) {
@@ -201,11 +205,6 @@ public class GameActivity extends FragmentActivity implements IGameView, Observe
 
     public void clearLines(){
         lineViews.clear();
-    }
-
-    public void startActivity() {
-        Intent intent = new Intent(this, ChatAndHistoryActivity.class);
-        startActivity(intent);
     }
 
     public void addFragment(@IdRes int containerViewId,
@@ -249,15 +248,4 @@ public class GameActivity extends FragmentActivity implements IGameView, Observe
         }
     }
 
-    @Override
-    public void update(Observable o, Object arg) {
-        if (o == game){
-            if (arg.equals(utils.DRAW_THREE_CARDS)){
-                lineViews.clear();
-                Intent intent = new Intent(this, DiscardDestCardDialogActivity.class);
-                //intent.putExtra(utils.GAME_SETUP, true);
-               // startActivity(intent);
-            }
-        }
-    }
 }
