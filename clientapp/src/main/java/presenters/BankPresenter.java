@@ -15,6 +15,7 @@ import java.util.Observer;
 
 import async.DrawDestinationCardsAsyncTask;
 import async.DrawTrainCardAsyncTask;
+import states.bank.InactiveState;
 
 /**
  * Created by ryanm on 3/3/2018.
@@ -31,6 +32,7 @@ public class BankPresenter implements Observer, IBankPresenter {
 
     private BankPresenter(ClientGame clientGame){
         this.game = clientGame;
+        this.state = new InactiveState();
         game.addObserver(this);
     }
 
@@ -67,12 +69,10 @@ public class BankPresenter implements Observer, IBankPresenter {
             state.chooseCard(this);
         }
     }
-
     @Override
     public void clickDCard(){
         state.chooseDest(this);
     }
-
 
     @Override
     public void exit(){
@@ -82,7 +82,7 @@ public class BankPresenter implements Observer, IBankPresenter {
     public void setState(BankState state){
         this.state = state;
     }
-    /////////////////////////////////
+    ////END OF STATE FUNCTIONS////////////
 
 
 

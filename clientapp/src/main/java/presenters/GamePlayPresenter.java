@@ -1,40 +1,23 @@
 package presenters;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.widget.Toast;
-
-import com.example.clientapp.GameActivity;
 import com.example.clientapp.IGameView;
-import com.example.clientapp.dialogs.DiscardDestCardDialogActivity;
 import com.groupryan.client.UIGameFacade;
 import com.groupryan.client.models.ClientGame;
 import com.groupryan.client.models.RootClientModel;
-import com.groupryan.shared.models.Chat;
-import com.groupryan.shared.models.DestCard;
-import com.groupryan.shared.models.DestCardList;
-import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.RouteSegment;
-import com.groupryan.shared.models.Stat;
-import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.utils;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
 
 import async.DiscardDestCardAsyncTask;
-import async.LoginAsyncTask;
-import async.OnLogin;
 import async.Poller;
-import async.RegisterAsyncTask;
+import states.GameState;
+import states.game.InactiveState;
 
 
 public class GamePlayPresenter implements Observer, IGamePlayPresenter {
@@ -45,11 +28,13 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     private IGameView gameActivity;
     private Activity discardActivity;
     private ClientGame game=RootClientModel.getCurrentGame();
+    private GameState state;
 
 
     private static GamePlayPresenter instance;
 
     private GamePlayPresenter() {
+        this.state = new InactiveState();
     }
 
     public static GamePlayPresenter getInstance() {
@@ -128,18 +113,23 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     /// STATE FUNCTIONS //////////
     @Override
     public void clickClaimRoute() {
-
+        state.clickClaimRoute(this);
+        // depending on the state, the state will call gameView.showClaimRouteModal();
     }
 
     @Override
     public void clickDrawCard() {
-
+        state.clickDrawCard(this);
     }
-    ///////////////////////////////
+
+    public void setState(GameState state){
+        this.state = state;
+    }
+    ////END OF STATE FUNCTIONS//////
 
 
 
-    @Override
+    @Override // DO WE WANT TO MOVE THIS TO A CLAIM ROUTE DIALOG ACTIVITY??
     public void claimRoute(String playerColor, int routeId) {
 
     }

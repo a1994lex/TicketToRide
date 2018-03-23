@@ -1,29 +1,27 @@
 package states.game;
 
+import presenters.GamePlayPresenter;
 import states.GameState;
 
-/**
- * Created by alex on 3/22/18.
- */
 
 public class ClaimRouteState implements GameState {
     @Override
-    public void clickDrawCard() {
+    public void clickDrawCard(GamePlayPresenter gpp) {
 
     }
 
     @Override
-    public void clickClaimRoute() {
+    public void clickClaimRoute(GamePlayPresenter gpp) {
 
     }
 
     @Override
-    public void submit() {
+    public void submit(GamePlayPresenter gpp) {
 
     }
 
     @Override
-    public void cancel() {
+    public void cancel(GamePlayPresenter gpp) {
 
     }
 
