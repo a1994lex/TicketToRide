@@ -47,7 +47,7 @@ public class ClientGame extends Observable {
 
         this.gameId = game.getGameId();
         this.myPlayer = player;
-
+        this.currentTurn = -1;
         this.stats = new HashMap<>();
         this.playersColors = game.getUsers();
 
