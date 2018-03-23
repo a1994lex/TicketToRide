@@ -110,9 +110,16 @@ public class ClientCommandFactory {
                 new Object[]{size});
     }
 
+<<<<<<< HEAD
+    public ClientCommand createGameOverCommand(String winner){
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "gameOver",
+                new String[]{String.class.getTypeName()},
+                new Object[]{winner});
+=======
     public ClientCommand createNextTurnCommand(int turn){
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "changeTurn",
                 new String[]{Integer.class.getTypeName()},
                 new Object[]{turn});
+>>>>>>> 361ee1957fe5c2c4f10850f735793b25c4f21753
     }
 }
