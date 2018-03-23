@@ -51,14 +51,6 @@ public class ClientGame extends Observable {
         this.stats = new HashMap<>();
         this.playersColors = game.getUsers();
 
-        this.currentTurn = 1;
-
-        this.turnOrderMap = new HashMap<>();
-        this.turnOrderMap.put(1, this.myPlayer.getUsername());
-        int turnOrder = 2;
-        for (String username : this.playersColors.keySet()) {
-            this.turnOrderMap.put(turnOrder, username);
-        }
     }
 
     public String getGameId() {
@@ -138,6 +130,12 @@ public class ClientGame extends Observable {
         notifyObservers(utils.DRAW_THREE_CARDS);
     }
 
+    public void setCurrentTurn(int currentTurn){
+        this.currentTurn = currentTurn;
+        setChanged();
+        notifyObservers(utils.NEW_TURN);
+    }
+
     public Integer getCurrentTurn() {
         return currentTurn;
     }
@@ -146,8 +144,15 @@ public class ClientGame extends Observable {
         return turnOrderMap;
     }
 
-    public void endTurn() {
-        this.currentTurn += 1;
+//    public void endTurn() {
+//        this.currentTurn += 1;
+//    }
+
+    public boolean isMyTurn(){
+        if (myPlayer.getTurn() == this.currentTurn){
+            return true;
+        }
+        return false;
     }
 
     public int getDDeckSize() {

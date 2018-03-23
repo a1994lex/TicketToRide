@@ -104,6 +104,12 @@ public class ServerProxy implements IServer {
         //executeCommands(commandResult.getClientCommands());
         return commandResult;
     }
+    @Override
+    public CommandResult endTurn(String username) {
+        ServerCommand command = serverCommandFactory.createEndTurnCommand(username);
+        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.NEW_TURN, command);
+        return commandResult;
+    }
 
     @Override
     public CommandResult getCommands(User user) {
@@ -120,6 +126,8 @@ public class ServerProxy implements IServer {
         System.out.print(commandResult.getClientCommands().size());
         return commandResult;
     }
+
+
 
 
     public void executeCommands(List<ClientCommand> commandList) {

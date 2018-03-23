@@ -1,12 +1,11 @@
 package presenters;
 
-import android.content.Intent;
 import android.view.View;
 
 import com.example.clientapp.IBankView;
-import com.example.clientapp.dialogs.DiscardDestCardDialogActivity;
 import com.groupryan.client.models.ClientGame;
 import com.groupryan.client.models.RootClientModel;
+import states.BankState;
 import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.utils;
 
@@ -16,6 +15,7 @@ import java.util.Observer;
 
 import async.DrawDestinationCardsAsyncTask;
 import async.DrawTrainCardAsyncTask;
+import states.bank.InactiveState;
 
 /**
  * Created by ryanm on 3/3/2018.
@@ -28,8 +28,11 @@ public class BankPresenter implements Observer, IBankPresenter {
     private ClientGame game;
     private static BankPresenter instance = new BankPresenter(RootClientModel.getInstance().getCurrentGame());
 
+    private BankState state;
+
     private BankPresenter(ClientGame clientGame){
         this.game = clientGame;
+        this.state = new InactiveState();
         game.addObserver(this);
     }
 
@@ -42,15 +45,44 @@ public class BankPresenter implements Observer, IBankPresenter {
 
     }
 
-    public static void drawTrainCard(int position) {
+    public void drawTrainCard(int position) {
         DrawTrainCardAsyncTask task = new DrawTrainCardAsyncTask();
         task.execute(position);
     }
 
-    public static void drawDestinationCards(){
+    public void drawDestinationCards(){
         DrawDestinationCardsAsyncTask task = new DrawDestinationCardsAsyncTask();
         task.execute();
     }
+
+    // STATE FUNCTIONS /////////////////
+    @Override
+    public void clickTCard(int deckIndex){
+        String color = "";
+        if (deckIndex>0){
+            color = getBank().get(deckIndex).getColor();
+        }
+        if (color == utils.LOCOMOTIVE){
+            state.chooseWild(this);
+        }
+        else{
+            state.chooseCard(this);
+        }
+    }
+    @Override
+    public void clickDCard(){
+        state.chooseDest(this);
+    }
+
+    @Override
+    public void exit(){
+        state.cancel(this);
+    }
+
+    public void setState(BankState state){
+        this.state = state;
+    }
+    ////END OF STATE FUNCTIONS////////////
 
 
 
@@ -71,10 +103,12 @@ public class BankPresenter implements Observer, IBankPresenter {
         this.bankView = bankView;
         this.fragView = view;
     }
-
     @Override
-    public void cardOneClicked() {
+    public IBankView getBankView(){
+        return this.bankView;
     }
+
+
 
     @Override
     public void update(Observable o, Object arg) {
@@ -84,7 +118,7 @@ public class BankPresenter implements Observer, IBankPresenter {
             }
             else if (arg.equals(utils.DRAW_THREE_CARDS)){
 
-                    GamePlayPresenter.getInstance().drawDestCards();
+                GamePlayPresenter.getInstance().callDrawDestCards();
 
             }
         }

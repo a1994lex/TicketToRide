@@ -88,4 +88,10 @@ public class ServerCommandFactory {
                 new String[]{Integer.class.getTypeName(), String.class.getTypeName()},
                 new Object[]{i, username});
     }
+
+    public ServerCommand createEndTurnCommand(String username) {
+        return new ServerCommand("com.groupryan.server.facades.MainFacade", "endTurn",
+                new String[]{String.class.getTypeName()},
+                new Object[]{username});
+    }
 }

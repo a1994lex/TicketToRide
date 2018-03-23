@@ -58,7 +58,11 @@ public class ClientGameFacade {
 
     }
 
-    public void gameOver(String winner){
-        //TODO: fill this method
+    public void gameOver(String winner) {
+        //TODO: fill this method;
+    }
+
+    public void changeTurn(int turnNum){
+        RootClientModel.getCurrentGame().setCurrentTurn(turnNum);
     }
 }

@@ -11,5 +11,9 @@ import com.example.clientapp.IBankView;
 public interface IBankPresenter {
     void updateBank();
     void setView(IBankView bankView, View view);
-    void cardOneClicked();
+    void clickTCard(int deckIndex);
+    void clickDCard();
+    IBankView getBankView();
+    void exit();
+
 }

@@ -143,6 +143,11 @@ public class CommandManager {
     }
 
     // ------------------------------ Game Commands -----------------------------
+    public void addNextTurnCommand(String gameId, int turnNum){
+        ClientCommand command = factory.createNextTurnCommand(turnNum);
+        this._addCommandToGameMap(command, gameId, null);
+    }
+
 
     // StartGameCommand goes to all users
     public ClientCommand makeStartGameCommand(Game game, Player p) {

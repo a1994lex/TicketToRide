@@ -55,6 +55,8 @@ public class utils {
     public static final String HAND = "HAND";
     public static final String REDRAW_ROUTES = "REDRAW_ROUTES";
 
+    public static final String NEW_TURN = "NEW_TURN";
+
     public static int convertStringToRColor(String color) {
         switch (color) {
             case BLACK:

@@ -1,6 +1,8 @@
 package com.groupryan.server.facades;
 
 import com.groupryan.server.CommandManager;
+import com.groupryan.server.models.RootServerModel;
+import com.groupryan.server.models.ServerGame;
 import com.groupryan.shared.IServer;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCardList;
@@ -55,9 +57,27 @@ public class MainFacade implements IServer {
 
     @Override
     public CommandResult discardDestinationCard(DestCardList destCardList, String username) {
+        ServerGame serverGame = RootServerModel.getInstance().getServerGame(username);
+        if(serverGame.updateReady()){
+            changeTurn(serverGame);
+        }
         DestinationCardFacade dcf = new DestinationCardFacade();
         List<Integer> cardIDs = destCardList.getList();
         return dcf.discard(cardIDs, username);
+    }
+
+    public void changeTurn(ServerGame game){
+        CommandManager.getInstance().addNextTurnCommand(game.getServerGameID(), game.getNextTurn());
+    }
+
+    @Override
+    public CommandResult endTurn(String username){
+        ServerGame serverGame = RootServerModel.getInstance().getServerGame(username);
+        changeTurn(serverGame);
+        CommandResult cm = new CommandResult();
+        cm.setClientCommands(CommandManager.getInstance().
+                getGameCommands(serverGame.getServerGameID(), username));
+        return cm;
     }
 
     @Override
