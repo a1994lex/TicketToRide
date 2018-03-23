@@ -79,13 +79,13 @@ public class GameStatFragment extends Fragment implements IGameStatView {
 
 
         int currentTurn = RootClientModel.getCurrentGame().getCurrentTurn();
-        Map<Integer, String> turnOrderMap = RootClientModel.getCurrentGame().getTurnOrderMap();
+//        Map<Integer, String> turnOrderMap = RootClientModel.getCurrentGame().getTurnOrderMap();
 
         for (Map.Entry<String, Stat> entry : theStats.entrySet()) {
             Stat stat = entry.getValue();
             TableRow row = new TableRow(getActivity());
             TextView turn = new TextView(getActivity());
-            if (turnOrderMap.get(currentTurn).equals(entry.getKey())) {
+            if (currentTurn == stat.getTurn()) {
                 turn.setText("->" + Integer.toString(stat.getTurn()));
             } else {
                 turn.setText(Integer.toString(stat.getTurn()));

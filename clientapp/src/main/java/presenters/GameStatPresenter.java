@@ -45,7 +45,11 @@ public class GameStatPresenter implements Observer, IGameStatPresenter {
             if (arg.equals(utils.STAT)){
                 //statView.init(fragView);
             }
+            else if (arg.equals(utils.NEW_TURN)){
+                statView.init(fragView);
+            }
         }
+
     }
 
 }

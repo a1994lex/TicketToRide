@@ -1,5 +1,6 @@
 package com.example.clientapp;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -55,19 +56,9 @@ public class GameActivity extends FragmentActivity implements IGameView, Observe
     private FloatingActionButton mClaimRoute;
     private FloatingActionButton mHandButton;
     private List<LineView> lineViews = new ArrayList<>();
-    private int mapUpdatePhase;
     private GamePlayPresenter gamePlayPresenter = GamePlayPresenter.getInstance();
-
-    // views for finding the points of the route segments
-    private ImageView mapImage;
-   // private Button newRouteButton;
-    private EditText routeName;
-    private Button nameEntry;
-    //---------------------------------------------------
-
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
             = new BottomNavigationView.OnNavigationItemSelectedListener() {
-
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             switch (item.getItemId()) {
@@ -100,109 +91,67 @@ public class GameActivity extends FragmentActivity implements IGameView, Observe
         }
     };
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
-        // hotfix
+
         this.gamePlayPresenter.setGameActivity(this);
-        // ------
-        mapUpdatePhase = 0;
+
         mNav = findViewById(R.id.navigation);
         mNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
         mMenuBtn = findViewById(R.id.menu_btn);
-
-        // views for finding the points of the route segments
-        mapImage = findViewById(R.id.map_button);
-        //newRouteButton = findViewById(R.id.new_route);
-        routeName = findViewById(R.id.route_name_entry);
-        nameEntry = findViewById(R.id.name_entry_button);
-        Logger logger = Logger.getLogger("MyLog");
-
-//        newRouteButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                logger.severe("New route\n");
-////                System.out.println("New route\n");
-//            }
-//        });
-
-        game.addObserver(this);
-
-        mapImage.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_DOWN){
-                        // the following statement is used to log any messages
-                    logger.severe("x value: " + String.valueOf(event.getX()) +
-                            " y value: " + String.valueOf(event.getY()) + "\n");
-//                    System.out.println("x value: " + String.valueOf(event.getX()) +
-//                            " y value: " + String.valueOf(event.getY()) + "\n");
-                }
-                return true;
-            }
-        });
-
-        nameEntry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-//                System.out.println(routeName.getText().toString());
-                logger.severe(routeName.getText().toString());
-            }
-        });
-
-        //--------------------------------------------------------------
-
-        mMenuBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mNav.setVisibility(View.VISIBLE);
-                mClaimRoute.setVisibility(View.INVISIBLE);
-                mDrawCards.setVisibility(View.INVISIBLE);
-                mMenuBtn.setVisibility(View.INVISIBLE);
-                mHandButton.setVisibility(View.INVISIBLE);
-            }
-        });
         mClaimRoute = findViewById(R.id.claim_route_btn);
-        mClaimRoute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                modifyRoot();
-            }
-        });
         mDrawCards = findViewById(R.id.draw_card_btn);
-        mDrawCards.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //removePrevFrag(utils.BANK);
-                for (LineView lineView : lineViews) {
-                    lineView.setVisibility(View.INVISIBLE);
-                }
-                addFragment(R.id.bank_fragment,
-                        new BankFragment(), utils.BANK);
-               /* FragmentManager manager = getFragmentManager();
-                FragmentTransaction transaction = manager.beginTransaction();
-                transaction.add(R.id.bank_fragment,new BankFragment(),utils.BANK);
-                transaction.addToBackStack(null);
-                transaction.commit();*/
-            }
-        });
         mHandButton = findViewById(R.id.hand_btn);
-        mHandButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                for (LineView lineView : lineViews) {
-                    lineView.setVisibility(View.INVISIBLE);
-                }
-                addFragment(R.id.hand_fragment,
-                        new HandFragment(), utils.HAND);
-            }
-        });
 
         gamePlayPresenter.stopLobbyPolling();
         gamePlayPresenter.drawDestCards();
+        RouteLogHelper logger = new RouteLogHelper(this);
+
+        // SET UP LISTENERS
+        mClaimRoute.setOnClickListener((View v) -> {
+            GamePlayPresenter.getInstance().clickClaimRoute(); // the states will do their thing, then th
+        });
+        mMenuBtn.setOnClickListener((View v) -> {
+            mNav.setVisibility(View.VISIBLE);
+            mClaimRoute.setVisibility(View.INVISIBLE);
+            mDrawCards.setVisibility(View.INVISIBLE);
+            mMenuBtn.setVisibility(View.INVISIBLE);
+            mHandButton.setVisibility(View.INVISIBLE);
+        });
+        mDrawCards.setOnClickListener((View v) -> {
+            //removePrevFrag(utils.BANK);
+            GamePlayPresenter.getInstance().clickDrawCard();
+
+            for (LineView lineView : lineViews) {
+                lineView.setVisibility(View.INVISIBLE);
+            }
+            addFragment(R.id.bank_fragment,
+                    new BankFragment(), utils.BANK);
+           /* FragmentManager manager = getFragmentManager();
+            FragmentTransaction transaction = manager.beginTransaction();
+            transaction.add(R.id.bank_fragment,new BankFragment(),utils.BANK);
+            transaction.addToBackStack(null);
+            transaction.commit();*/
+        });
+        mHandButton.setOnClickListener((View v) -> {
+            for (LineView lineView : lineViews) {
+                lineView.setVisibility(View.INVISIBLE);
+            }
+            addFragment(R.id.hand_fragment,
+                    new HandFragment(), utils.HAND);
+
+        });
+
     }
+    @Override
+    public void showClaimRouteModal(){
+        // create a dialog ClaimRouteActivity where client can choose their route they would like to buy
+    }
+
 
     @Override
     protected void onResume() {
@@ -222,60 +171,7 @@ public class GameActivity extends FragmentActivity implements IGameView, Observe
         fragment.cardsDiscarded();
     }
 
-    public void modifyRoot() {
-        switch (mapUpdatePhase) {
-            case 0:
-                Toast.makeText(this, "Testing...adding train cards to Green player--just because",
-                        Toast.LENGTH_SHORT).show();
-                gamePlayPresenter.claimRouteTest("jimbob");
-                mapUpdatePhase++;
-                break;
-            case 1:
-                Toast.makeText(this, "Testing...other player is claiming a route",
-                        Toast.LENGTH_SHORT).show();
-                gamePlayPresenter.claimRouteTest("jimbob");
-                mapUpdatePhase++;
-                break;
-            case 2:
-                Toast.makeText(this, "Testing...current player is claiming a route",
-                        Toast.LENGTH_SHORT).show();
-                Toast.makeText(this, "Also changing number of trains and train cards",
-                        Toast.LENGTH_SHORT).show();
-                gamePlayPresenter.claimRouteTest(utils.CURRENT_PLAYER);
-                mapUpdatePhase++;
-                break;
-            case 3:
-                Toast.makeText(this, "Testing...other player is claiming a route",
-                        Toast.LENGTH_SHORT).show();
-                gamePlayPresenter.claimRouteTest("joanna");
-                mapUpdatePhase++;
-                break;
-            case 4:
-                Toast.makeText(this, "Testing...joanna now has 2 destination cards",
-                        Toast.LENGTH_SHORT).show();
-                gamePlayPresenter.changeDestinationCards("joanna");
-                mapUpdatePhase++;
-                break;
-            case 5:
-                Toast.makeText(this, "Testing...adding chat message from jimbob",
-                        Toast.LENGTH_SHORT).show();
-                gamePlayPresenter.addChatMessage("jimbob", "hewwo! (jimbob)");
-                mapUpdatePhase++;
-                break;
-            case 6:
-                Toast.makeText(this, "Testing...removing train card from current player",
-                        Toast.LENGTH_SHORT).show();
-                gamePlayPresenter.changeTrainCards();
-                mapUpdatePhase++;
-                break;
-            case 7:
-                Toast.makeText(this, "Testing...removing destination card from current player",
-                        Toast.LENGTH_SHORT).show();
-                gamePlayPresenter.changeDestCards();
-                mapUpdatePhase++;
-                break;
-        }
-    }
+
 
     @Override
     public void drawRoute(String playerColor, HashSet<RouteSegment> routeSegments) {
