@@ -57,4 +57,8 @@ public class ClientGameFacade {
         RootClientModel.getCurrentGame().updateDestCards(cardss);
 
     }
+
+    public void gameOver(String winner){
+        //TODO: fill this method
+    }
 }

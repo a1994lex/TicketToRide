@@ -215,6 +215,13 @@ public class CommandManager {
         _addCommandToGameMap(command, gameId, null);
     }
 
+    public void makeGameOverCommand(String winner, String gameId){
+        ClientCommand command = factory.createGameOverCommand(winner);
+        this._addCommandToGameMap(command, gameId, null);
+    }
+
+
+
     // ------------------------------ Methods for Testing  -----------------------------
 
     public int numberOfUsers() {

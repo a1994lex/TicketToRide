@@ -108,4 +108,10 @@ public class ClientCommandFactory {
                 new String[]{Integer.class.getTypeName()},
                 new Object[]{size});
     }
+
+    public ClientCommand createGameOverCommand(String winner){
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "gameOver",
+                new String[]{String.class.getTypeName()},
+                new Object[]{winner});
+    }
 }

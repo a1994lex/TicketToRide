@@ -18,7 +18,7 @@ import presenters.HistoryPresenter;
 
 
 public class HistoryFragment extends Fragment implements  IHistoryView {
-    private RecyclerView.Adapter mAdapter;
+    private HistoryFragment.HistoryAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
     @Override
@@ -43,7 +43,8 @@ public class HistoryFragment extends Fragment implements  IHistoryView {
 
     @Override
     public void updateHistory(){
-        mAdapter.notifyDataSetChanged(); //make sure this works!
+        mAdapter.combineLists();
+        mAdapter.notifyDataSetChanged();//make sure this works!
     }
 
 
@@ -70,6 +71,7 @@ public class HistoryFragment extends Fragment implements  IHistoryView {
             for (int i = history.size() - 1; i >= 0; i--) {
                 invertedList.add(history.get(i));
             }
+            mGameHistory = invertedList;
             return invertedList;
         }
 
