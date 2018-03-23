@@ -34,7 +34,7 @@ public class Stat {
     public Stat(String username, int turn, int points, int trains, int trainCards, int destinationCards) {
         this.username = username;
         this.points = points;
-        this.turn = turn;
+        this.turn = turn; // turn
         this.trains = trains;
         this.trainCards = trainCards;
         this.destinationCards = destinationCards;

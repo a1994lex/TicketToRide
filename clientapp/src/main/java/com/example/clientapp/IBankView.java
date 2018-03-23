@@ -7,5 +7,7 @@ import android.view.View;
  */
 
 public interface IBankView {
-    public void init(View view);
+    void init(View view);
+    void showCardDrawn();
+    void finish();
 }

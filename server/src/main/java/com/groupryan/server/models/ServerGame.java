@@ -12,23 +12,25 @@ import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+import java.util.Queue;
 
 /**
  * Created by arctu on 2/24/2018.
  */
 
 public class ServerGame {
-    String serverGameID;
-    Deck trainCards;
-    Deck destinationCards;
-    List<String> history;
-    Map<String, Player> playaMap;
-    Map<String, Stat> stats;
-    List<Player> turnOrder;
-    List<TrainCard> bank;
-    int ready;
+    private String serverGameID;
+    private Deck trainCards;
+    private Deck destinationCards;
+    private List<String> history;
+    private Map<String, Player> playaMap;
+    private Map<String, Stat> stats;
+    private Queue<Player> turnOrder;
+    private List<TrainCard> bank;
+    private int ready;
 
     // playamap after  stats also null
     public ServerGame(String serverGameID, Deck trainCards, Deck destinationCards) {
@@ -40,19 +42,23 @@ public class ServerGame {
         history = new ArrayList<>();
         playaMap = new HashMap<>();
         stats = new HashMap<>();
-        turnOrder = new ArrayList<>();
+        turnOrder = new LinkedList<>();
         bank = new ArrayList<>();
         setRiver();//river is a poker term referring to the cards on the table to see
 //        makeFakeHistory();
     }
 
+    // This method is to start counting when a player chooses their destination cards in the beginning
     public void startReady(int i){
-        ready=0-i;
+        this.ready=0-i;
     }
+
+    // This method updates each time a player draws their first destination cards,
+    // when the game is ready to begin, it returns true
     public Boolean updateReady(){
-        ready++;
-        if(ready==0){
-            ready++;
+        this.ready++;
+        if(this.ready==0){
+            this.ready++;
             return true;
         }
         return false;
@@ -99,6 +105,13 @@ public class ServerGame {
         Stat s = (playaMap.get(username)).makeStat();
         stats.put(username, s);
         return s;
+    }
+
+    public int getNextTurn(){
+        Player nextPlayer = this.turnOrder.remove(); // push top player off the queue.
+        int turnNum = nextPlayer.getTurn();
+        this.turnOrder.add(nextPlayer);
+        return turnNum;
     }
 
     public List<String> getAllHistory() {

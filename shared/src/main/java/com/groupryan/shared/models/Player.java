@@ -59,6 +59,10 @@ public class Player {
         this.color = color;
     }
 
+    public int getTurn(){
+        return this.turn;
+    }
+
     public String getUsername() {
         return username;
     }

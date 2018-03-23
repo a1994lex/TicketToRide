@@ -25,6 +25,7 @@ public class ClientCommandFactory {
     }
 
 
+
     public ClientCommand createCreateGameCommand(Game game) {
         return new ClientCommand("com.groupryan.client.ClientFacade", "createGame",
                 new String[]{Game.class.getTypeName()},
@@ -107,5 +108,11 @@ public class ClientCommandFactory {
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "setTDeckSize",
                 new String[]{Integer.class.getTypeName()},
                 new Object[]{size});
+    }
+
+    public ClientCommand createNextTurnCommand(int turn){
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "changeTurn",
+                new String[]{Integer.class.getTypeName()},
+                new Object[]{turn});
     }
 }

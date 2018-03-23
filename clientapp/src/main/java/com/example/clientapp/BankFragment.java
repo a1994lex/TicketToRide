@@ -30,6 +30,7 @@ public class BankFragment extends Fragment implements IBankView {
     ImageButton mCardButtonThree;
     ImageButton mCardButtonFour;
     ImageButton mCardButtonFive;
+    ImageButton chosenCard;
     ImageButton mDestDeck;
     ImageButton mExit;
     TextView mTCardsLeft;
@@ -60,6 +61,17 @@ public class BankFragment extends Fragment implements IBankView {
         return R.drawable.train_icon;
     }
 
+
+    public void setOutlineCard(){
+        if (chosenCard!=null) {
+            chosenCard.setImageResource(R.drawable.outline);
+        }
+    }
+    @Override
+    public void showCardDrawn(){
+        this.setOutlineCard();
+    }
+
     @Override
     public void init(View view) {
         ArrayList<TrainCard> bank = BankPresenter.getInstance().getBank();
@@ -70,8 +82,8 @@ public class BankFragment extends Fragment implements IBankView {
             @Override
             public void onClick(View view) {
                 //blank it
-                    mBankButton.setImageResource(R.drawable.outline);
-                    BankPresenter.drawTrainCard(-1);
+                    chosenCard = mBankButton;
+                    BankPresenter.getInstance().clickTCard(-1);
                     //async reset task and set this card to the user who clicked it
 
             }
@@ -82,9 +94,9 @@ public class BankFragment extends Fragment implements IBankView {
         mCardButtonOne.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //blank it
-                mCardButtonOne.setImageResource(R.drawable.outline);
-                BankPresenter.drawTrainCard(1);
+
+                chosenCard = mCardButtonOne;
+                BankPresenter.getInstance().clickTCard(0);
                 //async reset task and set this card to the user who clicked it
             }
         });
@@ -95,8 +107,8 @@ public class BankFragment extends Fragment implements IBankView {
             @Override
             public void onClick(View view) {
                 //blank it
-                mCardButtonTwo.setImageResource(R.drawable.outline);
-                BankPresenter.drawTrainCard(2);
+                chosenCard = mCardButtonTwo;
+                BankPresenter.getInstance().clickTCard(1);
                 //async reset task and set this card to the user who clicked it
             }
         });
@@ -107,8 +119,8 @@ public class BankFragment extends Fragment implements IBankView {
             @Override
             public void onClick(View view) {
                 //blank it
-                mCardButtonThree.setImageResource(R.drawable.outline);
-                BankPresenter.drawTrainCard(3);
+                chosenCard = mCardButtonThree;
+                BankPresenter.getInstance().clickTCard(2);
                 //async reset task and set this card to the user who clicked it
             }
         });
@@ -119,8 +131,8 @@ public class BankFragment extends Fragment implements IBankView {
             @Override
             public void onClick(View view) {
                 //blank it
-                mCardButtonFour.setImageResource(R.drawable.outline);
-                BankPresenter.drawTrainCard(4);
+                chosenCard = mCardButtonFour;
+                BankPresenter.getInstance().clickTCard(3);
                 //async reset task and set this card to the user who clicked it
             }
         });
@@ -131,8 +143,8 @@ public class BankFragment extends Fragment implements IBankView {
             @Override
             public void onClick(View view) {
                 //blank it
-                mCardButtonFive.setImageResource(R.drawable.outline);
-                BankPresenter.drawTrainCard(5);
+                chosenCard = mCardButtonFive;
+                BankPresenter.getInstance().clickTCard(4);
                 //async reset task and set this card to the user who clicked it
             }
         });
@@ -143,8 +155,8 @@ public class BankFragment extends Fragment implements IBankView {
             @Override
             public void onClick(View view) {
                 //blank it
-                mDestDeck.setImageResource(R.drawable.outline);
-                BankPresenter.drawDestinationCards();
+                chosenCard = mDestDeck;
+                BankPresenter.getInstance().clickDCard();
                 //async reset task and set this card to the user who clicked it
             }
         });
@@ -154,8 +166,7 @@ public class BankFragment extends Fragment implements IBankView {
         mExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                RootClientModel.getCurrentGame().endTurn();
-                finish();
+                BankPresenter.getInstance().exit();
             }
         });
 
@@ -165,7 +176,8 @@ public class BankFragment extends Fragment implements IBankView {
         mDCardsLeft.setText(Integer.toString(BankPresenter.getInstance().getDDeckSize()));
     }
 
-    private void finish() {
+    @Override
+    public void finish() {
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
         GamePlayPresenter.getInstance().redrawRoutes();
     }

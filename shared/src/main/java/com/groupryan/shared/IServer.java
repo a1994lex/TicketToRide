@@ -33,4 +33,6 @@ public interface IServer {
     CommandResult updateFaceUp(String gameId);
 
     CommandResult drawDestinationCards(String username);
+
+    CommandResult endTurn(String username);
 }

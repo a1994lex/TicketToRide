@@ -57,4 +57,8 @@ public class ClientGameFacade {
         RootClientModel.getCurrentGame().updateDestCards(cardss);
 
     }
+
+    public void changeTurn(int turnNum){
+        RootClientModel.getCurrentGame().setCurrentTurn(turnNum);
+    }
 }
