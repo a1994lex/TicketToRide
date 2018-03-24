@@ -20,6 +20,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.clientapp.dialogs.ClaimRouteDialogActivity;
 import com.groupryan.client.models.ClientGame;
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.RouteSegment;
@@ -99,7 +100,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
-        this.gamePlayPresenter.setGameActivity(this);
+        this.gamePlayPresenter.setGameView(this);
 
         mNav = findViewById(R.id.navigation);
         mNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -108,12 +109,16 @@ public class GameActivity extends FragmentActivity implements IGameView {
         mDrawCards = findViewById(R.id.draw_card_btn);
         mHandButton = findViewById(R.id.hand_btn);
         gamePlayPresenter.setUpIfFirst();
-        RouteLogHelper logger = new RouteLogHelper(this);
+        //RouteLogHelper logger = new RouteLogHelper(this);
 
         // SET UP LISTENERS
-        mClaimRoute.setOnClickListener((View v) -> {
-            GamePlayPresenter.getInstance().clickClaimRoute(); // the states will do their thing, then th
+        mClaimRoute.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GamePlayPresenter.getInstance().clickClaimRoute(); // the states will do their thing, then th
+            }
         });
+
         mMenuBtn.setOnClickListener((View v) -> {
             mNav.setVisibility(View.VISIBLE);
             mClaimRoute.setVisibility(View.INVISIBLE);
@@ -142,12 +147,15 @@ public class GameActivity extends FragmentActivity implements IGameView {
             }
             addFragment(R.id.hand_fragment,
                     new HandFragment(), utils.HAND);
-
         });
-
+        if (utils.CLAIMING_ROUTE.equals(getIntent().getStringExtra(utils.CLAIMING_ROUTE))) {
+            addFragment(R.id.hand_fragment, new HandFragment(), utils.HAND);
+        }
     }
     @Override
     public void showClaimRouteModal(){
+        Intent intent = new Intent(this, ClaimRouteDialogActivity.class);
+        startActivity(intent);
         // create a dialog ClaimRouteActivity where client can choose their route they would like to buy
     }
 
@@ -248,4 +256,9 @@ public class GameActivity extends FragmentActivity implements IGameView {
         }
     }
 
+    @Override
+    public void spendTrainCards() {
+        addFragment(R.id.hand_fragment,
+                new HandFragment(), utils.HAND);
+    }
 }

@@ -7,15 +7,19 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.support.v4.app.Fragment;
+import android.widget.Toast;
 
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.Player;
+import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -34,11 +38,25 @@ public class HandFragment extends Fragment implements IHandView {
     private TextView mWhiteTrainCardCount;
     private TextView mBlackTrainCardCount;
     private TextView mLocoTrainCardCount;
+    private ImageView mRedTrainCard;
+    private ImageView mOrangeTrainCard;
+    private ImageView mYellowTrainCard;
+    private ImageView mGreenTrainCard;
+    private ImageView mBlueTrainCard;
+    private ImageView mPinkTrainCard;
+    private ImageView mWhiteTrainCard;
+    private ImageView mBlackTrainCard;
+    private ImageView mLocoTrainCard;
     private ImageButton mExit;
 
     private RecyclerView mRecyclerView;
     private RecyclerView.Adapter mAdapter;
     private GameActivity gameActivity;
+    private int routeLength;    // move these somewhere else eventually because they are only used
+                                // when claiming a route
+    private String routeColor;  // move these somewhere else eventually because they are only used
+                                // when claiming a route
+    private Map<String, Integer> pickedCards;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,7 +73,8 @@ public class HandFragment extends Fragment implements IHandView {
         // Get myPlayer from RootClientModel
         Player myPlayer = RootClientModel.getCurrentGame().getMyPlayer();
         Map<String, Integer> trainCardsMap = myPlayer.getTrainCardsMap();
-
+        pickedCards = new HashMap<>();
+        routeLength = -1;
         mRedTrainCardCount = view.findViewById(R.id.red_count);
         mRedTrainCardCount.setText(Integer.toString(trainCardsMap.get(utils.RED)));
         mOrangeTrainCardCount = view.findViewById(R.id.orange_count);
@@ -75,6 +94,174 @@ public class HandFragment extends Fragment implements IHandView {
         mLocoTrainCardCount = view.findViewById(R.id.loco_count);
         mLocoTrainCardCount.setText(Integer.toString(trainCardsMap.get(utils.LOCOMOTIVE)));
 
+        mRedTrainCard = view.findViewById(R.id.red_train_card);
+        mRedTrainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
+                        getStringExtra(utils.CLAIMING_ROUTE))) {
+                    if (routeColor.equals(utils.RED) || routeColor.isEmpty()) {
+                        routeLength--;
+                        routeColor = utils.RED;
+                        pickedCards =
+                                GamePlayPresenter.getInstance()
+                                        .mapColorToCount(routeColor, pickedCards);
+                        outputMessage("Pick " + routeLength + " more " +
+                                routeColor + " cards");
+                    }
+                }
+            }
+        });
+        mOrangeTrainCard = view.findViewById(R.id.orange_train_card);
+        mOrangeTrainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
+                        getStringExtra(utils.CLAIMING_ROUTE))) {
+                    if (routeColor.equals(utils.ORANGE) || routeColor.isEmpty()) {
+                        routeLength--;
+                        routeColor = utils.ORANGE;
+                        pickedCards =
+                                GamePlayPresenter.getInstance()
+                                        .mapColorToCount(routeColor, pickedCards);
+                        outputMessage("Pick " + routeLength + " more " +
+                                routeColor + " cards");
+                    }
+                }
+            }
+        });
+        mYellowTrainCard = view.findViewById(R.id.yellow_train_card);
+        mYellowTrainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
+                        getStringExtra(utils.CLAIMING_ROUTE))) {
+                    if (routeColor.equals(utils.YELLOW) || routeColor.isEmpty()) {
+                        routeLength--;
+                        routeColor = utils.YELLOW;
+                        pickedCards =
+                                GamePlayPresenter.getInstance()
+                                        .mapColorToCount(routeColor, pickedCards);
+                        outputMessage("Pick " + routeLength + " more " +
+                                routeColor + " cards");
+                    }
+                }
+            }
+        });
+        mGreenTrainCard = view.findViewById(R.id.green_train_card);
+        mGreenTrainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
+                        getStringExtra(utils.CLAIMING_ROUTE))) {
+                    if (routeColor.equals(utils.GREEN) || routeColor.isEmpty()) {
+                        routeLength--;
+                        routeColor = utils.GREEN;
+                        pickedCards =
+                                GamePlayPresenter.getInstance()
+                                        .mapColorToCount(routeColor, pickedCards);
+                        outputMessage("Pick " + routeLength + " more " +
+                                routeColor + " cards");
+                    }
+                }
+            }
+        });
+        mBlueTrainCard = view.findViewById(R.id.blue_train_card);
+        mBlueTrainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
+                        getStringExtra(utils.CLAIMING_ROUTE))) {
+                    if (routeColor.equals(utils.BLUE) || routeColor.isEmpty()) {
+                        routeLength--;
+                        routeColor = utils.BLUE;
+                        pickedCards =
+                                GamePlayPresenter.getInstance()
+                                        .mapColorToCount(routeColor, pickedCards);
+                        outputMessage("Pick " + routeLength + " more " +
+                                routeColor + " cards");
+                    }
+                }
+            }
+        });
+        mPinkTrainCard = view.findViewById(R.id.pink_train_card);
+        mPinkTrainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
+                        getStringExtra(utils.CLAIMING_ROUTE))) {
+                    if (routeColor.equals(utils.PINK) || routeColor.isEmpty()) {
+                        routeLength--;
+                        routeColor = utils.PINK;
+                        pickedCards =
+                                GamePlayPresenter.getInstance()
+                                        .mapColorToCount(routeColor, pickedCards);
+                        outputMessage("Pick " + routeLength + " more " +
+                                routeColor + " cards");
+                    }
+                }
+            }
+        });
+        mWhiteTrainCard = view.findViewById(R.id.white_train_card);
+        mWhiteTrainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
+                        getStringExtra(utils.CLAIMING_ROUTE))) {
+                    if (routeColor.equals(utils.WHITE) || routeColor.isEmpty()) {
+                        routeLength--;
+                        routeColor = utils.WHITE;
+                        pickedCards =
+                                GamePlayPresenter.getInstance()
+                                        .mapColorToCount(routeColor, pickedCards);
+                        outputMessage("Pick " + routeLength + " more " +
+                                routeColor + " cards");
+                    }
+                }
+            }
+        });
+        mBlackTrainCard = view.findViewById(R.id.black_train_card);
+        mBlackTrainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
+                        getStringExtra(utils.CLAIMING_ROUTE))) {
+                    if (routeColor.equals(utils.BLACK) || routeColor.isEmpty()) {
+                        routeLength--;
+                        routeColor = utils.BLACK;
+                        pickedCards =
+                                GamePlayPresenter.getInstance()
+                                        .mapColorToCount(routeColor, pickedCards);
+                        outputMessage("Pick " + routeLength + " more " +
+                                routeColor + " cards");
+                    }
+                }
+            }
+        });
+        mLocoTrainCard = view.findViewById(R.id.loco_train_card);
+        mLocoTrainCard.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
+                        getStringExtra(utils.CLAIMING_ROUTE))) {
+                    routeLength--;
+                    pickedCards =
+                            GamePlayPresenter.getInstance()
+                                    .mapColorToCount(utils.LOCOMOTIVE, pickedCards);
+                    outputMessage("Pick " + routeLength + " more " +
+                            routeColor + " cards");
+                }
+            }
+        });
+
+        if (routeLength == 0) {
+            routeLength = -1;
+            List<TrainCard> discardingTrainCards = GamePlayPresenter.getInstance()
+                    .getDiscardingTrainCards(pickedCards);
+            int routeId = getActivity().getIntent().getIntExtra(utils.ROUTE_ID, -1);
+            GamePlayPresenter.getInstance().discardTrainCards(routeId, discardingTrainCards);
+            finish();
+        }
 
         mExit=view.findViewById(R.id.exit);
         mExit.setZ(5);
@@ -91,13 +278,37 @@ public class HandFragment extends Fragment implements IHandView {
         mAdapter = new HandFragment.DestCardAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
+        if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
+                getStringExtra(utils.CLAIMING_ROUTE))) {
+            outputMessage("Pick the cards you want to discard to claim route.");
+            routeColor = getActivity().getIntent().getStringExtra(utils.ROUTE_COLOR);
+            routeLength = getActivity().getIntent().getIntExtra(utils.ROUTE_LENGTH, -1);
+            listRouteRequirements();
+        }
+
         return view;
     }
 
+    public void listRouteRequirements() {
+        TextView colorReminder = getView().findViewById(R.id.color_reminder);
+        TextView lengthReminder = getView().findViewById(R.id.length_reminder);
+        if (!routeColor.isEmpty()) {
+            colorReminder.setText("Choose color: " + routeColor);
+        } else {
+            colorReminder.setText("Choose any color, but all cards must be same color");
+        }
+        lengthReminder.setText("Route length: " + routeLength);
+        colorReminder.setVisibility(View.VISIBLE);
+        lengthReminder.setVisibility(View.VISIBLE);
+    }
+
+    public void outputMessage(String message) {
+        Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
 
     private void finish(){
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
-        GamePlayPresenter.getInstance().redrawRoutes();
+//        GamePlayPresenter.getInstance().redrawRoutes();
     }
 
     private class DestCardHolder extends RecyclerView.ViewHolder {

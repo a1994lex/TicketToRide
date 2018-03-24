@@ -11,6 +11,8 @@ public class Route {
     int worth;
     String color;
     int id;
+    boolean available;
+
 //todo make maptoobject
     public Route(int length, String one, String two, int worth, String color, int id){
         this.length=length;
@@ -19,6 +21,7 @@ public class Route {
         this.worth=worth;
         this.color=color;
         this.id=id;
+        this.available = true;
     }
 
     public int getLength() {
@@ -67,5 +70,13 @@ public class Route {
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 }

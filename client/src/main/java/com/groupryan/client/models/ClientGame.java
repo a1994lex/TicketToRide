@@ -6,6 +6,7 @@ import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
+import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.utils;
@@ -38,12 +39,14 @@ public class ClientGame extends Observable {
     Map<String, String> playersColors;
     Integer currentTurn;
     Map<Integer, String> turnOrderMap;
+    private HashMap<String, Route> claimedRoutes;
     Boolean original=true;
 
     public ClientGame(Game game, Player player) {
         this.history = new ArrayList<>();
         this.chat = new ArrayList<>();
         this.bankCards = new ArrayList<>();
+        this.claimedRoutes = new HashMap<String, Route>();
 
         this.gameId = game.getGameId();
         this.myPlayer = player;
@@ -78,7 +81,6 @@ public class ClientGame extends Observable {
     }
 
     public void updateChat(Chat mychat) {
-
         chat.add(mychat);
         setChanged();
         notifyObservers(utils.CHAT);
@@ -175,5 +177,22 @@ public class ClientGame extends Observable {
         notifyObservers(utils.BANK);
     }
 
+    public HashMap<String, Route> getRoutesMap() {
+        return claimedRoutes;
+    }
+
+    public ArrayList<Route> getClaimedRoutesList() {
+        ArrayList<Route> claimRoutes = new ArrayList<>();
+        for (Map.Entry<String, Route> entry : claimedRoutes.entrySet()) {
+            claimRoutes.add(entry.getValue());
+        }
+        return claimRoutes;
+    }
+
+    public void addRoute(String username, Route route) {
+        claimedRoutes.put(username, route);
+        setChanged();
+        notifyObservers(route);
+    }
 
 }
