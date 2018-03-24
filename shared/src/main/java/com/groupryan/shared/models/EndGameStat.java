@@ -1,5 +1,7 @@
 package com.groupryan.shared.models;
 
+import com.google.gson.internal.LinkedTreeMap;
+
 /**
  * Created by clairescout on 3/21/18.
  */
@@ -8,12 +10,40 @@ public class EndGameStat {
     private String username;
     private int totalPoints;
     private int claimedRoutePoints;
-    private int longestPath;
-    private int reachedDestinationPoints = 0;
+    private int longestPath = 0;
+    private int reachedDestPoints = 0;
     private int unreachedDestNegativePoints = 0;
 
     public EndGameStat(String username) {
         this.username = username;
+    }
+
+
+    public static EndGameStat mapToObject(LinkedTreeMap map) {
+        String username;
+        double totalPoints;
+        double claimedRoutePoints;
+        double longestPath;
+        double reachedDestPoints;
+        double unreachedDestNegativePoints;
+        username = (String) map.get("username");
+        totalPoints = (double) map.get("totalPoints");
+        claimedRoutePoints = (double) map.get("claimedRoutePoints");
+        longestPath = (double) map.get("longestPath");
+        reachedDestPoints = (double) map.get("reachedDestPoints");
+        unreachedDestNegativePoints = (double) map.get("unreachedDestNegativePoints");
+        return new EndGameStat(username, (int) totalPoints, (int) claimedRoutePoints, (int) longestPath,(int) reachedDestPoints, (int) unreachedDestNegativePoints );
+
+
+    }
+
+    public EndGameStat(String username, int totalPoints, int claimedRoutePoints, int longestPath, int reachedDestPoints, int unreachedDestNegativePoints) {
+        this.username = username;
+        this.totalPoints = totalPoints;
+        this.claimedRoutePoints = claimedRoutePoints;
+        this.longestPath = longestPath;
+        this.reachedDestPoints = reachedDestPoints;
+        this.unreachedDestNegativePoints = unreachedDestNegativePoints;
     }
 
     public void increaseTotalPoints(int value){
@@ -56,12 +86,12 @@ public class EndGameStat {
         this.longestPath = longestPath;
     }
 
-    public int getReachedDestinationPoints() {
-        return reachedDestinationPoints;
+    public int getReachedDestPoints() {
+        return reachedDestPoints;
     }
 
-    public void increaseReachedDestinationPoints(int destPoints) {
-        this.reachedDestinationPoints += destPoints;
+    public void increaseReachedDestPoints(int destPoints) {
+        this.reachedDestPoints += destPoints;
         this.totalPoints += destPoints;
     }
 

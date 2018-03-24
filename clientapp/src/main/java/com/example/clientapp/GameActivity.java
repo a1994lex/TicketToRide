@@ -22,6 +22,7 @@ import android.widget.Toast;
 
 import com.groupryan.client.models.ClientGame;
 import com.groupryan.client.models.RootClientModel;
+import com.groupryan.shared.models.EndGameStat;
 import com.groupryan.shared.models.RouteSegment;
 import com.groupryan.shared.utils;
 
@@ -113,6 +114,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
         // SET UP LISTENERS
         mClaimRoute.setOnClickListener((View v) -> {
             GamePlayPresenter.getInstance().clickClaimRoute(); // the states will do their thing, then th
+            //testEndGameStat();
         });
         mMenuBtn.setOnClickListener((View v) -> {
             mNav.setVisibility(View.VISIBLE);
@@ -246,6 +248,25 @@ public class GameActivity extends FragmentActivity implements IGameView {
             if (fragment != null)
                 getSupportFragmentManager().beginTransaction().remove(fragment).commit();
         }
+    }
+
+    public void endGame(){
+        Intent intent = new Intent(this, GameOverActivity.class);
+        startActivity(intent);
+    }
+
+    public void testEndGameStat(){
+        List<EndGameStat> endGameStats = new ArrayList<>();
+        String winner = "claire";
+        RootClientModel.getCurrentGame().setWinner(winner);
+        EndGameStat egs1 = new EndGameStat("claire", 100, 20, 10, 80, 0);
+        EndGameStat egs2 = new EndGameStat("haley", 200, 100, 0, 100, 0);
+        EndGameStat egs3 = new EndGameStat("grace", 60, 0, 100, 0 , 40);
+        endGameStats.add(egs1);
+        endGameStats.add(egs2);
+        endGameStats.add(egs3);
+        RootClientModel.getCurrentGame().setEndGameStats(endGameStats);
+        endGame();
     }
 
 }

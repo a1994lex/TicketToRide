@@ -10,4 +10,5 @@ public interface IBankView {
     void init(View view);
     void showCardDrawn();
     void finish();
+    void endGame();
 }

@@ -15,4 +15,5 @@ public interface IGameView {
     void cardsDiscarded();
     void showClaimRouteModal();
     void goToDrawDestActivity();
+    void endGame();
 }

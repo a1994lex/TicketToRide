@@ -38,6 +38,8 @@ public class HistoryPresenter implements Observer, IHistoryPresenter {
         if (o == game){
             if (arg.equals(utils.HISTORY)){
                 historyView.updateHistory();
+            }else if(o.equals(utils.GAME_OVER)){
+                historyView.endGame();
             }
         }
     }

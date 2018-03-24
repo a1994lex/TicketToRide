@@ -3,6 +3,7 @@ package presenters;
 import android.view.View;
 
 import com.example.clientapp.IBankView;
+import com.example.clientapp.IGameView;
 import com.groupryan.client.models.ClientGame;
 import com.groupryan.client.models.RootClientModel;
 import states.BankState;
@@ -120,6 +121,9 @@ public class BankPresenter implements Observer, IBankPresenter {
 
                 GamePlayPresenter.getInstance().callDrawDestCards();
 
+            } else if(o.equals(utils.GAME_OVER)){
+                IBankView bankView = (IBankView) this.bankView;
+                bankView.endGame();
             }
         }
     }

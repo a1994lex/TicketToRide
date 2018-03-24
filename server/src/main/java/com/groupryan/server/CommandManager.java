@@ -8,6 +8,7 @@ import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.DestCardList;
+import com.groupryan.shared.models.EndGameStat;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Stat;
@@ -220,8 +221,8 @@ public class CommandManager {
         _addCommandToGameMap(command, gameId, null);
     }
 
-    public void makeGameOverCommand(String winner, String gameId){
-        ClientCommand command = factory.createGameOverCommand(winner);
+    public void makeGameOverCommand(String winner, List<EndGameStat> endGameStats, String gameId){
+        ClientCommand command = factory.createGameOverCommand(winner, endGameStats); //will need to change this, eh?
         this._addCommandToGameMap(command, gameId, null);
     }
 

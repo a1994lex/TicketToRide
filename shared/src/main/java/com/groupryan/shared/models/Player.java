@@ -21,6 +21,7 @@ public class Player {
     int trainPieces;
     String username;
     int turn;
+    Boolean endGame;
 
     public static Player mapToObject(LinkedTreeMap map) {
         String username = (String) map.get("username");
@@ -38,12 +39,13 @@ public class Player {
         for (LinkedTreeMap tMap : tCards) {
             trainCards.add(TrainCard.mapToObject(tMap));
         }
-        return new Player(color, destCards, trainCards, username, (int) turn);
+        Boolean endGame = (Boolean) map.get("endGame");
+        return new Player(color, destCards, trainCards, username, (int) turn, endGame);
 
 
     }
 
-    public Player(String color, List<DestCard> destCards, List<TrainCard> trainCards, String username, int turn) {
+    public Player(String color, List<DestCard> destCards, List<TrainCard> trainCards, String username, int turn, Boolean endGame) {
         this.color = color;
         this.routes = new ArrayList<>();
         this.points = 0;
@@ -52,6 +54,7 @@ public class Player {
         this.trainPieces = 45;
         this.username = username;
         this.turn = turn;
+        this.endGame = endGame;
     }
 
     public Player(String username, String color) { // for testing only
@@ -145,6 +148,14 @@ public class Player {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public Boolean getEndGame() {
+        return endGame;
+    }
+
+    public void setEndGame(Boolean endGame) {
+        this.endGame = endGame;
     }
 
     public List<DestCard> getDestCards() {

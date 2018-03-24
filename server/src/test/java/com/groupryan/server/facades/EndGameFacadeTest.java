@@ -58,7 +58,7 @@ public class EndGameFacadeTest {
         List<DestCard> destCards = new ArrayList<DestCard>();
         destCards.add(new DestCard(16, "LOS ANGELES", "CHICAGO", 23));
         List<TrainCard> trainCards = new ArrayList<>();
-        Player player = new Player(utils.BLACK, destCards, trainCards, "claire", 1  );
+        Player player = new Player(utils.BLACK, destCards, trainCards, "claire", 1 , false );
         endGameFacade.calculateDestinations(player);
         usersToStats = endGameFacade.getUsernameToStat();
         EndGameStat egs = usersToStats.get("claire");
@@ -77,7 +77,7 @@ public class EndGameFacadeTest {
         List<DestCard> destCards = new ArrayList<DestCard>();
         destCards.add(new DestCard(10, "DULUTH", "EL PASO", 9));
         List<TrainCard> trainCards = new ArrayList<>();
-        Player player = new Player(utils.BLACK, destCards, trainCards, "claire", 1  );
+        Player player = new Player(utils.BLACK, destCards, trainCards, "claire", 1 , false );
         List<Route> routes = new ArrayList<>();
         routes.add(new Route(6, "HELENA", "DULUTH", 15, "orange", 26));
         routes.add(new Route(4, "HELENA", "DENVER", 7, "green", 28));
@@ -90,7 +90,7 @@ public class EndGameFacadeTest {
         endGameFacade.calculateDestinations(player);
         usersToStats = endGameFacade.getUsernameToStat();
         EndGameStat egs = usersToStats.get("claire");
-        Assert.assertEquals(10, egs.getReachedDestinationPoints());
+        Assert.assertEquals(10, egs.getReachedDestPoints());
         Assert.assertEquals(10, egs.getTotalPoints());
 
     }
@@ -104,7 +104,7 @@ public class EndGameFacadeTest {
         List<DestCard> destCards = new ArrayList<DestCard>();
         destCards.add(new DestCard(10, "DULUTH", "EL PASO", 9));
         List<TrainCard> trainCards = new ArrayList<>();
-        Player player = new Player(utils.BLACK, destCards, trainCards, "claire", 1  );
+        Player player = new Player(utils.BLACK, destCards, trainCards, "claire", 1, false  );
         List<Route> routes = new ArrayList<>();
         routes.add(new Route(6, "HELENA", "DULUTH", 15, "orange", 26));
         routes.add(new Route(4, "HELENA", "DENVER", 7, "green", 28));

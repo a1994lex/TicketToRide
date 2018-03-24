@@ -54,6 +54,7 @@ public class utils {
     public static final String FAILED_CONNECTION_MESSAGE = "FAILED TO CONNECT";
     public static final String HAND = "HAND";
     public static final String REDRAW_ROUTES = "REDRAW_ROUTES";
+    public static final String GAME_OVER = "GAME_OVER";
 
     public static final String NEW_TURN = "NEW_TURN";
 

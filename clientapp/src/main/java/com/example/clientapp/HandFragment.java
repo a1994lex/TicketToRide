@@ -1,5 +1,6 @@
 package com.example.clientapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -92,6 +93,12 @@ public class HandFragment extends Fragment implements IHandView {
         mRecyclerView.setAdapter(mAdapter);
 
         return view;
+    }
+
+    @Override
+    public void endGame(){
+        Intent intent = new Intent(this.getContext(), GameOverActivity.class);
+        startActivity(intent);
     }
 
 

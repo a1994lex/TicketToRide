@@ -4,6 +4,7 @@ import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Chat;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.DestCardList;
+import com.groupryan.shared.models.EndGameStat;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Stat;
@@ -39,6 +40,8 @@ public class ClientGame extends Observable {
     Integer currentTurn;
     Map<Integer, String> turnOrderMap;
     Boolean original=true;
+    List<EndGameStat> endGameStats;
+    String winner;
 
     public ClientGame(Game game, Player player) {
         this.history = new ArrayList<>();
@@ -175,5 +178,21 @@ public class ClientGame extends Observable {
         notifyObservers(utils.BANK);
     }
 
+    public List<EndGameStat> getEndGameStats() {
+        return endGameStats;
+    }
 
+    public void setEndGameStats(List<EndGameStat> endGameStats) {
+        this.endGameStats = endGameStats;
+        setChanged();
+        notifyObservers(utils.GAME_OVER);
+    }
+
+    public String getWinner() {
+        return winner;
+    }
+
+    public void setWinner(String winner) {
+        this.winner = winner;
+    }
 }

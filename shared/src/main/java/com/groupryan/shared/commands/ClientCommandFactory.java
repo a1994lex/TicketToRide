@@ -6,6 +6,8 @@ import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.DestCardReturnObject;
+import com.groupryan.shared.models.EndGameStat;
+import com.groupryan.shared.models.EndGameStatReturnObject;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Stat;
@@ -110,11 +112,13 @@ public class ClientCommandFactory {
                 new Object[]{size});
     }
 
-    public ClientCommand createGameOverCommand(String winner) {
+    public ClientCommand createGameOverCommand(String winner, List<EndGameStat> endGameStats) {
+        EndGameStatReturnObject endStats = new EndGameStatReturnObject(endGameStats);
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "gameOver",
-                new String[]{String.class.getTypeName()},
-                new Object[]{winner});
+                new String[]{String.class.getTypeName(), EndGameStatReturnObject.class.getTypeName()},
+                new Object[]{winner, endStats});
     }
+
     public ClientCommand createNextTurnCommand(int turn){
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "changeTurn",
                 new String[]{Integer.class.getTypeName()},

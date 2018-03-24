@@ -38,6 +38,7 @@ public class DestinationCardFacade {
         CommandManager.getInstance().makeStatCommand(serverGame.getServerGameID(), serverGame.getStat(username));
         CommandManager.getInstance().makeDDeckCommand(serverGame.getServerGameID(), serverGame.getDDeckSize());
 
+
         //create the 2 necessary commands
         return cr;
     }
