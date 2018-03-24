@@ -10,8 +10,10 @@ import com.groupryan.shared.models.EndGameStat;
 import com.groupryan.shared.models.EndGameStatReturnObject;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
+import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.models.TrainCard;
+import com.groupryan.shared.models.TrainCardReturnObject;
 import com.groupryan.shared.models.User;
 
 import java.util.List;
@@ -74,6 +76,19 @@ public class ClientCommandFactory {
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "drawColorCard",
                 new String[]{TrainCard.class.getTypeName()},
                 new Object[]{tc});
+    }
+
+    public ClientCommand createDiscardTrainCardsCommand(List<TrainCard> cards){
+        TrainCardReturnObject cardss = new TrainCardReturnObject(cards);
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "discardColorCards",
+                new String[]{TrainCardReturnObject.class.getTypeName()},
+                new Object[]{cardss});
+    }
+
+    public ClientCommand createClaimRouteCommand(Route r, String u){
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "claimRoute",
+                new String[]{Route.class.getTypeName(), String.class.getTypeName()},
+                new Object[]{r, u});
     }
 
     public ClientCommand createChatCommand(String msg, String username){

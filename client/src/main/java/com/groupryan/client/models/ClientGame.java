@@ -7,6 +7,7 @@ import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.EndGameStat;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
+import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.utils;
@@ -32,6 +33,7 @@ public class ClientGame extends Observable {
     Player myPlayer;
     int DDeckSize=30;
     int TDeckSize=110;
+    ArrayList<Route> routes;
     ArrayList<String> history;
     ArrayList<Chat> chat;
     ArrayList<TrainCard> bankCards;
@@ -48,6 +50,7 @@ public class ClientGame extends Observable {
         this.chat = new ArrayList<>();
         this.bankCards = new ArrayList<>();
 
+        routes =new ArrayList<>();
         this.gameId = game.getGameId();
         this.myPlayer = player;
         this.currentTurn = -1;
@@ -133,6 +136,18 @@ public class ClientGame extends Observable {
         notifyObservers(utils.DRAW_THREE_CARDS);
     }
 
+    public void updateTrainCards(ArrayList<TrainCard> cards){
+        myPlayer.addTrainCards(cards);
+        setChanged();
+        notifyObservers(utils.DRAW_COLOR_CARD);
+    }
+
+    public void discardTrainCards(ArrayList<TrainCard> cards){
+        myPlayer.removeTrainCards(cards);
+        setChanged();
+        notifyObservers(utils.DISCARD_TRAINCARD);
+    }
+
     public void setCurrentTurn(int currentTurn){
         this.currentTurn = currentTurn;
         setChanged();
@@ -186,6 +201,12 @@ public class ClientGame extends Observable {
         this.endGameStats = endGameStats;
         setChanged();
         notifyObservers(utils.GAME_OVER);
+    }
+    public void addRoute(Route r){
+        routes.add(r);
+        setChanged();
+        //route or redraw routes?
+       // notifyObservers(utils.);
     }
 
     public String getWinner() {

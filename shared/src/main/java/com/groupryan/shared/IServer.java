@@ -22,6 +22,8 @@ public interface IServer {
 
     CommandResult getCommands(User user);
 
+    CommandResult claimRoute(String username, int routeId, List<Integer> trainCardIDs);
+
     CommandResult getGameCommands(String gameId, String playerId);
 
     CommandResult discardDestinationCard(DestCardList destCardList, String username);

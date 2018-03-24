@@ -11,6 +11,7 @@ import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.EndGameStat;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
+import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.models.User;
@@ -185,7 +186,19 @@ public class CommandManager {
         return command;
     }
 
-    // DrawColorCardCommand goes to caller only
+    // DrawColorCardCommand goes to all
+    public void makeClaimRouteCommand(Route r, String username, String gameId) {
+        ClientCommand command = factory.createClaimRouteCommand(r, username);
+        this._addCommandToGameMap(command, gameId, null);
+        //return command;
+    }
+
+    // DiscardColorCardCommand goes to caller only
+    public ClientCommand makeDiscardTrainCardsCommand(List<TrainCard> cards) {
+        ClientCommand command = factory.createDiscardTrainCardsCommand(cards);
+        return command;
+    }
+    // ClaimRouteCommand goes to caller only
     public ClientCommand makeDrawColorCardCommand(TrainCard tc) {
         ClientCommand command = factory.createDrawColorCardCommand(tc);
         return command;
