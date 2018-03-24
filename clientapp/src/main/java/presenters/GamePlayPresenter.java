@@ -46,14 +46,15 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
     @Override
     public void setGameActivity(IGameView gameView) {
-        this.gameActivity = gameActivity;
+        this.gameActivity = gameView;
         root.addObserver(this);
         game.addObserver(this);
     }
 
     @Override
     public void setUpIfFirst() {
-        if (this.game.getCurrentTurn()<0){
+       // if (this.game!=null && this.game.getCurrentTurn()<0){
+            if(this.game.getOriginal()){
             stopLobbyPolling();
             callDrawDestCards();
         }

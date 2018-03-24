@@ -92,7 +92,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
         }
     };
 
-    @SuppressLint("ClickableViewAccessibility")
+   // @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -108,7 +108,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
         mDrawCards = findViewById(R.id.draw_card_btn);
         mHandButton = findViewById(R.id.hand_btn);
         gamePlayPresenter.setUpIfFirst();
-        RouteLogHelper logger = new RouteLogHelper(this);
+      //  RouteLogHelper logger = new RouteLogHelper(this);
 
         // SET UP LISTENERS
         mClaimRoute.setOnClickListener((View v) -> {
