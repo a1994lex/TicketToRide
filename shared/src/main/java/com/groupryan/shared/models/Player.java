@@ -72,7 +72,7 @@ public class Player {
     }
 
     public void removeTrainCard(Card c) {
-        destCards.remove(c);
+        trainCards.remove(c);
     }
 
     public Stat makeStat() {
@@ -95,10 +95,19 @@ public class Player {
         }
     }
 
+    public void removeTrainCards(ArrayList<TrainCard> cards){
+        for(TrainCard c: cards){
+            trainCards.remove(c);
+        }
+    }
+
     public void removeTrains(int cost) {
         this.trainPieces = trainPieces - cost;
     }
 
+    public void addPoints(int amount){
+        points+=amount;
+    }
     public String getColor() {
         return color;
     }
@@ -171,4 +180,7 @@ public class Player {
         return trainCardsMap;
     }
 
+    public void addRoute(Route r){
+        routes.add(r);
+    }
 }

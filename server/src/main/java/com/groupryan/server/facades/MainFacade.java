@@ -12,6 +12,7 @@ import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
 import com.groupryan.shared.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -101,7 +102,6 @@ public class MainFacade implements IServer {
         return ccf.drawCard(position, username);
     }
 
-
     @Override
     public CommandResult updateFaceUp(String gameId) {
         ColorCardFacade ccf = new ColorCardFacade();
@@ -113,6 +113,12 @@ public class MainFacade implements IServer {
     public CommandResult getCommands(User user) {
         GetCommandsFacade gcf = new GetCommandsFacade();
         return gcf.getCommandList(user);
+    }
+
+    @Override
+    public CommandResult claimRoute(String username, int routeId, List<Integer> trainCardIDs) {
+        ClaimRouteFacade crf = new ClaimRouteFacade();
+        return crf.claimRoute(username, routeId, trainCardIDs);
     }
 
     @Override
