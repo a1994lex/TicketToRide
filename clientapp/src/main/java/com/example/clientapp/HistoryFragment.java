@@ -1,5 +1,6 @@
 package com.example.clientapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -45,6 +46,12 @@ public class HistoryFragment extends Fragment implements  IHistoryView {
     public void updateHistory(){
         mAdapter.combineLists();
         mAdapter.notifyDataSetChanged();//make sure this works!
+    }
+
+    @Override
+    public void endGame(){
+        Intent intent = new Intent(this.getContext(), GameOverActivity.class);
+        startActivity(intent);
     }
 
 

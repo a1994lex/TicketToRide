@@ -2,6 +2,7 @@ package presenters;
 
 import android.view.View;
 
+import com.example.clientapp.IBankView;
 import com.example.clientapp.IChatView;
 import com.example.clientapp.IJoinGameView;
 import com.groupryan.client.models.ClientGame;
@@ -56,6 +57,8 @@ public class ChatPresenter implements Observer, IChatPresenter {
         if (o == game){
             if (arg.equals(utils.CHAT)){
                 updateChat();
+            } else if(o.equals(utils.GAME_OVER)){
+                chatView.endGame();
             }
         }
     }

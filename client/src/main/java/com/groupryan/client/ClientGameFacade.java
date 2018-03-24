@@ -8,6 +8,8 @@ import com.groupryan.shared.models.Chat;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.DestCardReturnObject;
+import com.groupryan.shared.models.EndGameStat;
+import com.groupryan.shared.models.EndGameStatReturnObject;
 import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.models.TrainCard;
@@ -74,10 +76,11 @@ public class ClientGameFacade {
         //TODO idk
     }
 
-    public void gameOver(String winner) {
-        //TODO: fill this method;
+    public void gameOver(String winner, EndGameStatReturnObject endStats) {
         changeTurn(-1);
-
+        List<EndGameStat> endGameStats = endStats.getEndGameStats();
+        RootClientModel.getCurrentGame().setWinner(winner);
+        RootClientModel.getCurrentGame().setEndGameStats(endGameStats);
     }
 
     public void changeTurn(int turnNum){

@@ -22,7 +22,7 @@ import java.util.List;
 public class EndGameFacade {
 
     HashMap<String, EndGameStat> usernameToStat = new HashMap<>();
-    String winner; //how do i want to pass back the winner?
+    String winner;
 
     public EndGameFacade(){}
 
@@ -30,18 +30,20 @@ public class EndGameFacade {
         ServerGame serverGame = RootServerModel.getInstance().getServerGameByGameId(gameId);
         longestPath();
         List<Player> players = serverGame.getPlayers();
+        int count = 20;
         for (Player p : players){
             EndGameStat endGameStat = new EndGameStat(p.getUsername());
-            endGameStat.setClaimedRoutePoints(p.getPoints());
-            endGameStat.setTotalPoints(p.getPoints());
+            endGameStat.setClaimedRoutePoints(count);//p.getPoints());
+            endGameStat.setTotalPoints(count);//p.getPoints());
             usernameToStat.put(p.getUsername(), endGameStat);
             calculateDestinations(p);
+            count += 20;
         }
-        calculateWinner();
-        //CommandManager makeFinalStatsCommand(...);
-        CommandManager.getInstance().makeGameOverCommand(winner, gameId);
+        List<EndGameStat> finalStats = calculateWinner();
+        CommandManager.getInstance().makeGameOverCommand(winner, finalStats, gameId);
 
     }
+
 
     public void setUsernameToStat(HashMap<String, EndGameStat> usernameToStat) {
         this.usernameToStat = usernameToStat;
@@ -63,7 +65,7 @@ public class EndGameFacade {
 
     }
 
-    public void calculateWinner(){
+    public List<EndGameStat> calculateWinner(){
         //gets the person with the higheest total score and sets them as winner
 
         ArrayList<EndGameStat> finalstats = new ArrayList<>();
@@ -72,6 +74,7 @@ public class EndGameFacade {
         }
         EndGameStat winningStat = Collections.max(finalstats, new EndGameFacade.WinnerComparing());
         winner = winningStat.getUsername();
+        return finalstats;
 
     }
 
@@ -97,7 +100,7 @@ public class EndGameFacade {
 
                 //dfs return true if they have finished the route and increases their points, false if they haven't and decreases points
                 if(dfs(startCity, dfsPrep(player.getRoutes()), startRoute, destinationCard.getCityTwo(), player.getRoutes() )){
-                    usernameToStat.get(player.getUsername()).increaseReachedDestinationPoints(destinationCard.getValue());
+                    usernameToStat.get(player.getUsername()).increaseReachedDestPoints(destinationCard.getValue());
                 }
                 else{
                     usernameToStat.get(player.getUsername()).increaseUnreachedDestNegativePoints(destinationCard.getValue());
@@ -164,10 +167,8 @@ public class EndGameFacade {
         }
     }
 
-
-
     /*
-
+    TODO: make it show if there is a tie!
      */
 
 }
