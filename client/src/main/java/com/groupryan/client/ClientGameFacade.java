@@ -60,6 +60,8 @@ public class ClientGameFacade {
 
     public void gameOver(String winner) {
         //TODO: fill this method;
+        changeTurn(-1);
+
     }
 
     public void changeTurn(int turnNum){

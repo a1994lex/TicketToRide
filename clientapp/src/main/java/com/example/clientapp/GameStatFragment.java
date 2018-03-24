@@ -39,10 +39,6 @@ public class GameStatFragment extends Fragment implements IGameStatView {
 
     public void init(View view) {
         HashMap<String, Stat> theStats = RootClientModel.getCurrentGame().getStats();
-        //HashMap<String, Stat> theStats = new HashMap<>();
-        //Stat stats= new Stat("claire", 3, 45, 4, 3);
-        //theStats.put("claireasasdfasd", stats);
-
 
         TableLayout.LayoutParams tableRowParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
         tableRowParams.setMargins(15, 15, 15, 15);

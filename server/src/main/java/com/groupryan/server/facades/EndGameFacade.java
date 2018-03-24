@@ -79,7 +79,7 @@ public class EndGameFacade {
         dfsPrep(player.getRoutes());
 
         for(DestCard destinationCard : player.getDestCards()){
-            //to get starting route for dfs. if they don't have it, returns null
+            //startRoute gets starting route for dfs. if they don't have it, returns null, then takes necessary points
             Route startRoute = getStart(destinationCard.getCityOne(), player.getRoutes());
             if ( startRoute == null) {
                 usernameToStat.get(player.getUsername()).increaseUnreachedDestNegativePoints(destinationCard.getValue());
@@ -163,5 +163,11 @@ public class EndGameFacade {
             return -1;
         }
     }
+
+
+
+    /*
+
+     */
 
 }
