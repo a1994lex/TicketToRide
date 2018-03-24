@@ -120,6 +120,11 @@ public class ServerProxy implements IServer {
     }
 
     @Override
+    public CommandResult claimRoute(String username, int routeId, List<Integer> trainCardIDs) {
+        return null;
+    }
+
+    @Override
     public CommandResult getGameCommands(String gameId, String playerId) {
         ServerCommand command = serverCommandFactory.createGetGameCommands(gameId, playerId);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.GET_COMMANDS, command);

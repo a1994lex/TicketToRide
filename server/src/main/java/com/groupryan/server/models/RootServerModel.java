@@ -41,7 +41,6 @@ public class RootServerModel {
             single_instance = new RootServerModel();
             Game game = new Game();
             single_instance.gameMap = game.makeTestGames();
-            //single_instance.makeBank();
         }
         return single_instance;
     }
@@ -71,7 +70,6 @@ public class RootServerModel {
     public static String confirmUser(User user) {
         return single_instance._confirmUser(user);
     }
-
 
     public static Boolean checkUser(User user) {
         return single_instance._checkUser(user);
@@ -473,4 +471,7 @@ public class RootServerModel {
         return serverGameIdMap;
     }
 
+    public Route getRoute(int ID){
+        return routeMap.get(ID);
+    }
 }
