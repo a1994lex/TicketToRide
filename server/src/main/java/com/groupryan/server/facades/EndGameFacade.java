@@ -30,14 +30,12 @@ public class EndGameFacade {
         ServerGame serverGame = RootServerModel.getInstance().getServerGameByGameId(gameId);
         longestPath();
         List<Player> players = serverGame.getPlayers();
-        int count = 20;
         for (Player p : players){
             EndGameStat endGameStat = new EndGameStat(p.getUsername());
-            endGameStat.setClaimedRoutePoints(count);//p.getPoints());
-            endGameStat.setTotalPoints(count);//p.getPoints());
+            endGameStat.setClaimedRoutePoints(p.getPoints());
+            endGameStat.setTotalPoints(p.getPoints());
             usernameToStat.put(p.getUsername(), endGameStat);
             calculateDestinations(p);
-            count += 20;
         }
         List<EndGameStat> finalStats = calculateWinner();
         CommandManager.getInstance().makeGameOverCommand(winner, finalStats, gameId);
