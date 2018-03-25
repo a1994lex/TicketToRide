@@ -1,6 +1,7 @@
 package com.example.clientapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -75,6 +76,12 @@ public class ChatFragment extends Fragment implements IChatView {
         mRecyclerView.setAdapter(mAdapter);
         //view.setZ(15);
         return view;
+    }
+
+    @Override
+    public void endGame(){
+        Intent intent = new Intent(this.getContext(), GameOverActivity.class);
+        startActivity(intent);
     }
 
     protected class ChatHolder extends RecyclerView.ViewHolder{

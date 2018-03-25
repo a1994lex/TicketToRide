@@ -23,6 +23,7 @@ import android.widget.Toast;
 import com.example.clientapp.dialogs.ClaimRouteDialogActivity;
 import com.groupryan.client.models.ClientGame;
 import com.groupryan.client.models.RootClientModel;
+import com.groupryan.shared.models.EndGameStat;
 import com.groupryan.shared.models.RouteSegment;
 import com.groupryan.shared.utils;
 
@@ -93,7 +94,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
         }
     };
 
-    @SuppressLint("ClickableViewAccessibility")
+   // @SuppressLint("ClickableViewAccessibility")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -112,10 +113,11 @@ public class GameActivity extends FragmentActivity implements IGameView {
         //RouteLogHelper logger = new RouteLogHelper(this);
 
         // SET UP LISTENERS
-        mClaimRoute.setOnClickListener(new View.OnClickListener() {
+        mClaimRoute.setOnClickListener((View v) -> {
             @Override
             public void onClick(View v) {
                 GamePlayPresenter.getInstance().clickClaimRoute(); // the states will do their thing, then th
+                //testEndGameStat();
             }
         });
 
@@ -126,7 +128,8 @@ public class GameActivity extends FragmentActivity implements IGameView {
             mMenuBtn.setVisibility(View.INVISIBLE);
             mHandButton.setVisibility(View.INVISIBLE);
         });
-        mDrawCards.setOnClickListener((View v) -> {
+
+      mDrawCards.setOnClickListener((View v) -> {
             //removePrevFrag(utils.BANK);
             GamePlayPresenter.getInstance().clickDrawCard();
 
@@ -260,5 +263,24 @@ public class GameActivity extends FragmentActivity implements IGameView {
     public void spendTrainCards() {
         addFragment(R.id.hand_fragment,
                 new HandFragment(), utils.HAND);
+    }
+
+    public void endGame(){
+        Intent intent = new Intent(this, GameOverActivity.class);
+        startActivity(intent);
+    }
+
+    public void testEndGameStat(){
+        List<EndGameStat> endGameStats = new ArrayList<>();
+        String winner = "claire";
+        RootClientModel.getCurrentGame().setWinner(winner);
+        EndGameStat egs1 = new EndGameStat("claire", 100, 20, 10, 80, 0);
+        EndGameStat egs2 = new EndGameStat("haley", 200, 100, 0, 100, 0);
+        EndGameStat egs3 = new EndGameStat("grace", 60, 0, 100, 0 , 40);
+        endGameStats.add(egs1);
+        endGameStats.add(egs2);
+        endGameStats.add(egs3);
+        RootClientModel.getCurrentGame().setEndGameStats(endGameStats);
+        endGame();
     }
 }

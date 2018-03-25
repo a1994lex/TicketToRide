@@ -16,4 +16,5 @@ public interface IGameView {
     void showClaimRouteModal();
     void spendTrainCards();
     void goToDrawDestActivity();
+    void endGame();
 }

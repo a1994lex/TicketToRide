@@ -6,10 +6,14 @@ import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.DestCardReturnObject;
+import com.groupryan.shared.models.EndGameStat;
+import com.groupryan.shared.models.EndGameStatReturnObject;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
+import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.models.TrainCard;
+import com.groupryan.shared.models.TrainCardReturnObject;
 import com.groupryan.shared.models.User;
 
 import java.util.List;
@@ -74,6 +78,19 @@ public class ClientCommandFactory {
                 new Object[]{tc});
     }
 
+    public ClientCommand createDiscardTrainCardsCommand(List<TrainCard> cards){
+        TrainCardReturnObject cardss = new TrainCardReturnObject(cards);
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "discardColorCards",
+                new String[]{TrainCardReturnObject.class.getTypeName()},
+                new Object[]{cardss});
+    }
+
+    public ClientCommand createClaimRouteCommand(Route r, String u){
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "claimRoute",
+                new String[]{Route.class.getTypeName(), String.class.getTypeName()},
+                new Object[]{r, u});
+    }
+
     public ClientCommand createChatCommand(String msg, String username){
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "updateChat",
                 new String[]{String.class.getTypeName(), String.class.getTypeName()},
@@ -108,6 +125,13 @@ public class ClientCommandFactory {
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "setTDeckSize",
                 new String[]{Integer.class.getTypeName()},
                 new Object[]{size});
+    }
+
+    public ClientCommand createGameOverCommand(String winner, List<EndGameStat> endGameStats) {
+        EndGameStatReturnObject endStats = new EndGameStatReturnObject(endGameStats);
+        return new ClientCommand("com.groupryan.client.ClientGameFacade", "gameOver",
+                new String[]{String.class.getTypeName(), EndGameStatReturnObject.class.getTypeName()},
+                new Object[]{winner, endStats});
     }
 
     public ClientCommand createNextTurnCommand(int turn){

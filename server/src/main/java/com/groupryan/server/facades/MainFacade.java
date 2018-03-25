@@ -7,11 +7,13 @@ import com.groupryan.shared.IServer;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
+import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
 import com.groupryan.shared.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -74,6 +76,14 @@ public class MainFacade implements IServer {
     public CommandResult endTurn(String username){
         ServerGame serverGame = RootServerModel.getInstance().getServerGame(username);
         changeTurn(serverGame);
+        Player player = serverGame.getPlayer(username);
+        if(player.getEndGame()){
+            EndGameFacade endGameFacade = new EndGameFacade();
+            endGameFacade.end(serverGame.getServerGameID());
+        }
+        else if(player.getTrainPieces() < 3){
+            player.setEndGame(true);
+        }
         CommandResult cm = new CommandResult();
         cm.setClientCommands(CommandManager.getInstance().
                 getGameCommands(serverGame.getServerGameID(), username));
@@ -101,7 +111,6 @@ public class MainFacade implements IServer {
         return ccf.drawCard(position, username);
     }
 
-
     @Override
     public CommandResult updateFaceUp(String gameId) {
         ColorCardFacade ccf = new ColorCardFacade();
@@ -113,6 +122,12 @@ public class MainFacade implements IServer {
     public CommandResult getCommands(User user) {
         GetCommandsFacade gcf = new GetCommandsFacade();
         return gcf.getCommandList(user);
+    }
+
+    @Override
+    public CommandResult claimRoute(String username, int routeId, List<Integer> trainCardIDs) {
+        ClaimRouteFacade crf = new ClaimRouteFacade();
+        return crf.claimRoute(username, routeId, trainCardIDs);
     }
 
     @Override

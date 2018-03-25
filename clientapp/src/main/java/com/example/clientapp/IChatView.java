@@ -8,4 +8,5 @@ import com.groupryan.shared.models.Chat;
 
 public interface IChatView {
     void onChatAdd();
+    void endGame();
 }

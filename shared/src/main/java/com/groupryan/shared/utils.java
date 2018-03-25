@@ -19,6 +19,7 @@ public class utils {
     public static final String GET_COMMANDS = "getCommands";
     public static final String GET_GAME_LIST = "getGameList";
     public static final String DISCARD_DESTCARD = "discardDestCard";
+    public static final String DISCARD_TRAINCARD= "discardTrainCard";
     public static final String DRAW_THREE_CARDS = "drawDestinationCards";
     public static final String DRAW_COLOR_CARD="drawColorCards";
 
@@ -54,12 +55,14 @@ public class utils {
     public static final String FAILED_CONNECTION_MESSAGE = "FAILED TO CONNECT";
     public static final String HAND = "HAND";
     public static final String REDRAW_ROUTES = "REDRAW_ROUTES";
+
     public static final String ROUTES = "ROUTES";
     public static final String CLAIMING_ROUTE = "CLAIMING ROUTE";
     public static final String ROUTE_LENGTH = "LENGTH";
     public static final String ROUTE_COLOR = "ROUTE COLOR";
     public static final String ROUTE_ID = "ROUTE ID";
-
+  
+    public static final String GAME_OVER = "GAME_OVER";
 
     public static final String NEW_TURN = "NEW_TURN";
 

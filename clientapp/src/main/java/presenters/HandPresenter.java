@@ -38,6 +38,8 @@ public class HandPresenter implements Observer, IHandPresenter {
         if (o == game) {
             if (arg.equals(utils.HAND)) {
 //                handView.init(fragView);
+            } else if(o.equals(utils.GAME_OVER)){
+                handView.endGame();
             }
         }
     }

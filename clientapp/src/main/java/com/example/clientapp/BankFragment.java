@@ -4,6 +4,7 @@ package com.example.clientapp;
  * Created by ryanm on 3/3/2018.
  */
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -150,6 +151,11 @@ public class BankFragment extends Fragment implements IBankView {
         if (chosenCard!=null) {
             chosenCard.setImageResource(R.drawable.outline);
         }
+    }
+
+    public void endGame(){
+        Intent intent = new Intent(this.getContext(), GameOverActivity.class);
+        startActivity(intent);
     }
 
 }

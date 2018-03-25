@@ -6,4 +6,5 @@ package com.example.clientapp;
 
 public interface IHistoryView {
     void updateHistory();
+    void endGame();
 }

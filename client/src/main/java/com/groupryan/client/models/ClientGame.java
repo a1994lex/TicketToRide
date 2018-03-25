@@ -4,6 +4,7 @@ import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Chat;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.DestCardList;
+import com.groupryan.shared.models.EndGameStat;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Route;
@@ -32,6 +33,7 @@ public class ClientGame extends Observable {
     Player myPlayer;
     int DDeckSize=30;
     int TDeckSize=110;
+    ArrayList<Route> routes;
     ArrayList<String> history;
     ArrayList<Chat> chat;
     ArrayList<TrainCard> bankCards;
@@ -41,6 +43,8 @@ public class ClientGame extends Observable {
     Map<Integer, String> turnOrderMap;
     private HashMap<String, Route> claimedRoutes;
     Boolean original=true;
+    List<EndGameStat> endGameStats;
+    String winner;
 
     public ClientGame(Game game, Player player) {
         this.history = new ArrayList<>();
@@ -48,9 +52,10 @@ public class ClientGame extends Observable {
         this.bankCards = new ArrayList<>();
         this.claimedRoutes = new HashMap<String, Route>();
 
+        routes =new ArrayList<>();
         this.gameId = game.getGameId();
         this.myPlayer = player;
-
+        this.currentTurn = -1;
         this.stats = new HashMap<>();
         this.playersColors = game.getUsers();
 
@@ -132,6 +137,18 @@ public class ClientGame extends Observable {
         notifyObservers(utils.DRAW_THREE_CARDS);
     }
 
+    public void updateTrainCards(ArrayList<TrainCard> cards){
+        myPlayer.addTrainCards(cards);
+        setChanged();
+        notifyObservers(utils.DRAW_COLOR_CARD);
+    }
+
+    public void discardTrainCards(ArrayList<TrainCard> cards){
+        myPlayer.removeTrainCards(cards);
+        setChanged();
+        notifyObservers(utils.DISCARD_TRAINCARD);
+    }
+
     public void setCurrentTurn(int currentTurn){
         this.currentTurn = currentTurn;
         setChanged();
@@ -189,10 +206,33 @@ public class ClientGame extends Observable {
         return claimRoutes;
     }
 
-    public void addRoute(String username, Route route) {
+    public void addClaimedRoute(String username, Route route) {
         claimedRoutes.put(username, route);
         setChanged();
         notifyObservers(route);
+      
+    public List<EndGameStat> getEndGameStats() {
+        return endGameStats;
     }
 
+    public void setEndGameStats(List<EndGameStat> endGameStats) {
+        this.endGameStats = endGameStats;
+        setChanged();
+        notifyObservers(utils.GAME_OVER);
+    }
+      
+    public void addRoute(Route r){
+        routes.add(r);
+        setChanged();
+        //route or redraw routes?
+       // notifyObservers(utils.);
+    }
+
+    public String getWinner() {
+        return winner;
+    }
+
+    public void setWinner(String winner) {
+        this.winner = winner;
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.clientapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,7 +19,7 @@ import presenters.HistoryPresenter;
 
 
 public class HistoryFragment extends Fragment implements  IHistoryView {
-    private RecyclerView.Adapter mAdapter;
+    private HistoryFragment.HistoryAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
     @Override
@@ -42,7 +43,14 @@ public class HistoryFragment extends Fragment implements  IHistoryView {
 
     @Override
     public void updateHistory(){
-        mAdapter.notifyDataSetChanged(); //make sure this works!
+        mAdapter.combineLists();
+        mAdapter.notifyDataSetChanged();//make sure this works!
+    }
+
+    @Override
+    public void endGame(){
+        Intent intent = new Intent(this.getContext(), GameOverActivity.class);
+        startActivity(intent);
     }
 
 
@@ -69,6 +77,7 @@ public class HistoryFragment extends Fragment implements  IHistoryView {
             for (int i = history.size() - 1; i >= 0; i--) {
                 invertedList.add(history.get(i));
             }
+            mGameHistory = invertedList;
             return invertedList;
         }
 

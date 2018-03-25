@@ -55,7 +55,6 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         return instance;
     }
 
-    @Override
     public void setGameView(IGameView gameView) {
         this.gameView = gameView;
         root.addObserver(this);
@@ -64,7 +63,8 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
     @Override
     public void setUpIfFirst() {
-        if (this.game.getCurrentTurn()<0){
+       // if (this.game!=null && this.game.getCurrentTurn()<0){
+            if(this.game.getOriginal()){
             stopLobbyPolling();
             callDrawDestCards();
         }
@@ -85,7 +85,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
     @Override
     public void update(Observable observable, Object o) {
-        if (observable == root) {
+        if (observable == game) { //I changed this so now it check if observable is game, not root.
             int secondSize = root.getClaimedRoutesMap().size();
             if (o.getClass().equals(Route.class)) {
                 if (secondSize > totalClaimedRoutes) {
@@ -98,6 +98,9 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                 gameView.cardsDiscarded();
             } else if (o.equals(utils.REDRAW_ROUTES)) {
                 drawRoutes();
+            } else if(o.equals(utils.GAME_OVER)){
+                IGameView gameView = (IGameView) gameActivity;
+                gameView.endGame();
             }
             else if(observable==game){
                 if (o.equals(utils.DISCARD_DESTCARD)) {

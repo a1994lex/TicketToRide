@@ -19,8 +19,7 @@ import java.util.List;
 public class ClientCommunicatorTest extends TestCase {
     public void testSendCommand() throws Exception {
         ClientCommunicator cc= ClientCommunicator.getInstance();
-        User user=new User("ryan", "apple");
-        User u =new User("a","a");
+        User user=new User("q", "q");
 
         ServerCommandFactory scf=new ServerCommandFactory();
 
@@ -28,27 +27,20 @@ public class ClientCommunicatorTest extends TestCase {
         CommandResult cr;
 
         // Login and Register tests
-sc=scf.createRegisterCommand(user);
-cr=(CommandResult) cc.sendCommand("register", sc);
+    sc=scf.createRegisterCommand(user);
+    cr=(CommandResult) cc.sendCommand("register", sc);
        // sc=scf.createRegisterCommand(u);
        // cr=(CommandResult) cc.sendCommand("register", sc);
     Game g=new Game("gameID2","gameID2",3);
-     //   sc=scf.createCreateGameCommand(g);
-     //   cr=(CommandResult) cc.sendCommand("createGame", sc);
 
-sc=scf.createJoinGameCommand(g,user,utils.BLACK);
-cr=(CommandResult) cc.sendCommand("joinGame", sc);
-
-      //  sc=scf.createJoinGameCommand(g,u,utils.RED);
-      //  cr=(CommandResult) cc.sendCommand("joinGame", sc);
+    sc=scf.createJoinGameCommand(g,user,utils.BLACK);
+    cr=(CommandResult) cc.sendCommand("joinGame", sc);
 
 
         sc =scf.createStartGameCommand("gameID2");
         cr= (CommandResult) cc.sendCommand(utils.START_GAME, sc);
 
-        CommandResult commandResult = ServerProxy.getInstance().getGameCommands("gameID2", "ryan");
-        List<ClientCommand> commandList = commandResult.getClientCommands();
-        commandList.get(1).execute();
+
         int i=0;
     }
 

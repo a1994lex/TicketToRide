@@ -1,5 +1,6 @@
 package com.example.clientapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -304,6 +305,12 @@ public class HandFragment extends Fragment implements IHandView {
 
     public void outputMessage(String message) {
         Toast.makeText(getContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
+  @Override
+    public void endGame(){
+        Intent intent = new Intent(this.getContext(), GameOverActivity.class);
+        startActivity(intent);
     }
 
     private void finish(){

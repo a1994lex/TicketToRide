@@ -21,6 +21,7 @@ public class Player {
     int trainPieces;
     String username;
     int turn;
+    Boolean endGame;
 
     public static Player mapToObject(LinkedTreeMap map) {
         String username = (String) map.get("username");
@@ -38,12 +39,13 @@ public class Player {
         for (LinkedTreeMap tMap : tCards) {
             trainCards.add(TrainCard.mapToObject(tMap));
         }
-        return new Player(color, destCards, trainCards, username, (int) turn);
+        Boolean endGame = (Boolean) map.get("endGame");
+        return new Player(color, destCards, trainCards, username, (int) turn, endGame);
 
 
     }
 
-    public Player(String color, List<DestCard> destCards, List<TrainCard> trainCards, String username, int turn) {
+    public Player(String color, List<DestCard> destCards, List<TrainCard> trainCards, String username, int turn, Boolean endGame) {
         this.color = color;
         this.routes = new ArrayList<>();
         this.points = 0;
@@ -52,6 +54,7 @@ public class Player {
         this.trainPieces = 45;
         this.username = username;
         this.turn = turn;
+        this.endGame = endGame;
     }
 
     public Player(String username, String color) { // for testing only
@@ -72,7 +75,7 @@ public class Player {
     }
 
     public void removeTrainCard(Card c) {
-        destCards.remove(c);
+        trainCards.remove(c);
     }
 
     public Stat makeStat() {
@@ -95,10 +98,19 @@ public class Player {
         }
     }
 
+    public void removeTrainCards(ArrayList<TrainCard> cards){
+        for(TrainCard c: cards){
+            trainCards.remove(c);
+        }
+    }
+
     public void removeTrains(int cost) {
         this.trainPieces = trainPieces - cost;
     }
 
+    public void addPoints(int amount){
+        points+=amount;
+    }
     public String getColor() {
         return color;
     }
@@ -147,6 +159,14 @@ public class Player {
         this.username = username;
     }
 
+    public Boolean getEndGame() {
+        return endGame;
+    }
+
+    public void setEndGame(Boolean endGame) {
+        this.endGame = endGame;
+    }
+
     public List<DestCard> getDestCards() {
         return this.destCards;
     }
@@ -171,4 +191,7 @@ public class Player {
         return trainCardsMap;
     }
 
+    public void addRoute(Route r){
+        routes.add(r);
+    }
 }

@@ -41,7 +41,6 @@ public class RootServerModel {
             single_instance = new RootServerModel();
             Game game = new Game();
             single_instance.gameMap = game.makeTestGames();
-            //single_instance.makeBank();
         }
         return single_instance;
     }
@@ -71,7 +70,6 @@ public class RootServerModel {
     public static String confirmUser(User user) {
         return single_instance._confirmUser(user);
     }
-
 
     public static Boolean checkUser(User user) {
         return single_instance._checkUser(user);
@@ -449,7 +447,7 @@ public class RootServerModel {
         tCards.add((TrainCard) sg.drawTrainCard());
         tCards.add((TrainCard) sg.drawTrainCard());
         tCards.add((TrainCard) sg.drawTrainCard());
-        Player p = new Player(entry.getValue(), sg.drawDestinationCards(), tCards, entry.getKey(), turn);
+        Player p = new Player(entry.getValue(), sg.drawDestinationCards(), tCards, entry.getKey(), turn, false);
         //get the top 4 train cards
         //get the top 3 D cards,
         //store the player ,
@@ -473,4 +471,7 @@ public class RootServerModel {
         return serverGameIdMap;
     }
 
+    public Route getRoute(int ID){
+        return routeMap.get(ID);
+    }
 }

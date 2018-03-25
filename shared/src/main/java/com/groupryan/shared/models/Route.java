@@ -1,5 +1,7 @@
 package com.groupryan.shared.models;
 
+import com.google.gson.internal.LinkedTreeMap;
+
 /**
  * Created by arctu on 2/17/2018.
  */
@@ -14,6 +16,19 @@ public class Route {
     boolean available;
 
 //todo make maptoobject
+
+    public static Route mapToObject(LinkedTreeMap map) {
+        double  len = (double) map.get("length");
+        String one = (String) map.get("cityOne");
+        String two = (String) map.get("cityTwo");
+        double worth = (double) map.get("worth");
+        String color = (String) map.get("color");
+        double ID = (double) map.get("id");
+        boolean available = (boolean) map.get("available");
+
+        return new Route((int) len, one, two, (int)worth, color, (int)ID, available);
+    }
+
     public Route(int length, String one, String two, int worth, String color, int id){
         this.length=length;
         cityOne=one;
@@ -28,46 +43,30 @@ public class Route {
         return length;
     }
 
-    public void setLength(int length) {
-        this.length = length;
+    public void setColor(String color){
+        this.color=color;
     }
 
     public String getCityOne() {
         return cityOne;
     }
 
-    public void setCityOne(String cityOne) {
-        this.cityOne = cityOne;
-    }
-
     public String getCityTwo() {
         return cityTwo;
-    }
-
-    public void setCityTwo(String cityTwo) {
-        this.cityTwo = cityTwo;
     }
 
     public int getWorth() {
         return worth;
     }
 
-    public void setWorth(int worth) {
-        this.worth = worth;
-    }
-
     public String getColor() {
         return color;
-    }
-
-    public void setColor(String color) {
-        this.color = color;
     }
 
     public int getId() {
         return id;
     }
-
+  
     public void setId(int id) {
         this.id = id;
     }
