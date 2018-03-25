@@ -26,7 +26,8 @@ public class UIGameFacade {
 
     private UIGameFacade() {}
 
-    public CommandResult placeRoute(List<TrainCard> trainCards, String username, int routeId) {
+    public CommandResult placeRoute(List<Integer> trainCards, String username, int routeId) {
+
         return null;
         // TODO: finish sending command to server
     }
