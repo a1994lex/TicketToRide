@@ -1,6 +1,8 @@
 package presenters;
 
 import android.app.Activity;
+
+import com.example.clientapp.GameActivity;
 import com.example.clientapp.IGameView;
 import com.groupryan.client.UIGameFacade;
 import com.groupryan.client.models.ClientGame;
@@ -49,6 +51,14 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         this.gameActivity = gameView;
         root.addObserver(this);
         game.addObserver(this);
+    }
+
+    public IGameView getGameActivity(){
+        return this.gameActivity;
+    }
+
+    public BankPresenter getBankPresenter(){
+        return BankPresenter.getInstance();
     }
 
     @Override
@@ -128,6 +138,16 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
     public void setState(GameState state){
         this.state = state;
+    }
+
+    @Override
+    public void cancel() {
+        state.cancel(this);
+    }
+
+    @Override
+    public void submit() {
+        state.submit(this);
     }
     ////END OF STATE FUNCTIONS//////
 

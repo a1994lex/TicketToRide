@@ -29,6 +29,8 @@ public class BankPresenter implements Observer, IBankPresenter {
     private ClientGame game;
     private static BankPresenter instance = new BankPresenter(RootClientModel.getInstance().getCurrentGame());
 
+    private int curDeckIndex;
+
     private BankState state;
 
     private BankPresenter(ClientGame clientGame){
@@ -56,9 +58,17 @@ public class BankPresenter implements Observer, IBankPresenter {
         task.execute();
     }
 
+    public int getCurDeckIndex(){
+        return curDeckIndex;
+    }
+
+    public void callCancelFail(){
+        bankView.toastPleaseFinishDraw();
+    }
     // STATE FUNCTIONS /////////////////
     @Override
     public void clickTCard(int deckIndex){
+        this.curDeckIndex = deckIndex;
         String color = "";
         if (deckIndex>0){
             color = getBank().get(deckIndex).getColor();
@@ -82,6 +92,10 @@ public class BankPresenter implements Observer, IBankPresenter {
 
     public void setState(BankState state){
         this.state = state;
+    }
+
+    public GamePlayPresenter getGamePlayPresenter(){
+        return GamePlayPresenter.getInstance();
     }
     ////END OF STATE FUNCTIONS////////////
 

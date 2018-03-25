@@ -127,11 +127,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
             //removePrevFrag(utils.BANK);
             GamePlayPresenter.getInstance().clickDrawCard();
 
-            for (LineView lineView : lineViews) {
-                lineView.setVisibility(View.INVISIBLE);
-            }
-            addFragment(R.id.bank_fragment,
-                    new BankFragment(), utils.BANK);
+
            /* FragmentManager manager = getFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.add(R.id.bank_fragment,new BankFragment(),utils.BANK);
@@ -148,6 +144,15 @@ public class GameActivity extends FragmentActivity implements IGameView {
         });
 
     }
+    @Override
+    public void showBankModal(){
+        for (LineView lineView : lineViews) {
+            lineView.setVisibility(View.INVISIBLE);
+        }
+        addFragment(R.id.bank_fragment,
+                new BankFragment(), utils.BANK);
+    }
+
     @Override
     public void showClaimRouteModal(){
         // create a dialog ClaimRouteActivity where client can choose their route they would like to buy

@@ -16,4 +16,5 @@ public interface IGameView {
     void showClaimRouteModal();
     void goToDrawDestActivity();
     void endGame();
+    void showBankModal();
 }
