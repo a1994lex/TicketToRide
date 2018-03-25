@@ -113,12 +113,10 @@ public class GameActivity extends FragmentActivity implements IGameView {
         //RouteLogHelper logger = new RouteLogHelper(this);
 
         // SET UP LISTENERS
-        mClaimRoute.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+        mClaimRoute.setOnClickListener((View v) -> {
                 GamePlayPresenter.getInstance().clickClaimRoute(); // the states will do their thing, then th
-            }
-        });
+                //testEndGameStat();
+            });
 
         mMenuBtn.setOnClickListener((View v) -> {
             mNav.setVisibility(View.VISIBLE);
@@ -154,6 +152,15 @@ public class GameActivity extends FragmentActivity implements IGameView {
             addFragment(R.id.hand_fragment, new HandFragment(), utils.HAND);
         }
     }
+    @Override
+    public void showBankModal(){
+        for (LineView lineView : lineViews) {
+            lineView.setVisibility(View.INVISIBLE);
+        }
+        addFragment(R.id.bank_fragment,
+                new BankFragment(), utils.BANK);
+    }
+
     @Override
     public void showClaimRouteModal(){
         Intent intent = new Intent(this, ClaimRouteDialogActivity.class);

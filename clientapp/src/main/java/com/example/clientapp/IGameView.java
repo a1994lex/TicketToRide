@@ -17,4 +17,5 @@ public interface IGameView {
     void spendTrainCards();
     void goToDrawDestActivity();
     void endGame();
+    void showBankModal();
 }

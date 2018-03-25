@@ -11,5 +11,7 @@ public interface IGamePlayPresenter {
     void setGameView(IGameView gameView);
     void setUpIfFirst();
     void redrawRoutes();
+    void cancel();
+    void submit();
 
 }

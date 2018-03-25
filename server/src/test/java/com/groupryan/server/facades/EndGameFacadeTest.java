@@ -118,4 +118,14 @@ public class EndGameFacadeTest {
         Assert.assertEquals(-10, egs.getTotalPoints());
     }
 
+    @Test
+    public void testTie(){
+        int total = 20;
+        for(EndGameStat egs : endGameFacade.getUsernameToStat().values()){
+            egs.setTotalPoints(total);
+        }
+        endGameFacade.calculateWinner();
+        Assert.assertEquals("haley and kate and grace and claire", endGameFacade.getWinner());
+    }
+
 }

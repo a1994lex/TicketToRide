@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.provider.DocumentsContract;
 import android.widget.Toast;
 
+import com.example.clientapp.GameActivity;
 import com.example.clientapp.IClaimRouteView;
 import com.example.clientapp.IGameView;
 import com.groupryan.client.UIGameFacade;
@@ -59,6 +60,12 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         this.gameView = gameView;
         root.addObserver(this);
         game.addObserver(this);
+    }
+    public IGameView getGameView(){
+        return this.gameView;
+    }
+    public BankPresenter getBankPresenter(){
+        return BankPresenter.getInstance();
     }
 
     @Override
@@ -138,6 +145,16 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
     public void setState(GameState state){
         this.state = state;
+    }
+
+    @Override
+    public void cancel() {
+        this.state.cancel(this);
+    }
+
+    @Override
+    public void submit() {
+        this.state.submit(this);
     }
     ////END OF STATE FUNCTIONS//////
 

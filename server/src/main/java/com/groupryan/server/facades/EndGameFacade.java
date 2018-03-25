@@ -72,8 +72,19 @@ public class EndGameFacade {
         }
         EndGameStat winningStat = Collections.max(finalstats, new EndGameFacade.WinnerComparing());
         winner = winningStat.getUsername();
+
+        checkIfTie();
         return finalstats;
 
+    }
+
+    public void checkIfTie(){
+        EndGameStat winnerStat = usernameToStat.get(winner);
+        for(EndGameStat egs : usernameToStat.values()){
+            if(egs.getTotalPoints() == winnerStat.getTotalPoints() && !winnerStat.getUsername().equals(egs.getUsername())){
+                winner += " and " + egs.getUsername();
+            }
+        }
     }
 
     public void calculateDestinations(Player player){
