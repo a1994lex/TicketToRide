@@ -130,7 +130,11 @@ public class GameActivity extends FragmentActivity implements IGameView {
             //removePrevFrag(utils.BANK);
             GamePlayPresenter.getInstance().clickDrawCard();
 
-
+            for (LineView lineView : lineViews) {
+                lineView.setVisibility(View.INVISIBLE);
+            }
+            addFragment(R.id.bank_fragment,
+                    new BankFragment(), utils.BANK);
            /* FragmentManager manager = getFragmentManager();
             FragmentTransaction transaction = manager.beginTransaction();
             transaction.add(R.id.bank_fragment,new BankFragment(),utils.BANK);

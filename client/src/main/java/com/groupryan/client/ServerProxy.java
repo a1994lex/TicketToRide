@@ -49,7 +49,8 @@ public class ServerProxy implements IServer {
     @Override
     public CommandResult startGame(String gameId) {
         ServerCommand command = serverCommandFactory.createStartGameCommand(gameId);
-        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.START_GAME, command);
+        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance()
+                .sendCommand(utils.START_GAME, command);
         executeCommands(commandResult.getClientCommands());
         return null;
     }
@@ -57,7 +58,8 @@ public class ServerProxy implements IServer {
     @Override
     public LoginResult register(User user) {
         ServerCommand command = serverCommandFactory.createRegisterCommand(user);
-        LoginResult registerResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(utils.REGISTER, command);
+        LoginResult registerResult = (LoginResult) ClientCommunicator.getInstance()
+                .sendCommand(utils.REGISTER, command);
         executeCommands(registerResult.getClientCommands());
         return registerResult;
     }
@@ -65,22 +67,26 @@ public class ServerProxy implements IServer {
     @Override
     public LoginResult login(User user) {
         ServerCommand command = serverCommandFactory.createLoginCommand(user);
-        LoginResult loginResult = (LoginResult) ClientCommunicator.getInstance().sendCommand(utils.LOGIN, command);
+        LoginResult loginResult = (LoginResult) ClientCommunicator.getInstance()
+                .sendCommand(utils.LOGIN, command);
         executeCommands(loginResult.getClientCommands());
         return loginResult;
     }
 
     @Override
     public CommandResult discardDestinationCard(DestCardList destCardList, String username) {
-        ServerCommand command = serverCommandFactory.createDiscardDestinationCardCommand(destCardList, username);
-        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.DISCARD_DESTCARD, command);
+        ServerCommand command = serverCommandFactory.createDiscardDestinationCardCommand(destCardList,
+                                                                                        username);
+        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance()
+                .sendCommand(utils.DISCARD_DESTCARD, command);
         return commandResult;
     }
 
     @Override
     public CommandResult sendChat(String gameId, String msg, String username) {
         ServerCommand command = serverCommandFactory.createSendChat(gameId, msg, username);
-        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.GET_COMMANDS, command);
+        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance()
+                .sendCommand(utils.GET_COMMANDS, command);
 //        executeCommands(commandResult.getClientCommands());
         return commandResult;
     }
@@ -88,7 +94,8 @@ public class ServerProxy implements IServer {
     @Override
     public CommandResult drawColorCard(Integer i, String username) {
         ServerCommand command = serverCommandFactory.createDrawColorCardCommand(i, username);
-        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.DRAW_COLOR_CARD, command);
+        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance()
+                .sendCommand(utils.DRAW_COLOR_CARD, command);
         return commandResult;
     }
 
@@ -100,40 +107,45 @@ public class ServerProxy implements IServer {
     @Override
     public CommandResult drawDestinationCards(String username) {
         ServerCommand command = serverCommandFactory.createDrawThreeCardsCommand(username);
-        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.DRAW_THREE_CARDS, command);
+        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance()
+                .sendCommand(utils.DRAW_THREE_CARDS, command);
         //executeCommands(commandResult.getClientCommands());
         return commandResult;
     }
     @Override
     public CommandResult endTurn(String username) {
         ServerCommand command = serverCommandFactory.createEndTurnCommand(username);
-        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.NEW_TURN, command);
+        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance()
+                .sendCommand(utils.NEW_TURN, command);
         return commandResult;
     }
 
     @Override
     public CommandResult getCommands(User user) {
         ServerCommand command = serverCommandFactory.createGetCommands(user);
-        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.GET_COMMANDS, command);
+        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance()
+                .sendCommand(utils.GET_COMMANDS, command);
         //executeCommands(commandResult.getClientCommands());
         return commandResult;
     }
 
     @Override
     public CommandResult claimRoute(String username, int routeId, List<Integer> trainCardIDs) {
-        return null;
+        ServerCommand command = serverCommandFactory.createClaimRouteCommand(username, routeId,
+                                                                            trainCardIDs);
+        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance()
+                                        .sendCommand(utils.CLAIM_ROUTE, command);
+        return commandResult;
     }
 
     @Override
     public CommandResult getGameCommands(String gameId, String playerId) {
         ServerCommand command = serverCommandFactory.createGetGameCommands(gameId, playerId);
-        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance().sendCommand(utils.GET_COMMANDS, command);
+        CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance()
+                                        .sendCommand(utils.GET_COMMANDS, command);
         System.out.print(commandResult.getClientCommands().size());
         return commandResult;
     }
-
-
-
 
     public void executeCommands(List<ClientCommand> commandList) {
         System.out.println(commandList);

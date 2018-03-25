@@ -41,6 +41,7 @@
         <activity
             android:name=".dialogs.DiscardDestCardDialogActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog"></activity>
+        <activity android:name=".dialogs.ClaimRouteDialogActivity"></activity>
         <activity android:name=".GameOverActivity"></activity>
     </application>
 

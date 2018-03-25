@@ -65,6 +65,7 @@ public class utils {
     public static final String GAME_OVER = "GAME_OVER";
 
     public static final String NEW_TURN = "NEW_TURN";
+    public static final String CLAIM_ROUTE = "CLAIM ROUTE";
 
     public static int convertStringToRColor(String color) {
         switch (color) {
