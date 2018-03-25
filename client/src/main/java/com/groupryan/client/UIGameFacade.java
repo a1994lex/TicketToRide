@@ -3,6 +3,10 @@ package com.groupryan.client;
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.commands.ServerCommandFactory;
 import com.groupryan.shared.models.Route;
+import com.groupryan.shared.models.TrainCard;
+import com.groupryan.shared.results.CommandResult;
+
+import java.util.List;
 
 /**
  * Created by Daniel on 3/5/2018.
@@ -22,7 +26,12 @@ public class UIGameFacade {
 
     private UIGameFacade() {}
 
-    public void claimRoute(String username, Route route) {
-        RootClientModel.addClaimedRoute(username, route);
+    public CommandResult placeRoute(List<TrainCard> trainCards, String username, int routeId) {
+        return null;
+        // TODO: finish sending command to server
     }
+
+//    public void claimRoute(String username, Route route) {
+//        RootClientModel.addClaimedRoute(username, route);
+//    }
 }

@@ -25,7 +25,8 @@ public class DiscardDestCardAsyncTask extends AsyncTask<List<Integer>, Void, Com
 
     @Override
     protected CommandResult doInBackground(List<Integer>... cardIDs) {
-        CommandResult result = this.uifacade.discardDestinationCard(cardIDs[0], RootClientModel.getUser().getUsername());
+        CommandResult result = this.uifacade.discardDestinationCard(cardIDs[0],
+                RootClientModel.getUser().getUsername());
         return result;
     }
 

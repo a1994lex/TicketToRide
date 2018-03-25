@@ -2,14 +2,10 @@ package com.example.clientapp.dialogs;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.NumberPicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
@@ -19,9 +15,7 @@ import com.example.clientapp.IJoinGameView;
 import com.example.clientapp.LobbyActivity;
 import com.example.clientapp.R;
 import com.groupryan.client.models.RootClientModel;
-import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
-import com.groupryan.shared.models.User;
 import com.groupryan.shared.utils;
 
 import java.io.IOException;
@@ -91,7 +85,7 @@ public class JoinGameDialogActivity extends Activity implements IJoinGameView, O
                 break;
             }
         }
-        super.onCreate(savedInstanceState);
+//        super.onCreate(savedInstanceState);
         setContentView(R.layout.dialog_join_game);
         JoinGamePresenter.setView(this);
 
