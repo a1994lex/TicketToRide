@@ -2,6 +2,7 @@ package presenters;
 
 import android.app.Activity;
 
+import com.example.clientapp.IClaimRouteView;
 import com.example.clientapp.IGameView;
 
 public interface IGamePlayPresenter {
