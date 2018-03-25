@@ -216,7 +216,6 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
 
     public void discardTrainCards(int routeId, List<Integer> pickedCards) {
-//  TODO: send command to server
         String username = RootClientModel.getCurrentGame().getMyPlayer().getUsername();
         ClaimRouteData claimRouteData = new ClaimRouteData(pickedCards, routeId, username);
         DiscardTrainCardAsyncTask task = new DiscardTrainCardAsyncTask();

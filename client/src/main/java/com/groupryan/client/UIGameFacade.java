@@ -27,8 +27,7 @@ public class UIGameFacade {
     private UIGameFacade() {}
 
     public CommandResult placeRoute(List<Integer> trainCards, String username, int routeId) {
-
-        return null;
+        return ServerProxy.getInstance().claimRoute(username, routeId, trainCards);
         // TODO: finish sending command to server
     }
 
