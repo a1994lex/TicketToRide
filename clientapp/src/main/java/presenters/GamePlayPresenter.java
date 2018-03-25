@@ -99,7 +99,6 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
             } else if (o.equals(utils.REDRAW_ROUTES)) {
                 drawRoutes();
             } else if(o.equals(utils.GAME_OVER)){
-                IGameView gameView = (IGameView) gameActivity;
                 gameView.endGame();
             }
             else if(observable==game){
@@ -199,7 +198,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
 
 
-    public void discardTrainCards(int routeId, List<TrainCard> pickedCards) {
+    public void discardTrainCards(int routeId, List<Integer> pickedCards) {
 //  TODO: send command to server
         String username = RootClientModel.getCurrentGame().getMyPlayer().getUsername();
         ClaimRouteData claimRouteData = new ClaimRouteData(pickedCards, routeId, username);
@@ -344,9 +343,9 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         return false;
     }
 
-    public List<TrainCard> getDiscardingTrainCards(Map<String, Integer> pickedCards) {
+    public List<Integer> getDiscardingTrainCards(Map<String, Integer> pickedCards) {
         List<TrainCard> trainCards = RootClientModel.getCurrentGame().getMyPlayer().getTrainCards();
-        List<TrainCard> pickedTrainCards = new ArrayList<>();
+        List<Integer> pickedTrainCards = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : pickedCards.entrySet()) {
             if (entry.getKey().equals(utils.RED)) {
                 pickedTrainCards.add(findTrainCardByColor(trainCards, utils.RED));
@@ -379,13 +378,13 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         return pickedTrainCards;
     }
 
-    public TrainCard findTrainCardByColor(List<TrainCard> trainCards, String color) {
+    public int findTrainCardByColor(List<TrainCard> trainCards, String color) {
         for (TrainCard trainCard : trainCards) {
             if (color.equals(trainCard)) {
-                return trainCard;
+                return trainCard.getID();
             }
         }
-        return null;
+        return -1;
     }
 
     public void discardDestinationCard(List<Integer> cardIDs) {

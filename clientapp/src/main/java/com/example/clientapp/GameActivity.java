@@ -113,11 +113,10 @@ public class GameActivity extends FragmentActivity implements IGameView {
         //RouteLogHelper logger = new RouteLogHelper(this);
 
         // SET UP LISTENERS
-        mClaimRoute.setOnClickListener((View v) -> {
+        mClaimRoute.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 GamePlayPresenter.getInstance().clickClaimRoute(); // the states will do their thing, then th
-                //testEndGameStat();
             }
         });
 

@@ -257,7 +257,7 @@ public class HandFragment extends Fragment implements IHandView {
 
         if (routeLength == 0) {
             routeLength = -1;
-            List<TrainCard> discardingTrainCards = GamePlayPresenter.getInstance()
+            List<Integer> discardingTrainCards = GamePlayPresenter.getInstance()
                     .getDiscardingTrainCards(pickedCards);
             int routeId = getActivity().getIntent().getIntExtra(utils.ROUTE_ID, -1);
             GamePlayPresenter.getInstance().discardTrainCards(routeId, discardingTrainCards);

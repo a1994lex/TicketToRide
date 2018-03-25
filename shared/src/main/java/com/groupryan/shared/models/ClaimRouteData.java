@@ -8,11 +8,11 @@ import java.util.Map;
  */
 
 public class ClaimRouteData {
-    private List<TrainCard> trainCards;
+    private List<Integer> trainCards;
     private int routeId;
     private String username;
 
-    public ClaimRouteData(List<TrainCard> trainCards, int routeId, String username) {
+    public ClaimRouteData(List<Integer> trainCards, int routeId, String username) {
         this.trainCards = trainCards;
         this.routeId = routeId;
         this.username = username;
@@ -22,11 +22,11 @@ public class ClaimRouteData {
         return routeId;
     }
 
-    public List<TrainCard> getTrainCards() {
+    public List<Integer> getTrainCards() {
         return trainCards;
     }
 
-    public void setTrainCards(List<TrainCard> trainCards) {
+    public void setTrainCards(List<Integer> trainCards) {
         this.trainCards = trainCards;
     }
 
