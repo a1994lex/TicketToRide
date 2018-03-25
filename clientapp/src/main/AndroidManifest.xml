@@ -19,7 +19,6 @@
             android:screenOrientation="landscape">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -37,7 +36,9 @@
             android:theme="@android:style/Theme.Holo.Light.Dialog" />
         <activity
             android:name=".GameActivity"
-            android:label="@string/title_activity_game"></activity>
+            android:screenOrientation="landscape"
+            android:label="@string/title_activity_game">
+        </activity>
         <activity
             android:name=".dialogs.DiscardDestCardDialogActivity"
             android:theme="@android:style/Theme.Holo.Light.Dialog"></activity>

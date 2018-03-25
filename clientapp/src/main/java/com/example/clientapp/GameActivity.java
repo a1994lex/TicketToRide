@@ -52,6 +52,11 @@ import presenters.IGamePlayPresenter;
 
 public class GameActivity extends FragmentActivity implements IGameView {
 
+    // views for finding the points of the route segments
+//    private ImageView mapImage;
+//    private EditText routeName;
+//    private Button nameEntry;
+
     private ClientGame game = RootClientModel.getCurrentGame();
     private BottomNavigationView mNav;
     private FloatingActionButton mMenuBtn;
@@ -151,6 +156,23 @@ public class GameActivity extends FragmentActivity implements IGameView {
         if (utils.CLAIMING_ROUTE.equals(getIntent().getStringExtra(utils.CLAIMING_ROUTE))) {
             addFragment(R.id.hand_fragment, new HandFragment(), utils.HAND);
         }
+
+        // views for finding the points of the route segments
+//        mapImage = findViewById(R.id.map_button);
+//        routeName = findViewById(R.id.route_name_entry);
+//        nameEntry = findViewById(R.id.name_entry_button);
+//        Logger logger = Logger.getLogger("MyLog");
+//
+//        mapImage.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                if (event.getAction() == MotionEvent.ACTION_DOWN){
+//                    logger.severe("x value: " + String.valueOf(event.getX()) +
+//                            " y value: " + String.valueOf(event.getY()) + "\n");
+//                }
+//                return true;
+//            }
+//        });
     }
     @Override
     public void showBankModal(){
