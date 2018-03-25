@@ -107,8 +107,13 @@ public class HandFragment extends Fragment implements IHandView {
                         pickedCards =
                                 GamePlayPresenter.getInstance()
                                         .mapColorToCount(routeColor, pickedCards);
-                        outputMessage("Pick " + routeLength + " more " +
-                                routeColor + " cards");
+                        if (routeLength > 0) {
+                            outputMessage("Pick " + routeLength + " more " +
+                                    routeColor + " cards");
+                        }
+                        else {
+                            startDiscardCardTask();
+                        }
                     }
                 }
             }
@@ -125,8 +130,13 @@ public class HandFragment extends Fragment implements IHandView {
                         pickedCards =
                                 GamePlayPresenter.getInstance()
                                         .mapColorToCount(routeColor, pickedCards);
-                        outputMessage("Pick " + routeLength + " more " +
-                                routeColor + " cards");
+                        if (routeLength > 0) {
+                            outputMessage("Pick " + routeLength + " more " +
+                                    routeColor + " cards");
+                        }
+                        else {
+                            startDiscardCardTask();
+                        }
                     }
                 }
             }
@@ -143,8 +153,13 @@ public class HandFragment extends Fragment implements IHandView {
                         pickedCards =
                                 GamePlayPresenter.getInstance()
                                         .mapColorToCount(routeColor, pickedCards);
-                        outputMessage("Pick " + routeLength + " more " +
-                                routeColor + " cards");
+                        if (routeLength > 0) {
+                            outputMessage("Pick " + routeLength + " more " +
+                                    routeColor + " cards");
+                        }
+                        else {
+                            startDiscardCardTask();
+                        }
                     }
                 }
             }
@@ -161,8 +176,13 @@ public class HandFragment extends Fragment implements IHandView {
                         pickedCards =
                                 GamePlayPresenter.getInstance()
                                         .mapColorToCount(routeColor, pickedCards);
-                        outputMessage("Pick " + routeLength + " more " +
-                                routeColor + " cards");
+                        if (routeLength > 0) {
+                            outputMessage("Pick " + routeLength + " more " +
+                                    routeColor + " cards");
+                        }
+                        else {
+                            startDiscardCardTask();
+                        }
                     }
                 }
             }
@@ -179,8 +199,13 @@ public class HandFragment extends Fragment implements IHandView {
                         pickedCards =
                                 GamePlayPresenter.getInstance()
                                         .mapColorToCount(routeColor, pickedCards);
-                        outputMessage("Pick " + routeLength + " more " +
-                                routeColor + " cards");
+                        if (routeLength > 0) {
+                            outputMessage("Pick " + routeLength + " more " +
+                                    routeColor + " cards");
+                        }
+                        else {
+                            startDiscardCardTask();
+                        }
                     }
                 }
             }
@@ -197,8 +222,13 @@ public class HandFragment extends Fragment implements IHandView {
                         pickedCards =
                                 GamePlayPresenter.getInstance()
                                         .mapColorToCount(routeColor, pickedCards);
-                        outputMessage("Pick " + routeLength + " more " +
-                                routeColor + " cards");
+                        if (routeLength > 0) {
+                            outputMessage("Pick " + routeLength + " more " +
+                                    routeColor + " cards");
+                        }
+                        else {
+                            startDiscardCardTask();
+                        }
                     }
                 }
             }
@@ -215,8 +245,13 @@ public class HandFragment extends Fragment implements IHandView {
                         pickedCards =
                                 GamePlayPresenter.getInstance()
                                         .mapColorToCount(routeColor, pickedCards);
-                        outputMessage("Pick " + routeLength + " more " +
-                                routeColor + " cards");
+                        if (routeLength > 0) {
+                            outputMessage("Pick " + routeLength + " more " +
+                                    routeColor + " cards");
+                        }
+                        else {
+                            startDiscardCardTask();
+                        }
                     }
                 }
             }
@@ -233,8 +268,13 @@ public class HandFragment extends Fragment implements IHandView {
                         pickedCards =
                                 GamePlayPresenter.getInstance()
                                         .mapColorToCount(routeColor, pickedCards);
-                        outputMessage("Pick " + routeLength + " more " +
-                                routeColor + " cards");
+                        if (routeLength > 0) {
+                            outputMessage("Pick " + routeLength + " more " +
+                                    routeColor + " cards");
+                        }
+                        else {
+                            startDiscardCardTask();
+                        }
                     }
                 }
             }
@@ -249,20 +289,16 @@ public class HandFragment extends Fragment implements IHandView {
                     pickedCards =
                             GamePlayPresenter.getInstance()
                                     .mapColorToCount(utils.LOCOMOTIVE, pickedCards);
-                    outputMessage("Pick " + routeLength + " more " +
-                            routeColor + " cards");
+                    if (routeLength > 0) {
+                        outputMessage("Pick " + routeLength + " more " +
+                                routeColor + " cards");
+                    }
+                    else {
+                        startDiscardCardTask();
+                    }
                 }
             }
         });
-
-        if (routeLength == 0) {
-            routeLength = -1;
-            List<Integer> discardingTrainCards = GamePlayPresenter.getInstance()
-                    .getDiscardingTrainCards(pickedCards);
-            int routeId = getActivity().getIntent().getIntExtra(utils.ROUTE_ID, -1);
-            GamePlayPresenter.getInstance().discardTrainCards(routeId, discardingTrainCards);
-            finish();
-        }
 
         mExit=view.findViewById(R.id.exit);
         mExit.setZ(5);
@@ -284,15 +320,24 @@ public class HandFragment extends Fragment implements IHandView {
             outputMessage("Pick the cards you want to discard to claim route.");
             routeColor = getActivity().getIntent().getStringExtra(utils.ROUTE_COLOR);
             routeLength = getActivity().getIntent().getIntExtra(utils.ROUTE_LENGTH, -1);
-            listRouteRequirements();
+            listRouteRequirements(view);
         }
 
         return view;
     }
 
-    public void listRouteRequirements() {
-        TextView colorReminder = getView().findViewById(R.id.color_reminder);
-        TextView lengthReminder = getView().findViewById(R.id.length_reminder);
+    public void startDiscardCardTask() {
+            routeLength = -1;
+            List<Integer> discardingTrainCards = GamePlayPresenter.getInstance()
+                    .getDiscardingTrainCards(pickedCards);
+            int routeId = getActivity().getIntent().getIntExtra(utils.ROUTE_ID, -1);
+            GamePlayPresenter.getInstance().discardTrainCards(routeId, discardingTrainCards);
+            finish();
+    }
+
+    public void listRouteRequirements(View view) {
+        TextView colorReminder = view.findViewById(R.id.color_reminder);
+        TextView lengthReminder = view.findViewById(R.id.length_reminder);
         if (!routeColor.isEmpty()) {
             colorReminder.setText("Choose color: " + routeColor);
         } else {

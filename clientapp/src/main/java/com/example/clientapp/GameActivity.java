@@ -163,6 +163,9 @@ public class GameActivity extends FragmentActivity implements IGameView {
 
     @Override
     public void showClaimRouteModal(){
+        for (LineView lineView : lineViews) {
+            lineView.setVisibility(View.INVISIBLE);
+        }
         Intent intent = new Intent(this, ClaimRouteDialogActivity.class);
         startActivity(intent);
         // create a dialog ClaimRouteActivity where client can choose their route they would like to buy
@@ -180,10 +183,13 @@ public class GameActivity extends FragmentActivity implements IGameView {
         lineViews.clear();
     }
 
+    @Override
     public void cardsDiscarded() {
         HandFragment fragment = (HandFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.hand_fragment);
-        fragment.cardsDiscarded();
+        if (fragment != null) {
+            fragment.cardsDiscarded();
+        }
     }
 
     @Override

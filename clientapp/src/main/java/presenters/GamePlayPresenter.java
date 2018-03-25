@@ -102,6 +102,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                     gameView.drawRoute(r.getColor(), routeSegments);
                 }
             } else if (o.equals(utils.DISCARD_DESTCARD)) {
+                // it's trying to call a method on gameView when gameView is null
                 gameView.cardsDiscarded();
             } else if (o.equals(utils.REDRAW_ROUTES)) {
                 drawRoutes();
@@ -220,6 +221,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         ClaimRouteData claimRouteData = new ClaimRouteData(pickedCards, routeId, username);
         DiscardTrainCardAsyncTask task = new DiscardTrainCardAsyncTask();
         task.execute(claimRouteData);
+        state.submit(GamePlayPresenter.getInstance());
     }
 
     public Map<String, Integer> mapColorToCount(String color, Map<String, Integer> pickedCards) {
