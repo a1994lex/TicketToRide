@@ -29,6 +29,16 @@ public class Route {
         return new Route((int)len, one, two, (int)worth, color, (int)ID, available);
     }
 
+    public Route(int length, String one, String two, int worth, String color, int id, boolean available){
+        this.length=length;
+        cityOne=one;
+        cityTwo=two;
+        this.worth=worth;
+        this.color=color;
+        this.id=id;
+        this.available = available;
+    }
+
     public Route(int length, String one, String two, int worth, String color, int id){
         this.length=length;
         cityOne=one;

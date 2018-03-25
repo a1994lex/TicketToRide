@@ -114,12 +114,9 @@ public class GameActivity extends FragmentActivity implements IGameView {
 
         // SET UP LISTENERS
         mClaimRoute.setOnClickListener((View v) -> {
-            @Override
-            public void onClick(View v) {
                 GamePlayPresenter.getInstance().clickClaimRoute(); // the states will do their thing, then th
                 //testEndGameStat();
-            }
-        });
+            });
 
         mMenuBtn.setOnClickListener((View v) -> {
             mNav.setVisibility(View.VISIBLE);
