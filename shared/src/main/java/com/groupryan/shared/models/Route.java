@@ -26,7 +26,7 @@ public class Route {
         double ID = (double) map.get("id");
         boolean available = (boolean) map.get("available");
 
-        return new Route((int) len, one, two, (int)worth, color, (int)ID, available);
+        return new Route((int)len, one, two, (int)worth, color, (int)ID, available);
     }
 
     public Route(int length, String one, String two, int worth, String color, int id, boolean available){
