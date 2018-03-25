@@ -98,12 +98,10 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
              mJoinGameBtn = itemView.findViewById(R.id.join_game_btn);
              mGameTitle = itemView.findViewById(R.id.game_title);
 
-
              mJoinGameBtn.setOnClickListener(new View.OnClickListener() {
                  @Override
                  public void onClick(View view) {
                      if(mGame.getUsers().containsKey(RootClientModel.getUser().getUsername())){
-
                          Intent i = new Intent(JoinGameActivity.this, LobbyActivity.class);
                          i.putExtra(utils.GAME_ID_TAG, mGame.getGameId());
                          startActivity(i);

@@ -14,6 +14,7 @@ public interface IGameView {
     void drawRoute(String playerColor, HashSet<RouteSegment> routeSegments);
     void cardsDiscarded();
     void showClaimRouteModal();
+    void spendTrainCards();
     void goToDrawDestActivity();
     void endGame();
 }
