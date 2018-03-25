@@ -13,16 +13,20 @@ public class Route {
     int worth;
     String color;
     int id;
+    boolean available;
+
+//todo make maptoobject
 
     public static Route mapToObject(LinkedTreeMap map) {
         double  len = (double) map.get("length");
         String one = (String) map.get("cityOne");
         String two = (String) map.get("cityTwo");
-        double wort = (double) map.get("worth");
-        String coloor = (String) map.get("color");
+        double worth = (double) map.get("worth");
+        String color = (String) map.get("color");
         double ID = (double) map.get("id");
+        boolean available = (boolean) map.get("available");
 
-        return new Route((int) len, one, two, (int)wort, coloor, (int)ID);
+        return new Route((int) len, one, two, (int)worth, color, (int)ID, available);
     }
 
     public Route(int length, String one, String two, int worth, String color, int id){
@@ -32,6 +36,7 @@ public class Route {
         this.worth=worth;
         this.color=color;
         this.id=id;
+        this.available = true;
     }
 
     public int getLength() {
@@ -60,5 +65,17 @@ public class Route {
 
     public int getId() {
         return id;
+    }
+  
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public boolean isAvailable() {
+        return available;
+    }
+
+    public void setAvailable(boolean available) {
+        this.available = available;
     }
 }

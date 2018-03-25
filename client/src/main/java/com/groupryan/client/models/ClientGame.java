@@ -41,6 +41,7 @@ public class ClientGame extends Observable {
     Map<String, String> playersColors;
     Integer currentTurn;
     Map<Integer, String> turnOrderMap;
+    private HashMap<String, Route> claimedRoutes;
     Boolean original=true;
     List<EndGameStat> endGameStats;
     String winner;
@@ -49,6 +50,7 @@ public class ClientGame extends Observable {
         this.history = new ArrayList<>();
         this.chat = new ArrayList<>();
         this.bankCards = new ArrayList<>();
+        this.claimedRoutes = new HashMap<String, Route>();
 
         routes =new ArrayList<>();
         this.gameId = game.getGameId();
@@ -84,7 +86,6 @@ public class ClientGame extends Observable {
     }
 
     public void updateChat(Chat mychat) {
-
         chat.add(mychat);
         setChanged();
         notifyObservers(utils.CHAT);
@@ -193,6 +194,23 @@ public class ClientGame extends Observable {
         notifyObservers(utils.BANK);
     }
 
+    public HashMap<String, Route> getRoutesMap() {
+        return claimedRoutes;
+    }
+
+    public ArrayList<Route> getClaimedRoutesList() {
+        ArrayList<Route> claimRoutes = new ArrayList<>();
+        for (Map.Entry<String, Route> entry : claimedRoutes.entrySet()) {
+            claimRoutes.add(entry.getValue());
+        }
+        return claimRoutes;
+    }
+
+    public void addClaimedRoute(String username, Route route) {
+        claimedRoutes.put(username, route);
+        setChanged();
+        notifyObservers(route);
+      
     public List<EndGameStat> getEndGameStats() {
         return endGameStats;
     }
@@ -202,6 +220,7 @@ public class ClientGame extends Observable {
         setChanged();
         notifyObservers(utils.GAME_OVER);
     }
+      
     public void addRoute(Route r){
         routes.add(r);
         setChanged();
