@@ -103,7 +103,7 @@ public class RootClientModel extends Observable {
     }
 
     public static void addClaimedRoute(String username, Route route) {
-        single_instance._addRoute(username, route);
+        single_instance._addClaimedRoute(username, route);
     }
 
     public static HashMap<String, Route> getClaimedRoutesMap() {
@@ -162,8 +162,8 @@ public class RootClientModel extends Observable {
         return null;
     }
 
-    private void _addRoute(String username, Route route) {
-        clientGame.addRoute(username, route);
+    private void _addClaimedRoute(String username, Route route) {
+        clientGame.addClaimedRoute(username, route);
         setChanged();
         notifyObservers(route);
     }

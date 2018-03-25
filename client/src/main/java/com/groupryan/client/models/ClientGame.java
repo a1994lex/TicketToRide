@@ -210,6 +210,7 @@ public class ClientGame extends Observable {
         claimedRoutes.put(username, route);
         setChanged();
         notifyObservers(route);
+    }
       
     public List<EndGameStat> getEndGameStats() {
         return endGameStats;
@@ -221,12 +222,12 @@ public class ClientGame extends Observable {
         notifyObservers(utils.GAME_OVER);
     }
       
-    public void addRoute(Route r){
-        routes.add(r);
-        setChanged();
-        //route or redraw routes?
-       // notifyObservers(utils.);
-    }
+//    public void addRoute( Route r){
+//        routes.add(r);
+//        setChanged();
+//        //route or redraw routes?
+//       // notifyObservers(utils.);
+//    }
 
     public String getWinner() {
         return winner;

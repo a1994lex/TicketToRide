@@ -10,13 +10,13 @@ public class ActiveState implements GameState {
 
         gpp.setState(new DrawCardState());
         gpp.getBankPresenter().setState(new states.bank.ActiveState());
-        gpp.getGameActivity().showBankModal();
+        gpp.getGameView().showBankModal();
     }
 
     @Override
     public void clickClaimRoute(GamePlayPresenter gpp) {
         gpp.setState(new ClaimRouteState());
-        gpp.getGameActivity().showClaimRouteModal();
+        gpp.getGameView().showClaimRouteModal();
     }
 
     @Override

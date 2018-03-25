@@ -71,7 +71,7 @@ public class ClientGameFacade {
 
     public void claimRoute(Route r, String username){
         if(RootClientModel.getCurrentGame().getMyPlayer().getUsername().equals(username)){
-            RootClientModel.getCurrentGame().addRoute(r);
+            RootClientModel.getCurrentGame().addClaimedRoute(username, r);
         }
         //TODO idk
     }
