@@ -7,7 +7,7 @@ import states.GameState;
 public class InactiveState implements GameState {
     @Override
     public void clickDrawCard(GamePlayPresenter gpp) {
-        gpp.getGameView().showClaimRouteModal();
+        gpp.getGameView().showBankModal();
     }
 
     @Override

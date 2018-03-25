@@ -219,6 +219,7 @@ public class RootClientModel extends Observable {
     }
 
     private void initializeRoutesList() {
+        routes = new ArrayList<>();
         routes.add(new Route(1, "VANCOUVER", "SEATTLE", 1, "", 1));
         routes.add(new Route(1, "SEATTLE", "PORTLAND", 1, "", 2));
         routes.add(new Route(5, "PORTLAND", "SAN FRANCISCO", 10, "green", 3));
