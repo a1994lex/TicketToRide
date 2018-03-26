@@ -79,7 +79,12 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
             mRouteInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    GamePlayPresenter.getInstance().claimRoute(mRoute.getId());
+                    if (mRoute.isAvailable()) {
+                        GamePlayPresenter.getInstance().claimRoute(mRoute.getId());
+                    }
+                    else {
+                        showMessage("Route has already been claimed");
+                    }
                 }
             });
         }
@@ -116,7 +121,7 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
         }
 
         public ArrayList combineLists(){
-            ArrayList<Route> routes = RootClientModel.getRoutesList();
+            ArrayList<Route> routes = RootClientModel.getCurrentGame().getAvailableRoutes();
             return routes;
         }
 

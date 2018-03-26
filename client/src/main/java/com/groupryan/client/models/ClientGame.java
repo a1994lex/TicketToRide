@@ -33,7 +33,7 @@ public class ClientGame extends Observable {
     Player myPlayer;
     int DDeckSize=30;
     int TDeckSize=110;
-    ArrayList<Route> routes;
+    ArrayList<Route> availableRoutes;
     ArrayList<String> history;
     ArrayList<Chat> chat;
     ArrayList<TrainCard> bankCards;
@@ -41,7 +41,7 @@ public class ClientGame extends Observable {
     Map<String, String> playersColors;
     Integer currentTurn;
     Map<Integer, String> turnOrderMap;
-    private HashMap<String, Route> claimedRoutes;
+    private List<Route> claimedRoutes;
     Boolean original=true;
     List<EndGameStat> endGameStats;
     String winner;
@@ -50,9 +50,9 @@ public class ClientGame extends Observable {
         this.history = new ArrayList<>();
         this.chat = new ArrayList<>();
         this.bankCards = new ArrayList<>();
-        this.claimedRoutes = new HashMap<String, Route>();
+        this.claimedRoutes = new ArrayList<Route>();
 
-        routes =new ArrayList<>();
+        availableRoutes =new ArrayList<>();
         this.gameId = game.getGameId();
         this.myPlayer = player;
         this.currentTurn = -1;
@@ -194,22 +194,31 @@ public class ClientGame extends Observable {
         notifyObservers(utils.BANK);
     }
 
-    public HashMap<String, Route> getRoutesMap() {
-        return claimedRoutes;
+    public ArrayList<Route> getClaimedRoutesList() {
+        ArrayList<Route> routesClaimed = new ArrayList<>();
+        for (Route r : claimedRoutes) {
+            routesClaimed.add(r);
+        }
+        return routesClaimed;
     }
 
-    public ArrayList<Route> getClaimedRoutesList() {
-        ArrayList<Route> claimRoutes = new ArrayList<>();
-        for (Map.Entry<String, Route> entry : claimedRoutes.entrySet()) {
-            claimRoutes.add(entry.getValue());
-        }
-        return claimRoutes;
+    public ArrayList<Route> getAvailableRoutes() {
+        return availableRoutes;
     }
 
     public void addClaimedRoute(String username, Route route) {
-        claimedRoutes.put(username, route);
+        claimedRoutes.add(route);
+        for (int i = 0; i < availableRoutes.size(); i++) {
+            if (availableRoutes.get(i).getId() == route.getId()) {
+                availableRoutes.get(i).setAvailable(false);
+            }
+        }
         setChanged();
         notifyObservers(route);
+    }
+
+    public void setAvailableRoutes(ArrayList<Route> availableRoutes) {
+        this.availableRoutes = availableRoutes;
     }
       
     public List<EndGameStat> getEndGameStats() {
