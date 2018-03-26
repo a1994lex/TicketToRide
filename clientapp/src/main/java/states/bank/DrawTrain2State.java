@@ -19,6 +19,7 @@ public class DrawTrain2State implements BankState {
     public void chooseCard(BankPresenter bp) {
         bp.setState(new InactiveState());
         bp.getGamePlayPresenter().submit();
+        bp.endTurn();
         bp.drawTrainCard(bp.getCurDeckIndex());
     }
 
