@@ -73,7 +73,7 @@ public class BankPresenter implements Observer, IBankPresenter {
         if (deckIndex>=0){
             color = getBank().get(deckIndex).getColor();
         }
-        if (color == utils.LOCOMOTIVE){
+        if (color.equals(utils.LOCOMOTIVE)){
             state.chooseWild(this);
         }
         else{
