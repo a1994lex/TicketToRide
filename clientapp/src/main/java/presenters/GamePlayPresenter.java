@@ -35,7 +35,7 @@ import states.game.InactiveState;
 public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
     private RootClientModel root = RootClientModel.getInstance();
-    int totalClaimedRoutes = root.getClaimedRoutesMap().size();
+    int totalClaimedRoutes = root.getCurrentGame().getClaimedRoutesList().size();
     private UIGameFacade uiGameFacade = UIGameFacade.getInstance();
     private IGameView gameView;
     private Activity discardActivity;
@@ -94,7 +94,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     @Override
     public void update(Observable observable, Object o) {
         if (observable == game) { //I changed this so now it check if observable is game, not root.
-            int secondSize = root.getClaimedRoutesMap().size();
+            int secondSize = root.getCurrentGame().getClaimedRoutesList().size();
             if (o.getClass().equals(Route.class)) {
                 if (secondSize > totalClaimedRoutes) {
                     totalClaimedRoutes = secondSize;
@@ -125,7 +125,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     }
 
     public void drawRoutes() {
-        List<Route> claimedRoutes = root.getClaimedRoutes();
+        List<Route> claimedRoutes = root.getCurrentGame().getClaimedRoutesList();
         List<Integer> routeIds = new ArrayList<>();
         List<String> routeColors = new ArrayList<>();
         for (Route route : claimedRoutes) {
@@ -198,7 +198,13 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     }
 
     public List<TrainCard> verifyRoute(int routeId) {
-        if (RootClientModel.getClaimedRoutesMap().get(routeId) == null) { // route not claimed
+        Route route = null;
+        for (Route r : RootClientModel.getCurrentGame().getClaimedRoutesList()) {
+            if (r.getId() == routeId) {
+                route = r;
+            }
+        }
+        if (route == null) { // route not claimed
             return RootClientModel.getCurrentGame().getMyPlayer().getTrainCards();
         } else {
             claimRouteView.showMessage("Route already claimed");

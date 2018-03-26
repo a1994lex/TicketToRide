@@ -106,9 +106,9 @@ public class RootClientModel extends Observable {
         single_instance._addClaimedRoute(username, route);
     }
 
-    public static HashMap<String, Route> getClaimedRoutesMap() {
-        return single_instance._getRoutesMap();
-    }
+//    public static HashMap<String, Route> getClaimedRoutesMap() {
+//        return single_instance._getRoutesMap();
+//    }
 
     public static void setGames(List<Game> games){
         single_instance._setGames(games);
@@ -145,9 +145,9 @@ public class RootClientModel extends Observable {
         return clientGame.getClaimedRoutesList();
     }
 
-    private HashMap<String, Route> _getRoutesMap() {
-        return clientGame.getRoutesMap();
-    }
+//    private HashMap<String, Route> _getRoutesMap() {
+//        return clientGame.getRoutesMap();
+//    }
 
     private ArrayList<Route> _getRoutes() {
         return routes;
@@ -202,6 +202,7 @@ public class RootClientModel extends Observable {
 
     private void _setCurrentGame(Game gm, Player p){
         clientGame = new ClientGame(gm, p);
+        clientGame.setAvailableRoutes(routes);
     }
 
     private Map<String, String> _getPlayers() {
