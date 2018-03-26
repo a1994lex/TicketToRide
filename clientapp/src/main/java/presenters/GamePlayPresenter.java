@@ -35,7 +35,7 @@ import states.game.InactiveState;
 public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
     private RootClientModel root = RootClientModel.getInstance();
-    int totalClaimedRoutes = root.getClaimedRoutesMap().size();
+    int totalClaimedRoutes = root.getCurrentGame().getClaimedRoutesList().size();
     private UIGameFacade uiGameFacade = UIGameFacade.getInstance();
     private IGameView gameView;
     private Activity discardActivity;
@@ -94,7 +94,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     @Override
     public void update(Observable observable, Object o) {
         if (observable == game) { //I changed this so now it check if observable is game, not root.
-            int secondSize = root.getClaimedRoutesMap().size();
+            int secondSize = root.getCurrentGame().getClaimedRoutesList().size();
             if (o.getClass().equals(Route.class)) {
                 if (secondSize > totalClaimedRoutes) {
                     totalClaimedRoutes = secondSize;
@@ -198,7 +198,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     }
 
     public List<TrainCard> verifyRoute(int routeId) {
-        if (RootClientModel.getClaimedRoutesMap().get(routeId) == null) { // route not claimed
+        if (RootClientModel.getCurrentGame().getClaimedRoutesList().get(routeId) == null) { // route not claimed
             return RootClientModel.getCurrentGame().getMyPlayer().getTrainCards();
         } else {
             claimRouteView.showMessage("Route already claimed");
@@ -219,8 +219,6 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
             return enoughCards;
         }
     }
-
-
 
     public void discardTrainCards(int routeId, List<Integer> pickedCards) {
         String username = RootClientModel.getCurrentGame().getMyPlayer().getUsername();

@@ -35,7 +35,7 @@ public class ColorCardFacade {
         //so then you get a new card, replace it in the bank, and return it to everyone
         else {
             river=true;
-            tc=sg.getBankList().get(position-1);
+            tc=sg.getBankList().get(position);
             history= userID + " drew a face up "+ tc.getColor() + " card.";
 
         }

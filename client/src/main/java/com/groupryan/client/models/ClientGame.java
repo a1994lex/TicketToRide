@@ -168,7 +168,9 @@ public class ClientGame extends Observable {
 //    }
 
     public boolean isMyTurn(){
-        if (myPlayer.getTurn() == this.currentTurn){
+        int a= 0-myPlayer.getTurn();
+        int b= 0-currentTurn;
+        if (a==b){
             return true;
         }
         return false;
