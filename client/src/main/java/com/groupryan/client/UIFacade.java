@@ -53,6 +53,11 @@ public class UIFacade {
         return lr;
     }
 
+    public CommandResult endTurn(){
+        String un = RootClientModel.getInstance().getUser().getUsername();
+        return ServerProxy.getInstance().endTurn(un);
+    }
+
     public LoginResult register(String username, String password) {
         User user = new User(username, password);
         LoginResult lr = ServerProxy.getInstance().register(user);
