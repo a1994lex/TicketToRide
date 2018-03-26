@@ -94,4 +94,11 @@ public class ServerCommandFactory {
                 new String[]{String.class.getTypeName()},
                 new Object[]{username});
     }
+
+    public ServerCommand createClaimRouteCommand(String username, int routeId, List<Integer> trainCardIDs) {
+        return new ServerCommand("com.groupryan.server.facades.MainFacade", "claimRoute",
+                new String[]{String.class.getTypeName(), Integer.class.getTypeName(),
+                                List.class.getTypeName()},
+                new Object[]{username, routeId, trainCardIDs});
+    }
 }

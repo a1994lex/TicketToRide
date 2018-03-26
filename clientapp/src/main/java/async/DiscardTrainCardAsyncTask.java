@@ -20,7 +20,7 @@ public class DiscardTrainCardAsyncTask extends AsyncTask<ClaimRouteData, Void, C
 
     @Override
     protected CommandResult doInBackground(ClaimRouteData... claimRouteData) {
-        List<TrainCard> trainCards = claimRouteData[0].getTrainCards();
+        List<Integer> trainCards = claimRouteData[0].getTrainCards();
         String username = claimRouteData[0].getUsername();
         int routeId = claimRouteData[0].getRouteId();
         CommandResult commandResult = uiGameFacade.placeRoute(trainCards, username, routeId);

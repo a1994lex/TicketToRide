@@ -32,7 +32,7 @@ import presenters.IGamePlayPresenter;
 
 public class ClaimRouteDialogActivity extends Activity implements IClaimRouteView {
 
-    private IGamePlayPresenter gamePlayPresenter = GamePlayPresenter.getInstance();
+//    private IGamePlayPresenter gamePlayPresenter = GamePlayPresenter.getInstance();
 
     private RecyclerView.Adapter mAdapter;
     private RecyclerView mRecyclerView;
@@ -42,8 +42,11 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_claim_route);
+        GamePlayPresenter.getInstance().setClaimRouteView(this);
 
-        mRecyclerView = findViewById(R.id.history_list);
+        mRecyclerView = findViewById(R.id.routes_recycler_view);
+
+        mRecyclerView.setHasFixedSize(true);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new RoutesAdapter();
         mRecyclerView.setAdapter(mAdapter);
@@ -70,13 +73,13 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
         private TextView mRouteInfo;
         private Route mRoute;
 
-        public RoutesHolder(View v){
-            super(v);
-            mRouteInfo = v.findViewById(R.id.route_info);
+        public RoutesHolder(View itemView) {
+            super(itemView);
+            mRouteInfo = itemView.findViewById(R.id.route_info);
             mRouteInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    gamePlayPresenter.claimRoute(mRoute.getId());
+                    GamePlayPresenter.getInstance().claimRoute(mRoute.getId());
                 }
             });
         }
@@ -92,16 +95,25 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
 
         public String createRouteInfo(Route route) {
             StringBuilder sb = new StringBuilder();
+
             sb.append(route.getCityOne() + "--" + route.getCityTwo() + "\n" +
-                    "LENGTH: " + route.getLength() + " WORTH: " + route.getWorth() + "COLOR: " +
-                    route.getColor());
+                    "LENGTH: " + route.getLength() + " WORTH: " + route.getWorth() + " COLOR: ");
+            if (route.getColor().isEmpty()) {
+                sb.append("NO COLOR");
+            }
+            else {
+                sb.append(route.getColor());
+            }
             return sb.toString();
         }
     }
 
     protected class RoutesAdapter extends RecyclerView.Adapter<ClaimRouteDialogActivity.RoutesHolder>{
-        private ArrayList<Route> mRoutes = combineLists();
+        private ArrayList<Route> mRoutes;
 
+        public RoutesAdapter() {
+            mRoutes = combineLists();
+        }
 
         public ArrayList combineLists(){
             ArrayList<Route> routes = RootClientModel.getRoutesList();
@@ -111,13 +123,14 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
         @Override
         public RoutesHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(ClaimRouteDialogActivity.this);
-            View view = layoutInflater.inflate(R.layout.dialog_claim_route, parent, false);
+            View view = layoutInflater.inflate(R.layout.item_route_in_list, parent, false);
             return new RoutesHolder(view);
         }
 
         @Override
         public void onBindViewHolder(RoutesHolder holder, int position) {
-            holder.bindRoute(mRoutes.get(position));
+            Route route = mRoutes.get(position);
+            holder.bindRoute(route);
         }
 
         @Override

@@ -103,6 +103,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                     gameView.drawRoute(r.getColor(), routeSegments);
                 }
             } else if (o.equals(utils.DISCARD_DESTCARD)) {
+                // it's trying to call a method on gameView when gameView is null
                 gameView.cardsDiscarded();
             } else if (o.equals(utils.REDRAW_ROUTES)) {
                 drawRoutes();
@@ -221,12 +222,12 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
 
 
-    public void discardTrainCards(int routeId, List<TrainCard> pickedCards) {
-//  TODO: send command to server
+    public void discardTrainCards(int routeId, List<Integer> pickedCards) {
         String username = RootClientModel.getCurrentGame().getMyPlayer().getUsername();
         ClaimRouteData claimRouteData = new ClaimRouteData(pickedCards, routeId, username);
         DiscardTrainCardAsyncTask task = new DiscardTrainCardAsyncTask();
         task.execute(claimRouteData);
+        state.submit(GamePlayPresenter.getInstance());
     }
 
     public Map<String, Integer> mapColorToCount(String color, Map<String, Integer> pickedCards) {
@@ -366,9 +367,9 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         return false;
     }
 
-    public List<TrainCard> getDiscardingTrainCards(Map<String, Integer> pickedCards) {
+    public List<Integer> getDiscardingTrainCards(Map<String, Integer> pickedCards) {
         List<TrainCard> trainCards = RootClientModel.getCurrentGame().getMyPlayer().getTrainCards();
-        List<TrainCard> pickedTrainCards = new ArrayList<>();
+        List<Integer> pickedTrainCards = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : pickedCards.entrySet()) {
             if (entry.getKey().equals(utils.RED)) {
                 pickedTrainCards.add(findTrainCardByColor(trainCards, utils.RED));
@@ -401,13 +402,13 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         return pickedTrainCards;
     }
 
-    public TrainCard findTrainCardByColor(List<TrainCard> trainCards, String color) {
+    public int findTrainCardByColor(List<TrainCard> trainCards, String color) {
         for (TrainCard trainCard : trainCards) {
             if (color.equals(trainCard)) {
-                return trainCard;
+                return trainCard.getID();
             }
         }
-        return null;
+        return -1;
     }
 
     public void discardDestinationCard(List<Integer> cardIDs) {
