@@ -168,11 +168,9 @@ public class ClientGame extends Observable {
 //    }
 
     public boolean isMyTurn(){
-        System.out.println(myPlayer.getTurn());
-        System.out.println( this.currentTurn);
-        System.out.println(myPlayer.getTurn() == this.currentTurn);
-        System.out.println(myPlayer.getTurn() == this.currentTurn);
-        if (myPlayer.getTurn() == this.currentTurn){
+        int a= 0-myPlayer.getTurn();
+        int b= 0-currentTurn;
+        if (a==b){
             return true;
         }
         return false;
