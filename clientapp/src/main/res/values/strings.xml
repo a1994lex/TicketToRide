@@ -48,4 +48,6 @@
 
     <string name="routes_list">Claim a Route</string>
 
+    <string name="host">Host</string>
+
 </resources>

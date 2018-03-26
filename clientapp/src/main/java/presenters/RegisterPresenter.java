@@ -7,6 +7,7 @@ import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.LoginResult;
+import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
 import java.util.Map;
@@ -42,6 +43,10 @@ public class RegisterPresenter implements Observer{
         User u = new User(username, password);
         RegisterAsyncTask registerAsyncTask = new RegisterAsyncTask(registerActivity);
         registerAsyncTask.execute(u);
+    }
+
+    public void setHost(String host){
+        utils.setUrlPrefix(host);
     }
 
     public boolean checkIfJoinedGame(){
