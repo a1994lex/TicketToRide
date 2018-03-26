@@ -83,7 +83,7 @@ public class ClientGameFacade {
         RootClientModel.getCurrentGame().setEndGameStats(endGameStats);
     }
 
-    public void changeTurn(int turnNum){
+    public void changeTurn(Integer turnNum){
         RootClientModel.getCurrentGame().setCurrentTurn(turnNum);
     }
 }
