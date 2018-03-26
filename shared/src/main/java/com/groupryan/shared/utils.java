@@ -42,6 +42,7 @@ public class utils {
     public static final String SERVER_HOST = "localhost";
     public static final int PORT_NUMBER = 8080;
     public static final String URL_PREFIX = "http://" + "10.24.64.226" + ":" + PORT_NUMBER;
+
     public static final String HTTP_POST = "POST";
     public static final String COMMAND_NAME = "CommandName";   // HTTP request header to determine
 
@@ -89,5 +90,9 @@ public class utils {
                 break;
         }
         return 0;
+    }
+
+    public static void setUrlPrefix(String host){
+        //URL_PREFIX = "http://" + host + ":" + PORT_NUMBER;
     }
 }

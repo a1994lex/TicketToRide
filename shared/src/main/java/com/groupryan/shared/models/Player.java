@@ -62,7 +62,7 @@ public class Player {
         this.color = color;
     }
 
-    public int getTurn(){
+    public Integer getTurn(){
         return this.turn;
     }
 

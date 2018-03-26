@@ -91,8 +91,8 @@ public class BankFragment extends Fragment implements IBankView {
         mExit.setImageResource(R.drawable.ic_home_black_24dp);
         /* Set texts for TextViews*/
         String text = "";
-        mTCardsLeft.setText(String.format(text, BankPresenter.getInstance().getTDeckSize()));
-        mDCardsLeft.setText(String.format(text, BankPresenter.getInstance().getDDeckSize()));
+        mTCardsLeft.setText(Integer.toString(BankPresenter.getInstance().getTDeckSize()));
+        mDCardsLeft.setText(Integer.toString(BankPresenter.getInstance().getDDeckSize()));
         /* Set listeners for ImageButtonViews */
         mBankButton.setOnClickListener((View v) -> {
             chosenCard = mBankButton;
@@ -123,6 +123,7 @@ public class BankFragment extends Fragment implements IBankView {
             BankPresenter.getInstance().clickDCard();
         });
         mExit.setOnClickListener((View v) -> {
+            //finish();
             BankPresenter.getInstance().exit();
         });
     }
