@@ -27,10 +27,10 @@ public class ClaimRouteFacade {
         Player p=serverGame.getPlayer(username);
         Route r=root.getRoute(routeId);
         List<TrainCard> discardable= new ArrayList<>();
-        List<Integer> tc = trainCardIDs.getTrainCards();
-        List<Integer> trainCards = convertToInt(tc);
-       for(int i: trainCards){
-            Card c = root.getCard(utils.TRAIN, i);
+        List<Integer> trainCards = trainCardIDs.getTrainCards();
+//        List<Double> tc = trainCardIDs.getTrainCardsDoubles();
+       for(int i = 0; i < trainCards.size(); i++){
+            Card c = root.getCard(utils.TRAIN, trainCards.get(i));
             p.removeTrainCard(c);
             discardable.add((TrainCard) c);
         }
@@ -57,13 +57,12 @@ public class ClaimRouteFacade {
         return cr;
     }
 
-    private List<Integer> convertToInt(List<Integer> trainCards) {
-        List<Integer> tc = new ArrayList<>();
+    private double[] convertToDouble(List<Integer> trainCards) {
+        double[] usedTrainCards = new double[trainCards.size()];
         for (int i = 0; i < trainCards.size(); i++) {
-            int val = trainCards.get(i).intValue();
-            tc.add(val);
+            usedTrainCards[i] = trainCards.get(i).doubleValue();
         }
-        return tc;
+        return usedTrainCards;
     }
 }
 
