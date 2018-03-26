@@ -125,7 +125,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     }
 
     public void drawRoutes() {
-        List<Route> claimedRoutes = root.getClaimedRoutes();
+        List<Route> claimedRoutes = root.getCurrentGame().getClaimedRoutesList();
         List<Integer> routeIds = new ArrayList<>();
         List<String> routeColors = new ArrayList<>();
         for (Route route : claimedRoutes) {
@@ -198,7 +198,13 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     }
 
     public List<TrainCard> verifyRoute(int routeId) {
-        if (RootClientModel.getCurrentGame().getClaimedRoutesList().get(routeId) == null) { // route not claimed
+        Route route = null;
+        for (Route r : RootClientModel.getCurrentGame().getClaimedRoutesList()) {
+            if (r.getId() == routeId) {
+                route = r;
+            }
+        }
+        if (route == null) { // route not claimed
             return RootClientModel.getCurrentGame().getMyPlayer().getTrainCards();
         } else {
             claimRouteView.showMessage("Route already claimed");
