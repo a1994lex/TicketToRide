@@ -4,6 +4,7 @@ import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.commands.ServerCommandFactory;
 import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.TrainCard;
+import com.groupryan.shared.models.TrainCardList;
 import com.groupryan.shared.results.CommandResult;
 
 import java.util.List;
@@ -27,7 +28,8 @@ public class UIGameFacade {
     private UIGameFacade() {}
 
     public CommandResult placeRoute(List<Integer> trainCards, String username, int routeId) {
-        return ServerProxy.getInstance().claimRoute(username, routeId, trainCards);
+        TrainCardList trainCardIds = new TrainCardList(trainCards);
+        return ServerProxy.getInstance().claimRoute(username, routeId, trainCardIds);
         // TODO: finish sending command to server
     }
 
