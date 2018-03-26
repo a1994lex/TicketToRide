@@ -43,6 +43,16 @@
             android:inputType="textPassword"
             android:maxLength="25" />
 
+        <EditText
+            android:id="@+id/host"
+            android:layout_width="350dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:hint="@string/host"
+            android:inputType="text"
+            android:maxLength="25" />
+
 
         <Button
             android:id="@+id/login_button"
