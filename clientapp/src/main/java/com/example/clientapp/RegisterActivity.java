@@ -20,6 +20,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
     private EditText usernameEditText;
     private EditText passwordEditText;
+    private EditText hostEditText;
     private Button loginButton;
     private Button registerButton;
     private RegisterPresenter regPresenter = new RegisterPresenter(this);
@@ -34,6 +35,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         RootClientModel.getSingle_instance().addObserver(regPresenter);
         this.usernameEditText = (EditText) findViewById(R.id.username);
         this.passwordEditText = (EditText) findViewById(R.id.password);
+        this.hostEditText = (EditText) findViewById(R.id.host);
         this.loginButton = (Button) findViewById(R.id.login_button);
         this.registerButton = (Button) findViewById(R.id.register_button);
         loginButton.setEnabled(false);
@@ -108,6 +110,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
+        regPresenter.setHost(hostEditText.getText().toString());
         regPresenter.login(username, password);
     }
 
@@ -115,6 +118,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 //        Toast.makeText(this, "registerrrr", Toast.LENGTH_SHORT).show();
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
+        regPresenter.setHost(hostEditText.getText().toString());
         regPresenter.register(username, password);
     }
 

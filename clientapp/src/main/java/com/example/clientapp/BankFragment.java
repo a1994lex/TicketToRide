@@ -124,7 +124,6 @@ public class BankFragment extends Fragment implements IBankView {
         });
         mExit.setOnClickListener((View v) -> {
             BankPresenter.getInstance().exit();
-            finish();
         });
     }
 
