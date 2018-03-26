@@ -28,6 +28,7 @@ import async.DiscardDestCardAsyncTask;
 import async.DiscardTrainCardAsyncTask;
 import async.Poller;
 import states.GameState;
+import states.game.ActiveState;
 import states.game.InactiveState;
 
 
@@ -113,6 +114,11 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                 if (o.equals(utils.DISCARD_DESTCARD)) {
                     gameView.cardsDiscarded();
                    // this.gameActivity.finish();
+                }
+                else if (o.equals(utils.NEW_TURN)){
+                    if (game.isMyTurn()){
+                        setState(new ActiveState());
+                    }
                 }
             }
         }
