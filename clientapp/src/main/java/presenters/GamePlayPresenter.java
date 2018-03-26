@@ -257,6 +257,11 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
             count++;
             pickedCards.put(utils.GREEN, count);
         }
+        if (color.equals(utils.BLUE)) {
+            count = pickedCards.get(utils.BLUE);
+            count++;
+            pickedCards.put(utils.BLUE, count);
+        }
         if (color.equals(utils.PINK)) {
             count = pickedCards.get(utils.PINK);
             count++;
@@ -365,44 +370,100 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         List<TrainCard> trainCards = RootClientModel.getCurrentGame().getMyPlayer().getTrainCards();
         List<Integer> pickedTrainCards = new ArrayList<>();
         for (Map.Entry<String, Integer> entry : pickedCards.entrySet()) {
-            if (entry.getKey().equals(utils.RED)) {
-                pickedTrainCards.add(findTrainCardByColor(trainCards, utils.RED));
+            if (entry.getKey().equals(utils.RED) && entry.getValue() > 0) {
+
+                List<Integer> values = findTrainCardByColor(trainCards, utils.RED, entry.getValue());
+                for (int i = 0; i < values.size(); i++) {
+                    if (values.get(i) != -1) {
+                        pickedTrainCards.add(values.get(i));
+                    }
+                }
             }
-            if (entry.getKey().equals(utils.ORANGE)) {
-                pickedTrainCards.add(findTrainCardByColor(trainCards, utils.ORANGE));
+            if (entry.getKey().equals(utils.ORANGE) && entry.getValue() > 0) {
+
+                List<Integer> values = findTrainCardByColor(trainCards, utils.ORANGE, entry.getValue());
+                for (int i = 0; i < values.size(); i++) {
+                    if (values.get(i) != -1) {
+                        pickedTrainCards.add(values.get(i));
+                    }
+                }
             }
-            if (entry.getKey().equals(utils.YELLOW)) {
-                pickedTrainCards.add(findTrainCardByColor(trainCards, utils.YELLOW));
+            if (entry.getKey().equals(utils.YELLOW) && entry.getValue() > 0) {
+
+                List<Integer> values = findTrainCardByColor(trainCards, utils.YELLOW, entry.getValue());
+                for (int i = 0; i < values.size(); i++) {
+                    if (values.get(i) != -1) {
+                        pickedTrainCards.add(values.get(i));
+                    }
+                }
             }
-            if (entry.getKey().equals(utils.GREEN)) {
-                pickedTrainCards.add(findTrainCardByColor(trainCards, utils.GREEN));
+            if (entry.getKey().equals(utils.GREEN) && entry.getValue() > 0) {
+
+                List<Integer> values = findTrainCardByColor(trainCards, utils.GREEN, entry.getValue());
+                for (int i = 0; i < values.size(); i++) {
+                    if (values.get(i) != -1) {
+                        pickedTrainCards.add(values.get(i));
+                    }
+                }
             }
-            if (entry.getKey().equals(utils.BLUE)) {
-                pickedTrainCards.add(findTrainCardByColor(trainCards, utils.BLUE));
+            if (entry.getKey().equals(utils.BLUE) && entry.getValue() > 0) {
+
+                List<Integer> values = findTrainCardByColor(trainCards, utils.BLUE, entry.getValue());
+                for (int i = 0; i < values.size(); i++) {
+                    if (values.get(i) != -1) {
+                        pickedTrainCards.add(values.get(i));
+                    }
+                }
             }
-            if (entry.getKey().equals(utils.PINK)) {
-                pickedTrainCards.add(findTrainCardByColor(trainCards, utils.PINK));
+            if (entry.getKey().equals(utils.PINK) && entry.getValue() > 0) {
+
+                List<Integer> values = findTrainCardByColor(trainCards, utils.PINK, entry.getValue());
+                for (int i = 0; i < values.size(); i++) {
+                    if (values.get(i) != -1) {
+                        pickedTrainCards.add(values.get(i));
+                    }
+                }
             }
-            if (entry.getKey().equals(utils.BLACK)) {
-                pickedTrainCards.add(findTrainCardByColor(trainCards, utils.BLACK));
+            if (entry.getKey().equals(utils.BLACK) && entry.getValue() > 0) {
+
+                List<Integer> values = findTrainCardByColor(trainCards, utils.BLACK, entry.getValue());
+                for (int i = 0; i < values.size(); i++) {
+                    if (values.get(i) != -1) {
+                        pickedTrainCards.add(values.get(i));
+                    }
+                }
             }
-            if (entry.getKey().equals(utils.WHITE)) {
-                pickedTrainCards.add(findTrainCardByColor(trainCards, utils.WHITE));
+            if (entry.getKey().equals(utils.WHITE) && entry.getValue() > 0) {
+
+                List<Integer> values = findTrainCardByColor(trainCards, utils.WHITE, entry.getValue());
+                for (int i = 0; i < values.size(); i++) {
+                    if (values.get(i) != -1) {
+                        pickedTrainCards.add(values.get(i));
+                    }
+                }
             }
-            if (entry.getKey().equals(utils.LOCOMOTIVE)) {
-                pickedTrainCards.add(findTrainCardByColor(trainCards, utils.LOCOMOTIVE));
+            if (entry.getKey().equals(utils.LOCOMOTIVE) && entry.getValue() > 0) {
+
+                List<Integer> values = findTrainCardByColor(trainCards, utils.LOCOMOTIVE, entry.getValue());
+                for (int i = 0; i < values.size(); i++) {
+                    if (values.get(i) != -1) {
+                        pickedTrainCards.add(values.get(i));
+                    }
+                }
             }
         }
         return pickedTrainCards;
     }
 
-    public int findTrainCardByColor(List<TrainCard> trainCards, String color) {
+    public List<Integer> findTrainCardByColor(List<TrainCard> trainCards, String color, int numberOfCards) {
+        List<Integer> cardIds = new ArrayList<>();
         for (TrainCard trainCard : trainCards) {
-            if (color.equals(trainCard)) {
-                return trainCard.getID();
+            if (color.equals(trainCard.getColor()) && numberOfCards > 0) {
+                cardIds.add(trainCard.getID());
+                numberOfCards--;
             }
         }
-        return -1;
+        return cardIds;
     }
 
     public void discardDestinationCard(List<Integer> cardIDs) {
@@ -416,5 +477,12 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
     public void stopLobbyPolling() {
         Poller.get().stop();
+    }
+
+    public String decrementTextViewCount(String count) {
+        int value = Integer.parseInt(count);
+        value--;
+        String returnVal = Integer.toString(value);
+        return returnVal;
     }
 }

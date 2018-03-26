@@ -7,6 +7,7 @@ import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.TrainCard;
+import com.groupryan.shared.models.TrainCardList;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.utils;
 
@@ -19,14 +20,15 @@ import java.util.List;
 
 public class ClaimRouteFacade {
 
-    public CommandResult claimRoute(String username, int routeId, List<Integer> trainCardIDs){
+    public CommandResult claimRoute(String username, int routeId, TrainCardList trainCardIDs){
         CommandResult cr = new CommandResult();
         RootServerModel root =RootServerModel.getInstance();
         ServerGame serverGame = root.getServerGame(username);
         Player p=serverGame.getPlayer(username);
         Route r=root.getRoute(routeId);
         List<TrainCard> discardable= new ArrayList<>();
-       for(int i: trainCardIDs){
+        List<Integer> trainCards = trainCardIDs.getTrainCardList();
+       for(int i: trainCards){
             Card c = root.getCard(utils.TRAIN, i);
             p.removeTrainCard(c);
             discardable.add((TrainCard) c);

@@ -25,8 +25,8 @@ public class RouteLogHelper {
         // views for finding the points of the route segments
         mapImage = act.findViewById(R.id.map_button);
         //newRouteButton = findViewById(R.id.new_route);
-        routeName = act.findViewById(R.id.route_name_entry);
-        nameEntry = act.findViewById(R.id.name_entry_button);
+//        routeName = act.findViewById(R.id.route_name_entry);
+//        nameEntry = act.findViewById(R.id.name_entry_button);
         Logger logger = Logger.getLogger("MyLog");
 
 //        game.addObserver(this); // why is this here!!! AHHHH

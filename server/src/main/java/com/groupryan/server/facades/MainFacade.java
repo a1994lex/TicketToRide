@@ -8,6 +8,7 @@ import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
+import com.groupryan.shared.models.TrainCardList;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
@@ -125,7 +126,7 @@ public class MainFacade implements IServer {
     }
 
     @Override
-    public CommandResult claimRoute(String username, int routeId, List<Integer> trainCardIDs) {
+    public CommandResult claimRoute(String username, int routeId, TrainCardList trainCardIDs) {
         ClaimRouteFacade crf = new ClaimRouteFacade();
         return crf.claimRoute(username, routeId, trainCardIDs);
     }

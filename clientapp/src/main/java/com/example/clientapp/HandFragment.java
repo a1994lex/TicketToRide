@@ -101,18 +101,21 @@ public class HandFragment extends Fragment implements IHandView {
             public void onClick(View v) {
                 if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
                         getStringExtra(utils.CLAIMING_ROUTE))) {
-                    if (routeColor.equals(utils.RED) || routeColor.isEmpty()) {
-                        routeLength--;
-                        routeColor = utils.RED;
-                        pickedCards =
-                                GamePlayPresenter.getInstance()
-                                        .mapColorToCount(routeColor, pickedCards);
-                        if (routeLength > 0) {
-                            outputMessage("Pick " + routeLength + " more " +
-                                    routeColor + " cards");
-                        }
-                        else {
-                            startDiscardCardTask();
+                    if (Integer.parseInt(mRedTrainCardCount.getText().toString()) > 0) {
+                        if (routeColor.equals(utils.RED) || routeColor.isEmpty()) {
+                            mRedTrainCardCount.setText(GamePlayPresenter.getInstance()
+                                    .decrementTextViewCount(mRedTrainCardCount.getText().toString()));
+                            routeLength--;
+                            routeColor = utils.RED;
+                            pickedCards =
+                                    GamePlayPresenter.getInstance()
+                                            .mapColorToCount(routeColor, pickedCards);
+                            if (routeLength > 0) {
+                                outputMessage("Pick " + routeLength + " more " +
+                                        routeColor + " cards");
+                            } else {
+                                startDiscardCardTask();
+                            }
                         }
                     }
                 }
@@ -124,18 +127,21 @@ public class HandFragment extends Fragment implements IHandView {
             public void onClick(View v) {
                 if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
                         getStringExtra(utils.CLAIMING_ROUTE))) {
-                    if (routeColor.equals(utils.ORANGE) || routeColor.isEmpty()) {
-                        routeLength--;
-                        routeColor = utils.ORANGE;
-                        pickedCards =
-                                GamePlayPresenter.getInstance()
-                                        .mapColorToCount(routeColor, pickedCards);
-                        if (routeLength > 0) {
-                            outputMessage("Pick " + routeLength + " more " +
-                                    routeColor + " cards");
-                        }
-                        else {
-                            startDiscardCardTask();
+                    if (Integer.parseInt(mOrangeTrainCardCount.getText().toString()) > 0) {
+                        if (routeColor.equals(utils.ORANGE) || routeColor.isEmpty()) {
+                            mOrangeTrainCardCount.setText(GamePlayPresenter.getInstance()
+                                    .decrementTextViewCount(mOrangeTrainCardCount.getText().toString()));
+                            routeLength--;
+                            routeColor = utils.ORANGE;
+                            pickedCards =
+                                    GamePlayPresenter.getInstance()
+                                            .mapColorToCount(routeColor, pickedCards);
+                            if (routeLength > 0) {
+                                outputMessage("Pick " + routeLength + " more " +
+                                        routeColor + " cards");
+                            } else {
+                                startDiscardCardTask();
+                            }
                         }
                     }
                 }
@@ -147,18 +153,21 @@ public class HandFragment extends Fragment implements IHandView {
             public void onClick(View v) {
                 if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
                         getStringExtra(utils.CLAIMING_ROUTE))) {
-                    if (routeColor.equals(utils.YELLOW) || routeColor.isEmpty()) {
-                        routeLength--;
-                        routeColor = utils.YELLOW;
-                        pickedCards =
-                                GamePlayPresenter.getInstance()
-                                        .mapColorToCount(routeColor, pickedCards);
-                        if (routeLength > 0) {
-                            outputMessage("Pick " + routeLength + " more " +
-                                    routeColor + " cards");
-                        }
-                        else {
-                            startDiscardCardTask();
+                    if (Integer.parseInt(mYellowTrainCardCount.getText().toString()) > 0) {
+                        if (routeColor.equals(utils.YELLOW) || routeColor.isEmpty()) {
+                            mYellowTrainCardCount.setText(GamePlayPresenter.getInstance()
+                                    .decrementTextViewCount(mYellowTrainCardCount.getText().toString()));
+                            routeLength--;
+                            routeColor = utils.YELLOW;
+                            pickedCards =
+                                    GamePlayPresenter.getInstance()
+                                            .mapColorToCount(routeColor, pickedCards);
+                            if (routeLength > 0) {
+                                outputMessage("Pick " + routeLength + " more " +
+                                        routeColor + " cards");
+                            } else {
+                                startDiscardCardTask();
+                            }
                         }
                     }
                 }
@@ -170,18 +179,21 @@ public class HandFragment extends Fragment implements IHandView {
             public void onClick(View v) {
                 if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
                         getStringExtra(utils.CLAIMING_ROUTE))) {
-                    if (routeColor.equals(utils.GREEN) || routeColor.isEmpty()) {
-                        routeLength--;
-                        routeColor = utils.GREEN;
-                        pickedCards =
-                                GamePlayPresenter.getInstance()
-                                        .mapColorToCount(routeColor, pickedCards);
-                        if (routeLength > 0) {
-                            outputMessage("Pick " + routeLength + " more " +
-                                    routeColor + " cards");
-                        }
-                        else {
-                            startDiscardCardTask();
+                    if (Integer.parseInt(mGreenTrainCardCount.getText().toString()) > 0) {
+                        if (routeColor.equals(utils.GREEN) || routeColor.isEmpty()) {
+                            mGreenTrainCardCount.setText(GamePlayPresenter.getInstance()
+                                    .decrementTextViewCount(mGreenTrainCardCount.getText().toString()));
+                            routeLength--;
+                            routeColor = utils.GREEN;
+                            pickedCards =
+                                    GamePlayPresenter.getInstance()
+                                            .mapColorToCount(routeColor, pickedCards);
+                            if (routeLength > 0) {
+                                outputMessage("Pick " + routeLength + " more " +
+                                        routeColor + " cards");
+                            } else {
+                                startDiscardCardTask();
+                            }
                         }
                     }
                 }
@@ -193,18 +205,21 @@ public class HandFragment extends Fragment implements IHandView {
             public void onClick(View v) {
                 if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
                         getStringExtra(utils.CLAIMING_ROUTE))) {
-                    if (routeColor.equals(utils.BLUE) || routeColor.isEmpty()) {
-                        routeLength--;
-                        routeColor = utils.BLUE;
-                        pickedCards =
-                                GamePlayPresenter.getInstance()
-                                        .mapColorToCount(routeColor, pickedCards);
-                        if (routeLength > 0) {
-                            outputMessage("Pick " + routeLength + " more " +
-                                    routeColor + " cards");
-                        }
-                        else {
-                            startDiscardCardTask();
+                    if (Integer.parseInt(mBlueTrainCardCount.getText().toString()) > 0) {
+                        if (routeColor.equals(utils.BLUE) || routeColor.isEmpty()) {
+                            mBlueTrainCardCount.setText(GamePlayPresenter.getInstance()
+                                    .decrementTextViewCount(mBlueTrainCardCount.getText().toString()));
+                            routeLength--;
+                            routeColor = utils.BLUE;
+                            pickedCards =
+                                    GamePlayPresenter.getInstance()
+                                            .mapColorToCount(routeColor, pickedCards);
+                            if (routeLength > 0) {
+                                outputMessage("Pick " + routeLength + " more " +
+                                        routeColor + " cards");
+                            } else {
+                                startDiscardCardTask();
+                            }
                         }
                     }
                 }
@@ -216,18 +231,21 @@ public class HandFragment extends Fragment implements IHandView {
             public void onClick(View v) {
                 if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
                         getStringExtra(utils.CLAIMING_ROUTE))) {
-                    if (routeColor.equals(utils.PINK) || routeColor.isEmpty()) {
-                        routeLength--;
-                        routeColor = utils.PINK;
-                        pickedCards =
-                                GamePlayPresenter.getInstance()
-                                        .mapColorToCount(routeColor, pickedCards);
-                        if (routeLength > 0) {
-                            outputMessage("Pick " + routeLength + " more " +
-                                    routeColor + " cards");
-                        }
-                        else {
-                            startDiscardCardTask();
+                    if (Integer.parseInt(mPinkTrainCardCount.getText().toString()) > 0) {
+                        if (routeColor.equals(utils.PINK) || routeColor.isEmpty()) {
+                            mBlueTrainCardCount.setText(GamePlayPresenter.getInstance()
+                                    .decrementTextViewCount(mBlueTrainCardCount.getText().toString()));
+                            routeLength--;
+                            routeColor = utils.PINK;
+                            pickedCards =
+                                    GamePlayPresenter.getInstance()
+                                            .mapColorToCount(routeColor, pickedCards);
+                            if (routeLength > 0) {
+                                outputMessage("Pick " + routeLength + " more " +
+                                        routeColor + " cards");
+                            } else {
+                                startDiscardCardTask();
+                            }
                         }
                     }
                 }
@@ -239,18 +257,21 @@ public class HandFragment extends Fragment implements IHandView {
             public void onClick(View v) {
                 if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
                         getStringExtra(utils.CLAIMING_ROUTE))) {
-                    if (routeColor.equals(utils.WHITE) || routeColor.isEmpty()) {
-                        routeLength--;
-                        routeColor = utils.WHITE;
-                        pickedCards =
-                                GamePlayPresenter.getInstance()
-                                        .mapColorToCount(routeColor, pickedCards);
-                        if (routeLength > 0) {
-                            outputMessage("Pick " + routeLength + " more " +
-                                    routeColor + " cards");
-                        }
-                        else {
-                            startDiscardCardTask();
+                    if (Integer.parseInt(mWhiteTrainCardCount.getText().toString()) > 0) {
+                        if (routeColor.equals(utils.WHITE) || routeColor.isEmpty()) {
+                            mWhiteTrainCardCount.setText(GamePlayPresenter.getInstance()
+                                    .decrementTextViewCount(mWhiteTrainCardCount.getText().toString()));
+                            routeLength--;
+                            routeColor = utils.WHITE;
+                            pickedCards =
+                                    GamePlayPresenter.getInstance()
+                                            .mapColorToCount(routeColor, pickedCards);
+                            if (routeLength > 0) {
+                                outputMessage("Pick " + routeLength + " more " +
+                                        routeColor + " cards");
+                            } else {
+                                startDiscardCardTask();
+                            }
                         }
                     }
                 }
@@ -262,18 +283,21 @@ public class HandFragment extends Fragment implements IHandView {
             public void onClick(View v) {
                 if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
                         getStringExtra(utils.CLAIMING_ROUTE))) {
-                    if (routeColor.equals(utils.BLACK) || routeColor.isEmpty()) {
-                        routeLength--;
-                        routeColor = utils.BLACK;
-                        pickedCards =
-                                GamePlayPresenter.getInstance()
-                                        .mapColorToCount(routeColor, pickedCards);
-                        if (routeLength > 0) {
-                            outputMessage("Pick " + routeLength + " more " +
-                                    routeColor + " cards");
-                        }
-                        else {
-                            startDiscardCardTask();
+                    if (Integer.parseInt(mBlackTrainCardCount.getText().toString()) > 0) {
+                        if (routeColor.equals(utils.BLACK) || routeColor.isEmpty()) {
+                            mBlackTrainCardCount.setText(GamePlayPresenter.getInstance()
+                                    .decrementTextViewCount(mBlackTrainCardCount.getText().toString()));
+                            routeLength--;
+                            routeColor = utils.BLACK;
+                            pickedCards =
+                                    GamePlayPresenter.getInstance()
+                                            .mapColorToCount(routeColor, pickedCards);
+                            if (routeLength > 0) {
+                                outputMessage("Pick " + routeLength + " more " +
+                                        routeColor + " cards");
+                            } else {
+                                startDiscardCardTask();
+                            }
                         }
                     }
                 }
@@ -285,16 +309,19 @@ public class HandFragment extends Fragment implements IHandView {
             public void onClick(View v) {
                 if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
                         getStringExtra(utils.CLAIMING_ROUTE))) {
-                    routeLength--;
-                    pickedCards =
-                            GamePlayPresenter.getInstance()
-                                    .mapColorToCount(utils.LOCOMOTIVE, pickedCards);
-                    if (routeLength > 0) {
-                        outputMessage("Pick " + routeLength + " more " +
-                                routeColor + " cards");
-                    }
-                    else {
-                        startDiscardCardTask();
+                    if (Integer.parseInt(mLocoTrainCardCount.getText().toString()) > 0) {
+                        mLocoTrainCardCount.setText(GamePlayPresenter.getInstance()
+                                .decrementTextViewCount(mLocoTrainCardCount.getText().toString()));
+                        routeLength--;
+                        pickedCards =
+                                GamePlayPresenter.getInstance()
+                                        .mapColorToCount(utils.LOCOMOTIVE, pickedCards);
+                        if (routeLength > 0) {
+                            outputMessage("Pick " + routeLength + " more " +
+                                    routeColor + " cards");
+                        } else {
+                            startDiscardCardTask();
+                        }
                     }
                 }
             }
