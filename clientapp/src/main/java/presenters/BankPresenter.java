@@ -70,7 +70,7 @@ public class BankPresenter implements Observer, IBankPresenter {
     public void clickTCard(int deckIndex){
         this.curDeckIndex = deckIndex;
         String color = "";
-        if (deckIndex>0){
+        if (deckIndex>=0){
             color = getBank().get(deckIndex).getColor();
         }
         if (color == utils.LOCOMOTIVE){
