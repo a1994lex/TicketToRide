@@ -24,9 +24,6 @@ import java.util.List;
 
 public class MainFacade implements IServer {
 
-    public CommandResult delegate(/*whatever we pass in.. probs the request*/) {
-        return null;
-    }
 
     @Override
     public CommandResult createGame(Game game) {
