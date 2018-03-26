@@ -50,7 +50,7 @@ public class ServerGame {
 
     // This method is to start counting when a player chooses their destination cards in the beginning
     public void startReady(int i){
-        this.ready=0-i;
+        this.ready=0-i+1;
     }
 
     // This method updates each time a player draws their first destination cards,
