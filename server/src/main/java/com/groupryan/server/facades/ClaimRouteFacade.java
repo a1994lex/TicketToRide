@@ -27,7 +27,8 @@ public class ClaimRouteFacade {
         Player p=serverGame.getPlayer(username);
         Route r=root.getRoute(routeId);
         List<TrainCard> discardable= new ArrayList<>();
-        List<Integer> trainCards = trainCardIDs.getTrainCardList();
+        List<Integer> tc = trainCardIDs.getTrainCards();
+        List<Integer> trainCards = convertToInt(tc);
        for(int i: trainCards){
             Card c = root.getCard(utils.TRAIN, i);
             p.removeTrainCard(c);
@@ -56,7 +57,14 @@ public class ClaimRouteFacade {
         return cr;
     }
 
-
+    private List<Integer> convertToInt(List<Integer> trainCards) {
+        List<Integer> tc = new ArrayList<>();
+        for (int i = 0; i < trainCards.size(); i++) {
+            int val = trainCards.get(i).intValue();
+            tc.add(val);
+        }
+        return tc;
+    }
 }
 
 

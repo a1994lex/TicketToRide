@@ -131,8 +131,9 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public CommandResult claimRoute(String username, int routeId, TrainCardList trainCardIDs) {
-        ServerCommand command = serverCommandFactory.createClaimRouteCommand(username, routeId,
+    public CommandResult claimRoute(String username, Integer routeId, TrainCardList trainCardIDs) {
+        int id = (int) routeId;
+        ServerCommand command = serverCommandFactory.createClaimRouteCommand(username, id,
                                                                             trainCardIDs);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance()
                                         .sendCommand(utils.CLAIM_ROUTE, command);

@@ -23,7 +23,7 @@ public interface IServer {
 
     CommandResult getCommands(User user);
 
-    CommandResult claimRoute(String username, int routeId, TrainCardList trainCardIDs);
+    CommandResult claimRoute(String username, Integer routeId, TrainCardList trainCardIDs);
 
     CommandResult getGameCommands(String gameId, String playerId);
 

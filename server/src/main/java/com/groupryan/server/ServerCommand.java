@@ -25,6 +25,7 @@ public class ServerCommand implements IServerCommand {
                          String[] paramTypes, Object[] paramValues){
         _className = className;
         _methodName = methodName;
+        System.out.println(methodName);
         _paramTypes = paramTypes;
         _paramValues = paramValues;
     }

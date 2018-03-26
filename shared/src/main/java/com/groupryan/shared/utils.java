@@ -41,7 +41,7 @@ public class utils {
     public static final String EXEC_COMMAND = "/executeCommand";  // url for command API
     public static final String SERVER_HOST = "localhost";
     public static final int PORT_NUMBER = 8080;
-    public static final String URL_PREFIX = "http://" + "192.168.1.106" + ":" + PORT_NUMBER;
+    public static final String URL_PREFIX = "http://" + "192.168.254.108" + ":" + PORT_NUMBER;
     public static final String HTTP_POST = "POST";
     public static final String COMMAND_NAME = "CommandName";   // HTTP request header to determine
 

@@ -126,9 +126,10 @@ public class MainFacade implements IServer {
     }
 
     @Override
-    public CommandResult claimRoute(String username, int routeId, TrainCardList trainCardIDs) {
+    public CommandResult claimRoute(String username, Integer routeId, TrainCardList trainCardIDs) {
+        int id = (int) routeId;
         ClaimRouteFacade crf = new ClaimRouteFacade();
-        return crf.claimRoute(username, routeId, trainCardIDs);
+        return crf.claimRoute(username, id, trainCardIDs);
     }
 
     @Override

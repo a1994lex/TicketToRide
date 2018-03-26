@@ -21,7 +21,7 @@ public class TrainCardList {
         this.trainCards = trainCards;
     }
 
-    public List<Integer> getTrainCardList() {
+    public List<Integer> getTrainCards() {
         return trainCards;
     }
 
