@@ -3,6 +3,8 @@ package com.groupryan.server;
 import com.google.gson.Gson;
 import com.google.gson.internal.LinkedTreeMap;
 import com.groupryan.shared.commands.IServerCommand;
+import com.groupryan.shared.models.TrainCard;
+import com.groupryan.shared.models.TrainCardList;
 import com.groupryan.shared.results.CommandResult;
 
 import java.lang.reflect.InvocationTargetException;
@@ -23,6 +25,7 @@ public class ServerCommand implements IServerCommand {
                          String[] paramTypes, Object[] paramValues){
         _className = className;
         _methodName = methodName;
+        System.out.println(methodName);
         _paramTypes = paramTypes;
         _paramValues = paramValues;
     }

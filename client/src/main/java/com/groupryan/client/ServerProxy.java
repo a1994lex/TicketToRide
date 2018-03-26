@@ -6,6 +6,7 @@ import com.groupryan.shared.commands.ServerCommand;
 import com.groupryan.shared.commands.ServerCommandFactory;
 import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
+import com.groupryan.shared.models.TrainCardList;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
@@ -130,8 +131,9 @@ public class ServerProxy implements IServer {
     }
 
     @Override
-    public CommandResult claimRoute(String username, int routeId, List<Integer> trainCardIDs) {
-        ServerCommand command = serverCommandFactory.createClaimRouteCommand(username, routeId,
+    public CommandResult claimRoute(String username, Integer routeId, TrainCardList trainCardIDs) {
+        int id = (int) routeId;
+        ServerCommand command = serverCommandFactory.createClaimRouteCommand(username, id,
                                                                             trainCardIDs);
         CommandResult commandResult = (CommandResult) ClientCommunicator.getInstance()
                                         .sendCommand(utils.CLAIM_ROUTE, command);

@@ -3,6 +3,7 @@ package com.groupryan.shared;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
+import com.groupryan.shared.models.TrainCardList;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.results.LoginResult;
@@ -22,7 +23,7 @@ public interface IServer {
 
     CommandResult getCommands(User user);
 
-    CommandResult claimRoute(String username, int routeId, List<Integer> trainCardIDs);
+    CommandResult claimRoute(String username, Integer routeId, TrainCardList trainCardIDs);
 
     CommandResult getGameCommands(String gameId, String playerId);
 

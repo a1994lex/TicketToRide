@@ -4,6 +4,7 @@ import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
+import com.groupryan.shared.models.TrainCardList;
 import com.groupryan.shared.models.User;
 
 import java.util.List;
@@ -95,10 +96,11 @@ public class ServerCommandFactory {
                 new Object[]{username});
     }
 
-    public ServerCommand createClaimRouteCommand(String username, int routeId, List<Integer> trainCardIDs) {
+    public ServerCommand createClaimRouteCommand(String username, int routeId, TrainCardList trainCardIDs) {
+//        TrainCardList trainCards = new TrainCardList(trainCardIDs);
         return new ServerCommand("com.groupryan.server.facades.MainFacade", "claimRoute",
                 new String[]{String.class.getTypeName(), Integer.class.getTypeName(),
-                                List.class.getTypeName()},
+                                TrainCardList.class.getTypeName()},
                 new Object[]{username, routeId, trainCardIDs});
     }
 }
