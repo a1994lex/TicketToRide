@@ -2,7 +2,6 @@ package states.game;
 
 import com.groupryan.shared.models.ClaimRouteData;
 
-import async.DiscardTrainCardAsyncTask;
 import presenters.GamePlayPresenter;
 import states.GameState;
 
