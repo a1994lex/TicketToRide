@@ -23,6 +23,7 @@ public class ClaimRouteState implements GameState {
     public void submit(GamePlayPresenter gpp) {
         gpp.callClaimRouteAsyncTask();
         gpp.setState(new InactiveState());
+        gpp.endTurn();
     }
 
     @Override

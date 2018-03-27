@@ -64,6 +64,8 @@ public class MainFacade implements IServer {
         DestinationCardFacade dcf = new DestinationCardFacade();
         List<Integer> cardIDs = destCardList.getList();
         return dcf.discard(cardIDs, username);
+       // endTurn(username);
+       // return cr;
     }
 
     public void changeTurn(ServerGame game){
@@ -129,9 +131,9 @@ public class MainFacade implements IServer {
         ClaimRouteFacade crf = new ClaimRouteFacade();
         //changeTurn(RootServerModel.getInstance().getServerGame(username));
 
-        CommandResult cr=crf.claimRoute(username, id, trainCardIDs);
-        endTurn(username);
-        return cr;
+        return crf.claimRoute(username, id, trainCardIDs);
+        //endTurn(username);
+        //return cr;
     }
 
     @Override
