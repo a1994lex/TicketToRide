@@ -4,6 +4,7 @@ import com.groupryan.server.CommandManager;
 import com.groupryan.server.models.RootServerModel;
 import com.groupryan.server.models.ServerGame;
 import com.groupryan.shared.IServer;
+import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
@@ -63,9 +64,11 @@ public class MainFacade implements IServer {
         }
         DestinationCardFacade dcf = new DestinationCardFacade();
         List<Integer> cardIDs = destCardList.getList();
-        return dcf.discard(cardIDs, username);
-       // endTurn(username);
-       // return cr;
+        CommandResult cr=  dcf.discard(cardIDs, username);
+        for (ClientCommand cc: endTurn(username).getClientCommands()){
+            cr.addClientCommand(cc);
+        }
+        return cr;
     }
 
     public void changeTurn(ServerGame game){
