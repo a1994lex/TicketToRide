@@ -28,8 +28,8 @@ public class ActiveState implements BankState {
        // bp.setState(new DrawDestState());
         bp.getGamePlayPresenter().submit();
         bp.setState(new InactiveState());
-        //bp.endTurn();
         bp.drawDestinationCards();
+        bp.endTurn();
     }
 
     @Override

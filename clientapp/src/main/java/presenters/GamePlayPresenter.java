@@ -26,6 +26,7 @@ import java.util.List;
 
 import async.DiscardDestCardAsyncTask;
 import async.DiscardTrainCardAsyncTask;
+import async.EndTurnAsyncTask;
 import async.Poller;
 import states.GameState;
 import states.game.ActiveState;
@@ -148,6 +149,11 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
     public void setState(GameState state){
         this.state = state;
+    }
+
+    public void endTurn(){
+        EndTurnAsyncTask task = new EndTurnAsyncTask();
+        task.execute();
     }
 
     @Override
