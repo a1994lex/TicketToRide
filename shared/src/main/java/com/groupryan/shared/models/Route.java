@@ -15,7 +15,6 @@ public class Route {
     int id;
     boolean available;
 
-//todo make maptoobject
 
     public static Route mapToObject(LinkedTreeMap map) {
         double  len = (double) map.get("length");

@@ -62,7 +62,7 @@ public class CommandManager {
             createGameCommandMapEntry(gameId);
         }
         int size = this.gamePlayerCommands.get(gameId).get(playerId).size();
-        System.out.println("command size in server: " + size);
+       // System.out.println("command size in server: " + size);
         List<ClientCommand> playerCommands = new ArrayList<>(this.gamePlayerCommands.get(gameId).get(playerId));
         this.gamePlayerCommands.get(gameId).get(playerId).clear(); // Clears the players list of commands
         return playerCommands;
