@@ -1,31 +1,25 @@
 package presenters;
 
 import android.app.Activity;
-import android.provider.DocumentsContract;
-import android.widget.Toast;
-
-import com.example.clientapp.GameActivity;
 import com.example.clientapp.IClaimRouteView;
 import com.example.clientapp.IGameView;
 import com.groupryan.client.UIGameFacade;
 import com.groupryan.client.models.ClientGame;
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.ClaimRouteData;
-import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.RouteSegment;
 import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.utils;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Observable;
 import java.util.Observer;
 import java.util.List;
 
+import async.ClaimRouteAsyncTask;
 import async.DiscardDestCardAsyncTask;
-import async.DiscardTrainCardAsyncTask;
 import async.EndTurnAsyncTask;
 import async.Poller;
 import states.GameState;
@@ -92,24 +86,28 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         this.claimRouteView = claimRouteView;
     }
 
+//    public void redrawRoutes() {
+//        root.setShowRoutes();
+//    }
+
     @Override
-    public void redrawRoutes() {
-        root.setShowRoutes();
+    public void setShowRoutes(boolean showRoutes) {
+        game.setShowRoutes(showRoutes);
     }
 
     @Override
     public void update(Observable observable, Object o) {
         if (observable == game) { //I changed this so now it check if observable is game, not root.
             int secondSize = root.getCurrentGame().getClaimedRoutesList().size();
-            if (o.getClass().equals(Route.class)) {
-                if (secondSize > totalClaimedRoutes) {
-                    totalClaimedRoutes = secondSize;
-                    Route r = (Route) o;
-                    HashSet<RouteSegment> routeSegments = root.getRouteSegmentSet(r.getId());
-                    gameView.drawRoute(r.getColor(), routeSegments);
-                    drawRoutes();
-                }
-            } else if (o.equals(utils.DISCARD_DESTCARD)) {
+//            if (o.getClass().equals(Route.class)) {
+//                if (secondSize > totalClaimedRoutes) {
+//                    totalClaimedRoutes = secondSize;
+//                    Route r = (Route) o;
+//                    HashSet<RouteSegment> routeSegments = root.getRouteSegmentSet(r.getId());
+//                    gameView.drawRoute(r.getColor(), routeSegments);
+//                    drawRoutes();
+//                }
+            if (o.equals(utils.DISCARD_DESTCARD)) {
                 // it's trying to call a method on gameView when gameView is null
                 gameView.cardsDiscarded();
             } else if (o.equals(utils.REDRAW_ROUTES)) {
@@ -174,7 +172,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
 
     @Override // DO WE WANT TO MOVE THIS TO A CLAIM ROUTE DIALOG ACTIVITY??
-    public void claimRoute(int routeId) {
+    public boolean claimRoute(int routeId) {
         List<TrainCard> trainCards = verifyRoute(routeId);
         boolean goToHand = false;
         if (trainCards != null) {
@@ -190,7 +188,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
             int length = route.getLength();
             claimRouteView.startHandFragment(routeColor, length, routeId);
         }
-        // set claimRoute command stuff
+        return false;
     }
 
     public boolean verifyEnoughTrainPieces(int trains, int routeId) {
@@ -239,8 +237,9 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     }
 
     public void callClaimRouteAsyncTask() {
-        DiscardTrainCardAsyncTask task = new DiscardTrainCardAsyncTask();
+        ClaimRouteAsyncTask task = new ClaimRouteAsyncTask();
         task.execute(claimRouteData);
+        RootClientModel.getCurrentGame().getAnAvailableRoute(claimRouteData.getRouteId()).setAvailable(false);
     }
 
     public Map<String, Integer> mapColorToCount(String color, Map<String, Integer> pickedCards) {

@@ -56,7 +56,7 @@ public class HandFragment extends Fragment implements IHandView {
     private GameActivity gameActivity;
     private int routeLength;    // move these somewhere else eventually because they are only used
                                 // when claiming a route
-    private String routeColor;  // move these somewhere else eventually because they are only used
+    private String routeColor = "";  // move these somewhere else eventually because they are only used
                                 // when claiming a route
     private Map<String, Integer> pickedCards;
 
@@ -70,6 +70,7 @@ public class HandFragment extends Fragment implements IHandView {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_hand, container, false);
         HandPresenter.getInstance().setView(this, view);
+
 
 
         // Get myPlayer from RootClientModel
@@ -96,8 +97,11 @@ public class HandFragment extends Fragment implements IHandView {
         mLocoTrainCardCount = view.findViewById(R.id.loco_count);
         mLocoTrainCardCount.setText(Integer.toString(trainCardsMap.get(utils.LOCOMOTIVE)));
 
+        if (GamePlayPresenter.getInstance().getState().getClass().equals(ClaimRouteState.class)) {
+            RootClientModel.getCurrentGame().setShowRoutes(false);
+            getActivity().setFinishOnTouchOutside(false);
+        }
 
-        getActivity().setFinishOnTouchOutside(false);
         mRedTrainCard = view.findViewById(R.id.red_train_card);
         mRedTrainCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -105,7 +109,7 @@ public class HandFragment extends Fragment implements IHandView {
                 if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
                         getStringExtra(utils.CLAIMING_ROUTE))) {
                     if (Integer.parseInt(mRedTrainCardCount.getText().toString()) > 0) {
-                        if (routeColor.equals(utils.RED) || routeColor.isEmpty()) {
+                        if (routeColor.isEmpty() || routeColor.equals(utils.RED)) {
                             mRedTrainCardCount.setText(GamePlayPresenter.getInstance()
                                     .decrementTextViewCount(mRedTrainCardCount.getText().toString()));
                             routeLength--;
@@ -131,7 +135,7 @@ public class HandFragment extends Fragment implements IHandView {
                 if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
                         getStringExtra(utils.CLAIMING_ROUTE))) {
                     if (Integer.parseInt(mOrangeTrainCardCount.getText().toString()) > 0) {
-                        if (routeColor.equals(utils.ORANGE) || routeColor.isEmpty()) {
+                        if (routeColor.isEmpty() || routeColor.equals(utils.ORANGE)) {
                             mOrangeTrainCardCount.setText(GamePlayPresenter.getInstance()
                                     .decrementTextViewCount(mOrangeTrainCardCount.getText().toString()));
                             routeLength--;
@@ -157,7 +161,7 @@ public class HandFragment extends Fragment implements IHandView {
                 if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
                         getStringExtra(utils.CLAIMING_ROUTE))) {
                     if (Integer.parseInt(mYellowTrainCardCount.getText().toString()) > 0) {
-                        if (routeColor.equals(utils.YELLOW) || routeColor.isEmpty()) {
+                        if (routeColor.isEmpty() || routeColor.equals(utils.YELLOW)) {
                             mYellowTrainCardCount.setText(GamePlayPresenter.getInstance()
                                     .decrementTextViewCount(mYellowTrainCardCount.getText().toString()));
                             routeLength--;
@@ -183,7 +187,7 @@ public class HandFragment extends Fragment implements IHandView {
                 if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
                         getStringExtra(utils.CLAIMING_ROUTE))) {
                     if (Integer.parseInt(mGreenTrainCardCount.getText().toString()) > 0) {
-                        if (routeColor.equals(utils.GREEN) || routeColor.isEmpty()) {
+                        if (routeColor.isEmpty() || routeColor.equals(utils.GREEN)) {
                             mGreenTrainCardCount.setText(GamePlayPresenter.getInstance()
                                     .decrementTextViewCount(mGreenTrainCardCount.getText().toString()));
                             routeLength--;
@@ -209,7 +213,7 @@ public class HandFragment extends Fragment implements IHandView {
                 if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
                         getStringExtra(utils.CLAIMING_ROUTE))) {
                     if (Integer.parseInt(mBlueTrainCardCount.getText().toString()) > 0) {
-                        if (routeColor.equals(utils.BLUE) || routeColor.isEmpty()) {
+                        if (routeColor.isEmpty() || routeColor.equals(utils.BLUE)) {
                             mBlueTrainCardCount.setText(GamePlayPresenter.getInstance()
                                     .decrementTextViewCount(mBlueTrainCardCount.getText().toString()));
                             routeLength--;
@@ -235,7 +239,7 @@ public class HandFragment extends Fragment implements IHandView {
                 if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
                         getStringExtra(utils.CLAIMING_ROUTE))) {
                     if (Integer.parseInt(mPinkTrainCardCount.getText().toString()) > 0) {
-                        if (routeColor.equals(utils.PINK) || routeColor.isEmpty()) {
+                        if (routeColor.isEmpty() || routeColor.equals(utils.PINK)) {
                             mBlueTrainCardCount.setText(GamePlayPresenter.getInstance()
                                     .decrementTextViewCount(mBlueTrainCardCount.getText().toString()));
                             routeLength--;
@@ -261,7 +265,7 @@ public class HandFragment extends Fragment implements IHandView {
                 if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
                         getStringExtra(utils.CLAIMING_ROUTE))) {
                     if (Integer.parseInt(mWhiteTrainCardCount.getText().toString()) > 0) {
-                        if (routeColor.equals(utils.WHITE) || routeColor.isEmpty()) {
+                        if (routeColor.isEmpty() || routeColor.equals(utils.WHITE)) {
                             mWhiteTrainCardCount.setText(GamePlayPresenter.getInstance()
                                     .decrementTextViewCount(mWhiteTrainCardCount.getText().toString()));
                             routeLength--;
@@ -287,7 +291,7 @@ public class HandFragment extends Fragment implements IHandView {
                 if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
                         getStringExtra(utils.CLAIMING_ROUTE))) {
                     if (Integer.parseInt(mBlackTrainCardCount.getText().toString()) > 0) {
-                        if (routeColor.equals(utils.BLACK) || routeColor.isEmpty()) {
+                        if (routeColor.isEmpty() || routeColor.equals(utils.BLACK)) {
                             mBlackTrainCardCount.setText(GamePlayPresenter.getInstance()
                                     .decrementTextViewCount(mBlackTrainCardCount.getText().toString()));
                             routeLength--;
@@ -336,6 +340,7 @@ public class HandFragment extends Fragment implements IHandView {
         mExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                GamePlayPresenter.getInstance().setShowRoutes(true);
                 finish();
             }
         });
@@ -356,7 +361,7 @@ public class HandFragment extends Fragment implements IHandView {
     }
 
     public void startDiscardCardTask() {
-            routeLength = -1;
+//            routeLength = 0;
             List<Integer> discardingTrainCards = GamePlayPresenter.getInstance()
                     .getDiscardingTrainCards(pickedCards);
             int routeId = getActivity().getIntent().getIntExtra(utils.ROUTE_ID, -1);

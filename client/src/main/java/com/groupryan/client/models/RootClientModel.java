@@ -23,7 +23,6 @@ public class RootClientModel extends Observable {
     private HashMap<String, String> players; // <username, Color>
     private HashMap<Integer, HashSet<RouteSegment>> routeSegments = new HashMap<>();
     private ClientGame clientGame = null;
-    private boolean showRoutes = true;
     private ArrayList<Route> routes;
 
     public Map<Integer, HashSet<RouteSegment>> getRouteSegments() {
@@ -78,10 +77,6 @@ public class RootClientModel extends Observable {
 
     public static void addUser(User user) {
         single_instance._addUser(user);
-    }
-
-    public static void setShowRoutes() {
-        single_instance._setShowRoutes();
     }
 
     public static void updateStats(Stat stat) {
@@ -178,11 +173,6 @@ public class RootClientModel extends Observable {
                 notifyObservers(g.getGameId());
             }
         }
-    }
-
-    private void _setShowRoutes() {
-        setChanged();
-        notifyObservers(utils.REDRAW_ROUTES);
     }
 
     private void _addUserToGame(Game game, User user, String userColor) {

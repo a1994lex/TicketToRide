@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 
 import presenters.GamePlayPresenter;
 import presenters.IGamePlayPresenter;
+import states.bank.ActiveState;
 
 /**
  * Created by Daniel on 3/23/2018.
@@ -32,10 +34,9 @@ import presenters.IGamePlayPresenter;
 
 public class ClaimRouteDialogActivity extends Activity implements IClaimRouteView {
 
-//    private IGamePlayPresenter gamePlayPresenter = GamePlayPresenter.getInstance();
-
     private RecyclerView.Adapter mAdapter;
     private RecyclerView mRecyclerView;
+    private ImageButton mExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,22 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new RoutesAdapter();
         mRecyclerView.setAdapter(mAdapter);
+        mExit = findViewById(R.id.exit_button);
+        mExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GamePlayPresenter.getInstance().getState().cancel(GamePlayPresenter.getInstance());
+                finish();
+            }
+        });
+
+        setFinishOnTouchOutside(false);
+    }
+
+    @Override
+    protected void onDestroy() {
+        GamePlayPresenter.getInstance().getState().cancel(GamePlayPresenter.getInstance());
+        super.onDestroy();
     }
 
     @Override
@@ -79,19 +96,21 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
             mRouteInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mRoute.isAvailable()) {
-                        GamePlayPresenter.getInstance().claimRoute(mRoute.getId());
-                    }
-                    else {
-                        showMessage("Route has already been claimed");
-                    }
+//                    if (GamePlayPresenter.getInstance().getState().getClass()
+//                            .equals(ActiveState.class)) {
+                        if (mRoute.isAvailable()) {
+                            GamePlayPresenter.getInstance().claimRoute(mRoute.getId());
+                        } else {
+                            showMessage("Route has already been claimed");
+                        }
+//                    }
                 }
             });
         }
 
         public void bindRoute(Route route){
-            mRouteInfo.setText(createRouteInfo(route));
             mRoute = route;
+            mRouteInfo.setText(createRouteInfo(route));
             if (!route.isAvailable()) {
                 mRouteInfo.setPaintFlags(mRouteInfo.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
                 mRouteInfo.setTextColor(Color.parseColor("#696969"));
@@ -101,7 +120,7 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
         public String createRouteInfo(Route route) {
             StringBuilder sb = new StringBuilder();
 
-            sb.append(route.getCityOne() + "--" + route.getCityTwo() + "\n" +
+            sb.append(route.getCityOne() + " --- " + route.getCityTwo() + "\n" +
                     "LENGTH: " + route.getLength() + " WORTH: " + route.getWorth() + " COLOR: ");
             if (route.getColor().isEmpty()) {
                 sb.append("NO COLOR");
@@ -111,6 +130,7 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
             }
             return sb.toString();
         }
+
     }
 
     protected class RoutesAdapter extends RecyclerView.Adapter<ClaimRouteDialogActivity.RoutesHolder>{
