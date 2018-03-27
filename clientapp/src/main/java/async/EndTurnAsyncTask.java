@@ -12,6 +12,13 @@ import com.groupryan.shared.utils;
  */
 
 public class EndTurnAsyncTask  extends AsyncTask<Void, Void, CommandResult> {
+
+    @Override
+    protected CommandResult doInBackground(Void... voids) {
+        CommandResult result = UIFacade.getInstance().endTurn();
+        return result;
+    }
+
     @Override
     protected void onPostExecute(CommandResult result) {
 
@@ -22,10 +29,6 @@ public class EndTurnAsyncTask  extends AsyncTask<Void, Void, CommandResult> {
         }
     }
 
-    @Override
-    protected CommandResult doInBackground(Void... voids) {
-        CommandResult result = UIFacade.getInstance().endTurn();
-        return result;
-    }
+
 }
 

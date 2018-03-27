@@ -111,18 +111,11 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                 drawRoutes();
             } else if(o.equals(utils.GAME_OVER)){
                 gameView.endGame();
-            }
-            else if(observable==game){
-                if (o.equals(utils.DISCARD_DESTCARD)) {
-                    gameView.cardsDiscarded();
-                   // this.gameActivity.finish();
+            } else if (o.equals(utils.NEW_TURN)){
+                if (game.isMyTurn()){
+                    setState(new ActiveState());
                 }
-                else if (o.equals(utils.NEW_TURN)){
-                    if (game.isMyTurn()){
-                        setState(new ActiveState());
-                    }
-                }
-            }
+            }    
         }
     }
 
