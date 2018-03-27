@@ -134,8 +134,8 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     /// STATE FUNCTIONS //////////
     @Override
     public void clickClaimRoute() {
-        //state.clickClaimRoute(this);
-        gameView.showClaimRouteModal();
+        state.clickClaimRoute(this);
+        //gameView.showClaimRouteModal();
         // depending on the state, the state will call gameView.showClaimRouteModal();
     }
 
