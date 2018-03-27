@@ -43,7 +43,7 @@ public class GameStatPresenter implements Observer, IGameStatPresenter {
     public void update(Observable o, Object arg) {
         if (o == game){
             if (arg.equals(utils.STAT)){
-                //statView.init(fragView);
+                statView.init(fragView);
             }
             else if (arg.equals(utils.NEW_TURN)){
                 statView.init(fragView);

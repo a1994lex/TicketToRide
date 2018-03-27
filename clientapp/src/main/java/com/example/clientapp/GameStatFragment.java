@@ -23,6 +23,7 @@ import presenters.GameStatPresenter;
 
 public class GameStatFragment extends Fragment implements IGameStatView {
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,19 +33,30 @@ public class GameStatFragment extends Fragment implements IGameStatView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game_stat, container, false);
-        init(view);
         GameStatPresenter.getInstance().setView(this, view);
+        init(view);
         return view;
     }
 
     public void init(View view) {
+        TableLayout tableLayout = (TableLayout) view.findViewById(R.id.stats_table);
+
+
+        if ( tableLayout.getChildCount() > 1){
+            tableLayout.removeViews(0, tableLayout.getChildCount());
+        }
+
+
+
+
         HashMap<String, Stat> theStats = RootClientModel.getCurrentGame().getStats();
 
         TableLayout.LayoutParams tableRowParams = new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.WRAP_CONTENT);
         tableRowParams.setMargins(15, 15, 15, 15);
 
 
-        TableLayout tableLayout = (TableLayout) view.findViewById(R.id.stats_table);
+
+
         TableRow header = new TableRow(getActivity());
         header.setLayoutParams(tableRowParams);
         TextView tv0 = new TextView(getActivity());
@@ -117,7 +129,11 @@ public class GameStatFragment extends Fragment implements IGameStatView {
             row.setLayoutParams(tableRowParams);
             tableLayout.addView(row);
 
+
+
         }
+
+
 
     }
 }
