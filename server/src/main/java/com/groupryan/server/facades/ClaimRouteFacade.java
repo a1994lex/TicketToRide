@@ -39,10 +39,11 @@ public class ClaimRouteFacade {
         //remove the number of trains
         p.addPoints(r.getWorth());
         //addPoints to player
-        p.addRoute(r);
-        //add route to players list of claimed routes
         r.setColor(p.getColor());
         //make route match players color....
+        p.addRoute(r);
+        //add route to players list of claimed routes
+
         //
         cr.addClientCommand(CommandManager.getInstance().makeDiscardTrainCardsCommand(discardable));
         //send discard command to PLayer

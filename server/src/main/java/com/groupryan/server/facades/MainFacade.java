@@ -127,7 +127,8 @@ public class MainFacade implements IServer {
     public CommandResult claimRoute(String username, Integer routeId, TrainCardList trainCardIDs) {
         int id = (int) routeId;
         ClaimRouteFacade crf = new ClaimRouteFacade();
-        changeTurn(RootServerModel.getInstance().getServerGame(username));
+        //changeTurn(RootServerModel.getInstance().getServerGame(username));
+        endTurn(username);
         return crf.claimRoute(username, id, trainCardIDs);
     }
 
