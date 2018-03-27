@@ -225,7 +225,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     public void discardTrainCards(int routeId, List<Integer> pickedCards) {
         String username = RootClientModel.getCurrentGame().getMyPlayer().getUsername();
         claimRouteData = new ClaimRouteData(pickedCards, routeId, username);
-        state.submit(GamePlayPresenter.getInstance());
+        state.submit(this);
     }
 
     public void callClaimRouteAsyncTask() {
