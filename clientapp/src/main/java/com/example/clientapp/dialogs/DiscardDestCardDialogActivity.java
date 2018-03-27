@@ -46,13 +46,13 @@ public class DiscardDestCardDialogActivity extends Activity {
         // hotfix
         this.gamePlayPresenter.setDiscardActivity(this);
         // -----
-
         setContentView(R.layout.dialog_discard_card);
 
 
         Intent i = getIntent();
         final Boolean isGameSetup = i.getBooleanExtra(utils.GAME_SETUP, true);
 
+        setFinishOnTouchOutside(false);
         // Get myPlayer from RootClientModel
         Player myPlayer = RootClientModel.getCurrentGame().getMyPlayer();
         List<DestCard> destCards = myPlayer.getDestCards();

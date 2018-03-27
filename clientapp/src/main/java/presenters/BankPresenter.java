@@ -6,6 +6,8 @@ import com.example.clientapp.IBankView;
 import com.example.clientapp.IGameView;
 import com.groupryan.client.models.ClientGame;
 import com.groupryan.client.models.RootClientModel;
+
+import async.EndTurnAsyncTask;
 import states.BankState;
 import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.utils;
@@ -17,6 +19,8 @@ import java.util.Observer;
 import async.DrawDestinationCardsAsyncTask;
 import async.DrawTrainCardAsyncTask;
 import states.bank.InactiveState;
+import states.game.ActiveState;
+import states.game.DrawCardState;
 
 /**
  * Created by ryanm on 3/3/2018.
@@ -98,7 +102,10 @@ public class BankPresenter implements Observer, IBankPresenter {
         return GamePlayPresenter.getInstance();
     }
     ////END OF STATE FUNCTIONS////////////
-
+    public void endTurn() {
+        EndTurnAsyncTask task = new EndTurnAsyncTask();
+        task.execute();
+    }
 
 
     public ArrayList<TrainCard> getBank(){
@@ -138,6 +145,12 @@ public class BankPresenter implements Observer, IBankPresenter {
             } else if(o.equals(utils.GAME_OVER)){
                 IBankView bankView = (IBankView) this.bankView;
                 bankView.endGame();
+            }
+            else if (o.equals(utils.NEW_TURN)){
+                if (game.isMyTurn()){
+                    this.getGamePlayPresenter().setState(new states.game.DrawCardState());
+                    this.setState(new states.bank.ActiveState());
+                }
             }
         }
     }

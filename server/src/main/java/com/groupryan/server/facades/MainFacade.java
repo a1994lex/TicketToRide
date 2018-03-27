@@ -24,9 +24,6 @@ import java.util.List;
 
 public class MainFacade implements IServer {
 
-    public CommandResult delegate(/*whatever we pass in.. probs the request*/) {
-        return null;
-    }
 
     @Override
     public CommandResult createGame(Game game) {
@@ -86,6 +83,7 @@ public class MainFacade implements IServer {
             player.setEndGame(true);
         }
         CommandResult cm = new CommandResult();
+        cm.setResultType(utils.VALID);
         cm.setClientCommands(CommandManager.getInstance().
                 getGameCommands(serverGame.getServerGameID(), username));
         return cm;
