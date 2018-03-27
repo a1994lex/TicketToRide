@@ -26,6 +26,7 @@ import java.util.Map;
 
 import presenters.GamePlayPresenter;
 import presenters.HandPresenter;
+import states.game.ClaimRouteState;
 
 
 public class HandFragment extends Fragment implements IHandView {
@@ -95,6 +96,8 @@ public class HandFragment extends Fragment implements IHandView {
         mLocoTrainCardCount = view.findViewById(R.id.loco_count);
         mLocoTrainCardCount.setText(Integer.toString(trainCardsMap.get(utils.LOCOMOTIVE)));
 
+
+        getActivity().setFinishOnTouchOutside(false);
         mRedTrainCard = view.findViewById(R.id.red_train_card);
         mRedTrainCard.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -342,8 +345,7 @@ public class HandFragment extends Fragment implements IHandView {
         mAdapter = new HandFragment.DestCardAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
-        if (utils.CLAIMING_ROUTE.equals(getActivity().getIntent().
-                getStringExtra(utils.CLAIMING_ROUTE))) {
+        if (GamePlayPresenter.getInstance().getState().getClass().equals(ClaimRouteState.class)) {
             outputMessage("Pick the cards you want to discard to claim route.");
             routeColor = getActivity().getIntent().getStringExtra(utils.ROUTE_COLOR);
             routeLength = getActivity().getIntent().getIntExtra(utils.ROUTE_LENGTH, -1);
