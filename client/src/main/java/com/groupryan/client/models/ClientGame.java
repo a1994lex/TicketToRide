@@ -216,7 +216,7 @@ public class ClientGame extends Observable {
             }
         for (int i = 0; i < availableRoutes.size(); i++) {
             if (availableRoutes.get(i).getId() == route.getId()) {
-                availableRoutes.get(i).setAvailable(false);
+                availableRoutes.remove(i);
                 break;
             }
         }
@@ -231,7 +231,7 @@ public class ClientGame extends Observable {
         for (int i = 0; i < availableRoutes.size(); i++) {
             if (availableRoutes.get(i).getCityOne().equals(route.getCityOne())
                     && availableRoutes.get(i).getCityTwo().equals(route.getCityTwo())) {
-                availableRoutes.get(i).setAvailable(false);
+                availableRoutes.remove(i);
                 break;
             }
         }
