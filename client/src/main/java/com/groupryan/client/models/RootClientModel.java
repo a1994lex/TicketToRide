@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
 
-import static com.groupryan.shared.utils.GREEN;
+//import static com.groupryan.shared.utils.GREEN;
 
 public class RootClientModel extends Observable {
 
@@ -217,7 +217,7 @@ public class RootClientModel extends Observable {
         routes.add(new Route(1, "VANCOUVER", "SEATTLE", 1, "", 2));
         routes.add(new Route(1, "SEATTLE", "PORTLAND", 1, "", 3));
         routes.add(new Route(1, "SEATTLE", "PORTLAND", 1, "", 4));
-        routes.add(new Route(5, "PORTLAND", "SAN FRANCISCO", 10, GREEN, 5));
+        routes.add(new Route(5, "PORTLAND", "SAN FRANCISCO", 10, utils.GREEN, 5));
         routes.add(new Route(5, "PORTLAND", "SAN FRANCISCO", 10, utils.PINK, 6));
         routes.add(new Route(3, "SAN FRANCISCO", "LOS ANGELES", 4, utils.YELLOW, 7));
         routes.add(new Route(3, "SAN FRANCISCO", "LOS ANGELES", 4, utils.PINK, 8));
@@ -242,7 +242,7 @@ public class RootClientModel extends Observable {
         routes.add(new Route(4, "HELENA", "WINNIPEG", 7, utils.BLUE, 27));
         routes.add(new Route(6, "HELENA", "DULUTH", 15, utils.ORANGE, 28));
         routes.add(new Route(5, "HELENA", "OMAHA", 10, utils.RED, 29));
-        routes.add(new Route(4, "HELENA", "DENVER", 7, GREEN, 30));
+        routes.add(new Route(4, "HELENA", "DENVER", 7, utils.GREEN, 30));
         routes.add(new Route(2, "DENVER", "SANTA FE", 2, "", 31));
         routes.add(new Route(4, "DENVER", "OMAHA", 7, utils.PINK, 32));
         routes.add(new Route(4, "DENVER", "KANSAS CITY", 7, utils.BLACK, 33));
@@ -252,7 +252,7 @@ public class RootClientModel extends Observable {
         routes.add(new Route(2, "SANTA FE", "EL PASO", 2, "", 37));
         routes.add(new Route(5, "EL PASO", "OKLAHOMA CITY", 10, utils.YELLOW, 38));
         routes.add(new Route(4, "EL PASO", "DALLAS", 7, utils.RED, 39));
-        routes.add(new Route(6, "EL PASO", "HOUSTON", 15, GREEN, 40));
+        routes.add(new Route(6, "EL PASO", "HOUSTON", 15, utils.GREEN, 40));
         routes.add(new Route(4, "WINNIPEG", "DULUTH", 7, utils.BLACK, 41));
         routes.add(new Route(6, "WINNIPEG", "SAULT ST. MARIE", 15, "", 42));
         routes.add(new Route(3, "DULUTH", "SAULT ST. MARIE", 4, "", 43));
@@ -315,15 +315,6 @@ public class RootClientModel extends Observable {
         routes.add(new Route(2, "RALEIGH", "WASHINGTON", 2, "", 100));
     }
 
-    // create a set of RouteSegment objects
-    // create new RouteSegments representing each segment of the route
-    // put in x and y coordinates of point A and B
-    // put in route id
-    // add the segments to the set
-    // routeSegments.put(routeId, set of routeSegments)
-    // each segment is about 40 units long and 10 units thick
-    // x values increase from left to right
-    // y values increase from top to bottom
     private void initializeRouteSegmentData() {
 
         RouteSegment rs1;
