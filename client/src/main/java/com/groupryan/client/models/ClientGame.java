@@ -44,6 +44,7 @@ public class ClientGame extends Observable {
     private List<Route> claimedRoutes;
     Boolean original=true;
     List<EndGameStat> endGameStats;
+    private boolean showRoutes = true;
     String winner;
 
     public ClientGame(Game game, Player player) {
@@ -218,7 +219,17 @@ public class ClientGame extends Observable {
             }
         }
         setChanged();
-        notifyObservers(route);
+        notifyObservers(utils.REDRAW_ROUTES);
+    }
+
+    public Route getAnAvailableRoute(int routeId) {
+        Route route = null;
+        for (int i = 0; i < availableRoutes.size(); i++) {
+            if (availableRoutes.get(i).getId() == routeId) {
+                route = availableRoutes.get(i);
+            }
+        }
+        return route;
     }
 
     public void setAvailableRoutes(ArrayList<Route> availableRoutes) {
@@ -248,5 +259,13 @@ public class ClientGame extends Observable {
 
     public void setWinner(String winner) {
         this.winner = winner;
+    }
+
+    public void setShowRoutes(boolean showRoutes) {
+        this.showRoutes = showRoutes;
+        if (showRoutes) {
+            setChanged();
+            notifyObservers(utils.REDRAW_ROUTES);
+        }
     }
 }
