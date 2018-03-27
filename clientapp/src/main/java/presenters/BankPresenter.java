@@ -146,7 +146,7 @@ public class BankPresenter implements Observer, IBankPresenter {
                 IBankView bankView = (IBankView) this.bankView;
                 bankView.endGame();
             }
-            else if (o.equals(utils.NEW_TURN)){
+            else if (arg.equals(utils.NEW_TURN)){
                 if (game.isMyTurn()){
                     this.getGamePlayPresenter().setState(new states.game.DrawCardState());
                     this.setState(new states.bank.ActiveState());
