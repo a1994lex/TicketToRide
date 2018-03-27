@@ -101,6 +101,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                     Route r = (Route) o;
                     HashSet<RouteSegment> routeSegments = root.getRouteSegmentSet(r.getId());
                     gameView.drawRoute(r.getColor(), routeSegments);
+                    drawRoutes();
                 }
             } else if (o.equals(utils.DISCARD_DESTCARD)) {
                 // it's trying to call a method on gameView when gameView is null
