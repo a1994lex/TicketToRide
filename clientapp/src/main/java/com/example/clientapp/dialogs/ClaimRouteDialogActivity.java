@@ -77,7 +77,7 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
     @Override
     public void startHandFragment(String routeColor, int length, int routeId) {
         Intent intent = new Intent(this, GameActivity.class);
-        intent.putExtra(utils.CLAIMING_ROUTE, utils.CLAIMING_ROUTE);
+        //intent.putExtra(utils.CLAIMING_ROUTE, utils.CLAIMING_ROUTE);
         intent.putExtra(utils.ROUTE_COLOR, routeColor);
         intent.putExtra(utils.ROUTE_LENGTH, length);
         intent.putExtra(utils.ROUTE_ID, routeId);

@@ -1,5 +1,7 @@
 package com.groupryan.shared.models;
 
+import com.groupryan.shared.utils;
+
 import java.util.ArrayList;
 
 import java.util.List;
@@ -13,11 +15,11 @@ public class DeckTest {
     Deck d=new Deck(deck);
     @org.junit.Before
     public void setUp() throws Exception {
-        deck.add(new TrainCard("red", 1));
-        deck.add(new TrainCard("red", 2));
-        deck.add(new TrainCard("red", 3));
-        deck.add(new TrainCard("red", 4));
-        deck.add(new TrainCard("red", 5));
+        deck.add(new TrainCard(utils.RED, 1));
+        deck.add(new TrainCard(utils.RED, 2));
+        deck.add(new TrainCard(utils.RED, 3));
+        deck.add(new TrainCard(utils.RED, 4));
+        deck.add(new TrainCard(utils.RED, 5));
 
     }
 
