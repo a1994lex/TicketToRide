@@ -78,7 +78,7 @@ public class MainFacade implements IServer {
     @Override
     public CommandResult endTurn(String username){
         ServerGame serverGame = RootServerModel.getInstance().getServerGame(username);
-        changeTurn(serverGame);
+
         Player player = serverGame.getPlayer(username);
         if(player.getEndGame()){
             EndGameFacade endGameFacade = new EndGameFacade();
@@ -87,6 +87,7 @@ public class MainFacade implements IServer {
         else if(player.getTrainPieces() < 3){
             player.setEndGame(true);
         }
+        changeTurn(serverGame);
         CommandResult cm = new CommandResult();
         cm.setResultType(utils.VALID);
         cm.setClientCommands(CommandManager.getInstance().
