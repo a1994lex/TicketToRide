@@ -12,7 +12,6 @@ public class InactiveState implements GameState {
 
     @Override
     public void clickClaimRoute(GamePlayPresenter gpp) {
-        gpp.getGameView().showClaimRouteModal();
     }
 
     @Override
