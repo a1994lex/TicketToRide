@@ -12,6 +12,9 @@ public class ActiveState implements BankState {
     public void chooseWild(BankPresenter bp) {
         bp.setState(new InactiveState());
         bp.drawTrainCard(bp.getCurDeckIndex());
+
+        bp.getGamePlayPresenter().submit();
+        bp.endTurn();
     }
 
     @Override
@@ -25,7 +28,7 @@ public class ActiveState implements BankState {
        // bp.setState(new DrawDestState());
         bp.getGamePlayPresenter().submit();
         bp.setState(new InactiveState());
-        bp.endTurn();
+        //bp.endTurn();
         bp.drawDestinationCards();
     }
 
