@@ -13,7 +13,6 @@ import com.groupryan.shared.results.LoginResult;
 public class RegisterFacade {
 
     public LoginResult register(User user) {
-        System.out.println("in register");
         Boolean exists = checkUserId(user);
         LoginResult lr = new LoginResult();
         if (!exists) {
