@@ -57,7 +57,7 @@ public class ServerGame {
     // when the game is ready to begin, it returns true
     public Boolean updateReady(){
         this.ready++;
-        if(this.ready==0){
+        if(this.ready>=0){
             this.ready++;
             return true;
         }
