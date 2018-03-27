@@ -57,7 +57,8 @@ public class GameStatFragment extends Fragment implements IGameStatView {
 
 
 
-        TableRow header = new TableRow(getActivity());
+        TableRow header = null;
+        header = new TableRow(getActivity());
         header.setLayoutParams(tableRowParams);
         TextView tv0 = new TextView(getActivity());
         tv0.setText("    Turn Order    ");
@@ -91,7 +92,8 @@ public class GameStatFragment extends Fragment implements IGameStatView {
 
         for (Map.Entry<String, Stat> entry : theStats.entrySet()) {
             Stat stat = entry.getValue();
-            TableRow row = new TableRow(getActivity());
+            TableRow row = null;
+            row = new TableRow(getActivity());
             TextView turn = new TextView(getActivity());
             if (currentTurn == stat.getTurn()) {
                 turn.setText("->" + Integer.toString(stat.getTurn()));

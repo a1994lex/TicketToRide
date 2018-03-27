@@ -9,4 +9,5 @@ import android.view.View;
 public interface IGameStatView {
 
     public void init(View view);
+
 }
