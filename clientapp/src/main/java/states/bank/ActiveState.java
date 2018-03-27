@@ -22,7 +22,10 @@ public class ActiveState implements BankState {
 
     @Override
     public void chooseDest(BankPresenter bp) {
-        bp.setState(new DrawDestState());
+       // bp.setState(new DrawDestState());
+        bp.getGamePlayPresenter().submit();
+        bp.setState(new InactiveState());
+        bp.endTurn();
         bp.drawDestinationCards();
     }
 
