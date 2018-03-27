@@ -75,6 +75,7 @@ public class Player {
     }
 
     public void removeTrainCard(Card c) {
+        //trainCards.removeIf(card -> card.getID() == c.getID());card needs getID funciton
         trainCards.remove(c);
     }
 
@@ -100,7 +101,8 @@ public class Player {
 
     public void removeTrainCards(ArrayList<TrainCard> cards){
         for(TrainCard c: cards){
-            trainCards.remove(c);
+           // removeTrainCard(card);
+            trainCards.removeIf(card -> card.getID() == c.getID());
         }
     }
 

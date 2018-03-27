@@ -209,7 +209,9 @@ public class ClientGame extends Observable {
     }
 
     public void addClaimedRoute(String username, Route route) {
-        claimedRoutes.add(route);
+    //    if(RootClientModel.getCurrentGame().getMyPlayer().getUsername().equals(username)) {
+            claimedRoutes.add(route);
+     //   }
         for (int i = 0; i < availableRoutes.size(); i++) {
             if (availableRoutes.get(i).getId() == route.getId()) {
                 availableRoutes.get(i).setAvailable(false);
