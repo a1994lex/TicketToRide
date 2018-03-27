@@ -14,7 +14,7 @@ import java.util.List;
  * Created by Daniel on 3/24/2018.
  */
 
-public class DiscardTrainCardAsyncTask extends AsyncTask<ClaimRouteData, Void, CommandResult> {
+public class ClaimRouteAsyncTask extends AsyncTask<ClaimRouteData, Void, CommandResult> {
 
     private UIGameFacade uiGameFacade = UIGameFacade.getInstance();
 

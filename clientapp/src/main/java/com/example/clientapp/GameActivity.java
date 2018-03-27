@@ -49,6 +49,7 @@ import com.example.clientapp.dialogs.DiscardDestCardDialogActivity;
 
 import presenters.GamePlayPresenter;
 import presenters.IGamePlayPresenter;
+import states.game.ClaimRouteState;
 
 public class GameActivity extends FragmentActivity implements IGameView {
 
@@ -153,8 +154,9 @@ public class GameActivity extends FragmentActivity implements IGameView {
             addFragment(R.id.hand_fragment,
                     new HandFragment(), utils.HAND);
         });
-        if (utils.CLAIMING_ROUTE.equals(getIntent().getStringExtra(utils.CLAIMING_ROUTE))) {
+        if (GamePlayPresenter.getInstance().getState().getClass().equals(ClaimRouteState.class)) {
             addFragment(R.id.hand_fragment, new HandFragment(), utils.HAND);
+            lineViews.clear();
         }
 
         // views for finding the points of the route segments
@@ -196,13 +198,19 @@ public class GameActivity extends FragmentActivity implements IGameView {
     @Override
     protected void onResume() {
         super.onResume();
-        gamePlayPresenter.redrawRoutes();
+        if (GamePlayPresenter.getInstance().getState().getClass().equals(ClaimRouteState.class)) {
+            gamePlayPresenter.setShowRoutes(false);
+        }
+        else {
+            gamePlayPresenter.setShowRoutes(true);
+        }
     }
 
     @Override
     protected void onPause() {
         super.onPause();
         lineViews.clear();
+        gamePlayPresenter.setShowRoutes(false);
     }
 
     @Override
@@ -255,11 +263,16 @@ public class GameActivity extends FragmentActivity implements IGameView {
     public void addFragment(@IdRes int containerViewId,
                             @NonNull Fragment fragment,
                             @NonNull String FRAGMENT_ID) {
+//        if (containerViewId == R.id.hand_fragment &&
+//                GamePlayPresenter.getInstance().getState().getClass().equals(ClaimRouteState.class)) {
+//            lineViews.clear();
+//        }
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(containerViewId, fragment, FRAGMENT_ID)
                 .disallowAddToBackStack()
                 .commit();
+
     }
 
     private void removePrevFrag(String tag) {
@@ -284,7 +297,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
                 removeFragIds.add(utils.CHAT);
                 removeFragIds.add(utils.HISTORY);
                 removeFragIds.add(utils.STAT);
-                gamePlayPresenter.redrawRoutes();
+                gamePlayPresenter.setShowRoutes(true);
         }
         for (String fragmentId : removeFragIds) {
             Fragment fragment = getSupportFragmentManager().findFragmentByTag(fragmentId);
