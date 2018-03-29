@@ -27,7 +27,10 @@ public class LineView extends View {
 
     private int routeId = 0;
 
+    private String playerColor;
+
     public LineView(Context context) {
+//        setColor(playerColor);
         super(context);
     }
 
