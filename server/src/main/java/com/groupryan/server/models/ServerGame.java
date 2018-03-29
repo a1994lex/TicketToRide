@@ -119,9 +119,10 @@ public class ServerGame {
         return history;
     }
 
-    public void removeTrainCardsFromPlayer(String username, List<Integer> cardID) {
-        //voided by the discard funciton
-        //not necessary
+    public void removeTrainCardsFromPlayer(List<TrainCard> discardable) {
+        for (TrainCard tc:discardable) {
+            trainCards.discard(tc);
+        }
     }
 
     public void removeDestinationCardsFromPlayer(String username, List<Integer> cardID) {
