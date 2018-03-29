@@ -266,11 +266,11 @@ public class ClientGame extends Observable {
                 if (temp.getCityOne().equals(availableRoutes.get(i).getCityOne())
                         && temp.getCityTwo().equals(availableRoutes.get(i).getCityTwo()) ) {
                     availableRoutes.remove(i);
-                    temp = null;
                 }
                 else {
                     i++;
                 }
+                temp = null;
             }
 
         }
