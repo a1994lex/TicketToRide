@@ -51,7 +51,7 @@ public class Player {
         this.points = 0;
         this.destCards = destCards;
         this.trainCards = trainCards;
-        this.trainPieces = 15;
+        this.trainPieces = 45;
         this.username = username;
         this.turn = turn;
         this.endGame = endGame;

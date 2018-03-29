@@ -29,8 +29,18 @@ public class LineView extends View {
 
     private int routeId = 0;
 
+    private boolean isBackground = false;
+
     public LineView(Context context) {
         super(context);
+    }
+
+    public void setIsBackground(boolean isBackground) {
+        this.isBackground = isBackground;
+    }
+
+    public boolean isBackground() {
+        return isBackground;
     }
 
     public int getRouteId() {
@@ -51,10 +61,14 @@ public class LineView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        foregroundPaint.setStrokeWidth(16);
-        canvas.drawLine(pointA.x, pointA.y, pointB.x, pointB.y, backgroundPaint);
-        foregroundPaint.setStrokeWidth(10);
-        canvas.drawLine(pointA.x, pointA.y, pointB.x, pointB.y, foregroundPaint);
+        if (isBackground) {
+            foregroundPaint.setStrokeWidth(16);
+            canvas.drawLine(pointA.x, pointA.y, pointB.x, pointB.y, backgroundPaint);
+        }
+        else {
+            foregroundPaint.setStrokeWidth(10);
+            canvas.drawLine(pointA.x, pointA.y, pointB.x, pointB.y, foregroundPaint);
+        }
         super.onDraw(canvas);
     }
 

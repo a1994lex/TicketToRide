@@ -204,7 +204,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
     public boolean verifyEnoughTrainPieces(int trains, int routeId) {
         int cost = RootClientModel.getRoute(routeId).getLength();
-        if (trains >= cost && (trains - cost) >= 0 ) {
+        if (trains >= cost) {
             return true;
         } else {
             claimRouteView.showMessage("Not enough train pieces to claim route");
