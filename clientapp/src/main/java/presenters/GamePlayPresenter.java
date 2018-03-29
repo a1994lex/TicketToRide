@@ -184,7 +184,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
     @Override // DO WE WANT TO MOVE THIS TO A CLAIM ROUTE DIALOG ACTIVITY??
     public boolean claimRoute(int routeId) {
-        List<TrainCard> trainCards = verifyRoute(routeId); // looks good
+        List<TrainCard> trainCards = verifyRoute(routeId);
         boolean goToHand = false;
         if (trainCards != null) {
             int trains = RootClientModel.getCurrentGame().getMyPlayer().getTrainPieces();
