@@ -72,7 +72,9 @@ public class ClientGameFacade {
 
     public void claimRoute(Route r, String username){
             RootClientModel.getCurrentGame().addClaimedRoute(username, r);
-        //TODO idk
+            if (username.equals(RootClientModel.getCurrentGame().getMyPlayer().getUsername())) {
+                RootClientModel.getCurrentGame().getMyPlayer().removeTrains(r.getLength());
+            }
     }
 
     public void gameOver(String winner, EndGameStatReturnObject endStats) {

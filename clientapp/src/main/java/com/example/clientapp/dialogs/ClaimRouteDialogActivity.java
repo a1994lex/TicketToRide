@@ -37,13 +37,15 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
     private RecyclerView.Adapter mAdapter;
     private RecyclerView mRecyclerView;
     private ImageButton mExit;
+    private GamePlayPresenter gamePlayPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_claim_route);
-        GamePlayPresenter.getInstance().setClaimRouteView(this);
+        gamePlayPresenter = GamePlayPresenter.getInstance();
+        gamePlayPresenter.setClaimRouteView(this);
 
         mRecyclerView = findViewById(R.id.routes_recycler_view);
 
@@ -55,7 +57,7 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
         mExit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                GamePlayPresenter.getInstance().getState().cancel(GamePlayPresenter.getInstance());
+                gamePlayPresenter.getState().cancel(gamePlayPresenter);
                 finish();
             }
         });
@@ -65,7 +67,7 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
 
     @Override
     protected void onDestroy() {
-        GamePlayPresenter.getInstance().getState().cancel(GamePlayPresenter.getInstance());
+        gamePlayPresenter.getState().cancel(gamePlayPresenter);
         super.onDestroy();
     }
 
@@ -96,10 +98,11 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
             mRouteInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-//                    if (GamePlayPresenter.getInstance().getState().getClass()
+//                    if (gamePlayPresenter.getState().getClass()
 //                            .equals(ActiveState.class)) {
-                        if (mRoute.isAvailable()) {
-                            GamePlayPresenter.getInstance().claimRoute(mRoute.getId());
+                        if (gamePlayPresenter.getState().getClass()
+                                .equals(ActiveState.class)) {
+                            gamePlayPresenter.claimRoute(mRoute.getId());
                         }
 //                        else {
 //                            showMessage("Route has already been claimed");
@@ -123,7 +126,7 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
                     entryColor = Color.RED;
                     break;
                 case utils.ORANGE:
-                    entryColor = Color.parseColor("#FFA500");
+                    entryColor = Color.parseColor("#FFA500"); // orange
                     break;
                 case utils.YELLOW:
                     entryColor = Color.YELLOW;
@@ -135,7 +138,7 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
                     entryColor = Color.BLUE;
                     break;
                 case utils.PINK:
-                    entryColor = Color.parseColor("#FF69B4");
+                    entryColor = Color.parseColor("#FF69B4"); // pink
                     break;
                 case utils.WHITE:
                     mRouteInfo.setTextColor(Color.BLACK);
