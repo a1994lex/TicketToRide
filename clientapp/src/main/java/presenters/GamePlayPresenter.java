@@ -1,6 +1,8 @@
 package presenters;
 
 import android.app.Activity;
+import android.widget.Toast;
+
 import com.example.clientapp.IClaimRouteView;
 import com.example.clientapp.IGameView;
 import com.groupryan.client.UIGameFacade;
@@ -119,7 +121,8 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                 if (game.isMyTurn()){
                     setState(new ActiveState());
                 }
-            }    
+            }
+
         }
     }
 

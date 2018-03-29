@@ -67,6 +67,11 @@ public class BankFragment extends Fragment implements IBankView {
     }
 
     @Override
+    public void showCardToast(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void init(View view) {
         ArrayList<TrainCard> bank = BankPresenter.getInstance().getBank();
         /*Bind to xml*/

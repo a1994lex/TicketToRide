@@ -302,4 +302,10 @@ public class ClientGame extends Observable {
             notifyObservers(utils.REDRAW_ROUTES);
         }
     }
+
+    public void makeToast(){
+        setChanged();
+        notifyObservers(utils.CARD_DRAWN);
+    }
+
 }
