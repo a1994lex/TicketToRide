@@ -138,7 +138,7 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
                     entryColor = Color.parseColor("#FF69B4");
                     break;
                 case utils.WHITE:
-                    entryColor = Color.WHITE;
+                    entryColor = Color.BLACK;
                     break;
                 case utils.BLACK:
                     entryColor = Color.BLACK;
@@ -164,7 +164,7 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
 
     }
 
-    protected class RoutesAdapter extends RecyclerView.Adapter<ClaimRouteDialogActivity.RoutesHolder>{
+    protected class RoutesAdapter extends RecyclerView.Adapter<RoutesHolder>{
         private ArrayList<Route> mRoutes;
 
         public RoutesAdapter() {

@@ -148,7 +148,7 @@ public class BankPresenter implements Observer, IBankPresenter {
             }
             else if (arg.equals(utils.NEW_TURN)){
                 if (game.isMyTurn()){
-                    this.getGamePlayPresenter().setState(new states.game.DrawCardState());
+                    this.getGamePlayPresenter().setState(new DrawCardState());
                     this.setState(new states.bank.ActiveState());
                 }
             }
