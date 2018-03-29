@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import presenters.GamePlayPresenter;
 import presenters.IGamePlayPresenter;
 import states.bank.ActiveState;
+import states.game.ClaimRouteState;
 
 /**
  * Created by Daniel on 3/23/2018.
@@ -101,7 +102,7 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
 //                    if (gamePlayPresenter.getState().getClass()
 //                            .equals(ActiveState.class)) {
                         if (gamePlayPresenter.getState().getClass()
-                                .equals(ActiveState.class)) {
+                                .equals(ClaimRouteState.class)) {
                             gamePlayPresenter.claimRoute(mRoute.getId());
                         }
 //                        else {
