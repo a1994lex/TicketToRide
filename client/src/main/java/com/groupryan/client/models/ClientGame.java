@@ -268,6 +268,9 @@ public class ClientGame extends Observable {
                     availableRoutes.remove(i);
                     temp = null;
                 }
+                else {
+                    i++;
+                }
             }
 
         }
