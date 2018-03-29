@@ -256,22 +256,28 @@ public class ClientGame extends Observable {
 
     public void removeDoubleRoutes() {
         Route temp = null;
+        boolean checkDouble = true;
         int i = 0;
         while (i < availableRoutes.size()) {
-            if (temp == null) {
-                temp = availableRoutes.get(i);
-                i++;
-            }
-            else {
-                if (temp.getCityOne().equals(availableRoutes.get(i).getCityOne())
-                        && temp.getCityTwo().equals(availableRoutes.get(i).getCityTwo()) ) {
+//            if (checkDouble) {
+//                temp = availableRoutes.get(i);
+//                i++;
+//                checkDouble = false;
+//            }
+//            else {
+
+                Route first = availableRoutes.get(i);
+                Route second = availableRoutes.get(i+1);
+
+
+                if (first.getCityOne().equals(second.getCityOne())
+                        && first.getCityTwo().equals(second.getCityTwo()) ) {
                     availableRoutes.remove(i);
                 }
                 else {
                     i++;
                 }
-                temp = null;
-            }
+//            }
 
         }
     }
