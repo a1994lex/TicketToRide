@@ -164,7 +164,7 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
 
     }
 
-    protected class RoutesAdapter extends RecyclerView.Adapter<ClaimRouteDialogActivity.RoutesHolder>{
+    protected class RoutesAdapter extends RecyclerView.Adapter<RoutesHolder>{
         private ArrayList<Route> mRoutes;
 
         public RoutesAdapter() {

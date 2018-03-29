@@ -347,7 +347,7 @@ public class HandFragment extends Fragment implements IHandView {
 
         mRecyclerView = view.findViewById(R.id.destCard_recycler_view);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this.getActivity()));
-        mAdapter = new HandFragment.DestCardAdapter();
+        mAdapter = new DestCardAdapter();
         mRecyclerView.setAdapter(mAdapter);
 
         if (GamePlayPresenter.getInstance().getState().getClass().equals(ClaimRouteState.class)) {
@@ -413,18 +413,18 @@ public class HandFragment extends Fragment implements IHandView {
         }
     }
 
-    private class DestCardAdapter extends RecyclerView.Adapter<HandFragment.DestCardHolder> {
+    private class DestCardAdapter extends RecyclerView.Adapter<DestCardHolder> {
         List<DestCard> destCards = RootClientModel.getCurrentGame().getMyPlayer().getDestCards();
 
         @Override
-        public HandFragment.DestCardHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public DestCardHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(HandFragment.this.getActivity());
             View view = layoutInflater.inflate(R.layout.item_destcard_in_hand, parent, false);
             return new DestCardHolder(view);
         }
 
         @Override
-        public void onBindViewHolder(HandFragment.DestCardHolder holder, int position) {
+        public void onBindViewHolder(DestCardHolder holder, int position) {
             String route = destCards.get(position).getRoute();
             String value = Integer.toString(destCards.get(position).getValue());
             holder.bindDestCard(route, value);

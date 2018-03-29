@@ -42,7 +42,7 @@ public class utils {
     public static final String SERVER_HOST = "localhost";
     public static final int PORT_NUMBER = 8080;
 
-    public static String URL_PREFIX = "http://" + "192.168.1.106" + ":" + PORT_NUMBER;
+    public static String URL_PREFIX = "http://" + "192.168.1.120" + ":" + PORT_NUMBER;
 
 
     public static final String HTTP_POST = "POST";
