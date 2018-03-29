@@ -75,7 +75,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     @Override
     public void setUpIfFirst() {
        // if (this.game!=null && this.game.getCurrentTurn()<0){
-            if(this.game.getOriginal()){
+        if(this.game.getOriginal()){
             stopLobbyPolling();
             callDrawDestCards();
         }
