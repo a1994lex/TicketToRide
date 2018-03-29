@@ -42,9 +42,12 @@ public class GameStatFragment extends Fragment implements IGameStatView {
         TableLayout tableLayout = (TableLayout) view.findViewById(R.id.stats_table);
 
 
-        if ( tableLayout.getChildCount() > 1){
-            tableLayout.removeViews(0, tableLayout.getChildCount());
+        if(tableLayout != null){
+            if ( tableLayout.getChildCount() > 1){
+                tableLayout.removeViews(0, tableLayout.getChildCount());
+            }
         }
+
 
 
 

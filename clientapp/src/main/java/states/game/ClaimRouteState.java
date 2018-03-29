@@ -14,8 +14,7 @@ public class ClaimRouteState implements GameState {
 
     @Override
     public void clickClaimRoute(GamePlayPresenter gpp) {
-        gpp.setState(new ClaimRouteState());
-        gpp.getGameView().showClaimRouteModal();
+
     }
 
     @Override

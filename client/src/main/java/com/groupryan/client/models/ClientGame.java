@@ -44,7 +44,7 @@ public class ClientGame extends Observable {
     private List<Route> claimedRoutes;
     Boolean original=true;
     List<EndGameStat> endGameStats;
-    private boolean showRoutes = true;
+    private boolean showRoutes;
     String winner;
 
     public ClientGame(Game game, Player player) {
@@ -59,7 +59,7 @@ public class ClientGame extends Observable {
         this.currentTurn = -1;
         this.stats = new HashMap<>();
         this.playersColors = game.getUsers();
-
+        this.showRoutes = true;
     }
 
     public String getGameId() {
@@ -210,16 +210,31 @@ public class ClientGame extends Observable {
     }
 
     public void addClaimedRoute(String username, Route route) {
-    //    if(RootClientModel.getCurrentGame().getMyPlayer().getUsername().equals(username)) {
             claimedRoutes.add(route);
-     //   }
+            if (RootClientModel.getCurrentGame().getMyPlayer().getUsername().equals(username)) {
+                myPlayer.addRoute(route);
+            }
         for (int i = 0; i < availableRoutes.size(); i++) {
             if (availableRoutes.get(i).getId() == route.getId()) {
-                availableRoutes.get(i).setAvailable(false);
+                availableRoutes.remove(i);
+                break;
             }
+        }
+        if (getPlayersColors().size() >= 4 && username.equals(myPlayer.getUsername())) {
+            crossOutDoubleRoute(route);
         }
         setChanged();
         notifyObservers(utils.REDRAW_ROUTES);
+    }
+
+    public void crossOutDoubleRoute(Route route) {
+        for (int i = 0; i < availableRoutes.size(); i++) {
+            if (availableRoutes.get(i).getCityOne().equals(route.getCityOne())
+                    && availableRoutes.get(i).getCityTwo().equals(route.getCityTwo())) {
+                availableRoutes.remove(i);
+                break;
+            }
+        }
     }
 
     public Route getAnAvailableRoute(int routeId) {
@@ -234,6 +249,25 @@ public class ClientGame extends Observable {
 
     public void setAvailableRoutes(ArrayList<Route> availableRoutes) {
         this.availableRoutes = availableRoutes;
+        if (playersColors.size() < 4) {
+            removeDoubleRoutes();
+        }
+    }
+
+    public void removeDoubleRoutes() {
+        int i = 0;
+        while (i < availableRoutes.size()-1) {
+            Route first = availableRoutes.get(i);
+            Route second = availableRoutes.get(i+1);
+
+            if (first.getCityOne().equals(second.getCityOne())
+                    && first.getCityTwo().equals(second.getCityTwo()) ) {
+                availableRoutes.remove(i);
+            }
+            else {
+                i++;
+            }
+        }
     }
       
     public List<EndGameStat> getEndGameStats() {

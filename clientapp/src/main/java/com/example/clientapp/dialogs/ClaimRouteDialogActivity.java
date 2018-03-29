@@ -77,7 +77,7 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
     @Override
     public void startHandFragment(String routeColor, int length, int routeId) {
         Intent intent = new Intent(this, GameActivity.class);
-        intent.putExtra(utils.CLAIMING_ROUTE, utils.CLAIMING_ROUTE);
+        //intent.putExtra(utils.CLAIMING_ROUTE, utils.CLAIMING_ROUTE);
         intent.putExtra(utils.ROUTE_COLOR, routeColor);
         intent.putExtra(utils.ROUTE_LENGTH, length);
         intent.putExtra(utils.ROUTE_ID, routeId);
@@ -100,9 +100,10 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
 //                            .equals(ActiveState.class)) {
                         if (mRoute.isAvailable()) {
                             GamePlayPresenter.getInstance().claimRoute(mRoute.getId());
-                        } else {
-                            showMessage("Route has already been claimed");
                         }
+//                        else {
+//                            showMessage("Route has already been claimed");
+//                        }
 //                    }
                 }
             });
@@ -111,10 +112,40 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
         public void bindRoute(Route route){
             mRoute = route;
             mRouteInfo.setText(createRouteInfo(route));
-            if (!route.isAvailable()) {
-                mRouteInfo.setPaintFlags(mRouteInfo.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                mRouteInfo.setTextColor(Color.parseColor("#696969"));
+//            if (!route.isAvailable()) {
+//                mRouteInfo.setPaintFlags(mRouteInfo.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//                mRouteInfo.setTextColor(Color.parseColor("#696969"));
+//            }
+            String color = route.getColor();
+            int entryColor = 0;
+            switch (color) {
+                case utils.RED:
+                    entryColor = Color.RED;
+                    break;
+                case utils.ORANGE:
+                    entryColor = Color.parseColor("#FFA500");
+                    break;
+                case utils.YELLOW:
+                    entryColor = Color.YELLOW;
+                    break;
+                case utils.GREEN:
+                    entryColor = Color.GREEN;
+                    break;
+                case utils.BLUE:
+                    entryColor = Color.BLUE;
+                    break;
+                case utils.PINK:
+                    entryColor = Color.parseColor("#FF69B4");
+                    break;
+                case utils.WHITE:
+                    entryColor = Color.WHITE;
+                    break;
+                case utils.BLACK:
+                    entryColor = Color.BLACK;
+                    mRouteInfo.setTextColor(Color.WHITE);
+                    break;
             }
+            mRouteInfo.setBackgroundColor(entryColor);
         }
 
         public String createRouteInfo(Route route) {
@@ -123,7 +154,7 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
             sb.append(route.getCityOne() + " --- " + route.getCityTwo() + "\n" +
                     "LENGTH: " + route.getLength() + " WORTH: " + route.getWorth() + " COLOR: ");
             if (route.getColor().isEmpty()) {
-                sb.append("NO COLOR");
+                sb.append("ANY COLOR");
             }
             else {
                 sb.append(route.getColor());
