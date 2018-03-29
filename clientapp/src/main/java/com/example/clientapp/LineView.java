@@ -19,7 +19,9 @@ import com.groupryan.shared.utils;
 
 public class LineView extends View {
 
-    private Paint paint = new Paint();
+    private Paint foregroundPaint = new Paint();
+
+    private Paint backgroundPaint = new Paint();
 
     private PointF pointA = new PointF();
 
@@ -27,10 +29,7 @@ public class LineView extends View {
 
     private int routeId = 0;
 
-    private String playerColor;
-
     public LineView(Context context) {
-//        setColor(playerColor);
         super(context);
     }
 
@@ -52,8 +51,10 @@ public class LineView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        paint.setStrokeWidth(10);
-        canvas.drawLine(pointA.x, pointA.y, pointB.x, pointB.y, paint);
+        foregroundPaint.setStrokeWidth(16);
+        canvas.drawLine(pointA.x, pointA.y, pointB.x, pointB.y, backgroundPaint);
+        foregroundPaint.setStrokeWidth(10);
+        canvas.drawLine(pointA.x, pointA.y, pointB.x, pointB.y, foregroundPaint);
         super.onDraw(canvas);
     }
 
@@ -97,19 +98,24 @@ public class LineView extends View {
     public void setColor(String color) {
         switch (color) {
             case utils.BLACK:
-                paint.setColor(Color.BLACK);
+                foregroundPaint.setColor(Color.BLACK);
+                backgroundPaint.setColor(Color.WHITE);
                 break;
             case utils.BLUE:
-                paint.setColor(Color.BLUE);
+                foregroundPaint.setColor(Color.BLUE);
+                backgroundPaint.setColor(Color.BLACK);
                 break;
             case utils.RED:
-                paint.setColor(Color.RED);
+                foregroundPaint.setColor(Color.RED);
+                backgroundPaint.setColor(Color.BLACK);
                 break;
             case utils.YELLOW:
-                paint.setColor(Color.YELLOW);
+                foregroundPaint.setColor(Color.YELLOW);
+                backgroundPaint.setColor(Color.BLACK);
                 break;
             case utils.GREEN:
-                paint.setColor(Color.GREEN);
+                foregroundPaint.setColor(Color.GREEN);
+                backgroundPaint.setColor(Color.BLACK);
                 break;
         }
     }
