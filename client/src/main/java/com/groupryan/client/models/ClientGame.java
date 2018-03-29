@@ -258,7 +258,8 @@ public class ClientGame extends Observable {
         Route temp = null;
         boolean checkDouble = true;
         int i = 0;
-        while (i < availableRoutes.size()) {
+        while (i < availableRoutes.size()-1) {
+            System.out.print(i);
 //            if (checkDouble) {
 //                temp = availableRoutes.get(i);
 //                i++;
