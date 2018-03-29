@@ -319,8 +319,11 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                 if (routeColor.equals(trainCard.getColor())) {
                     count++;
                 }
+                else if (trainCard.getColor().equals(utils.LOCOMOTIVE)) {
+                    count++;
+                }
             }
-            if (count == routeLength) {
+            if (count >= routeLength) {
                 return true;
             }
         } else {
