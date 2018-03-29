@@ -269,6 +269,7 @@ public class ClientGame extends Observable {
                     temp = null;
                 }
             }
+
         }
     }
       

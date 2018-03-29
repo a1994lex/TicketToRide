@@ -167,6 +167,7 @@ public class RootClientModel extends Observable {
 
     private void _startGame(Game game, Player p) {
         // Builds a client game along with the Player
+        clientGame.setAvailableRoutes(routes);
         for (Game g : games) {
             if (g.equals(game)) {
                 g.setStarted(true);
@@ -175,6 +176,7 @@ public class RootClientModel extends Observable {
                 notifyObservers(g.getGameId());
             }
         }
+
     }
 
     private void _addUserToGame(Game game, User user, String userColor) {
@@ -194,7 +196,6 @@ public class RootClientModel extends Observable {
 
     private void _setCurrentGame(Game gm, Player p){
         clientGame = new ClientGame(gm, p);
-        clientGame.setAvailableRoutes(routes);
     }
 
     private Map<String, String> _getPlayers() {
