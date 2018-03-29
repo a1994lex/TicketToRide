@@ -323,7 +323,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                     count++;
                 }
             }
-            if (count == routeLength) {
+            if (count >= routeLength) {
                 return true;
             }
         } else {

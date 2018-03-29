@@ -84,7 +84,7 @@ public class RootClientModel extends Observable {
     }
 
     public static void addGame(Game game) {
-        single_instance._addGame(game);
+            single_instance._addGame(game);
     }
 
     public static void startGame(Game game, Player p) {

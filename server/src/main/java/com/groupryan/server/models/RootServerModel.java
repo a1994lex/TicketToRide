@@ -453,7 +453,7 @@ public class RootServerModel {
     }
 
     private String _startGame(String gameId) {
-        if (gameMap.containsKey(gameId)) {
+        if (gameMap.containsKey(gameId)&&!gameMap.get(gameId).isStarted()) {
             gameMap.get(gameId).setStarted(true);
             return utils.VALID;
         }
