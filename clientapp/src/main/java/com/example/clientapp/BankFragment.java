@@ -63,12 +63,12 @@ public class BankFragment extends Fragment implements IBankView {
     }
     @Override
     public void toastPleaseFinishDraw(){
-        Toast.makeText(getActivity(), "Please draw 2 cards", Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), "Please draw 2 cards", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void showCardToast(String message) {
-        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+        Toast.makeText(getActivity(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -131,6 +131,11 @@ public class RootClientModel extends Observable {
     }
 
     private void _addGame(Game game) {
+        for(Game g:games){
+            if(g.getGameId().equals(game.getGameId())){
+               return;
+            }
+        }
         games.add(game);
         setChanged();
         notifyObservers();
