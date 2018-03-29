@@ -147,8 +147,9 @@ public class BankFragment extends Fragment implements IBankView {
                 return R.drawable.traingreen;
             case utils.LOCOMOTIVE:
                 return R.drawable.trainloco;
+            default:
+                return R.drawable.outline;
         }
-        return R.drawable.train_icon;
     }
 
     public void setOutlineCard(){

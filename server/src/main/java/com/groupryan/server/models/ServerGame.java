@@ -194,7 +194,12 @@ public class ServerGame {
     }
 
     public Bank updateFaceUp(int position){
-        TrainCard tc=(TrainCard)trainCards.draw(1).get(0);
+        List<Card> drawnCards=trainCards.draw(1);
+        if(drawnCards.size()==0){
+            bank.set(position, new TrainCard("none", -2));
+            return new Bank(bank);
+        }
+        TrainCard tc=(TrainCard)drawnCards.get(0);
         bank.set(position, tc);
         bank=locoCheck(bank);
         return new Bank(bank);
