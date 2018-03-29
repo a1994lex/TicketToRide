@@ -24,6 +24,7 @@ import async.EndTurnAsyncTask;
 import async.Poller;
 import states.GameState;
 import states.game.ActiveState;
+import states.game.ClaimRouteState;
 import states.game.InactiveState;
 
 
@@ -166,6 +167,13 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     @Override
     public void submit() {
         this.state.submit(this);
+    }
+
+    public boolean isClaimingRoute(){
+        if (this.state.getClass().equals(ClaimRouteState.class)){
+            return true;
+        }
+        return false;
     }
     ////END OF STATE FUNCTIONS//////
 
