@@ -16,8 +16,6 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
 
-//import static com.groupryan.shared.utils.GREEN;
-
 public class RootClientModel extends Observable {
 
     private ArrayList<Game> games;
@@ -86,7 +84,7 @@ public class RootClientModel extends Observable {
     }
 
     public static void addGame(Game game) {
-        single_instance._addGame(game);
+            single_instance._addGame(game);
     }
 
     public static void startGame(Game game, Player p) {
@@ -133,6 +131,11 @@ public class RootClientModel extends Observable {
     }
 
     private void _addGame(Game game) {
+        for(Game g:games){
+            if(g.getGameId().equals(game.getGameId())){
+               return;
+            }
+        }
         games.add(game);
         setChanged();
         notifyObservers();

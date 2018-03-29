@@ -71,7 +71,7 @@ public class EndGameFacade {
         for(EndGameStat egs : usernameToStat.values()){
             finalstats.add(egs);
         }
-        EndGameStat winningStat = Collections.max(finalstats, new EndGameFacade.WinnerComparing());
+        EndGameStat winningStat = Collections.max(finalstats, new WinnerComparing());
         winner = winningStat.getUsername();
 
         checkIfTie();

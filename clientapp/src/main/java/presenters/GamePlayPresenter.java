@@ -1,6 +1,8 @@
 package presenters;
 
 import android.app.Activity;
+import android.widget.Toast;
+
 import com.example.clientapp.IClaimRouteView;
 import com.example.clientapp.IGameView;
 import com.groupryan.client.UIGameFacade;
@@ -119,7 +121,8 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                 if (game.isMyTurn()){
                     setState(new ActiveState());
                 }
-            }    
+            }
+
         }
     }
 
@@ -181,7 +184,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
     @Override // DO WE WANT TO MOVE THIS TO A CLAIM ROUTE DIALOG ACTIVITY??
     public boolean claimRoute(int routeId) {
-        List<TrainCard> trainCards = verifyRoute(routeId);
+        List<TrainCard> trainCards = verifyRoute(routeId); // looks good
         boolean goToHand = false;
         if (trainCards != null) {
             int trains = RootClientModel.getCurrentGame().getMyPlayer().getTrainPieces();
@@ -200,7 +203,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     }
 
     public boolean verifyEnoughTrainPieces(int trains, int routeId) {
-        int cost = RootClientModel.getRoute(routeId).getWorth();
+        int cost = RootClientModel.getRoute(routeId).getLength();
         if (trains >= cost) {
             return true;
         } else {
@@ -319,8 +322,11 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                 if (routeColor.equals(trainCard.getColor())) {
                     count++;
                 }
+                else if (trainCard.getColor().equals(utils.LOCOMOTIVE)) {
+                    count++;
+                }
             }
-            if (count == routeLength) {
+            if (count >= routeLength) {
                 return true;
             }
         } else {

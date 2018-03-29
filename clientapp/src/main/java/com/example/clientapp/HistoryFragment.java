@@ -19,7 +19,7 @@ import presenters.HistoryPresenter;
 
 
 public class HistoryFragment extends Fragment implements  IHistoryView {
-    private HistoryFragment.HistoryAdapter mAdapter;
+    private HistoryAdapter mAdapter;
     private RecyclerView mRecyclerView;
 
     @Override
@@ -35,7 +35,7 @@ public class HistoryFragment extends Fragment implements  IHistoryView {
 
         mRecyclerView = view.findViewById(R.id.history_list);
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new HistoryFragment.HistoryAdapter();
+        mAdapter = new HistoryAdapter();
         mRecyclerView.setAdapter(mAdapter);
         return view;
     }
@@ -82,10 +82,10 @@ public class HistoryFragment extends Fragment implements  IHistoryView {
         }
 
         @Override
-        public HistoryFragment.HistoryHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public HistoryHolder onCreateViewHolder(ViewGroup parent, int viewType) {
             LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
             View view = layoutInflater.inflate(R.layout.activity_history_item, parent, false);
-            return new HistoryFragment.HistoryHolder(view);
+            return new HistoryHolder(view);
         }
 
         @Override

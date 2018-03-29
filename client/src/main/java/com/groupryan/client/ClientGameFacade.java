@@ -62,6 +62,7 @@ public class ClientGameFacade {
 
     public void drawColorCard(TrainCard tc){
         RootClientModel.getCurrentGame().getMyPlayer().addTrainCard(tc);
+        RootClientModel.getCurrentGame().makeToast();
     }
 
     public void drawThreeCards(DestCardReturnObject cards) {
