@@ -67,6 +67,11 @@ public class BankFragment extends Fragment implements IBankView {
     }
 
     @Override
+    public void showCardToast(String message) {
+        Toast.makeText(getActivity(), message, Toast.LENGTH_LONG).show();
+    }
+
+    @Override
     public void init(View view) {
         ArrayList<TrainCard> bank = BankPresenter.getInstance().getBank();
         /*Bind to xml*/
@@ -147,8 +152,9 @@ public class BankFragment extends Fragment implements IBankView {
                 return R.drawable.traingreen;
             case utils.LOCOMOTIVE:
                 return R.drawable.trainloco;
+            default:
+                return R.drawable.outline;
         }
-        return R.drawable.train_icon;
     }
 
     public void setOutlineCard(){

@@ -1,6 +1,7 @@
 package presenters;
 
 import android.view.View;
+import android.widget.Toast;
 
 import com.example.clientapp.IBankView;
 import com.example.clientapp.IGameView;
@@ -151,6 +152,14 @@ public class BankPresenter implements Observer, IBankPresenter {
                     this.getGamePlayPresenter().setState(new DrawCardState());
                     this.setState(new states.bank.ActiveState());
                 }
+            }
+            else if(arg.equals(utils.CARD_DRAWN)){
+                String m="You drew a ";
+                String n=" card!";
+                int i=RootClientModel.getCurrentGame().getMyPlayer().getTrainCards().size();
+                String color=RootClientModel.getCurrentGame().getMyPlayer().getTrainCards().get(i-1).getColor();
+                String message=m+ color+n;
+                bankView.showCardToast(message);
             }
         }
     }
