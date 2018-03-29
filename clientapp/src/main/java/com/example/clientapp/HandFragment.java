@@ -237,8 +237,8 @@ public class HandFragment extends Fragment implements IHandView {
                 if (presenter.claimingRoute()) {
                     if (Integer.parseInt(mPinkTrainCardCount.getText().toString()) > 0) {
                         if (routeColor.isEmpty() || routeColor.equals(utils.PINK)) {
-                            mBlueTrainCardCount.setText(GamePlayPresenter.getInstance()
-                                    .decrementTextViewCount(mBlueTrainCardCount.getText().toString()));
+                            mPinkTrainCardCount.setText(GamePlayPresenter.getInstance()
+                                    .decrementTextViewCount(mPinkTrainCardCount.getText().toString()));
                             routeLength--;
                             routeColor = utils.PINK;
                             pickedCards =

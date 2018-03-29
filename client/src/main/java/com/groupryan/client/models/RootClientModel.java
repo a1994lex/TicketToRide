@@ -16,8 +16,6 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
 
-//import static com.groupryan.shared.utils.GREEN;
-
 public class RootClientModel extends Observable {
 
     private ArrayList<Game> games;

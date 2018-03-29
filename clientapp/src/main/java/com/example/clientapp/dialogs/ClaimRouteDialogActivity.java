@@ -138,7 +138,7 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
                     entryColor = Color.parseColor("#FF69B4");
                     break;
                 case utils.WHITE:
-                    entryColor = Color.WHITE;
+                    entryColor = Color.BLACK;
                     break;
                 case utils.BLACK:
                     entryColor = Color.BLACK;
