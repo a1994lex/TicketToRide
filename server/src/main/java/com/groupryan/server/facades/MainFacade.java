@@ -4,6 +4,7 @@ import com.groupryan.server.CommandManager;
 import com.groupryan.server.models.RootServerModel;
 import com.groupryan.server.models.ServerGame;
 import com.groupryan.shared.IServer;
+import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
@@ -63,7 +64,11 @@ public class MainFacade implements IServer {
         }
         DestinationCardFacade dcf = new DestinationCardFacade();
         List<Integer> cardIDs = destCardList.getList();
-        return dcf.discard(cardIDs, username);
+        CommandResult cr=  dcf.discard(cardIDs, username);
+        for (ClientCommand cc: endTurn(username).getClientCommands()){
+            cr.addClientCommand(cc);
+        }
+        return cr;
     }
 
     public void changeTurn(ServerGame game){
@@ -73,7 +78,7 @@ public class MainFacade implements IServer {
     @Override
     public CommandResult endTurn(String username){
         ServerGame serverGame = RootServerModel.getInstance().getServerGame(username);
-        changeTurn(serverGame);
+
         Player player = serverGame.getPlayer(username);
         if(player.getEndGame()){
             EndGameFacade endGameFacade = new EndGameFacade();
@@ -82,6 +87,7 @@ public class MainFacade implements IServer {
         else if(player.getTrainPieces() < 3){
             player.setEndGame(true);
         }
+        changeTurn(serverGame);
         CommandResult cm = new CommandResult();
         cm.setResultType(utils.VALID);
         cm.setClientCommands(CommandManager.getInstance().
@@ -127,8 +133,11 @@ public class MainFacade implements IServer {
     public CommandResult claimRoute(String username, Integer routeId, TrainCardList trainCardIDs) {
         int id = (int) routeId;
         ClaimRouteFacade crf = new ClaimRouteFacade();
-        changeTurn(RootServerModel.getInstance().getServerGame(username));
+        //changeTurn(RootServerModel.getInstance().getServerGame(username));
+
         return crf.claimRoute(username, id, trainCardIDs);
+        //endTurn(username);
+        //return cr;
     }
 
     @Override

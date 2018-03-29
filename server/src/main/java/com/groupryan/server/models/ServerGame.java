@@ -6,6 +6,7 @@ import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Deck;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.Player;
+import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.utils;
@@ -57,7 +58,7 @@ public class ServerGame {
     // when the game is ready to begin, it returns true
     public Boolean updateReady(){
         this.ready++;
-        if(this.ready>=0){
+        if(this.ready == 0){
             this.ready++;
             return true;
         }

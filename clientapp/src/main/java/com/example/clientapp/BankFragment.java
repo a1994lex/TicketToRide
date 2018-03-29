@@ -59,7 +59,7 @@ public class BankFragment extends Fragment implements IBankView {
     @Override
     public void finish() {
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
-        GamePlayPresenter.getInstance().redrawRoutes();
+        GamePlayPresenter.getInstance().setShowRoutes(true);
     }
     @Override
     public void toastPleaseFinishDraw(){

@@ -2,8 +2,10 @@ package presenters;
 
 import android.view.View;
 
+import com.example.clientapp.GameStatFragment;
 import com.example.clientapp.IGameStatView;
 import com.example.clientapp.IHistoryView;
+import com.example.clientapp.R;
 import com.groupryan.client.models.ClientGame;
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.utils;
@@ -42,12 +44,16 @@ public class GameStatPresenter implements Observer, IGameStatPresenter {
     @Override
     public void update(Observable o, Object arg) {
         if (o == game){
-            if (arg.equals(utils.STAT)){
-                //statView.init(fragView);
-            }
-            else if (arg.equals(utils.NEW_TURN)){
-                statView.init(fragView);
-            }
+            System.out.println(this.statView);
+//            if(statView.)
+//            if (arg.equals(utils.STAT)){
+//                //if there is a stat frag rn
+//                statView.init(fragView);
+//            }
+//            else if (arg.equals(utils.NEW_TURN)){
+//                //same as above
+//                statView.init(fragView);
+//            }
         }
 
     }

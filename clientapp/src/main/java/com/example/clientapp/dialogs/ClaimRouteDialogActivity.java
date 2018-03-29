@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 
 import presenters.GamePlayPresenter;
 import presenters.IGamePlayPresenter;
+import states.bank.ActiveState;
 
 /**
  * Created by Daniel on 3/23/2018.
@@ -32,10 +34,9 @@ import presenters.IGamePlayPresenter;
 
 public class ClaimRouteDialogActivity extends Activity implements IClaimRouteView {
 
-//    private IGamePlayPresenter gamePlayPresenter = GamePlayPresenter.getInstance();
-
     private RecyclerView.Adapter mAdapter;
     private RecyclerView mRecyclerView;
+    private ImageButton mExit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +51,22 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new RoutesAdapter();
         mRecyclerView.setAdapter(mAdapter);
+        mExit = findViewById(R.id.exit_button);
+        mExit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GamePlayPresenter.getInstance().getState().cancel(GamePlayPresenter.getInstance());
+                finish();
+            }
+        });
+
+        setFinishOnTouchOutside(false);
+    }
+
+    @Override
+    protected void onDestroy() {
+        GamePlayPresenter.getInstance().getState().cancel(GamePlayPresenter.getInstance());
+        super.onDestroy();
     }
 
     @Override
@@ -60,7 +77,7 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
     @Override
     public void startHandFragment(String routeColor, int length, int routeId) {
         Intent intent = new Intent(this, GameActivity.class);
-        intent.putExtra(utils.CLAIMING_ROUTE, utils.CLAIMING_ROUTE);
+        //intent.putExtra(utils.CLAIMING_ROUTE, utils.CLAIMING_ROUTE);
         intent.putExtra(utils.ROUTE_COLOR, routeColor);
         intent.putExtra(utils.ROUTE_LENGTH, length);
         intent.putExtra(utils.ROUTE_ID, routeId);
@@ -79,38 +96,72 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
             mRouteInfo.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (mRoute.isAvailable()) {
-                        GamePlayPresenter.getInstance().claimRoute(mRoute.getId());
-                    }
-                    else {
-                        showMessage("Route has already been claimed");
-                    }
+//                    if (GamePlayPresenter.getInstance().getState().getClass()
+//                            .equals(ActiveState.class)) {
+                        if (mRoute.isAvailable()) {
+                            GamePlayPresenter.getInstance().claimRoute(mRoute.getId());
+                        }
+//                        else {
+//                            showMessage("Route has already been claimed");
+//                        }
+//                    }
                 }
             });
         }
 
         public void bindRoute(Route route){
-            mRouteInfo.setText(createRouteInfo(route));
             mRoute = route;
-            if (!route.isAvailable()) {
-                mRouteInfo.setPaintFlags(mRouteInfo.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-                mRouteInfo.setTextColor(Color.parseColor("#696969"));
+            mRouteInfo.setText(createRouteInfo(route));
+//            if (!route.isAvailable()) {
+//                mRouteInfo.setPaintFlags(mRouteInfo.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
+//                mRouteInfo.setTextColor(Color.parseColor("#696969"));
+//            }
+            String color = route.getColor();
+            int entryColor = 0;
+            switch (color) {
+                case utils.RED:
+                    entryColor = Color.RED;
+                    break;
+                case utils.ORANGE:
+                    entryColor = Color.parseColor("#FFA500");
+                    break;
+                case utils.YELLOW:
+                    entryColor = Color.YELLOW;
+                    break;
+                case utils.GREEN:
+                    entryColor = Color.GREEN;
+                    break;
+                case utils.BLUE:
+                    entryColor = Color.BLUE;
+                    break;
+                case utils.PINK:
+                    entryColor = Color.parseColor("#FF69B4");
+                    break;
+                case utils.WHITE:
+                    entryColor = Color.WHITE;
+                    break;
+                case utils.BLACK:
+                    entryColor = Color.BLACK;
+                    mRouteInfo.setTextColor(Color.WHITE);
+                    break;
             }
+            mRouteInfo.setBackgroundColor(entryColor);
         }
 
         public String createRouteInfo(Route route) {
             StringBuilder sb = new StringBuilder();
 
-            sb.append(route.getCityOne() + "--" + route.getCityTwo() + "\n" +
+            sb.append(route.getCityOne() + " --- " + route.getCityTwo() + "\n" +
                     "LENGTH: " + route.getLength() + " WORTH: " + route.getWorth() + " COLOR: ");
             if (route.getColor().isEmpty()) {
-                sb.append("NO COLOR");
+                sb.append("ANY COLOR");
             }
             else {
                 sb.append(route.getColor());
             }
             return sb.toString();
         }
+
     }
 
     protected class RoutesAdapter extends RecyclerView.Adapter<ClaimRouteDialogActivity.RoutesHolder>{
