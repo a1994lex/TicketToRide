@@ -54,7 +54,8 @@ public class GameStatFragment extends Fragment implements IGameStatView {
 
     @Override
     public void updateStat(){
-        statAdapter.notifyDataSetChanged();
+        statRecycler.setAdapter(statAdapter);
+        //statAdapter.notifyDataSetChanged();
     }
 
     private class StatHolder extends RecyclerView.ViewHolder {

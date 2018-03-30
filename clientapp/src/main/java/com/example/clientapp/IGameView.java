@@ -18,4 +18,6 @@ public interface IGameView {
     void goToDrawDestActivity();
     void endGame();
     void showBankModal();
+    void setBankClose();
+    void setHandClose();
 }

@@ -56,10 +56,13 @@ public class BankFragment extends Fragment implements IBankView {
         this.setOutlineCard();
     }
 
+
+
     @Override
     public void finish() {
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
         GamePlayPresenter.getInstance().setShowRoutes(true);
+        GamePlayPresenter.getInstance().getGameView().setBankClose();
     }
     @Override
     public void toastPleaseFinishDraw(){
