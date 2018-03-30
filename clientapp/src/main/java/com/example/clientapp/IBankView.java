@@ -12,4 +12,5 @@ public interface IBankView {
     void finish();
     void endGame();
     void toastPleaseFinishDraw();
+    void showCardToast(String message);
 }

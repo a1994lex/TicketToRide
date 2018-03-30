@@ -1,8 +1,11 @@
 package com.example.clientapp;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -16,6 +19,7 @@ import presenters.GameOverPresenter;
 public class GameOverActivity extends AppCompatActivity implements  IGameOverView{
 
     TextView winnerText;
+    Button backToLobby;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,10 +28,17 @@ public class GameOverActivity extends AppCompatActivity implements  IGameOverVie
         GameOverPresenter.getInstance().setView(this);
 
         winnerText = findViewById(R.id.winner_text_view);
+        backToLobby = findViewById(R.id.back_to_lobby);
+
+        backToLobby.setOnClickListener(view -> goToLobby());
 
         init();
     }
 
+    public void goToLobby(){
+        Intent intent = new Intent(this, JoinGameActivity.class);
+        startActivity(intent);
+    }
     public void init(){
 
         winnerText.setText(GameOverPresenter.getInstance().getWinnerString());

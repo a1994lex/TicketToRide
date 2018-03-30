@@ -84,7 +84,7 @@ public class RootClientModel extends Observable {
     }
 
     public static void addGame(Game game) {
-        single_instance._addGame(game);
+            single_instance._addGame(game);
     }
 
     public static void startGame(Game game, Player p) {
@@ -131,6 +131,11 @@ public class RootClientModel extends Observable {
     }
 
     private void _addGame(Game game) {
+        for(Game g:games){
+            if(g.getGameId().equals(game.getGameId())){
+               return;
+            }
+        }
         games.add(game);
         setChanged();
         notifyObservers();
@@ -165,6 +170,7 @@ public class RootClientModel extends Observable {
 
     private void _startGame(Game game, Player p) {
         // Builds a client game along with the Player
+        clientGame.setAvailableRoutes(routes);
         for (Game g : games) {
             if (g.equals(game)) {
                 g.setStarted(true);
@@ -173,6 +179,7 @@ public class RootClientModel extends Observable {
                 notifyObservers(g.getGameId());
             }
         }
+
     }
 
     private void _addUserToGame(Game game, User user, String userColor) {
@@ -192,7 +199,6 @@ public class RootClientModel extends Observable {
 
     private void _setCurrentGame(Game gm, Player p){
         clientGame = new ClientGame(gm, p);
-        clientGame.setAvailableRoutes(routes);
     }
 
     private Map<String, String> _getPlayers() {
@@ -215,54 +221,54 @@ public class RootClientModel extends Observable {
         routes.add(new Route(1, "VANCOUVER", "SEATTLE", 1, "", 2));
         routes.add(new Route(1, "SEATTLE", "PORTLAND", 1, "", 3));
         routes.add(new Route(1, "SEATTLE", "PORTLAND", 1, "", 4));
-        routes.add(new Route(5, "PORTLAND", "SAN FRANCISCO", 10, "green", 5));
-        routes.add(new Route(5, "PORTLAND", "SAN FRANCISCO", 10, "pink", 6));
-        routes.add(new Route(3, "SAN FRANCISCO", "LOS ANGELES", 4, "yellow", 7));
-        routes.add(new Route(3, "SAN FRANCISCO", "LOS ANGELES", 4, "pink", 8));
+        routes.add(new Route(5, "PORTLAND", "SAN FRANCISCO", 10, utils.GREEN, 5));
+        routes.add(new Route(5, "PORTLAND", "SAN FRANCISCO", 10, utils.PINK, 6));
+        routes.add(new Route(3, "SAN FRANCISCO", "LOS ANGELES", 4, utils.YELLOW, 7));
+        routes.add(new Route(3, "SAN FRANCISCO", "LOS ANGELES", 4, utils.PINK, 8));
         routes.add(new Route(3, "VANCOUVER", "CALGARY", 4, "", 9));
         routes.add(new Route(4, "SEATTLE", "CALGARY", 7, "", 10));
-        routes.add(new Route(6, "SEATTLE", "HELENA", 15, "yellow", 11));
-        routes.add(new Route(6, "PORTLAND", "SALT LAKE CITY", 15, "blue", 12));
-        routes.add(new Route(5, "SAN FRANCISCO", "SALT LAKE CITY", 10, "orange", 13));
-        routes.add(new Route(5, "SAN FRANCISCO", "SALT LAKE CITY", 10, "white", 14));
+        routes.add(new Route(6, "SEATTLE", "HELENA", 15, utils.YELLOW, 11));
+        routes.add(new Route(6, "PORTLAND", "SALT LAKE CITY", 15, utils.BLUE, 12));
+        routes.add(new Route(5, "SAN FRANCISCO", "SALT LAKE CITY", 10, utils.ORANGE, 13));
+        routes.add(new Route(5, "SAN FRANCISCO", "SALT LAKE CITY", 10, utils.WHITE, 14));
         routes.add(new Route(2, "LOS ANGELES", "LAS VEGAS", 2, "", 15));
         routes.add(new Route(3, "LOS ANGELES", "PHOENIX", 4, "", 16));
-        routes.add(new Route(6, "LOS ANGELES", "EL PASO", 15, "black", 17));
-        routes.add(new Route(6, "CALGARY", "WINNIPEG", 15, "white", 18));
+        routes.add(new Route(6, "LOS ANGELES", "EL PASO", 15, utils.BLACK, 17));
+        routes.add(new Route(6, "CALGARY", "WINNIPEG", 15, utils.WHITE, 18));
         routes.add(new Route(4, "CALGARY", "HELENA", 7, "", 19));
-        routes.add(new Route(3, "SALT LAKE CITY", "HELENA", 4, "pink", 20));
-        routes.add(new Route(3, "SALT LAKE CITY", "DENVER", 4, "red", 21));
-        routes.add(new Route(3, "SALT LAKE CITY", "DENVER", 4, "yellow", 22));
-        routes.add(new Route(3, "LAS VEGAS", "SALT LAKE CITY", 4, "orange", 23));
-        routes.add(new Route(5, "PHOENIX", "DENVER", 10, "white", 24));
+        routes.add(new Route(3, "SALT LAKE CITY", "HELENA", 4, utils.PINK, 20));
+        routes.add(new Route(3, "SALT LAKE CITY", "DENVER", 4, utils.RED, 21));
+        routes.add(new Route(3, "SALT LAKE CITY", "DENVER", 4, utils.YELLOW, 22));
+        routes.add(new Route(3, "LAS VEGAS", "SALT LAKE CITY", 4, utils.ORANGE, 23));
+        routes.add(new Route(5, "PHOENIX", "DENVER", 10, utils.WHITE, 24));
         routes.add(new Route(3, "PHOENIX", "SANTA FE", 4, "", 25));
         routes.add(new Route(3, "PHOENIX", "EL PASO", 4, "", 26));
-        routes.add(new Route(4, "HELENA", "WINNIPEG", 7, "blue", 27));
-        routes.add(new Route(6, "HELENA", "DULUTH", 15, "orange", 28));
-        routes.add(new Route(5, "HELENA", "OMAHA", 10, "red", 29));
-        routes.add(new Route(4, "HELENA", "DENVER", 7, "green", 30));
+        routes.add(new Route(4, "HELENA", "WINNIPEG", 7, utils.BLUE, 27));
+        routes.add(new Route(6, "HELENA", "DULUTH", 15, utils.ORANGE, 28));
+        routes.add(new Route(5, "HELENA", "OMAHA", 10, utils.RED, 29));
+        routes.add(new Route(4, "HELENA", "DENVER", 7, utils.GREEN, 30));
         routes.add(new Route(2, "DENVER", "SANTA FE", 2, "", 31));
-        routes.add(new Route(4, "DENVER", "OMAHA", 7, "pink", 32));
-        routes.add(new Route(4, "DENVER", "KANSAS CITY", 7, "black", 33));
-        routes.add(new Route(4, "DENVER", "KANSAS CITY", 7, "orange", 34));
-        routes.add(new Route(4, "DENVER", "OKLAHOMA CITY", 7, "red", 345));
-        routes.add(new Route(3, "SANTA FE", "OKLAHOMA CITY", 4, "blue", 36));
+        routes.add(new Route(4, "DENVER", "OMAHA", 7, utils.PINK, 32));
+        routes.add(new Route(4, "DENVER", "KANSAS CITY", 7, utils.BLACK, 33));
+        routes.add(new Route(4, "DENVER", "KANSAS CITY", 7, utils.ORANGE, 34));
+        routes.add(new Route(4, "DENVER", "OKLAHOMA CITY", 7, utils.RED, 35));
+        routes.add(new Route(3, "SANTA FE", "OKLAHOMA CITY", 4, utils.BLUE, 36));
         routes.add(new Route(2, "SANTA FE", "EL PASO", 2, "", 37));
-        routes.add(new Route(5, "EL PASO", "OKLAHOMA CITY", 10, "yellow", 38));
-        routes.add(new Route(4, "EL PASO", "DALLAS", 7, "red", 39));
-        routes.add(new Route(6, "EL PASO", "HOUSTON", 15, "green", 40));
-        routes.add(new Route(4, "WINNIPEG", "DULUTH", 7, "black", 41));
+        routes.add(new Route(5, "EL PASO", "OKLAHOMA CITY", 10, utils.YELLOW, 38));
+        routes.add(new Route(4, "EL PASO", "DALLAS", 7, utils.RED, 39));
+        routes.add(new Route(6, "EL PASO", "HOUSTON", 15, utils.GREEN, 40));
+        routes.add(new Route(4, "WINNIPEG", "DULUTH", 7, utils.BLACK, 41));
         routes.add(new Route(6, "WINNIPEG", "SAULT ST. MARIE", 15, "", 42));
         routes.add(new Route(3, "DULUTH", "SAULT ST. MARIE", 4, "", 43));
-        routes.add(new Route(6, "DULUTH", "TORONTO", 15, "pink", 44));
-        routes.add(new Route(3, "DULUTH", "CHICAGO", 4, "red", 45));
+        routes.add(new Route(6, "DULUTH", "TORONTO", 15, utils.PINK, 44));
+        routes.add(new Route(3, "DULUTH", "CHICAGO", 4, utils.RED, 45));
         routes.add(new Route(2, "DULUTH", "OMAHA", 2, "", 46));
         routes.add(new Route(2, "DULUTH", "OMAHA", 2, "", 47));
-        routes.add(new Route(4, "OMAHA", "CHICAGO", 7, "blue", 48));
+        routes.add(new Route(4, "OMAHA", "CHICAGO", 7, utils.BLUE, 48));
         routes.add(new Route(1, "OMAHA", "KANSAS CITY", 1, "", 49));
         routes.add(new Route(1, "OMAHA", "KANSAS CITY", 1, "", 50));
-        routes.add(new Route(2, "KANSAS CITY", "SAINT LOUIS", 2, "blue", 51));
-        routes.add(new Route(2, "KANSAS CITY", "SAINT LOUIS", 2, "pink", 52));
+        routes.add(new Route(2, "KANSAS CITY", "SAINT LOUIS", 2, utils.BLUE, 51));
+        routes.add(new Route(2, "KANSAS CITY", "SAINT LOUIS", 2, utils.PINK, 52));
         routes.add(new Route(2, "KANSAS CITY", "OKLAHOMA CITY", 2, "", 53));
         routes.add(new Route(2, "KANSAS CITY", "OKLAHOMA CITY", 2, "", 54));
         routes.add(new Route(2, "OKLAHOMA CITY", "LITTLE ROCK", 2, "", 55));
@@ -272,56 +278,47 @@ public class RootClientModel extends Observable {
         routes.add(new Route(1, "DALLAS", "HOUSTON", 1, "", 59));
         routes.add(new Route(2, "DALLAS", "LITTLE ROCK", 2, "", 60));
         routes.add(new Route(2, "HOUSTON", "NEW ORLEANS", 2, "", 61));
-        routes.add(new Route(3, "LITTLE ROCK", "NEW ORLEANS", 4, "green", 62));
-        routes.add(new Route(3, "LITTLE ROCK", "NASHVILLE", 4, "white", 63));
+        routes.add(new Route(3, "LITTLE ROCK", "NEW ORLEANS", 4, utils.GREEN, 62));
+        routes.add(new Route(3, "LITTLE ROCK", "NASHVILLE", 4, utils.WHITE, 63));
         routes.add(new Route(2, "SAINT LOUIS", "LITTLE ROCK", 2, "", 64));
         routes.add(new Route(2, "SAINT LOUIS", "NASHVILLE", 2, "", 65));
         routes.add(new Route(5, "SAINT LOUIS", "PITTSBURGH", 10, "", 66));
-        routes.add(new Route(2, "SAINT LOUIS", "CHICAGO", 2, "green", 67));
-        routes.add(new Route(2, "SAINT LOUIS", "CHICAGO", 2, "white", 68));
-        routes.add(new Route(3, "CHICAGO", "PITTSBURGH", 4, "orange", 69));
-        routes.add(new Route(3, "CHICAGO", "PITTSBURGH", 4, "black", 70));
-        routes.add(new Route(4, "CHICAGO", "TORONTO", 7, "white", 71));
-        routes.add(new Route(5, "SAULT ST. MARIE", "MONTREAL", 10, "black", 72));
+        routes.add(new Route(2, "SAINT LOUIS", "CHICAGO", 2, utils.GREEN, 67));
+        routes.add(new Route(2, "SAINT LOUIS", "CHICAGO", 2, utils.WHITE, 68));
+        routes.add(new Route(3, "CHICAGO", "PITTSBURGH", 4, utils.ORANGE, 69));
+        routes.add(new Route(3, "CHICAGO", "PITTSBURGH", 4, utils.BLACK, 70));
+        routes.add(new Route(4, "CHICAGO", "TORONTO", 7, utils.WHITE, 71));
+        routes.add(new Route(5, "SAULT ST. MARIE", "MONTREAL", 10, utils.BLACK, 72));
         routes.add(new Route(2, "SAULT ST. MARIE", "TORONTO", 2, "", 73));
         routes.add(new Route(3, "TORONTO", "MONTREAL", 4, "", 74));
         routes.add(new Route(2, "TORONTO", "PITTSBURGH", 2, "", 75));
         routes.add(new Route(2, "MONTREAL", "BOSTON", 2, "", 76));
         routes.add(new Route(2, "MONTREAL", "BOSTON", 2, "", 77));
-        routes.add(new Route(3, "MONTREAL", "NEW YORK", 4, "blue", 78));
-        routes.add(new Route(2, "BOSTON", "NEW YORK", 2, "yellow", 79));
-        routes.add(new Route(2, "BOSTON", "NEW YORK", 2, "red", 80));
-        routes.add(new Route(2, "PITTSBURGH", "NEW YORK", 2, "white", 81));
-        routes.add(new Route(2, "PITTSBURGH", "NEW YORK", 2, "green", 82));
+        routes.add(new Route(3, "MONTREAL", "NEW YORK", 4, utils.BLUE, 78));
+        routes.add(new Route(2, "BOSTON", "NEW YORK", 2, utils.YELLOW, 79));
+        routes.add(new Route(2, "BOSTON", "NEW YORK", 2, utils.RED, 80));
+        routes.add(new Route(2, "PITTSBURGH", "NEW YORK", 2, utils.WHITE, 81));
+        routes.add(new Route(2, "PITTSBURGH", "NEW YORK", 2, utils.GREEN, 82));
         routes.add(new Route(2, "PITTSBURGH", "WASHINGTON", 2, "", 83));
         routes.add(new Route(2, "PITTSBURGH", "RALEIGH", 2, "", 84));
-        routes.add(new Route(2, "NEW YORK", "WASHINGTON", 2, "orange", 85));
-        routes.add(new Route(2, "NEW YORK", "WASHINGTON", 2, "black", 86));
-        routes.add(new Route(4, "NASHVILLE", "PITTSBURGH", 7, "yellow", 87));
-        routes.add(new Route(3, "NASHVILLE", "RALEIGH", 4, "black", 88));
+        routes.add(new Route(2, "NEW YORK", "WASHINGTON", 2, utils.ORANGE, 85));
+        routes.add(new Route(2, "NEW YORK", "WASHINGTON", 2, utils.BLACK, 86));
+        routes.add(new Route(4, "NASHVILLE", "PITTSBURGH", 7, utils.YELLOW, 87));
+        routes.add(new Route(3, "NASHVILLE", "RALEIGH", 4, utils.BLACK, 88));
         routes.add(new Route(1, "NASHVILLE", "ATLANTA", 1, "", 89));
-        routes.add(new Route(4, "NEW ORLEANS", "ATLANTA", 7, "yellow", 90));
-        routes.add(new Route(4, "NEW ORLEANS", "ATLANTA", 7, "orange", 91));
-        routes.add(new Route(6, "NEW ORLEANS", "MIAMI", 15, "red", 92));
-        routes.add(new Route(5, "ATLANTA", "MIAMI", 10, "blue", 93));
+        routes.add(new Route(4, "NEW ORLEANS", "ATLANTA", 7, utils.YELLOW, 90));
+        routes.add(new Route(4, "NEW ORLEANS", "ATLANTA", 7, utils.ORANGE, 91));
+        routes.add(new Route(6, "NEW ORLEANS", "MIAMI", 15, utils.RED, 92));
+        routes.add(new Route(5, "ATLANTA", "MIAMI", 10, utils.BLUE, 93));
         routes.add(new Route(2, "ATLANTA", "RALEIGH", 2, "", 94));
         routes.add(new Route(2, "ATLANTA", "RALEIGH", 2, "", 95));
         routes.add(new Route(2, "ATLANTA", "CHARLESTON", 2, "", 96));
-        routes.add(new Route(4, "CHARLESTON", "MIAMI", 7, "pink", 97));
+        routes.add(new Route(4, "CHARLESTON", "MIAMI", 7, utils.PINK, 97));
         routes.add(new Route(2, "RALEIGH", "CHARLESTON", 2, "", 98));
         routes.add(new Route(2, "RALEIGH", "WASHINGTON", 2, "", 99));
         routes.add(new Route(2, "RALEIGH", "WASHINGTON", 2, "", 100));
     }
 
-    // create a set of RouteSegment objects
-    // create new RouteSegments representing each segment of the route
-    // put in x and y coordinates of point A and B
-    // put in route id
-    // add the segments to the set
-    // routeSegments.put(routeId, set of routeSegments)
-    // each segment is about 40 units long and 10 units thick
-    // x values increase from left to right
-    // y values increase from top to bottom
     private void initializeRouteSegmentData() {
 
         RouteSegment rs1;
@@ -330,10 +327,6 @@ public class RootClientModel extends Observable {
         RouteSegment rs4;
         RouteSegment rs5;
         RouteSegment rs6;
-        RouteSegment rs7;
-        RouteSegment rs8;
-        RouteSegment rs9;
-        RouteSegment rs10;
 
         // Vancouver to Seattle, id 1
         HashSet<RouteSegment> vancouverSeattle1 = new HashSet<>();
@@ -784,6 +777,7 @@ public class RootClientModel extends Observable {
         helenaDenver.add(rs3);
         rs4 = new RouteSegment(479, 347,
                 494, 381, 30);
+        helenaDenver.add(rs4);
         routeSegments.put(30, helenaDenver);
 
         // Denver to Santa Fe, id 31

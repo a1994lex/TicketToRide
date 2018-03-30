@@ -27,12 +27,21 @@ public class HandPresenter implements Observer, IHandPresenter {
         return instance;
     }
 
-
+    @Override
     public void setView(IHandView handView, View view) {
         this.handView = handView;
         this.fragView = view;
     }
 
+    @Override
+    public boolean claimingRoute(){
+        if (GamePlayPresenter.getInstance().isClaimingRoute()){
+            return true;
+        }
+        else{
+            return false;
+        }
+    }
     @Override
     public void update(Observable o, Object arg) {
         if (o == game) {

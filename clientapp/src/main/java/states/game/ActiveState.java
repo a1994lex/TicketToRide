@@ -22,6 +22,7 @@ public class ActiveState implements GameState {
     @Override
     public void submit(GamePlayPresenter gpp) {
         // Nothing to submit
+        gpp.setState(new InactiveState());
         return;
     }
 

@@ -1,6 +1,8 @@
 package presenters;
 
 import android.app.Activity;
+import android.widget.Toast;
+
 import com.example.clientapp.IClaimRouteView;
 import com.example.clientapp.IGameView;
 import com.groupryan.client.UIGameFacade;
@@ -24,6 +26,7 @@ import async.EndTurnAsyncTask;
 import async.Poller;
 import states.GameState;
 import states.game.ActiveState;
+import states.game.ClaimRouteState;
 import states.game.InactiveState;
 
 
@@ -118,7 +121,8 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                 if (game.isMyTurn()){
                     setState(new ActiveState());
                 }
-            }    
+            }
+
         }
     }
 
@@ -167,6 +171,13 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     public void submit() {
         this.state.submit(this);
     }
+
+    public boolean isClaimingRoute(){
+        if (this.state.getClass().equals(ClaimRouteState.class)){
+            return true;
+        }
+        return false;
+    }
     ////END OF STATE FUNCTIONS//////
 
 
@@ -192,7 +203,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     }
 
     public boolean verifyEnoughTrainPieces(int trains, int routeId) {
-        int cost = RootClientModel.getRoute(routeId).getWorth();
+        int cost = RootClientModel.getRoute(routeId).getLength();
         if (trains >= cost) {
             return true;
         } else {
@@ -311,8 +322,11 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                 if (routeColor.equals(trainCard.getColor())) {
                     count++;
                 }
+                else if (trainCard.getColor().equals(utils.LOCOMOTIVE)) {
+                    count++;
+                }
             }
-            if (count == routeLength) {
+            if (count >= routeLength) {
                 return true;
             }
         } else {

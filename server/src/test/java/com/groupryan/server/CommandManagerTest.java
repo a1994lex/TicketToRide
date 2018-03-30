@@ -2,6 +2,7 @@ package com.groupryan.server;
 
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
+import com.groupryan.shared.utils;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -61,16 +62,16 @@ public class CommandManagerTest {
 
     @Test
     public void joinGameTest() {
-        this.game1.addUser(user10, "RED");
-        this.commandManager.makeJoinGameCommand(game1, user10, "RED");
-        this.game1.addUser(user11, "YELLOW");
-        this.commandManager.makeJoinGameCommand(game1, user11, "YELLOW");
-        this.game1.addUser(user12, "BLACK");
-        this.commandManager.makeJoinGameCommand(game1, user12, "BLACK");
-        this.game2.addUser(user20, "YELLOW");
-        this.commandManager.makeJoinGameCommand(game2, user20, "YELLOW");
-        this.game2.addUser(user21, "BLACK");
-        this.commandManager.makeJoinGameCommand(game2, user21, "BLACK");
+        this.game1.addUser(user10, utils.RED);
+        this.commandManager.makeJoinGameCommand(game1, user10, utils.RED);
+        this.game1.addUser(user11, utils.YELLOW);
+        this.commandManager.makeJoinGameCommand(game1, user11, utils.YELLOW);
+        this.game1.addUser(user12, utils.BLACK);
+        this.commandManager.makeJoinGameCommand(game1, user12, utils.BLACK);
+        this.game2.addUser(user20, utils.YELLOW);
+        this.commandManager.makeJoinGameCommand(game2, user20, utils.YELLOW);
+        this.game2.addUser(user21, utils.BLACK);
+        this.commandManager.makeJoinGameCommand(game2, user21, utils.BLACK);
         for (User user : this.userList) {
             assertEquals(5, this.commandManager.getCommands(user).size());
         }

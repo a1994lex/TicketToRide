@@ -6,6 +6,7 @@ import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Deck;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.Player;
+import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.utils;
@@ -118,9 +119,10 @@ public class ServerGame {
         return history;
     }
 
-    public void removeTrainCardsFromPlayer(String username, List<Integer> cardID) {
-        //voided by the discard funciton
-        //not necessary
+    public void removeTrainCardsFromPlayer(List<TrainCard> discardable) {
+        for (TrainCard tc:discardable) {
+            trainCards.discard(tc);
+        }
     }
 
     public void removeDestinationCardsFromPlayer(String username, List<Integer> cardID) {
@@ -192,7 +194,12 @@ public class ServerGame {
     }
 
     public Bank updateFaceUp(int position){
-        TrainCard tc=(TrainCard)trainCards.draw(1).get(0);
+        List<Card> drawnCards=trainCards.draw(1);
+        if(drawnCards.size()==0){
+            bank.set(position, new TrainCard("none", -2));
+            return new Bank(bank);
+        }
+        TrainCard tc=(TrainCard)drawnCards.get(0);
         bank.set(position, tc);
         bank=locoCheck(bank);
         return new Bank(bank);
