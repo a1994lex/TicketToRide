@@ -91,6 +91,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
                     return true;
                 case R.id.hide:
                     mNav.setVisibility(View.INVISIBLE);
+                    removePrevFrag("ALL");
                     mMenuBtn.setVisibility(View.VISIBLE);
                     mClaimRoute.setVisibility(View.VISIBLE);
                     mDrawCards.setVisibility(View.VISIBLE);
@@ -136,16 +137,6 @@ public class GameActivity extends FragmentActivity implements IGameView {
             //removePrevFrag(utils.BANK);
             GamePlayPresenter.getInstance().clickDrawCard();
 
-//            for (LineView lineView : lineViews) {
-//                lineView.setVisibility(View.INVISIBLE);
-//            }
-//            addFragment(R.id.bank_fragment,
-//                    new BankFragment(), utils.BANK);
-           /* FragmentManager manager = getFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.add(R.id.bank_fragment,new BankFragment(),utils.BANK);
-            transaction.addToBackStack(null);
-            transaction.commit();*/
         });
         mHandButton.setOnClickListener((View v) -> {
             for (LineView lineView : lineViews) {
@@ -159,22 +150,6 @@ public class GameActivity extends FragmentActivity implements IGameView {
             lineViews.clear();
         }
 
-        // views for finding the points of the route segments
-//        mapImage = findViewById(R.id.map_button);
-//        routeName = findViewById(R.id.route_name_entry);
-//        nameEntry = findViewById(R.id.name_entry_button);
-//        Logger logger = Logger.getLogger("MyLog");
-//
-//        mapImage.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if (event.getAction() == MotionEvent.ACTION_DOWN){
-//                    logger.severe("x value: " + String.valueOf(event.getX()) +
-//                            " y value: " + String.valueOf(event.getY()) + "\n");
-//                }
-//                return true;
-//            }
-//        });
     }
     @Override
     public void showBankModal(){
