@@ -34,6 +34,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
     RecyclerView.Adapter mAdapter;
     RecyclerView mRecyclerView;
     private Game mGame;
+    private Boolean clicked=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +64,10 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
             @Override
             public void onClick(View view) {
                 if (mGame.getMaxPlayers() == (double) mGame.getUsers().size()) {
-                    LobbyPresenter.startGame(mGame);
+                    if(clicked==false) {
+                        clicked=true;
+                        LobbyPresenter.startGame(mGame);
+                    }
                 }
 
             }

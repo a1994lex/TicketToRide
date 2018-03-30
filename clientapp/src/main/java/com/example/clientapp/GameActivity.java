@@ -49,8 +49,10 @@ import android.support.v4.app.FragmentActivity;
 
 import com.example.clientapp.dialogs.DiscardDestCardDialogActivity;
 
+import presenters.BankPresenter;
 import presenters.GamePlayPresenter;
 import presenters.IGamePlayPresenter;
+import states.GameState;
 import states.game.ClaimRouteState;
 
 public class GameActivity extends FragmentActivity implements IGameView {
@@ -162,7 +164,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
         });
         if (GamePlayPresenter.getInstance().getState().getClass().equals(ClaimRouteState.class)) {
             addFragment(R.id.hand_fragment, new HandFragment(), utils.HAND);
-            lineViews.clear();
+            clearLines();
         }
 
         // views for finding the points of the route segments
@@ -215,7 +217,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
     @Override
     protected void onPause() {
         super.onPause();
-        lineViews.clear();
+        clearLines();
         gamePlayPresenter.setShowRoutes(false);
     }
 
@@ -243,23 +245,36 @@ public class GameActivity extends FragmentActivity implements IGameView {
         ConstraintLayout constraintLayout = findViewById(R.id.container);
 
         for (RouteSegment routeSegment : routeSegments) {
-            LineView lineView = new LineView(this);
-            lineView.setLayoutParams(constraintLayoutParams);
-            lineView.setColor(playerColor);
-            lineView.setxCoordinateA(routeSegment.getxCoordinateA());
-            lineView.setyCoordinateA(routeSegment.getyCoordinateA());
-            lineView.setxCoordinateB(routeSegment.getxCoordinateB());
-            lineView.setyCoordinateB(routeSegment.getyCoordinateB());
-            lineView.setRouteId(routeSegment.getRouteId());
-            lineView.setVisibility(View.VISIBLE);
-            constraintLayout.addView(lineView);
-            ConstraintSet constraintSet = new ConstraintSet();
-            constraintSet.clone(constraintLayout);
-            constraintSet.connect(lineView.getId(), ConstraintSet.LEFT, constraintLayout.getId(), ConstraintSet.RIGHT, 0);
-            constraintSet.connect(lineView.getId(), ConstraintSet.LEFT, constraintLayout.getId(), ConstraintSet.LEFT, 0);
-            constraintSet.applyTo(constraintLayout);
-            lineViews.add(lineView);
+            drawSegment(routeSegment, playerColor, constraintLayout, constraintLayoutParams,
+                    true);
+            drawSegment(routeSegment, playerColor, constraintLayout, constraintLayoutParams,
+                    false);
         }
+    }
+
+    public void drawSegment(RouteSegment routeSegment, String playerColor,
+                            ConstraintLayout constraintLayout,
+                            ConstraintLayout.LayoutParams constraintLayoutParams,
+                            boolean isBackground) {
+        LineView lineView = new LineView(this);
+        lineView.setIsBackground(isBackground);
+        lineView.setLayoutParams(constraintLayoutParams);
+        lineView.setColor(playerColor);
+        lineView.setxCoordinateA(routeSegment.getxCoordinateA());
+        lineView.setyCoordinateA(routeSegment.getyCoordinateA());
+        lineView.setxCoordinateB(routeSegment.getxCoordinateB());
+        lineView.setyCoordinateB(routeSegment.getyCoordinateB());
+        lineView.setRouteId(routeSegment.getRouteId());
+        lineView.setVisibility(View.VISIBLE);
+        constraintLayout.addView(lineView);
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(constraintLayout);
+        constraintSet.connect(lineView.getId(), ConstraintSet.LEFT, constraintLayout.getId(),
+                ConstraintSet.RIGHT, 0);
+        constraintSet.connect(lineView.getId(), ConstraintSet.LEFT, constraintLayout.getId(),
+                ConstraintSet.LEFT, 0);
+        constraintSet.applyTo(constraintLayout);
+        lineViews.add(lineView);
     }
 
     public void clearLines(){
