@@ -19,9 +19,7 @@ import com.groupryan.shared.utils;
 
 public class LineView extends View {
 
-    private Paint foregroundPaint = new Paint();
-
-    private Paint backgroundPaint = new Paint();
+    private Paint paint = new Paint();
 
     private PointF pointA = new PointF();
 
@@ -29,18 +27,8 @@ public class LineView extends View {
 
     private int routeId = 0;
 
-    private boolean isBackground = false;
-
     public LineView(Context context) {
         super(context);
-    }
-
-    public void setIsBackground(boolean isBackground) {
-        this.isBackground = isBackground;
-    }
-
-    public boolean isBackground() {
-        return isBackground;
     }
 
     public int getRouteId() {
@@ -61,14 +49,8 @@ public class LineView extends View {
 
     @Override
     protected void onDraw(Canvas canvas) {
-        if (isBackground) {
-            foregroundPaint.setStrokeWidth(16);
-            canvas.drawLine(pointA.x, pointA.y, pointB.x, pointB.y, backgroundPaint);
-        }
-        else {
-            foregroundPaint.setStrokeWidth(10);
-            canvas.drawLine(pointA.x, pointA.y, pointB.x, pointB.y, foregroundPaint);
-        }
+        paint.setStrokeWidth(10);
+        canvas.drawLine(pointA.x, pointA.y, pointB.x, pointB.y, paint);
         super.onDraw(canvas);
     }
 
@@ -112,24 +94,19 @@ public class LineView extends View {
     public void setColor(String color) {
         switch (color) {
             case utils.BLACK:
-                foregroundPaint.setColor(Color.BLACK);
-                backgroundPaint.setColor(Color.WHITE);
+                paint.setColor(Color.BLACK);
                 break;
             case utils.BLUE:
-                foregroundPaint.setColor(Color.BLUE);
-                backgroundPaint.setColor(Color.BLACK);
+                paint.setColor(Color.BLUE);
                 break;
             case utils.RED:
-                foregroundPaint.setColor(Color.RED);
-                backgroundPaint.setColor(Color.BLACK);
+                paint.setColor(Color.RED);
                 break;
             case utils.YELLOW:
-                foregroundPaint.setColor(Color.YELLOW);
-                backgroundPaint.setColor(Color.BLACK);
+                paint.setColor(Color.YELLOW);
                 break;
             case utils.GREEN:
-                foregroundPaint.setColor(Color.GREEN);
-                backgroundPaint.setColor(Color.BLACK);
+                paint.setColor(Color.GREEN);
                 break;
         }
     }

@@ -122,6 +122,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
 
         // SET UP LISTENERS
         mClaimRoute.setOnClickListener((View v) -> {
+            RootClientModel.getCurrentGame().getMyPlayer().getTurn();
                 GamePlayPresenter.getInstance().clickClaimRoute(); // the states will do their thing, then th
                 //testEndGameStat();
             });
@@ -239,19 +240,14 @@ public class GameActivity extends FragmentActivity implements IGameView {
         ConstraintLayout constraintLayout = findViewById(R.id.container);
 
         for (RouteSegment routeSegment : routeSegments) {
-            drawSegment(routeSegment, playerColor, constraintLayout, constraintLayoutParams,
-                    true);
-            drawSegment(routeSegment, playerColor, constraintLayout, constraintLayoutParams,
-                    false);
+            drawSegment(routeSegment, playerColor, constraintLayout, constraintLayoutParams);
         }
     }
 
     public void drawSegment(RouteSegment routeSegment, String playerColor,
                             ConstraintLayout constraintLayout,
-                            ConstraintLayout.LayoutParams constraintLayoutParams,
-                            boolean isBackground) {
+                            ConstraintLayout.LayoutParams constraintLayoutParams) {
         LineView lineView = new LineView(this);
-        lineView.setIsBackground(isBackground);
         lineView.setLayoutParams(constraintLayoutParams);
         lineView.setColor(playerColor);
         lineView.setxCoordinateA(routeSegment.getxCoordinateA());
