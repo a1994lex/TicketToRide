@@ -52,7 +52,6 @@ public class ClientGame extends Observable {
         this.chat = new ArrayList<>();
         this.bankCards = new ArrayList<>();
         this.claimedRoutes = new ArrayList<Route>();
-
         availableRoutes =new ArrayList<>();
         this.gameId = game.getGameId();
         this.myPlayer = player;
@@ -171,6 +170,14 @@ public class ClientGame extends Observable {
             return true;
         }
         return false;
+    }
+
+    public void testfillClaimedRoutes() {
+        for (int i = 0; i < availableRoutes.size(); i++) {
+            claimedRoutes.add(availableRoutes.get(i));
+        }
+        setChanged();
+        notifyObservers(utils.REDRAW_ROUTES);
     }
 
     public int getDDeckSize() {

@@ -1,6 +1,5 @@
 package com.example.clientapp;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -9,16 +8,8 @@ import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.clientapp.dialogs.ClaimRouteDialogActivity;
 import com.groupryan.client.models.ClientGame;
@@ -27,30 +18,17 @@ import com.groupryan.shared.models.EndGameStat;
 import com.groupryan.shared.models.RouteSegment;
 import com.groupryan.shared.utils;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 
 import com.example.clientapp.dialogs.DiscardDestCardDialogActivity;
 
-import presenters.BankPresenter;
 import presenters.GamePlayPresenter;
 import presenters.IGamePlayPresenter;
-import states.GameState;
 import states.game.ClaimRouteState;
 
 public class GameActivity extends FragmentActivity implements IGameView {
