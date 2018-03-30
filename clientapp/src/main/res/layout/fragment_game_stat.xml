@@ -12,44 +12,120 @@
         android:layout_height="match_parent"
         android:background="#AAfff9e8"
         android:orientation="vertical">
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
    <TextView
        android:layout_width="wrap_content"
        android:layout_height="wrap_content"
        android:text = "@string/game_stat"
-       android:textSize="26dp"
+       android:textSize="45dp"
        android:layout_gravity="center"
        android:textColor="@color/colorPrimaryDark"
        android:layout_marginTop="10dp"
        android:layout_marginVertical="20dp"/>
 
-    <ScrollView
-        android:id="@+id/scrollView1"
-        android:layout_width="fill_parent"
+
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="6dp">
+
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <TextView
+                android:id="@+id/turn_order"
+                android:textSize="24dp"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:text="@string/turn_order"/>
+
+            <TextView
+                android:id="@+id/player"
+                android:textSize="24dp"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:text="@string/player"/>
+
+            <TextView
+                android:id="@+id/points"
+                android:textSize="24dp"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:text="@string/points"/>
+
+            <TextView
+                android:id="@+id/trains"
+                android:textSize="24dp"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:text="@string/trains"/>
+
+            <TextView
+                android:id="@+id/train_cards"
+                android:textSize="24dp"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:text="@string/train_cards"/>
+
+            <TextView
+                android:id="@+id/dest_Cards"
+                android:textSize="24dp"
+                android:layout_width="175dp"
+                android:layout_height="wrap_content"
+                android:text="@string/dest_cards"/>
+            <View
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/stats_recycler_view"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true" >
+        android:foregroundGravity="center"
+        android:scrollbars="vertical" />
 
-        <HorizontalScrollView
-            android:id="@+id/hscrll1"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
-            <RelativeLayout
-                android:id="@+id/RelativeLayout1"
-                android:layout_width="fill_parent"
-                android:layout_gravity="center"
-                android:layout_height="fill_parent"
-                android:orientation="vertical" >
+    <!--<ScrollView-->
+        <!--android:id="@+id/scrollView1"-->
+        <!--android:layout_width="fill_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentLeft="true" >-->
 
-                <TableLayout
-                    android:id="@+id/stats_table"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true" >
-                </TableLayout>
-            </RelativeLayout>
-        </HorizontalScrollView>
-    </ScrollView>
+        <!--<HorizontalScrollView-->
+            <!--android:id="@+id/hscrll1"-->
+            <!--android:layout_width="fill_parent"-->
+            <!--android:layout_height="wrap_content" >-->
+
+            <!--<RelativeLayout-->
+                <!--android:id="@+id/RelativeLayout1"-->
+                <!--android:layout_width="fill_parent"-->
+                <!--android:layout_gravity="center"-->
+                <!--android:layout_height="fill_parent"-->
+                <!--android:orientation="vertical" >-->
+
+                <!--<TableLayout-->
+                    <!--android:id="@+id/stats_table"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerHorizontal="true" >-->
+                <!--</TableLayout>-->
+            <!--</RelativeLayout>-->
+        <!--</HorizontalScrollView>-->
+    <!--</ScrollView>-->
 
     </LinearLayout>
 
