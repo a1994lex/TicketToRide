@@ -122,7 +122,6 @@ public class GameActivity extends FragmentActivity implements IGameView {
 
         // SET UP LISTENERS
         mClaimRoute.setOnClickListener((View v) -> {
-            RootClientModel.getCurrentGame().getMyPlayer().getTurn();
                 GamePlayPresenter.getInstance().clickClaimRoute(); // the states will do their thing, then th
                 //testEndGameStat();
             });
