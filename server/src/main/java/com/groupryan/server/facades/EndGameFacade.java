@@ -21,8 +21,9 @@ import java.util.List;
 
 public class EndGameFacade {
 
-    HashMap<String, EndGameStat> usernameToStat = new HashMap<>();
-    String winner;
+    private HashMap<String, EndGameStat> usernameToStat = new HashMap<>();
+    private String winner;
+    private boolean finished = false;
 
     public EndGameFacade(){}
 
@@ -40,6 +41,10 @@ public class EndGameFacade {
         List<EndGameStat> finalStats = calculateWinner();
         CommandManager.getInstance().makeGameOverCommand(winner, finalStats, gameId);
 
+    }
+
+    public void addStat(EndGameStat stat){
+        usernameToStat.put(stat.getUsername(), stat);
     }
 
 
@@ -64,13 +69,13 @@ public class EndGameFacade {
     }
 
     public List<EndGameStat> calculateWinner(){
-        //gets the person with the higheest total score and sets them as winner
+        //gets the person with the highest total score and sets them as winner
 
         ArrayList<EndGameStat> finalstats = new ArrayList<>();
         for(EndGameStat egs : usernameToStat.values()){
             finalstats.add(egs);
         }
-        EndGameStat winningStat = Collections.max(finalstats, new EndGameFacade.WinnerComparing());
+        EndGameStat winningStat = Collections.max(finalstats, new WinnerComparing());
         winner = winningStat.getUsername();
 
         checkIfTie();
@@ -82,7 +87,12 @@ public class EndGameFacade {
         EndGameStat winnerStat = usernameToStat.get(winner);
         for(EndGameStat egs : usernameToStat.values()){
             if(egs.getTotalPoints() == winnerStat.getTotalPoints() && !winnerStat.getUsername().equals(egs.getUsername())){
-                winner += " and " + egs.getUsername();
+                if(egs.getReachedDestPoints() > winnerStat.getReachedDestPoints()){
+                    winner = egs.getUsername();
+                }
+                else {
+                    //see who has longest path here.
+                }
             }
         }
     }
@@ -108,8 +118,10 @@ public class EndGameFacade {
                 }
 
                 //dfs return true if they have finished the route and increases their points, false if they haven't and decreases points
-                if(dfs(startCity, dfsPrep(player.getRoutes()), startRoute, destinationCard.getCityTwo(), player.getRoutes() )){
+                dfs(startCity, dfsPrep(player.getRoutes()), startRoute, destinationCard.getCityTwo(), player.getRoutes() );
+                if(finished){
                     usernameToStat.get(player.getUsername()).increaseReachedDestPoints(destinationCard.getValue());
+                    finished = false;
                 }
                 else{
                     usernameToStat.get(player.getUsername()).increaseUnreachedDestNegativePoints(destinationCard.getValue());
@@ -130,25 +142,24 @@ public class EndGameFacade {
         return idToVisited;
     }
 
-    private boolean dfs(String city, HashMap<Integer, Boolean> idToVisited, Route route, String finalDestination, List<Route> routes){
+    private void dfs(String city, HashMap<Integer, Boolean> idToVisited, Route route, String finalDestination, List<Route> routes){
         //depth first search to find if destination card is complete
 
         idToVisited.put(route.getId(), true);
         for (Route r: routes){
             if(r.getCityOne().equals(city) || r.getCityTwo().equals(city)){
                 if(r.getCityOne().equals(finalDestination) || r.getCityTwo().equals(finalDestination)){
-                    return true;
+                    finished = true;
                 }
                 if(!idToVisited.get(r.getId())){
                     String city2;
                     if(r.getCityOne().equals(city)){ city2 = r.getCityTwo(); }
                     else { city2 = r.getCityOne();}
-                    return dfs(city2, idToVisited, r, finalDestination, routes);
+                    dfs(city2, idToVisited, r, finalDestination, routes);
                 }
             }
         }
 
-        return false;
     }
 
     private Route getStart(String city, List<Route> routes){

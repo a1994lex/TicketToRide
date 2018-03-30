@@ -1,6 +1,8 @@
 package presenters;
 
 import android.app.Activity;
+import android.widget.Toast;
+
 import com.example.clientapp.IClaimRouteView;
 import com.example.clientapp.IGameView;
 import com.groupryan.client.UIGameFacade;
@@ -24,6 +26,7 @@ import async.EndTurnAsyncTask;
 import async.Poller;
 import states.GameState;
 import states.game.ActiveState;
+import states.game.ClaimRouteState;
 import states.game.InactiveState;
 
 
@@ -71,8 +74,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
     @Override
     public void setUpIfFirst() {
-       // if (this.game!=null && this.game.getCurrentTurn()<0){
-            if(this.game.getOriginal()){
+        if(this.game.getOriginal()){
             stopLobbyPolling();
             callDrawDestCards();
         }
@@ -86,9 +88,6 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         this.claimRouteView = claimRouteView;
     }
 
-//    public void redrawRoutes() {
-//        root.setShowRoutes();
-//    }
 
     @Override
     public void setShowRoutes(boolean showRoutes) {
@@ -99,14 +98,6 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     public void update(Observable observable, Object o) {
         if (observable == game) { //I changed this so now it check if observable is game, not root.
             int secondSize = root.getCurrentGame().getClaimedRoutesList().size();
-//            if (o.getClass().equals(Route.class)) {
-//                if (secondSize > totalClaimedRoutes) {
-//                    totalClaimedRoutes = secondSize;
-//                    Route r = (Route) o;
-//                    HashSet<RouteSegment> routeSegments = root.getRouteSegmentSet(r.getId());
-//                    gameView.drawRoute(r.getColor(), routeSegments);
-//                    drawRoutes();
-//                }
             if (o.equals(utils.DISCARD_DESTCARD)) {
                 // it's trying to call a method on gameView when gameView is null
                 gameView.cardsDiscarded();
@@ -118,7 +109,8 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                 if (game.isMyTurn()){
                     setState(new ActiveState());
                 }
-            }    
+            }
+
         }
     }
 
@@ -140,8 +132,6 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     @Override
     public void clickClaimRoute() {
         state.clickClaimRoute(this);
-        //gameView.showClaimRouteModal();
-        // depending on the state, the state will call gameView.showClaimRouteModal();
     }
 
     @Override
@@ -166,6 +156,13 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     @Override
     public void submit() {
         this.state.submit(this);
+    }
+
+    public boolean isClaimingRoute(){
+        if (this.state.getClass().equals(ClaimRouteState.class)){
+            return true;
+        }
+        return false;
     }
     ////END OF STATE FUNCTIONS//////
 
@@ -192,7 +189,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     }
 
     public boolean verifyEnoughTrainPieces(int trains, int routeId) {
-        int cost = RootClientModel.getRoute(routeId).getWorth();
+        int cost = RootClientModel.getRoute(routeId).getLength();
         if (trains >= cost) {
             return true;
         } else {
@@ -239,7 +236,6 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     public void callClaimRouteAsyncTask() {
         ClaimRouteAsyncTask task = new ClaimRouteAsyncTask();
         task.execute(claimRouteData);
-        RootClientModel.getCurrentGame().getAnAvailableRoute(claimRouteData.getRouteId()).setAvailable(false);
     }
 
     public Map<String, Integer> mapColorToCount(String color, Map<String, Integer> pickedCards) {
@@ -311,8 +307,11 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
                 if (routeColor.equals(trainCard.getColor())) {
                     count++;
                 }
+                else if (trainCard.getColor().equals(utils.LOCOMOTIVE)) {
+                    count++;
+                }
             }
-            if (count == routeLength) {
+            if (count >= routeLength) {
                 return true;
             }
         } else {
@@ -384,106 +383,6 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         return false;
     }
 
-    public List<Integer> getDiscardingTrainCards(Map<String, Integer> pickedCards) {
-        List<TrainCard> trainCards = RootClientModel.getCurrentGame().getMyPlayer().getTrainCards();
-        List<Integer> pickedTrainCards = new ArrayList<>();
-        for (Map.Entry<String, Integer> entry : pickedCards.entrySet()) {
-            if (entry.getKey().equals(utils.RED) && entry.getValue() > 0) {
-
-                List<Integer> values = findTrainCardByColor(trainCards, utils.RED, entry.getValue());
-                for (int i = 0; i < values.size(); i++) {
-                    if (values.get(i) != -1) {
-                        pickedTrainCards.add(values.get(i));
-                    }
-                }
-            }
-            if (entry.getKey().equals(utils.ORANGE) && entry.getValue() > 0) {
-
-                List<Integer> values = findTrainCardByColor(trainCards, utils.ORANGE, entry.getValue());
-                for (int i = 0; i < values.size(); i++) {
-                    if (values.get(i) != -1) {
-                        pickedTrainCards.add(values.get(i));
-                    }
-                }
-            }
-            if (entry.getKey().equals(utils.YELLOW) && entry.getValue() > 0) {
-
-                List<Integer> values = findTrainCardByColor(trainCards, utils.YELLOW, entry.getValue());
-                for (int i = 0; i < values.size(); i++) {
-                    if (values.get(i) != -1) {
-                        pickedTrainCards.add(values.get(i));
-                    }
-                }
-            }
-            if (entry.getKey().equals(utils.GREEN) && entry.getValue() > 0) {
-
-                List<Integer> values = findTrainCardByColor(trainCards, utils.GREEN, entry.getValue());
-                for (int i = 0; i < values.size(); i++) {
-                    if (values.get(i) != -1) {
-                        pickedTrainCards.add(values.get(i));
-                    }
-                }
-            }
-            if (entry.getKey().equals(utils.BLUE) && entry.getValue() > 0) {
-
-                List<Integer> values = findTrainCardByColor(trainCards, utils.BLUE, entry.getValue());
-                for (int i = 0; i < values.size(); i++) {
-                    if (values.get(i) != -1) {
-                        pickedTrainCards.add(values.get(i));
-                    }
-                }
-            }
-            if (entry.getKey().equals(utils.PINK) && entry.getValue() > 0) {
-
-                List<Integer> values = findTrainCardByColor(trainCards, utils.PINK, entry.getValue());
-                for (int i = 0; i < values.size(); i++) {
-                    if (values.get(i) != -1) {
-                        pickedTrainCards.add(values.get(i));
-                    }
-                }
-            }
-            if (entry.getKey().equals(utils.BLACK) && entry.getValue() > 0) {
-
-                List<Integer> values = findTrainCardByColor(trainCards, utils.BLACK, entry.getValue());
-                for (int i = 0; i < values.size(); i++) {
-                    if (values.get(i) != -1) {
-                        pickedTrainCards.add(values.get(i));
-                    }
-                }
-            }
-            if (entry.getKey().equals(utils.WHITE) && entry.getValue() > 0) {
-
-                List<Integer> values = findTrainCardByColor(trainCards, utils.WHITE, entry.getValue());
-                for (int i = 0; i < values.size(); i++) {
-                    if (values.get(i) != -1) {
-                        pickedTrainCards.add(values.get(i));
-                    }
-                }
-            }
-            if (entry.getKey().equals(utils.LOCOMOTIVE) && entry.getValue() > 0) {
-
-                List<Integer> values = findTrainCardByColor(trainCards, utils.LOCOMOTIVE, entry.getValue());
-                for (int i = 0; i < values.size(); i++) {
-                    if (values.get(i) != -1) {
-                        pickedTrainCards.add(values.get(i));
-                    }
-                }
-            }
-        }
-        return pickedTrainCards;
-    }
-
-    public List<Integer> findTrainCardByColor(List<TrainCard> trainCards, String color, int numberOfCards) {
-        List<Integer> cardIds = new ArrayList<>();
-        for (TrainCard trainCard : trainCards) {
-            if (color.equals(trainCard.getColor()) && numberOfCards > 0) {
-                cardIds.add(trainCard.getID());
-                numberOfCards--;
-            }
-        }
-        return cardIds;
-    }
-
     public void discardDestinationCard(List<Integer> cardIDs) {
         DiscardDestCardAsyncTask task = new DiscardDestCardAsyncTask(discardActivity);
         task.execute(cardIDs);
@@ -495,12 +394,5 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
 
     public void stopLobbyPolling() {
         Poller.get().stop();
-    }
-
-    public String decrementTextViewCount(String count) {
-        int value = Integer.parseInt(count);
-        value--;
-        String returnVal = Integer.toString(value);
-        return returnVal;
     }
 }

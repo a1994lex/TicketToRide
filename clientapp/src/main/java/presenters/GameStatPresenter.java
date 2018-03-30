@@ -44,16 +44,13 @@ public class GameStatPresenter implements Observer, IGameStatPresenter {
     @Override
     public void update(Observable o, Object arg) {
         if (o == game){
-            System.out.println(this.statView);
-//            if(statView.)
-//            if (arg.equals(utils.STAT)){
-//                //if there is a stat frag rn
-//                statView.init(fragView);
-//            }
-//            else if (arg.equals(utils.NEW_TURN)){
-//                //same as above
-//                statView.init(fragView);
-//            }
+            if (arg.equals(utils.STAT)){
+                statView.updateStat();
+            }
+            else if (arg.equals(utils.NEW_TURN)){
+                //same as above
+                statView.updateStat();
+            }
         }
 
     }

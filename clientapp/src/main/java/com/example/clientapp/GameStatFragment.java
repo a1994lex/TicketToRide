@@ -1,9 +1,12 @@
 package com.example.clientapp;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.Layout;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,13 +19,18 @@ import android.widget.TextView;
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.Stat;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import presenters.GameStatPresenter;
 
 public class GameStatFragment extends Fragment implements IGameStatView {
 
+
+    private RecyclerView statRecycler;
+    private RecyclerView.Adapter statAdapter;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -34,12 +42,88 @@ public class GameStatFragment extends Fragment implements IGameStatView {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_game_stat, container, false);
         GameStatPresenter.getInstance().setView(this, view);
-        init(view);
+
+        statRecycler = view.findViewById(R.id.stats_recycler_view);
+        Context context = view.getContext();
+        statRecycler.setLayoutManager(new LinearLayoutManager(context));
+        statAdapter = new StatAdapter();
+        statRecycler.setAdapter(statAdapter);
+
         return view;
     }
 
-    public void init(View view) {
-        TableLayout tableLayout = (TableLayout) view.findViewById(R.id.stats_table);
+    @Override
+    public void updateStat(){
+        statRecycler.setAdapter(statAdapter);
+        //statAdapter.notifyDataSetChanged();
+    }
+
+    private class StatHolder extends RecyclerView.ViewHolder {
+        private TextView turn;
+        private TextView player_name;
+        private TextView points;
+        private TextView trains;
+        private TextView trainCards;
+        private TextView destCards;
+        int currentTurn;
+
+        public StatHolder(View itemView) {
+            super(itemView);
+            turn = itemView.findViewById(R.id.turn_order);
+            player_name = itemView.findViewById(R.id.player);
+            points = itemView.findViewById(R.id.points);
+            trains = itemView.findViewById(R.id.trains);
+            trainCards = itemView.findViewById(R.id.train_cards);
+            destCards = itemView.findViewById(R.id.dest_Cards);
+        }
+
+        public void bindStat(Stat stat){
+            //do turn stuff
+            currentTurn = RootClientModel.getCurrentGame().getCurrentTurn();
+            if(currentTurn != stat.getTurn()){
+                turn.setVisibility(View.INVISIBLE);
+            }
+            player_name.setText(stat.getUsername());
+            points.setText(Integer.toString(stat.getPoints()));
+            trains.setText(Integer.toString(stat.getTrains()));
+            trainCards.setText(Integer.toString(stat.getTrainCards()));
+            destCards.setText(Integer.toString(stat.getDestinationCards()));
+
+        }
+    }
+
+    private class StatAdapter extends RecyclerView.Adapter<StatHolder> {
+        private List<Stat> stats = createList();
+
+        public List<Stat> createList(){
+            return new ArrayList<>(RootClientModel.getCurrentGame().getStats().values());
+        }
+
+        @Override
+        public StatHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+            LayoutInflater layoutInflater = LayoutInflater.from(getActivity());
+            View view = layoutInflater.inflate(R.layout.item_stat, parent, false);
+            return new StatHolder(view);
+        }
+
+        @Override
+        public void onBindViewHolder(StatHolder holder, int position) {
+            holder.bindStat(stats.get(position));
+
+        }
+
+        @Override
+        public int getItemCount() {
+            return stats.size();
+        }
+
+
+    }
+}
+
+
+
+/*        TableLayout tableLayout = (TableLayout) view.findViewById(R.id.stats_table);
 
 
         if(tableLayout != null){
@@ -136,9 +220,4 @@ public class GameStatFragment extends Fragment implements IGameStatView {
 
 
 
-        }
-
-
-
-    }
-}
+        }*/

@@ -59,15 +59,17 @@ public class MainFacade implements IServer {
     @Override
     public CommandResult discardDestinationCard(DestCardList destCardList, String username) {
         ServerGame serverGame = RootServerModel.getInstance().getServerGame(username);
-        if(serverGame.updateReady()){
-            changeTurn(serverGame);
-        }
         DestinationCardFacade dcf = new DestinationCardFacade();
         List<Integer> cardIDs = destCardList.getList();
         CommandResult cr=  dcf.discard(cardIDs, username);
-        for (ClientCommand cc: endTurn(username).getClientCommands()){
-            cr.addClientCommand(cc);
+
+        if(serverGame.updateReady()){
+            for (ClientCommand cc: endTurn(username).getClientCommands()){
+                cr.addClientCommand(cc);
+            }
         }
+
+
         return cr;
     }
 
@@ -133,11 +135,11 @@ public class MainFacade implements IServer {
     public CommandResult claimRoute(String username, Integer routeId, TrainCardList trainCardIDs) {
         int id = (int) routeId;
         ClaimRouteFacade crf = new ClaimRouteFacade();
-        //changeTurn(RootServerModel.getInstance().getServerGame(username));
-
-        return crf.claimRoute(username, id, trainCardIDs);
-        //endTurn(username);
-        //return cr;
+        CommandResult cr = crf.claimRoute(username, id, trainCardIDs);
+        for (ClientCommand cc: endTurn(username).getClientCommands()){
+            cr.addClientCommand(cc);
+        }
+        return cr;
     }
 
     @Override

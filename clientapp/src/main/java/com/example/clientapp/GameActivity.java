@@ -1,6 +1,5 @@
 package com.example.clientapp;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -9,38 +8,21 @@ import android.support.constraint.ConstraintLayout;
 import android.support.constraint.ConstraintSet;
 import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.FloatingActionButton;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.example.clientapp.dialogs.ClaimRouteDialogActivity;
+import com.groupryan.client.ClientGameFacade;
 import com.groupryan.client.models.ClientGame;
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.EndGameStat;
 import com.groupryan.shared.models.RouteSegment;
+import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.utils;
 
-import java.io.BufferedWriter;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.nio.Buffer;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.logging.FileHandler;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import java.util.logging.SimpleFormatter;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -91,6 +73,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
                     return true;
                 case R.id.hide:
                     mNav.setVisibility(View.INVISIBLE);
+                    removePrevFrag("ALL");
                     mMenuBtn.setVisibility(View.VISIBLE);
                     mClaimRoute.setVisibility(View.VISIBLE);
                     mDrawCards.setVisibility(View.VISIBLE);
@@ -121,7 +104,6 @@ public class GameActivity extends FragmentActivity implements IGameView {
         // SET UP LISTENERS
         mClaimRoute.setOnClickListener((View v) -> {
                 GamePlayPresenter.getInstance().clickClaimRoute(); // the states will do their thing, then th
-                //testEndGameStat();
             });
 
         mMenuBtn.setOnClickListener((View v) -> {
@@ -134,20 +116,14 @@ public class GameActivity extends FragmentActivity implements IGameView {
 
       mDrawCards.setOnClickListener((View v) -> {
             //removePrevFrag(utils.BANK);
+          //testStats();
+
             GamePlayPresenter.getInstance().clickDrawCard();
 
-//            for (LineView lineView : lineViews) {
-//                lineView.setVisibility(View.INVISIBLE);
-//            }
-//            addFragment(R.id.bank_fragment,
-//                    new BankFragment(), utils.BANK);
-           /* FragmentManager manager = getFragmentManager();
-            FragmentTransaction transaction = manager.beginTransaction();
-            transaction.add(R.id.bank_fragment,new BankFragment(),utils.BANK);
-            transaction.addToBackStack(null);
-            transaction.commit();*/
         });
         mHandButton.setOnClickListener((View v) -> {
+
+            //testStats2();
             for (LineView lineView : lineViews) {
                 lineView.setVisibility(View.INVISIBLE);
             }
@@ -156,25 +132,9 @@ public class GameActivity extends FragmentActivity implements IGameView {
         });
         if (GamePlayPresenter.getInstance().getState().getClass().equals(ClaimRouteState.class)) {
             addFragment(R.id.hand_fragment, new HandFragment(), utils.HAND);
-            lineViews.clear();
+            clearLines();
         }
 
-        // views for finding the points of the route segments
-//        mapImage = findViewById(R.id.map_button);
-//        routeName = findViewById(R.id.route_name_entry);
-//        nameEntry = findViewById(R.id.name_entry_button);
-//        Logger logger = Logger.getLogger("MyLog");
-//
-//        mapImage.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                if (event.getAction() == MotionEvent.ACTION_DOWN){
-//                    logger.severe("x value: " + String.valueOf(event.getX()) +
-//                            " y value: " + String.valueOf(event.getY()) + "\n");
-//                }
-//                return true;
-//            }
-//        });
     }
     @Override
     public void showBankModal(){
@@ -209,7 +169,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
     @Override
     protected void onPause() {
         super.onPause();
-        lineViews.clear();
+        clearLines();
         gamePlayPresenter.setShowRoutes(false);
     }
 
@@ -237,23 +197,31 @@ public class GameActivity extends FragmentActivity implements IGameView {
         ConstraintLayout constraintLayout = findViewById(R.id.container);
 
         for (RouteSegment routeSegment : routeSegments) {
-            LineView lineView = new LineView(this);
-            lineView.setLayoutParams(constraintLayoutParams);
-            lineView.setColor(playerColor);
-            lineView.setxCoordinateA(routeSegment.getxCoordinateA());
-            lineView.setyCoordinateA(routeSegment.getyCoordinateA());
-            lineView.setxCoordinateB(routeSegment.getxCoordinateB());
-            lineView.setyCoordinateB(routeSegment.getyCoordinateB());
-            lineView.setRouteId(routeSegment.getRouteId());
-            lineView.setVisibility(View.VISIBLE);
-            constraintLayout.addView(lineView);
-            ConstraintSet constraintSet = new ConstraintSet();
-            constraintSet.clone(constraintLayout);
-            constraintSet.connect(lineView.getId(), ConstraintSet.LEFT, constraintLayout.getId(), ConstraintSet.RIGHT, 0);
-            constraintSet.connect(lineView.getId(), ConstraintSet.LEFT, constraintLayout.getId(), ConstraintSet.LEFT, 0);
-            constraintSet.applyTo(constraintLayout);
-            lineViews.add(lineView);
+            drawSegment(routeSegment, playerColor, constraintLayout, constraintLayoutParams);
         }
+    }
+
+    public void drawSegment(RouteSegment routeSegment, String playerColor,
+                            ConstraintLayout constraintLayout,
+                            ConstraintLayout.LayoutParams constraintLayoutParams) {
+        LineView lineView = new LineView(this);
+        lineView.setLayoutParams(constraintLayoutParams);
+        lineView.setColor(playerColor);
+        lineView.setxCoordinateA(routeSegment.getxCoordinateA());
+        lineView.setyCoordinateA(routeSegment.getyCoordinateA());
+        lineView.setxCoordinateB(routeSegment.getxCoordinateB());
+        lineView.setyCoordinateB(routeSegment.getyCoordinateB());
+        lineView.setRouteId(routeSegment.getRouteId());
+        lineView.setVisibility(View.VISIBLE);
+        constraintLayout.addView(lineView);
+        ConstraintSet constraintSet = new ConstraintSet();
+        constraintSet.clone(constraintLayout);
+        constraintSet.connect(lineView.getId(), ConstraintSet.LEFT, constraintLayout.getId(),
+                ConstraintSet.RIGHT, 0);
+        constraintSet.connect(lineView.getId(), ConstraintSet.LEFT, constraintLayout.getId(),
+                ConstraintSet.LEFT, 0);
+        constraintSet.applyTo(constraintLayout);
+        lineViews.add(lineView);
     }
 
     public void clearLines(){
@@ -317,17 +285,5 @@ public class GameActivity extends FragmentActivity implements IGameView {
         startActivity(intent);
     }
 
-    public void testEndGameStat(){
-        List<EndGameStat> endGameStats = new ArrayList<>();
-        String winner = "claire";
-        RootClientModel.getCurrentGame().setWinner(winner);
-        EndGameStat egs1 = new EndGameStat("claire", 100, 20, 10, 80, 0);
-        EndGameStat egs2 = new EndGameStat("haley", 200, 100, 0, 100, 0);
-        EndGameStat egs3 = new EndGameStat("grace", 60, 0, 100, 0 , 40);
-        endGameStats.add(egs1);
-        endGameStats.add(egs2);
-        endGameStats.add(egs3);
-        RootClientModel.getCurrentGame().setEndGameStats(endGameStats);
-        endGame();
-    }
+
 }

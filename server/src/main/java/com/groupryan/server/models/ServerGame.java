@@ -58,7 +58,7 @@ public class ServerGame {
     // when the game is ready to begin, it returns true
     public Boolean updateReady(){
         this.ready++;
-        if(this.ready == 0){
+        if(this.ready >= 0){
             this.ready++;
             return true;
         }
@@ -119,9 +119,10 @@ public class ServerGame {
         return history;
     }
 
-    public void removeTrainCardsFromPlayer(String username, List<Integer> cardID) {
-        //voided by the discard funciton
-        //not necessary
+    public void removeTrainCardsFromPlayer(List<TrainCard> discardable) {
+        for (TrainCard tc:discardable) {
+            trainCards.discard(tc);
+        }
     }
 
     public void removeDestinationCardsFromPlayer(String username, List<Integer> cardID) {
@@ -193,7 +194,12 @@ public class ServerGame {
     }
 
     public Bank updateFaceUp(int position){
-        TrainCard tc=(TrainCard)trainCards.draw(1).get(0);
+        List<Card> drawnCards=trainCards.draw(1);
+        if(drawnCards.size()==0){
+            bank.set(position, new TrainCard("none", -2));
+            return new Bank(bank);
+        }
+        TrainCard tc=(TrainCard)drawnCards.get(0);
         bank.set(position, tc);
         bank=locoCheck(bank);
         return new Bank(bank);

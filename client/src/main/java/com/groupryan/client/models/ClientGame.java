@@ -52,7 +52,6 @@ public class ClientGame extends Observable {
         this.chat = new ArrayList<>();
         this.bankCards = new ArrayList<>();
         this.claimedRoutes = new ArrayList<Route>();
-
         availableRoutes =new ArrayList<>();
         this.gameId = game.getGameId();
         this.myPlayer = player;
@@ -164,10 +163,6 @@ public class ClientGame extends Observable {
         return turnOrderMap;
     }
 
-//    public void endTurn() {
-//        this.currentTurn += 1;
-//    }
-
     public boolean isMyTurn(){
         int a= 0-myPlayer.getTurn();
         int b= 0-currentTurn;
@@ -175,6 +170,14 @@ public class ClientGame extends Observable {
             return true;
         }
         return false;
+    }
+
+    public void testfillClaimedRoutes() {
+        for (int i = 0; i < availableRoutes.size(); i++) {
+            claimedRoutes.add(availableRoutes.get(i));
+        }
+        setChanged();
+        notifyObservers(utils.REDRAW_ROUTES);
     }
 
     public int getDDeckSize() {
@@ -210,10 +213,11 @@ public class ClientGame extends Observable {
     }
 
     public void addClaimedRoute(String username, Route route) {
-            claimedRoutes.add(route);
-            if (RootClientModel.getCurrentGame().getMyPlayer().getUsername().equals(username)) {
-                myPlayer.addRoute(route);
-            }
+        claimedRoutes.add(route);
+        if (RootClientModel.getCurrentGame().getMyPlayer().getUsername().equals(username)) {
+            myPlayer.addRoute(route);
+        }
+
         for (int i = 0; i < availableRoutes.size(); i++) {
             if (availableRoutes.get(i).getId() == route.getId()) {
                 availableRoutes.remove(i);
@@ -221,13 +225,13 @@ public class ClientGame extends Observable {
             }
         }
         if (getPlayersColors().size() >= 4 && username.equals(myPlayer.getUsername())) {
-            crossOutDoubleRoute(route);
+            removeDoubleRoute(route);
         }
         setChanged();
         notifyObservers(utils.REDRAW_ROUTES);
     }
 
-    public void crossOutDoubleRoute(Route route) {
+    public void removeDoubleRoute(Route route) {
         for (int i = 0; i < availableRoutes.size(); i++) {
             if (availableRoutes.get(i).getCityOne().equals(route.getCityOne())
                     && availableRoutes.get(i).getCityTwo().equals(route.getCityTwo())) {
@@ -279,13 +283,6 @@ public class ClientGame extends Observable {
         setChanged();
         notifyObservers(utils.GAME_OVER);
     }
-      
-//    public void addRoute( Route r){
-//        routes.add(r);
-//        setChanged();
-//        //route or redraw routes?
-//       // notifyObservers(utils.);
-//    }
 
     public String getWinner() {
         return winner;
@@ -302,4 +299,10 @@ public class ClientGame extends Observable {
             notifyObservers(utils.REDRAW_ROUTES);
         }
     }
+
+    public void makeToast(){
+        setChanged();
+        notifyObservers(utils.CARD_DRAWN);
+    }
+
 }
