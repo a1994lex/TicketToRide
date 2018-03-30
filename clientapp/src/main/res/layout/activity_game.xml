@@ -35,7 +35,7 @@
         android:layout_marginTop="8dp"
         android:backgroundTint="@color/colorPrimaryDark"
         app:fabSize="mini"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.038"
         app:layout_constraintStart_toStartOf="parent"
@@ -58,7 +58,7 @@
         android:src="@drawable/card_draw"
         android:tooltipText="Draw Cards"
         app:fabSize="mini"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.146"
         app:layout_constraintStart_toStartOf="parent"
@@ -80,7 +80,7 @@
         android:tooltipText="Claim Route"
         android:visibility="gone"
         app:fabSize="mini"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.251"
         app:layout_constraintStart_toStartOf="parent"
@@ -102,7 +102,7 @@
         android:tooltipText="Claim Route"
         android:visibility="gone"
         app:fabSize="mini"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.35"
         app:layout_constraintStart_toStartOf="parent"
@@ -169,10 +169,10 @@
 
     </FrameLayout>
 
-    <ImageView
-        android:id="@+id/map_button"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <!--<ImageView-->
+        <!--android:id="@+id/map_button"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent" />-->
 
     <!--<Button-->
         <!--android:id="@+id/new_route"-->

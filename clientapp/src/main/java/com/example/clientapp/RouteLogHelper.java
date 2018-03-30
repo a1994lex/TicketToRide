@@ -23,7 +23,7 @@ public class RouteLogHelper {
     public RouteLogHelper(Activity act){
 
         // views for finding the points of the route segments
-        mapImage = act.findViewById(R.id.map_button);
+//        mapImage = act.findViewById(R.id.map_button);
         //newRouteButton = findViewById(R.id.new_route);
 //        routeName = act.findViewById(R.id.route_name_entry);
 //        nameEntry = act.findViewById(R.id.name_entry_button);
