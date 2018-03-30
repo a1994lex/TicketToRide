@@ -46,6 +46,11 @@ public class GameActivity extends FragmentActivity implements IGameView {
     private FloatingActionButton mDrawCards;
     private FloatingActionButton mClaimRoute;
     private FloatingActionButton mHandButton;
+    private Boolean isOpenBank=false;
+    private Boolean isOpenHand=false;
+    private Boolean isOpenClaimRoute=false;
+
+
     private List<LineView> lineViews = new ArrayList<>();
     private IGamePlayPresenter gamePlayPresenter = GamePlayPresenter.getInstance();
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -162,24 +167,28 @@ public class GameActivity extends FragmentActivity implements IGameView {
 //        });
     }
     @Override
-    public void showBankModal(){
-        for (LineView lineView : lineViews) {
-            lineView.setVisibility(View.INVISIBLE);
+    public void showBankModal() {
+        if (!isOpenBank) {
+            isOpenBank=true;
+            for (LineView lineView : lineViews) {
+                lineView.setVisibility(View.INVISIBLE);
+            }
+            addFragment(R.id.bank_fragment,
+                    new BankFragment(), utils.BANK);
         }
-        addFragment(R.id.bank_fragment,
-                new BankFragment(), utils.BANK);
     }
-
     @Override
-    public void showClaimRouteModal(){
-        for (LineView lineView : lineViews) {
-            lineView.setVisibility(View.INVISIBLE);
+    public void showClaimRouteModal() {
+        if (!isOpenClaimRoute) {
+            isOpenClaimRoute=true;
+            for (LineView lineView : lineViews) {
+                lineView.setVisibility(View.INVISIBLE);
+            }
+            Intent intent = new Intent(this, ClaimRouteDialogActivity.class);
+            startActivity(intent);
+            // create a dialog ClaimRouteActivity where client can choose their route they would like to buy
         }
-        Intent intent = new Intent(this, ClaimRouteDialogActivity.class);
-        startActivity(intent);
-        // create a dialog ClaimRouteActivity where client can choose their route they would like to buy
     }
-
     @Override
     protected void onResume() {
         super.onResume();
