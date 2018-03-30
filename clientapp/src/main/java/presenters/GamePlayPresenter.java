@@ -159,7 +159,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         task.execute();
     }
 
-    @Overrides
+    @Override
     public void cancel() {
         this.state.cancel(this);
     }
