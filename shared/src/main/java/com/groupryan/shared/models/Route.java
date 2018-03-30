@@ -13,7 +13,7 @@ public class Route {
     int worth;
     String color;
     int id;
-    boolean available;
+//    boolean available;
 
 
     public static Route mapToObject(LinkedTreeMap map) {
@@ -23,20 +23,20 @@ public class Route {
         double worth = (double) map.get("worth");
         String color = (String) map.get("color");
         double ID = (double) map.get("id");
-        boolean available = (boolean) map.get("available");
+//        boolean available = (boolean) map.get("available");
 
-        return new Route((int)len, one, two, (int)worth, color, (int)ID, available);
+        return new Route((int)len, one, two, (int)worth, color, (int)ID);
     }
 
-    public Route(int length, String one, String two, int worth, String color, int id, boolean available){
-        this.length=length;
-        cityOne=one;
-        cityTwo=two;
-        this.worth=worth;
-        this.color=color;
-        this.id=id;
-        this.available = available;
-    }
+//    public Route(int length, String one, String two, int worth, String color, int id, boolean available){
+//        this.length=length;
+//        cityOne=one;
+//        cityTwo=two;
+//        this.worth=worth;
+//        this.color=color;
+//        this.id=id;
+//        this.available = available;
+//    }
 
     public Route(int length, String one, String two, int worth, String color, int id){
         this.length=length;
@@ -45,7 +45,6 @@ public class Route {
         this.worth=worth;
         this.color=color;
         this.id=id;
-        this.available = true;
     }
 
     public int getLength() {
@@ -80,11 +79,4 @@ public class Route {
         this.id = id;
     }
 
-    public boolean isAvailable() {
-        return available;
-    }
-
-    public void setAvailable(boolean available) {
-        this.available = available;
-    }
 }

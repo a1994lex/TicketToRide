@@ -44,7 +44,6 @@ public class ClaimRouteFacade {
         p.addRoute(r);
         //add route to players list of claimed routes
         serverGame.removeTrainCardsFromPlayer(discardable);
-        // TODO: make client command to remove trains from player that claimed route
         cr.addClientCommand(CommandManager.getInstance().makeDiscardTrainCardsCommand(discardable));
         //send discard command to PLayer
         CommandManager.getInstance().makeClaimRouteCommand(r, username, serverGame.getServerGameID());
