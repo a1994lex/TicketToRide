@@ -175,8 +175,33 @@ public class EndGameFacadeTest {
         for(EndGameStat egs : endGameFacade.getUsernameToStat().values()){
             egs.setTotalPoints(total);
         }
+        EndGameStat egs = new EndGameStat("haley", 20, 0, 0, 40, 0);
+        endGameFacade.addStat( egs);
         endGameFacade.calculateWinner();
-        Assert.assertEquals("haley and kate and grace and claire", endGameFacade.getWinner());
+        Assert.assertEquals("haley", endGameFacade.getWinner());
     }
+
+    /*public void testEndGameStat(){
+        List<EndGameStat> endGameStats = new ArrayList<>();
+        String winner = "claire";
+        RootClientModel.getCurrentGame().setWinner(winner);
+        EndGameStat egs1 = new EndGameStat("claire", 100, 20, 10, 80, 0);
+        EndGameStat egs2 = new EndGameStat("haley", 200, 100, 0, 100, 0);
+        EndGameStat egs3 = new EndGameStat("grace", 60, 0, 100, 0 , 40);
+        endGameStats.add(egs1);
+        endGameStats.add(egs2);
+        endGameStats.add(egs3);
+        RootClientModel.getCurrentGame().setEndGameStats(endGameStats);
+    }
+
+    public void testStats(){
+        ClientGameFacade clientGameFacade = new ClientGameFacade();
+        clientGameFacade.changeTurn(2);
+    }
+
+    public void testStats2(){
+        Stat stat = new Stat("claire",1, 45, 45, 45, 45);
+        RootClientModel.getCurrentGame().updateStat(stat);
+    }*/
 
 }

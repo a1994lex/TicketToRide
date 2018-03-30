@@ -50,4 +50,13 @@
 
     <string name="host">Host</string>
 
+    <string name="turn"> >>> </string>
+    <string name="turn_order">Turn Order</string>
+    <string name="player">Player</string>
+    <string name="points">Points</string>
+    <string name="trains">Trains</string>
+    <string name="train_cards">Train Cards</string>
+    <string name="dest_cards">Destination Cards</string>
+    <string name="back_to_lobby">Back to Lobby</string>
+
 </resources>

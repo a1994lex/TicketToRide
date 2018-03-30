@@ -11,7 +11,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#AAfff9e8"
-        android:orientation="vertical">
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="553dp"
+        tools:layout_editor_absoluteY="0dp">
 
         <View
             android:layout_width="0dp"
@@ -22,39 +25,52 @@
             android:id="@+id/winner_text_view"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="35dp"
             android:layout_gravity="center"
-            android:textColor="@color/colorPrimaryDark"
             android:layout_marginTop="10dp"
-            android:layout_marginVertical="20dp"/>
+            android:layout_marginVertical="20dp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="35dp" />
 
         <ScrollView
             android:id="@+id/scrollView2"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true" >
+            android:layout_alignParentLeft="true">
 
             <HorizontalScrollView
                 android:id="@+id/hscrll2"
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
+                android:layout_height="wrap_content">
 
                 <RelativeLayout
                     android:id="@+id/RelativeLayout2"
                     android:layout_width="fill_parent"
-                    android:layout_gravity="center"
                     android:layout_height="fill_parent"
-                    android:orientation="vertical" >
+                    android:layout_gravity="center"
+                    android:orientation="vertical">
 
                     <TableLayout
                         android:id="@+id/endgame_stats_table"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true" >
-                    </TableLayout>
+                        android:layout_centerHorizontal="true"></TableLayout>
                 </RelativeLayout>
             </HorizontalScrollView>
         </ScrollView>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <Button
+            android:id="@+id/back_to_lobby"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorPrimary"
+            android:padding="10dp"
+            android:text="@string/back_to_lobby"
+            android:textColor="@color/colorAccent" />
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"

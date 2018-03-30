@@ -43,6 +43,10 @@ public class EndGameFacade {
 
     }
 
+    public void addStat(EndGameStat stat){
+        usernameToStat.put(stat.getUsername(), stat);
+    }
+
 
     public void setUsernameToStat(HashMap<String, EndGameStat> usernameToStat) {
         this.usernameToStat = usernameToStat;
@@ -65,7 +69,7 @@ public class EndGameFacade {
     }
 
     public List<EndGameStat> calculateWinner(){
-        //gets the person with the higheest total score and sets them as winner
+        //gets the person with the highest total score and sets them as winner
 
         ArrayList<EndGameStat> finalstats = new ArrayList<>();
         for(EndGameStat egs : usernameToStat.values()){
@@ -83,7 +87,12 @@ public class EndGameFacade {
         EndGameStat winnerStat = usernameToStat.get(winner);
         for(EndGameStat egs : usernameToStat.values()){
             if(egs.getTotalPoints() == winnerStat.getTotalPoints() && !winnerStat.getUsername().equals(egs.getUsername())){
-                winner += " and " + egs.getUsername();
+                if(egs.getReachedDestPoints() > winnerStat.getReachedDestPoints()){
+                    winner = egs.getUsername();
+                }
+                else {
+                    //see who has longest path here.
+                }
             }
         }
     }
