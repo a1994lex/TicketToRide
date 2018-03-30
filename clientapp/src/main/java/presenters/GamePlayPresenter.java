@@ -250,7 +250,6 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
     public void callClaimRouteAsyncTask() {
         ClaimRouteAsyncTask task = new ClaimRouteAsyncTask();
         task.execute(claimRouteData);
-        RootClientModel.getCurrentGame().getAnAvailableRoute(claimRouteData.getRouteId()).setAvailable(false);
     }
 
     public Map<String, Integer> mapColorToCount(String color, Map<String, Integer> pickedCards) {

@@ -116,10 +116,6 @@ public class ClaimRouteDialogActivity extends Activity implements IClaimRouteVie
         public void bindRoute(Route route){
             mRoute = route;
             mRouteInfo.setText(createRouteInfo(route));
-//            if (!route.isAvailable()) {
-//                mRouteInfo.setPaintFlags(mRouteInfo.getPaintFlags() | Paint.STRIKE_THRU_TEXT_FLAG);
-//                mRouteInfo.setTextColor(Color.parseColor("#696969"));
-//            }
             String color = route.getColor();
             int entryColor = 0;
             switch (color) {

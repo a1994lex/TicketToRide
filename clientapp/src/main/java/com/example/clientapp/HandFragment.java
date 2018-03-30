@@ -364,12 +364,13 @@ public class HandFragment extends Fragment implements IHandView {
     }
 
     public void listRouteRequirements(View view) {
+        mRecyclerView.setVisibility(View.INVISIBLE);
         TextView colorReminder = view.findViewById(R.id.color_reminder);
         TextView lengthReminder = view.findViewById(R.id.length_reminder);
         if (!routeColor.isEmpty()) {
             colorReminder.setText("Choose color: " + routeColor);
         } else {
-            colorReminder.setText("Choose any color, but all cards must be same color");
+            colorReminder.setText("Choose any color, but\nall cards must be same color");
         }
         lengthReminder.setText("Route length: " + routeLength);
         colorReminder.setVisibility(View.VISIBLE);
