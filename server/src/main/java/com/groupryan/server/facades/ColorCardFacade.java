@@ -22,7 +22,7 @@ public class ColorCardFacade {
         Boolean river=false;
         //if position is -1 then it is the deck
         //so then return a new card and let it go back to be updated
-        if(position==-1){
+        if(position<0){
             tc= (TrainCard)sg.drawTrainCard();
             if(tc==null){
                 cr.setResultType("No cards in Deck");

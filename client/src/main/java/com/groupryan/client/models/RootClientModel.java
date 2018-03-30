@@ -16,8 +16,6 @@ import java.util.Map;
 import java.util.Observable;
 import java.util.Set;
 
-//import static com.groupryan.shared.utils.GREEN;
-
 public class RootClientModel extends Observable {
 
     private ArrayList<Game> games;
@@ -86,7 +84,7 @@ public class RootClientModel extends Observable {
     }
 
     public static void addGame(Game game) {
-        single_instance._addGame(game);
+            single_instance._addGame(game);
     }
 
     public static void startGame(Game game, Player p) {
@@ -133,6 +131,11 @@ public class RootClientModel extends Observable {
     }
 
     private void _addGame(Game game) {
+        for(Game g:games){
+            if(g.getGameId().equals(game.getGameId())){
+               return;
+            }
+        }
         games.add(game);
         setChanged();
         notifyObservers();
@@ -324,10 +327,6 @@ public class RootClientModel extends Observable {
         RouteSegment rs4;
         RouteSegment rs5;
         RouteSegment rs6;
-        RouteSegment rs7;
-        RouteSegment rs8;
-        RouteSegment rs9;
-        RouteSegment rs10;
 
         // Vancouver to Seattle, id 1
         HashSet<RouteSegment> vancouverSeattle1 = new HashSet<>();
@@ -616,7 +615,7 @@ public class RootClientModel extends Observable {
         rs1 = new RouteSegment(342, 340,
                 364, 310, 20);
         SLCHelena.add(rs1);
-        rs2 = new RouteSegment(366, 310,
+        rs2 = new RouteSegment(366, 305,
                 388, 274, 20);
         SLCHelena.add(rs2);
         rs3 = new RouteSegment(390, 268,
@@ -717,7 +716,7 @@ public class RootClientModel extends Observable {
                 500, 149, 27);
         helenaWinnipeg.add(rs2);
         rs3 = new RouteSegment(505, 145,
-                530, 199, 27);
+                534, 118, 27);
         helenaWinnipeg.add(rs3);
         rs4 = new RouteSegment(537, 115,
                 564, 92, 27);
@@ -778,6 +777,7 @@ public class RootClientModel extends Observable {
         helenaDenver.add(rs3);
         rs4 = new RouteSegment(479, 347,
                 494, 381, 30);
+        helenaDenver.add(rs4);
         routeSegments.put(30, helenaDenver);
 
         // Denver to Santa Fe, id 31
@@ -797,7 +797,7 @@ public class RootClientModel extends Observable {
                 539, 366, 32);
         denverOmaha.add(rs1);
         rs2 = new RouteSegment(546, 362,
-                483, 348, 32);
+                585, 348, 32);
         denverOmaha.add(rs2);
         rs3 = new RouteSegment(588, 345,
                 627, 334, 32);
@@ -1336,7 +1336,7 @@ public class RootClientModel extends Observable {
                 1048, 117, 74);
         torontoMontreal.add(rs1);
         rs2 = new RouteSegment(1052, 110,
-                1092, 88, 74);
+                1084, 85, 74);
         torontoMontreal.add(rs2);
         rs3 = new RouteSegment(1087, 83,
                 1125, 70, 74);
@@ -1626,7 +1626,7 @@ public class RootClientModel extends Observable {
         HashSet<RouteSegment> raleighCharleston = new HashSet<>();
         rs1 = new RouteSegment(1109, 410, 1143, 431,
                 98);
-        rs2 = new RouteSegment(1156, 431, 1139, 494,
+        rs2 = new RouteSegment(1153, 431, 1140, 462,
                 98);
         raleighCharleston.add(rs1);
         raleighCharleston.add(rs2);
