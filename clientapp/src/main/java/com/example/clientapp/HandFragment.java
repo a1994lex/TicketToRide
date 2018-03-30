@@ -340,7 +340,6 @@ public class HandFragment extends Fragment implements IHandView {
     }
 
     public void startDiscardCardTask() {
-//            routeLength = 0;
             List<Integer> discardingTrainCards = presenter.getDiscardingTrainCards(pickedCards);
             int routeId = getActivity().getIntent().getIntExtra(utils.ROUTE_ID, -1);
             GamePlayPresenter.getInstance().discardTrainCards(routeId, discardingTrainCards);
