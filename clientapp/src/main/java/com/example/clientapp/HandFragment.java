@@ -372,6 +372,7 @@ public class HandFragment extends Fragment implements IHandView {
 
     private void finish(){
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
+        GamePlayPresenter.getInstance().getGameView().setHandClose();
 //        GamePlayPresenter.getInstance().redrawRoutes();
     }
 
