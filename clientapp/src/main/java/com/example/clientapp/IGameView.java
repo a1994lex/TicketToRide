@@ -20,4 +20,6 @@ public interface IGameView {
     void showBankModal();
     void setBankClose();
     void setHandClose();
+    void removePrevFrag(String tag);
+    boolean checkEndGame();
 }

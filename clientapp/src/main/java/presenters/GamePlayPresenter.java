@@ -72,6 +72,10 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         return BankPresenter.getInstance();
     }
 
+    public void removeAllFragments() {
+        gameView.removePrevFrag(utils.BLANK);
+    }
+
     @Override
     public void setUpIfFirst() {
         if(this.game.getOriginal()){
@@ -104,6 +108,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
             } else if (o.equals(utils.REDRAW_ROUTES)) {
                 drawRoutes();
             } else if(o.equals(utils.GAME_OVER)){
+                setState(new InactiveState());
                 gameView.endGame();
             } else if (o.equals(utils.NEW_TURN)){
                 if (game.isMyTurn()){
@@ -112,6 +117,11 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
             }
 
         }
+    }
+
+    @Override
+    public boolean checkEndGame() {
+        return RootClientModel.getCurrentGame().checkEndGame();
     }
 
     public void drawRoutes() {

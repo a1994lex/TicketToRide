@@ -45,7 +45,7 @@ public class ClientGame extends Observable {
     Boolean original=true;
     List<EndGameStat> endGameStats;
     private boolean showRoutes;
-    String winner;
+    String winner = "";
 
     public ClientGame(Game game, Player player) {
         this.history = new ArrayList<>();
@@ -59,6 +59,13 @@ public class ClientGame extends Observable {
         this.stats = new HashMap<>();
         this.playersColors = game.getUsers();
         this.showRoutes = true;
+    }
+
+    public boolean checkEndGame() {
+        if (!winner.isEmpty()) {
+            return true;
+        }
+        return false;
     }
 
     public String getGameId() {

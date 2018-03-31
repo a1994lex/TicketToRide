@@ -36,12 +36,14 @@ public class utils {
 
     public static final String DESTINATION = "DESTINATION";
     public static final String TRAIN = "TRAIN";
+    public static final String BLANK = "BLANK";
+    public static final String END_GAME = "END GAME";
 
 
     public static final String EXEC_COMMAND = "/executeCommand";  // url for command API
 //    public static final String SERVER_HOST = "localhost";
     public static final int PORT_NUMBER = 8080;
-    public static String URL_PREFIX = "http://" + "10.24.65.251" + ":" + PORT_NUMBER;
+    public static String URL_PREFIX = "http://" + "192.168.1.106" + ":" + PORT_NUMBER;
     public static final String HTTP_POST = "POST";
     public static final String COMMAND_NAME = "CommandName";   // HTTP request header to determine
 

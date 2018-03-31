@@ -29,9 +29,11 @@ import android.support.v4.app.FragmentActivity;
 
 import com.example.clientapp.dialogs.DiscardDestCardDialogActivity;
 
+import presenters.BankPresenter;
 import presenters.GamePlayPresenter;
 import presenters.IGamePlayPresenter;
 import states.game.ClaimRouteState;
+import states.game.InactiveState;
 
 public class GameActivity extends FragmentActivity implements IGameView {
 
@@ -107,25 +109,34 @@ public class GameActivity extends FragmentActivity implements IGameView {
 
         // SET UP LISTENERS
         mClaimRoute.setOnClickListener((View v) -> {
+            if (checkEndGame()) {
+                GamePlayPresenter.getInstance().setState(new InactiveState());
+            } else {
                 GamePlayPresenter.getInstance().clickClaimRoute(); // the states will do their thing, then th
+            }
             });
 
         mMenuBtn.setOnClickListener((View v) -> {
             mNav.setVisibility(View.VISIBLE);
-            mClaimRoute.setVisibility(View.INVISIBLE);
-            mDrawCards.setVisibility(View.INVISIBLE);
+//            mClaimRoute.setVisibility(View.INVISIBLE);
+//            mDrawCards.setVisibility(View.INVISIBLE);
             mMenuBtn.setVisibility(View.INVISIBLE);
-            mHandButton.setVisibility(View.INVISIBLE);
+//            mHandButton.setVisibility(View.INVISIBLE);
         });
 
       mDrawCards.setOnClickListener((View v) -> {
             //removePrevFrag(utils.BANK);
           //testStats();
-
-            GamePlayPresenter.getInstance().clickDrawCard();
-
+          if (checkEndGame()) {
+              GamePlayPresenter.getInstance().setState(new InactiveState());
+          } else {
+              GamePlayPresenter.getInstance().clickDrawCard();
+          }
         });
         mHandButton.setOnClickListener((View v) -> {
+            if (checkEndGame()) {
+                GamePlayPresenter.getInstance().setState(new InactiveState());
+            }
             if(!isOpenHand) {
                 isOpenHand=true;
                 //testStats2();
@@ -174,6 +185,14 @@ public class GameActivity extends FragmentActivity implements IGameView {
         else {
             gamePlayPresenter.setShowRoutes(true);
         }
+        if (checkEndGame()) {
+            GamePlayPresenter.getInstance().setState(new InactiveState());
+        }
+    }
+
+    @Override
+    public boolean checkEndGame() {
+        return gamePlayPresenter.checkEndGame();
     }
 
     @Override
@@ -241,10 +260,6 @@ public class GameActivity extends FragmentActivity implements IGameView {
     public void addFragment(@IdRes int containerViewId,
                             @NonNull Fragment fragment,
                             @NonNull String FRAGMENT_ID) {
-//        if (containerViewId == R.id.hand_fragment &&
-//                GamePlayPresenter.getInstance().getState().getClass().equals(ClaimRouteState.class)) {
-//            lineViews.clear();
-//        }
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(containerViewId, fragment, FRAGMENT_ID)
@@ -253,7 +268,8 @@ public class GameActivity extends FragmentActivity implements IGameView {
 
     }
 
-    private void removePrevFrag(String tag) {
+    @Override
+    public void removePrevFrag(String tag) {
         for (LineView lineView : lineViews) {
             lineView.setVisibility(View.INVISIBLE);
         }
@@ -271,6 +287,11 @@ public class GameActivity extends FragmentActivity implements IGameView {
                 removeFragIds.add(utils.CHAT);
                 removeFragIds.add(utils.HISTORY);
                 break;
+            case utils.BLANK:
+                removeFragIds.add(utils.CHAT);
+                removeFragIds.add(utils.HISTORY);
+                removeFragIds.add(utils.STAT);
+                removeFragIds.add(utils.HAND);
             default:
                 removeFragIds.add(utils.CHAT);
                 removeFragIds.add(utils.HISTORY);
@@ -301,5 +322,24 @@ public class GameActivity extends FragmentActivity implements IGameView {
     public void setHandClose(){
         isOpenHand=false;
     }
+
+//    public boolean checkAnyVisibleFragment() {
+//        if (getSupportFragmentManager().findFragmentById(R.id.chat_history_fragment) != null) {
+//            return true;
+//        }
+//        if (getSupportFragmentManager().findFragmentById(R.id.hand_fragment) != null) {
+//            return true;
+//        }
+//        if (getSupportFragmentManager().findFragmentById(R.id.bank_fragment) != null) {
+//            return true;
+//        }
+//        if (getSupportFragmentManager().findFragmentById(R.id.stat_fragment) != null) {
+//            return true;
+//        }
+//        if (getSupportFragmentManager().findFragmentById(R.id.chat_history_fragment) != null) {
+//            return true;
+//        }
+//        return false;
+//    }
 
 }
