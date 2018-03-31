@@ -72,6 +72,10 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         return BankPresenter.getInstance();
     }
 
+    public void removeAllFragments() {
+        gameView.removePrevFrag(utils.BLANK);
+    }
+
     @Override
     public void setUpIfFirst() {
         if(this.game.getOriginal()){

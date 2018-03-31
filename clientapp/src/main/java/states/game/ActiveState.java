@@ -16,6 +16,7 @@ public class ActiveState implements GameState {
     @Override
     public void clickClaimRoute(GamePlayPresenter gpp) {
         gpp.setState(new ClaimRouteState());
+        gpp.removeAllFragments();
         gpp.getGameView().showClaimRouteModal();
     }
 
