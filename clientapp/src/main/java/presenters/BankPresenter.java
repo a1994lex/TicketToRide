@@ -135,6 +135,10 @@ public class BankPresenter implements Observer, IBankPresenter {
         return RootClientModel.getCurrentGame().checkEndGame();
     }
 
+    public void setShowRoutes(boolean showRoutes) {
+        game.setShowRoutes(showRoutes);
+    }
+
     @Override
     public void update(Observable o, Object arg) {
         if (o == game){
