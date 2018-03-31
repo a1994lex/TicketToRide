@@ -260,6 +260,9 @@ public class GameActivity extends FragmentActivity implements IGameView {
     public void addFragment(@IdRes int containerViewId,
                             @NonNull Fragment fragment,
                             @NonNull String FRAGMENT_ID) {
+        for (LineView lineView : lineViews) {
+            lineView.setVisibility(View.INVISIBLE);
+        }
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(containerViewId, fragment, FRAGMENT_ID)
@@ -292,6 +295,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
                 removeFragIds.add(utils.HISTORY);
                 removeFragIds.add(utils.STAT);
                 removeFragIds.add(utils.HAND);
+                break;
             default:
                 removeFragIds.add(utils.CHAT);
                 removeFragIds.add(utils.HISTORY);
