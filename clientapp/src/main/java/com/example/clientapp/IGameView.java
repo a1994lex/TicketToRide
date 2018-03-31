@@ -21,4 +21,5 @@ public interface IGameView {
     void setBankClose();
     void setHandClose();
     void removePrevFrag(String tag);
+    boolean checkEndGame();
 }

@@ -15,5 +15,5 @@ public interface IGamePlayPresenter {
 //    void redrawRoutes();
     void cancel();
     void submit();
-
+    boolean checkEndGame();
 }

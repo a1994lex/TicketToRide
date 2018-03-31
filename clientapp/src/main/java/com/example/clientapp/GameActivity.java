@@ -109,7 +109,11 @@ public class GameActivity extends FragmentActivity implements IGameView {
 
         // SET UP LISTENERS
         mClaimRoute.setOnClickListener((View v) -> {
+            if (checkEndGame()) {
+                GamePlayPresenter.getInstance().setState(new InactiveState());
+            } else {
                 GamePlayPresenter.getInstance().clickClaimRoute(); // the states will do their thing, then th
+            }
             });
 
         mMenuBtn.setOnClickListener((View v) -> {
@@ -123,11 +127,16 @@ public class GameActivity extends FragmentActivity implements IGameView {
       mDrawCards.setOnClickListener((View v) -> {
             //removePrevFrag(utils.BANK);
           //testStats();
-
-            GamePlayPresenter.getInstance().clickDrawCard();
-
+          if (checkEndGame()) {
+              GamePlayPresenter.getInstance().setState(new InactiveState());
+          } else {
+              GamePlayPresenter.getInstance().clickDrawCard();
+          }
         });
         mHandButton.setOnClickListener((View v) -> {
+            if (checkEndGame()) {
+                GamePlayPresenter.getInstance().setState(new InactiveState());
+            }
             if(!isOpenHand) {
                 isOpenHand=true;
                 //testStats2();
@@ -176,6 +185,14 @@ public class GameActivity extends FragmentActivity implements IGameView {
         else {
             gamePlayPresenter.setShowRoutes(true);
         }
+        if (checkEndGame()) {
+            GamePlayPresenter.getInstance().setState(new InactiveState());
+        }
+    }
+
+    @Override
+    public boolean checkEndGame() {
+        return gamePlayPresenter.checkEndGame();
     }
 
     @Override

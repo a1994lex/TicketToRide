@@ -37,6 +37,7 @@ public class utils {
     public static final String DESTINATION = "DESTINATION";
     public static final String TRAIN = "TRAIN";
     public static final String BLANK = "BLANK";
+    public static final String END_GAME = "END GAME";
 
 
     public static final String EXEC_COMMAND = "/executeCommand";  // url for command API

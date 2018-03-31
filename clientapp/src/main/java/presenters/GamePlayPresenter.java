@@ -108,6 +108,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
             } else if (o.equals(utils.REDRAW_ROUTES)) {
                 drawRoutes();
             } else if(o.equals(utils.GAME_OVER)){
+                setState(new InactiveState());
                 gameView.endGame();
             } else if (o.equals(utils.NEW_TURN)){
                 if (game.isMyTurn()){
@@ -116,6 +117,11 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
             }
 
         }
+    }
+
+    @Override
+    public boolean checkEndGame() {
+        return RootClientModel.getCurrentGame().checkEndGame();
     }
 
     public void drawRoutes() {

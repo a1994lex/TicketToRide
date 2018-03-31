@@ -22,6 +22,7 @@ import java.util.ArrayList;
 
 import presenters.BankPresenter;
 import presenters.GamePlayPresenter;
+import states.bank.InactiveState;
 
 
 public class BankFragment extends Fragment implements IBankView {
@@ -56,7 +57,10 @@ public class BankFragment extends Fragment implements IBankView {
         this.setOutlineCard();
     }
 
-
+    @Override
+    public boolean checkEndGame() {
+        return BankPresenter.getInstance().checkEndGame();
+    }
 
     @Override
     public void finish() {
@@ -103,32 +107,60 @@ public class BankFragment extends Fragment implements IBankView {
         mDCardsLeft.setText(Integer.toString(BankPresenter.getInstance().getDDeckSize()));
         /* Set listeners for ImageButtonViews */
         mBankButton.setOnClickListener((View v) -> {
-            chosenCard = mBankButton;
-            BankPresenter.getInstance().clickTCard(-1);
+            if (checkEndGame()) {
+                BankPresenter.getInstance().setState(new InactiveState());
+            } else {
+                chosenCard = mBankButton;
+                BankPresenter.getInstance().clickTCard(-1);
+            }
         });
         mCardButtonOne.setOnClickListener((View v) -> {
-            chosenCard = mCardButtonOne;
-            BankPresenter.getInstance().clickTCard(0);
+            if (checkEndGame()) {
+                BankPresenter.getInstance().setState(new InactiveState());
+            } else {
+                chosenCard = mCardButtonOne;
+                BankPresenter.getInstance().clickTCard(0);
+            }
         });
         mCardButtonTwo.setOnClickListener((View v) -> {
-            chosenCard = mCardButtonTwo;
-            BankPresenter.getInstance().clickTCard(1);
+            if (checkEndGame()) {
+                BankPresenter.getInstance().setState(new InactiveState());
+            } else {
+                chosenCard = mCardButtonTwo;
+                BankPresenter.getInstance().clickTCard(1);
+            }
         });
         mCardButtonThree.setOnClickListener((View v) -> {
-            chosenCard = mCardButtonThree;
-            BankPresenter.getInstance().clickTCard(2);
+            if (checkEndGame()) {
+                BankPresenter.getInstance().setState(new InactiveState());
+            } else {
+                chosenCard = mCardButtonThree;
+                BankPresenter.getInstance().clickTCard(2);
+            }
         });
         mCardButtonFour.setOnClickListener((View v) -> {
-            chosenCard = mCardButtonFour;
-            BankPresenter.getInstance().clickTCard(3);
+            if (checkEndGame()) {
+                BankPresenter.getInstance().setState(new InactiveState());
+            } else {
+                chosenCard = mCardButtonFour;
+                BankPresenter.getInstance().clickTCard(3);
+            }
         });
         mCardButtonFive.setOnClickListener((View v) -> {
-            chosenCard = mCardButtonFive;
-            BankPresenter.getInstance().clickTCard(4);
+            if (checkEndGame()) {
+                BankPresenter.getInstance().setState(new InactiveState());
+            } else {
+                chosenCard = mCardButtonFive;
+                BankPresenter.getInstance().clickTCard(4);
+            }
         });
         mDestDeck.setOnClickListener((View v) -> {
-            chosenCard = mDestDeck;
-            BankPresenter.getInstance().clickDCard();
+            if (checkEndGame()) {
+                BankPresenter.getInstance().setState(new InactiveState());
+            } else {
+                chosenCard = mDestDeck;
+                BankPresenter.getInstance().clickDCard();
+            }
         });
         mExit.setOnClickListener((View v) -> {
             BankPresenter.getInstance().exit();

@@ -131,7 +131,9 @@ public class BankPresenter implements Observer, IBankPresenter {
         return this.bankView;
     }
 
-
+    public boolean checkEndGame() {
+        return RootClientModel.getCurrentGame().checkEndGame();
+    }
 
     @Override
     public void update(Observable o, Object arg) {
@@ -145,6 +147,7 @@ public class BankPresenter implements Observer, IBankPresenter {
 
             } else if(o.equals(utils.GAME_OVER)){
                 IBankView bankView = (IBankView) this.bankView;
+                setState(new InactiveState());
                 bankView.endGame();
             }
             else if (arg.equals(utils.NEW_TURN)){
