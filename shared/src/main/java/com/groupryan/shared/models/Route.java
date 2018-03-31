@@ -79,4 +79,7 @@ public class Route {
         this.id = id;
     }
 
+    public void setLength(int length) {
+        this.length = length;
+    }
 }
