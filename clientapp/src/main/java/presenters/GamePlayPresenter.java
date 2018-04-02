@@ -301,7 +301,7 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
             count++;
             pickedCards.put(utils.WHITE, count);
         }
-        if (color.isEmpty()) {
+        if (color.equals(utils.LOCOMOTIVE)) {
             count = pickedCards.get(utils.LOCOMOTIVE);
             count++;
             pickedCards.put(utils.LOCOMOTIVE, count);

@@ -234,6 +234,9 @@ public class ClientGame extends Observable {
         if (getPlayersColors().size() >= 4 && username.equals(myPlayer.getUsername())) {
             removeDoubleRoute(route);
         }
+        else if (getPlayersColors().size() < 4) {
+            removeDoubleRoute(route);
+        }
         setChanged();
         notifyObservers(utils.REDRAW_ROUTES);
     }
@@ -260,9 +263,9 @@ public class ClientGame extends Observable {
 
     public void setAvailableRoutes(ArrayList<Route> availableRoutes) {
         this.availableRoutes = availableRoutes;
-        if (playersColors.size() < 4) {
-            removeDoubleRoutes();
-        }
+//        if (playersColors.size() < 4) {
+//            removeDoubleRoutes();
+//        }
     }
 
     public void removeDoubleRoutes() {

@@ -75,6 +75,10 @@ public class GameActivity extends FragmentActivity implements IGameView {
                             new GameStatFragment(), utils.STAT);
                     return true;
                 case R.id.game:
+                    if (!checkAnyVisibleFragment()) {
+                        gamePlayPresenter.setShowRoutes(true);
+                        makeRoutesVisible();
+                    }
                     removePrevFrag("home");
                     return true;
                 case R.id.hide:
@@ -140,16 +144,12 @@ public class GameActivity extends FragmentActivity implements IGameView {
             if(!isOpenHand) {
                 isOpenHand=true;
                 //testStats2();
-                for (LineView lineView : lineViews) {
-                    lineView.setVisibility(View.INVISIBLE);
-                }
                 addFragment(R.id.hand_fragment,
                         new HandFragment(), utils.HAND);
             }
         });
         if (GamePlayPresenter.getInstance().getState().getClass().equals(ClaimRouteState.class)) {
             addFragment(R.id.hand_fragment, new HandFragment(), utils.HAND);
-            clearLines();
         }
 
     }
@@ -157,18 +157,12 @@ public class GameActivity extends FragmentActivity implements IGameView {
     public void showBankModal() {
         if (!isOpenBank) {
             isOpenBank=true;
-            for (LineView lineView : lineViews) {
-                lineView.setVisibility(View.INVISIBLE);
-            }
             addFragment(R.id.bank_fragment,
                     new BankFragment(), utils.BANK);
         }
     }
     @Override
     public void showClaimRouteModal() {
-            for (LineView lineView : lineViews) {
-                lineView.setVisibility(View.INVISIBLE);
-            }
             Intent intent = new Intent(this, ClaimRouteDialogActivity.class);
             startActivity(intent);
             // create a dialog ClaimRouteActivity where client can choose their route they would like to buy
@@ -181,6 +175,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
         isOpenBank=false;
         if (GamePlayPresenter.getInstance().getState().getClass().equals(ClaimRouteState.class)) {
             gamePlayPresenter.setShowRoutes(false);
+            makeRoutesInvisible();
         }
         else {
             gamePlayPresenter.setShowRoutes(true);
@@ -198,8 +193,8 @@ public class GameActivity extends FragmentActivity implements IGameView {
     @Override
     protected void onPause() {
         super.onPause();
-        clearLines();
         gamePlayPresenter.setShowRoutes(false);
+        makeRoutesInvisible();
     }
 
     @Override
@@ -213,7 +208,8 @@ public class GameActivity extends FragmentActivity implements IGameView {
 
     @Override
     public void goToDrawDestActivity() {
-        this.clearLines();
+        gamePlayPresenter.setShowRoutes(false);
+        makeRoutesInvisible();
         Intent intent = new Intent(this, DiscardDestCardDialogActivity.class);
         intent.putExtra(utils.GAME_SETUP, true);
         this.startActivity(intent);
@@ -253,13 +249,25 @@ public class GameActivity extends FragmentActivity implements IGameView {
         lineViews.add(lineView);
     }
 
-    public void clearLines(){
-        lineViews.clear();
+    public void makeRoutesInvisible() {
+        for (LineView lineView : lineViews) {
+            lineView.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    public void makeRoutesVisible() {
+        for (LineView lineView : lineViews) {
+            lineView.setVisibility(View.VISIBLE);
+        }
     }
 
     public void addFragment(@IdRes int containerViewId,
                             @NonNull Fragment fragment,
                             @NonNull String FRAGMENT_ID) {
+        if (!FRAGMENT_ID.equals(utils.BANK)) {
+            gamePlayPresenter.setShowRoutes(false);
+            makeRoutesInvisible();
+        }
         getSupportFragmentManager()
                 .beginTransaction()
                 .add(containerViewId, fragment, FRAGMENT_ID)
@@ -270,9 +278,6 @@ public class GameActivity extends FragmentActivity implements IGameView {
 
     @Override
     public void removePrevFrag(String tag) {
-        for (LineView lineView : lineViews) {
-            lineView.setVisibility(View.INVISIBLE);
-        }
         List<String> removeFragIds = new ArrayList<>();
         switch (tag) {
             case utils.CHAT:
@@ -292,6 +297,7 @@ public class GameActivity extends FragmentActivity implements IGameView {
                 removeFragIds.add(utils.HISTORY);
                 removeFragIds.add(utils.STAT);
                 removeFragIds.add(utils.HAND);
+                break;
             default:
                 removeFragIds.add(utils.CHAT);
                 removeFragIds.add(utils.HISTORY);
@@ -305,11 +311,11 @@ public class GameActivity extends FragmentActivity implements IGameView {
         }
     }
 
-    @Override
-    public void spendTrainCards() {
-        addFragment(R.id.hand_fragment,
-                new HandFragment(), utils.HAND);
-    }
+//    @Override
+//    public void spendTrainCards() {
+//        addFragment(R.id.hand_fragment,
+//                new HandFragment(), utils.HAND);
+//    }
 
     public void endGame(){
         Intent intent = new Intent(this, GameOverActivity.class);
@@ -323,23 +329,23 @@ public class GameActivity extends FragmentActivity implements IGameView {
         isOpenHand=false;
     }
 
-//    public boolean checkAnyVisibleFragment() {
-//        if (getSupportFragmentManager().findFragmentById(R.id.chat_history_fragment) != null) {
-//            return true;
-//        }
-//        if (getSupportFragmentManager().findFragmentById(R.id.hand_fragment) != null) {
-//            return true;
-//        }
-//        if (getSupportFragmentManager().findFragmentById(R.id.bank_fragment) != null) {
-//            return true;
-//        }
-//        if (getSupportFragmentManager().findFragmentById(R.id.stat_fragment) != null) {
-//            return true;
-//        }
-//        if (getSupportFragmentManager().findFragmentById(R.id.chat_history_fragment) != null) {
-//            return true;
-//        }
-//        return false;
-//    }
+    public boolean checkAnyVisibleFragment() {
+        if (getSupportFragmentManager().findFragmentById(R.id.chat_history_fragment) != null) {
+            return true;
+        }
+        if (getSupportFragmentManager().findFragmentById(R.id.hand_fragment) != null) {
+            return true;
+        }
+        if (getSupportFragmentManager().findFragmentById(R.id.bank_fragment) != null) {
+            return true;
+        }
+        if (getSupportFragmentManager().findFragmentById(R.id.stat_fragment) != null) {
+            return true;
+        }
+        if (getSupportFragmentManager().findFragmentById(R.id.chat_history_fragment) != null) {
+            return true;
+        }
+        return false;
+    }
 
 }

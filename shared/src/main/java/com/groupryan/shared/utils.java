@@ -43,7 +43,7 @@ public class utils {
     public static final String EXEC_COMMAND = "/executeCommand";  // url for command API
 //    public static final String SERVER_HOST = "localhost";
     public static final int PORT_NUMBER = 8080;
-    public static String URL_PREFIX = "http://" + "192.168.1.106" + ":" + PORT_NUMBER;
+    public static String URL_PREFIX = "http://" + "10.24.64.208" + ":" + PORT_NUMBER;
     public static final String HTTP_POST = "POST";
     public static final String COMMAND_NAME = "CommandName";   // HTTP request header to determine
 
@@ -58,6 +58,7 @@ public class utils {
     public static final String HAND = "HAND";
     public static final String REDRAW_ROUTES = "REDRAW_ROUTES";
     public static final String CARD_DRAWN = "CARD_DRAWN";
+
 
 //    public static final String ROUTES = "ROUTES";
 //    public static final String CLAIMING_ROUTE = "CLAIMING ROUTE";

@@ -65,7 +65,10 @@ public class BankFragment extends Fragment implements IBankView {
     @Override
     public void finish() {
         getActivity().getSupportFragmentManager().beginTransaction().remove(this).commit();
-        GamePlayPresenter.getInstance().setShowRoutes(true);
+        GameActivity gameActivity = (GameActivity) getActivity();
+        if (!gameActivity.checkAnyVisibleFragment()) {
+            GamePlayPresenter.getInstance().setShowRoutes(true);
+        }
         GamePlayPresenter.getInstance().getGameView().setBankClose();
     }
     @Override
@@ -163,6 +166,11 @@ public class BankFragment extends Fragment implements IBankView {
             }
         });
         mExit.setOnClickListener((View v) -> {
+            GameActivity gameActivity = (GameActivity) getActivity();
+            if (!gameActivity.checkAnyVisibleFragment()) {
+                gameActivity.makeRoutesVisible();
+                BankPresenter.getInstance().setShowRoutes(true);
+            }
             BankPresenter.getInstance().exit();
         });
     }
