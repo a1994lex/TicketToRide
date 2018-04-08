@@ -1,5 +1,6 @@
 package com.groupryan.client.models;
 
+import com.google.gson.internal.LinkedTreeMap;
 import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Chat;
 import com.groupryan.shared.models.DestCard;
@@ -12,11 +13,14 @@ import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.utils;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Observable;
+
+import sun.awt.image.ImageWatched;
 
 /**
  * Created by alex on 2/26/18.
@@ -40,12 +44,71 @@ public class ClientGame extends Observable {
     HashMap<String, Stat> stats;
     Map<String, String> playersColors;
     Integer currentTurn;
-    Map<Integer, String> turnOrderMap;
     private List<Route> claimedRoutes;
     Boolean original=true;
     List<EndGameStat> endGameStats;
     private boolean showRoutes;
     String winner = "";
+    public static ClientGame mapToObject(LinkedTreeMap map){
+        String gameId = (String)map.get("gameId");
+        Player myPlayer = Player.mapToObject((LinkedTreeMap)map.get("myPlayer"));
+        ArrayList<Route> availableRoutes = new ArrayList<>();
+        ArrayList<Route> claimedRoutes = new ArrayList<>();
+        HashMap<String, Stat> stats = new HashMap<>();
+        ArrayList<TrainCard> bankCards = new ArrayList<>();
+        List<EndGameStat> endGameStats = new ArrayList<>();
+        ArrayList<LinkedTreeMap> tARoutes = (ArrayList<LinkedTreeMap>) map.get("availableRoutes");
+        ArrayList<LinkedTreeMap> tCRoutes = (ArrayList<LinkedTreeMap>) map.get("claimedRoutes");
+        ArrayList<LinkedTreeMap> tCards = (ArrayList<LinkedTreeMap>) map.get("bankCards");
+        ArrayList<LinkedTreeMap> tEndStats = (ArrayList<LinkedTreeMap>) map.get("endGameStats");
+        Map<String, LinkedTreeMap> tStats = (Map<String, LinkedTreeMap>) map.get("stats");
+        for (LinkedTreeMap tARoute: tARoutes){
+            availableRoutes.add(Route.mapToObject(tARoute));
+        }
+        for (LinkedTreeMap tMap : tCards) {
+            bankCards.add(TrainCard.mapToObject(tMap));
+        }
+        for (Map.Entry<String, LinkedTreeMap> entry : tStats.entrySet()){
+            stats.put(entry.getKey(), Stat.mapToObject(entry.getValue()));
+        }
+        for (LinkedTreeMap tCRoute: tCRoutes){
+            claimedRoutes.add(Route.mapToObject(tCRoute));
+        }
+        for (LinkedTreeMap tEndStat : tEndStats){
+            endGameStats.add(EndGameStat.mapToObject(tEndStat));
+        }
+        Map<String, String> playersColors = (Map<String, String>) map.get("playersColors");
+        ArrayList<String> history = (ArrayList<String>) map.get("history");
+        double currentTurn = (double) map.get("currentTurn");
+        Boolean original = (Boolean) map.get("original");
+        String winner = (String) map.get("winner");
+        return new ClientGame(gameId, myPlayer, availableRoutes, history, bankCards, stats, playersColors,
+                (int)currentTurn, claimedRoutes, original, endGameStats, winner);
+    }
+    private ClientGame(String gameId, Player myPlayer, ArrayList<Route> availableRoutes,
+                        ArrayList<String> history, ArrayList<TrainCard> bankCards,
+                        HashMap<String, Stat> stats, Map<String, String> playersColors,
+                        Integer currentTurn, List<Route> claimedRoutes, Boolean original,List<EndGameStat> endGameStats,
+                        String winner
+                       ){
+        this.gameId = gameId;
+        this.myPlayer = myPlayer;
+        this.availableRoutes = availableRoutes;
+        this.history = history;
+        this.chat = new ArrayList<>();
+        this.bankCards = bankCards;
+        this.stats = stats;
+        this.playersColors = playersColors;
+        this.currentTurn = currentTurn;
+        this.claimedRoutes = claimedRoutes;
+        this.original = original;
+        this.endGameStats = endGameStats;
+        this.winner = winner;
+        this.DDeckSize=30;
+        this.showRoutes = true;
+        this.TDeckSize=110;
+    }
+
 
     public ClientGame(Game game, Player player) {
         this.history = new ArrayList<>();
@@ -166,9 +229,6 @@ public class ClientGame extends Observable {
         return currentTurn;
     }
 
-    public Map<Integer, String> getTurnOrderMap() {
-        return turnOrderMap;
-    }
 
     public boolean isMyTurn(){
         int a= 0-myPlayer.getTurn();

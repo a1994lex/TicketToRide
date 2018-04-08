@@ -23,6 +23,7 @@ import java.util.List;
 import async.ClaimRouteAsyncTask;
 import async.DiscardDestCardAsyncTask;
 import async.EndTurnAsyncTask;
+import async.GamePoller;
 import async.Poller;
 import states.GameState;
 import states.game.ActiveState;
@@ -117,6 +118,13 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
             }
 
         }
+    }
+
+    @Override
+    public void restorePollers(){
+        stopLobbyPolling();
+        String gameId = this.game.getGameId();
+        GamePoller.get(gameId).poll();
     }
 
     @Override

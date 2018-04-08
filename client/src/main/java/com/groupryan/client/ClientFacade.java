@@ -34,5 +34,9 @@ public class ClientFacade {
         RootClientModel.addUser(user);
     }
 
+    public void restoreClient(ClientGame game){
+        RootClientModel.restoreCurrentGame(game);
+    }
+
 
 }

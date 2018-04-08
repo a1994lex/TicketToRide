@@ -67,7 +67,7 @@ public class utils {
     public static final String ROUTE_ID = "ROUTE ID";
 
     public static final String GAME_OVER = "GAME_OVER";
-
+    public static final String GAME_RESTORED = "GAME RESTORED";
     public static final String NEW_TURN = "NEW_TURN";
     public static final String CLAIM_ROUTE = "CLAIM ROUTE";
 
