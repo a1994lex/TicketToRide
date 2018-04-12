@@ -1,11 +1,13 @@
+import java.sql.Connection;
+
 /**
  * Created by clairescout on 4/7/18.
  */
 
 public interface IDataBase {
 
-    void startTransaction();
-    void endTransaction();
+    Connection startTransaction();
+    void endTransaction(Connection dbconnection);
     IUserDao getUserDao();
     IGameDao getGameDao();
     void setUp();
