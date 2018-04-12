@@ -445,6 +445,7 @@ public class RootServerModel {
         tCards.add((TrainCard) sg.drawTrainCard());
         tCards.add((TrainCard) sg.drawTrainCard());
         Player p = new Player(entry.getValue(), sg.drawDestinationCards(), tCards, entry.getKey(), turn, false);
+        p.setAvailableRoutes(routeMap);
         //get the top 4 train cards
         //get the top 3 D cards,
         //store the player ,

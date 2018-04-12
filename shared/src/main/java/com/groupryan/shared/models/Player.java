@@ -15,6 +15,7 @@ import java.util.Map;
 public class Player {
     String color;
     List<Route> routes;
+    List<Route> availableRoutes;
     int points;
     List<DestCard> destCards;
     List<TrainCard> trainCards;
@@ -55,6 +56,7 @@ public class Player {
         this.username = username;
         this.turn = turn;
         this.endGame = endGame;
+        this.availableRoutes = new ArrayList<>();
     }
 
     public Player(String username, String color) { // for testing only
@@ -123,6 +125,39 @@ public class Player {
 
     public List<Route> getRoutes() {
         return routes;
+    }
+
+    public List<Route> getAvailableRoutes() {
+        return availableRoutes;
+    }
+
+    public void setAvailableRoutes(Map<Integer, Route> routeMap) {
+        for (Map.Entry<Integer, Route> entry : routeMap.entrySet()) {
+            this.availableRoutes.add(entry.getValue());
+        }
+    }
+
+    public void addAvailableRoute(Route route) {
+        availableRoutes.add(route);
+    }
+
+    public void removeAvailableRoute(Route route) {
+        for (int i = 0; i < availableRoutes.size(); i++) {
+            if (availableRoutes.get(i).getId() == route.getId()) {
+                availableRoutes.remove(i);
+                break;
+            }
+        }
+    }
+
+    public void removeDoubleRoute(Route route) {
+        for (int i = 0; i < availableRoutes.size(); i++) {
+            if (availableRoutes.get(i).getCityOne().equals(route.getCityOne())
+                    && availableRoutes.get(i).getCityTwo().equals(route.getCityTwo())) {
+                availableRoutes.remove(i);
+                break;
+            }
+        }
     }
 
     public void setRoutes(List<Route> routes) {
