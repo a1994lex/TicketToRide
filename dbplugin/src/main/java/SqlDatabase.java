@@ -78,16 +78,17 @@ public class SqlDatabase implements IDataBase {
 
     @Override
     public IUserDao getUserDao() {
-        return null;
+        return new SQLUserDAO();
     }
 
     @Override
     public IGameDao getGameDao() {
-        return null;
+        return new SQLGameDAO();
     }
 
     @Override
     public void setUp() {
+//what are we setting up
 
     }
 

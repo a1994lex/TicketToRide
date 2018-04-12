@@ -8,7 +8,6 @@ import java.util.List;
 
 public class SQLUserDAO implements IUserDao {
 
-    public SQLUserDAO(){}
 
     @Override
     public void loginUser(User user) {
