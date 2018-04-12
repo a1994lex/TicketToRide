@@ -125,6 +125,18 @@ public class ServerGame {
         }
     }
 
+    public void removeAvailableRoute(String username, Route route) {
+        for (Map.Entry<String, Player> entry : playaMap.entrySet()) {
+            entry.getValue().removeAvailableRoute(route);
+            if (playaMap.size() >= 4 && username.equals(entry.getValue().getUsername())) {
+                entry.getValue().removeDoubleRoute(route);
+            }
+            else if (playaMap.size() < 4) {
+                entry.getValue().removeDoubleRoute(route);
+            }
+        }
+    }
+
     public void removeDestinationCardsFromPlayer(String username, List<Integer> cardID) {
         //needs to do something
         //not    now voided by discard function
