@@ -22,7 +22,7 @@ import java.util.Queue;
  * Created by arctu on 2/24/2018.
  */
 
-public class ServerGame {
+public class ServerGame implements java.io.Serializable{
     private String serverGameID;
     private Deck trainCards;
     private Deck destinationCards;

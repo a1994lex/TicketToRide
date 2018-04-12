@@ -1,3 +1,5 @@
+package com.groupryan.dbplugin;
+
 import com.groupryan.shared.models.User;
 
 import java.util.List;

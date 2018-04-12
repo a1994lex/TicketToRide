@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Created by bengu3 on 1/31/18.
  */
 
-public class ServerCommand implements IServerCommand {
+public class ServerCommand implements IServerCommand, java.io.Serializable {
 
     private String _className;
     private String _methodName;
