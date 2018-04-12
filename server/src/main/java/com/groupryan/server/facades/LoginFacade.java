@@ -62,13 +62,13 @@ public class LoginFacade {
 
     private ClientFacingGame getClientGame(Player receiver, ServerGame serverGame){
         ClientFacingGame cGame = new ClientFacingGame(serverGame.getServerGameID(), receiver);
-// TODO:        cGame.setAvailableRoutes();
+// TODO:        cGame.setAvailableRoutes(); will be unique to the player
         cGame.setHistory((ArrayList<String>) serverGame.getAllHistory());
         cGame.setBankCards((ArrayList<TrainCard>) serverGame.getBankList());
         Game g = RootServerModel.getInstance().getGame(serverGame.getServerGameID());
         cGame.setPlayersColors(g.getUsers());
-// TODO:        cGame.setCurrentTurn();
-// TODO:        cGame.setClaimedRoutes();
+        cGame.setCurrentTurn(serverGame.getCurrentTurn());
+// TODO:        cGame.setClaimedRoutes(); will be unique to the player
         cGame.setOriginal(!serverGame.updateReady());
         return cGame;
     }

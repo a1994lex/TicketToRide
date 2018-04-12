@@ -33,6 +33,7 @@ public class ServerGame {
     private Queue<Player> turnOrder;
     private List<TrainCard> bank;
     private int ready;
+    private int currentTurn = -1;
 //    TODO: set up available routes for client facing object
 //    TODO: save current Turn in server game
 //    TODO: if updateReady() == True, original is false
@@ -115,8 +116,13 @@ public class ServerGame {
     public int getNextTurn(){
         Player nextPlayer = this.turnOrder.remove(); // push top player off the queue.
         int turnNum = nextPlayer.getTurn();
+        this.currentTurn = turnNum;
         this.turnOrder.add(nextPlayer);
         return turnNum;
+    }
+
+    public int getCurrentTurn(){
+        return this.currentTurn;
     }
 
     public List<String> getAllHistory() {
