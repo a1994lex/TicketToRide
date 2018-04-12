@@ -6,7 +6,7 @@ import com.google.gson.internal.LinkedTreeMap;
  * Created by arctu on 2/17/2018.
  */
 
-public class Route {
+public class Route implements java.io.Serializable{
     int length;
     String cityOne;
     String cityTwo;

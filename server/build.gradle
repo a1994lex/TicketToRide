@@ -5,6 +5,7 @@ dependencies {
     compile project(path: ':shared')
     testCompile 'junit:junit:4.12'
     implementation project(':gson-2.8.2')
+    compile project(':dbplugin')
 }
 
 sourceCompatibility = "1.8"

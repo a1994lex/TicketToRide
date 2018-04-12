@@ -1,8 +1,10 @@
+package com.groupryan.dbplugin;
+
 /**
  * Created by clairescout on 4/7/18.
  */
 
-public interface IDataBase {
+public interface IDatabase {
 
     void startTransaction();
     void endTransaction();

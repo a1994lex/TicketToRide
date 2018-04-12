@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by arctu on 2/17/2018.
  */
 
-public class Player {
+public class Player implements  java.io.Serializable{
     String color;
     List<Route> routes;
     int points;

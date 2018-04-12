@@ -8,7 +8,7 @@ import java.util.List;
  * Created by arctu on 2/17/2018.
  */
 
-public class DestCard extends Card {
+public class DestCard extends Card implements java.io.Serializable{
 
 
     public static DestCard mapToObject(LinkedTreeMap map){

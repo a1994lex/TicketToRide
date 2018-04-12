@@ -29,6 +29,7 @@ public class CommandHandler implements HttpHandler {
             InputStream is = httpExchange.getRequestBody();
             InputStreamReader reader = new InputStreamReader(is);
             ServerCommand command = (ServerCommand) Serializer.decode(is, ServerCommand.class);
+            //put command in database.
             commandResult = command.execute();
         } catch (Exception e) {
             e.printStackTrace();
