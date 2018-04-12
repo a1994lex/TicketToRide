@@ -3,6 +3,7 @@ package com.groupryan.server.models;
 import com.groupryan.server.CommandManager;
 import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Card;
+import com.groupryan.shared.models.ClientFacingGame;
 import com.groupryan.shared.models.Deck;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.Player;
@@ -32,8 +33,10 @@ public class ServerGame {
     private Queue<Player> turnOrder;
     private List<TrainCard> bank;
     private int ready;
+//    TODO: set up available routes for client facing object
+//    TODO: save current Turn in server game
+//    TODO: if updateReady() == True, original is false
 
-    // playamap after  stats also null
     public ServerGame(String serverGameID, Deck trainCards, Deck destinationCards) {
         this.serverGameID = serverGameID;
         this.trainCards = trainCards;
@@ -45,6 +48,7 @@ public class ServerGame {
         stats = new HashMap<>();
         turnOrder = new LinkedList<>();
         bank = new ArrayList<>();
+
         setRiver();//river is a poker term referring to the cards on the table to see
 //        makeFakeHistory();
     }

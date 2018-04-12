@@ -1,5 +1,6 @@
 package com.groupryan.client.models;
 
+import com.groupryan.shared.models.ClientFacingGame;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Route;
@@ -74,7 +75,7 @@ public class RootClientModel extends Observable {
 
     public static void setCurrentGame(Game game, Player p){ single_instance._setCurrentGame(game, p);}
 
-    public static void restoreCurrentGame(ClientGame cg){ single_instance._restoreCurrentGame(cg);}
+    public static void restoreCurrentGame(ClientFacingGame cfg){ single_instance._restoreCurrentGame(cfg);}
 
     public static void addUserToGame(Game game, User user, String userColor) {
         single_instance._addUserToGame(game, user, userColor);
@@ -159,8 +160,8 @@ public class RootClientModel extends Observable {
     private void _setCurrentGame(Game gm, Player p){
         clientGame = new ClientGame(gm, p);
     }
-    private void _restoreCurrentGame(ClientGame cg){
-        clientGame = cg;
+    private void _restoreCurrentGame(ClientFacingGame cfg){
+        clientGame = new ClientGame(cfg);
         setChanged();
         notifyObservers();
     }

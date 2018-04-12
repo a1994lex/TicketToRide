@@ -5,6 +5,7 @@ import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.commands.ClientCommandFactory;
 import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Card;
+import com.groupryan.shared.models.ClientFacingGame;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.DestCardList;
@@ -142,6 +143,10 @@ public class CommandManager {
         if (gamePlayerCommands.containsKey(gid) && !gamePlayerCommands.get(gid).containsKey(uid)) {
             gamePlayerCommands.get(gid).put(uid, new ArrayList<>());
         }
+    }
+    // ------------------------------ Retrieve Game Commands -----------------------------
+    public ClientCommand makeRetrieveGameCommand(ClientFacingGame game){
+        return factory.createRetrieveGameCommand(game);
     }
 
     // ------------------------------ Game Commands -----------------------------
