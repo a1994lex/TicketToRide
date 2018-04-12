@@ -14,38 +14,45 @@ import java.sql.Connection;
  */
 
 public class SqlDatabase implements IDataBase {
-    //GameTable
-    //GameCommandTable
-    public SqlDatabase(){}
+
     public void loginUser(User user){
 
     }
+
     public void registerUser(User user){
 
     }
+
     public List<User> getUserList(){
         return null;
     }
+
     public void addCommandToGame(String gameID){//and a command?
-
+//AND A COMMAND?
     }
+
     public void updateGameSnapshot(String gameID ){
-
+        //where IS IT COMING FROM
     }
+
     public void clearCommands(String gameID){
+        getGameDao().clearCommands(gameID);//IS THIS EVEN RIGHT
+    }
 
-    }
     public List<ServerCommand> getCommandsByGameId(String gameID){
-        return null;
+        return getGameDao().getCommandsByGamdId(gameID);
     }
+
     public ServerGame getSnapshotByGameId(String gameID){
-        return null;
+        return getGameDao().getSnapshotByGameId(gameID);
     }
+
     public Map<String, List<ServerCommand>> getAllCommands(){
-        return null;
+        return getGameDao().getAllCommands();
     }
+
     public List<ServerGame> getAllSnapshots(){
-        return null;
+        return getGameDao().getAllSnapshots();
     }
 
     @Override

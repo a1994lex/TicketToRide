@@ -14,7 +14,7 @@ public interface IGameDao {
     void updateGameSnapshot(String gameid, String gameSnapshot);
     void clearCommands(String gameid);
     List<ServerCommand> getCommandsByGamdId(String gameid);
-    String getSnapshotByGameId(String gameid);
+    ServerGame getSnapshotByGameId(String gameid);
     Map<String, List<ServerCommand>> getAllCommands();
     List<ServerGame> getAllSnapshots();
 }
