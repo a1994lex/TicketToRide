@@ -3,8 +3,6 @@ import com.groupryan.dbplugin.IGameDao;
 import com.groupryan.dbplugin.IUserDao;
 
 
-import com.groupryan.server.models.ServerGame;
-import com.groupryan.shared.commands.ServerCommand;
 import com.groupryan.shared.models.User;
 
 import java.sql.DriverManager;

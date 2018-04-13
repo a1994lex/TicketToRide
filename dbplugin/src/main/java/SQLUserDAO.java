@@ -1,3 +1,4 @@
+import com.groupryan.dbplugin.IUserDao;
 import com.groupryan.shared.models.User;
 
 import java.sql.Connection;

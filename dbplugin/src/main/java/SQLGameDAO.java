@@ -1,7 +1,4 @@
 import com.groupryan.dbplugin.IGameDao;
-import com.groupryan.server.Server;
-import com.groupryan.server.models.ServerGame;
-import com.groupryan.shared.commands.ServerCommand;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
