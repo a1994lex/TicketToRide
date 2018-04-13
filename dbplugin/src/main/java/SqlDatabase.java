@@ -17,21 +17,22 @@ import java.sql.Connection;
  */
 
 public class SqlDatabase implements IDatabase {
-
+/**
+ *
     public void loginUser(User user){
-
+        getUserDao().loginUser(user);
     }
 
     public void registerUser(User user){
-
+        getUserDao().registerUser(user);
     }
 
     public List<User> getUserList(){
-        return null;
+        return getUserDao().getUsersList();
     }
 
-    public void addCommandToGame(String gameID){//and a command?
-//AND A COMMAND?
+    public void addCommandToGame(String gameID, byte[]command){//and a command?
+        getGameDao().addCommandToGame(gameID, command);
     }
 
     public void updateGameSnapshot(String gameID ){
@@ -57,7 +58,7 @@ public class SqlDatabase implements IDatabase {
     public List<byte[]> getAllSnapshots(){
         return getGameDao().getAllSnapshots();
     }
-
+*/
     @Override
     public Connection startTransaction() {
         Connection dbconnection=getConnection();

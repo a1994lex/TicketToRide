@@ -1,5 +1,6 @@
 import com.groupryan.dbplugin.IGameDao;
 
+import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,6 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+
+import javax.sql.rowset.serial.SerialBlob;
 
 /**
  * Created by arctu on 4/11/2018.
@@ -20,18 +23,18 @@ public class SQLGameDAO implements IGameDao {
     public void addCommandToGame(String gameid, byte[] command) {
         int order=0;  //HOW
         SqlDatabase sql=new SqlDatabase();
-
         try {
             Connection connection = sql.startTransaction();
             Statement stat = connection.createStatement();
             stat.executeUpdate("create table if not exists GameCommandTable (" +
                     "gameID text NOT NULL,\n" +
-                    "command text NOT NULL,\n" +
+                    "command BLOB NOT NULL,\n" +
                     "ordering integer NOT NULL,\n" +
                     ");");
             PreparedStatement prep = connection.prepareStatement("insert into GameCommandTable values (?, ?, ?);");
-            prep.setString(1, gameid);
-            prep.setString(2, command);
+
+            Blob b = new SerialBlob(command);
+            prep.setBlob(2, b);
             prep.setInt(3, order);
             prep.addBatch();
             prep.executeBatch();
@@ -53,14 +56,15 @@ public class SQLGameDAO implements IGameDao {
             stat.executeUpdate("create table if not exists GameTable (" +
                     "gameID text NOT NULL,\n" +
                     "commandNumber integer NOT NULL,\n" +
-                    "game text NOT NULL,\n" +
+                    "game BLOB NOT NULL,\n" +
                     ");");
             PreparedStatement prep = connection.prepareStatement("insert into GameTable values (?, ?, ?);");
-            prep.setString(1, gameid);
-            prep.setInt(2, commandNumber);
-            prep.setString(3, gameSnapshot);
-            prep.addBatch();
-            prep.executeBatch();
+               prep.setString(1, gameid);
+               prep.setInt(2, commandNumber);
+            Blob b = new SerialBlob(gameSnapshot);
+               prep.setBlob(3, b);
+               prep.addBatch();
+               prep.executeBatch();
             sql.endTransaction(connection);
         } catch (SQLException e) {
             e.printStackTrace();
@@ -83,16 +87,16 @@ public class SQLGameDAO implements IGameDao {
 
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<ServerCommand> commands= new ArrayList<>();
+        List<byte[]> commands= new ArrayList<>();
         try {
             SqlDatabase sqlDB= new SqlDatabase();
             Connection connection = sqlDB.startTransaction();
-            String sql = "select command from GameCommandTable where gameID='"+gameid+"' order by ordering";
+            String sql = "select command from GameCommandTable where gameID='"+gameid+"' order by ordering";//TEST THIS
             stmt = connection.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                String cmnd = rs.getString(1);
-             //   commands.add(cmnd);
+                byte[] bytes = rs.getBytes(1);
+                commands.add(bytes);//pray no memory errors
             }
             sqlDB.endTransaction(connection);
         }
@@ -116,7 +120,7 @@ public class SQLGameDAO implements IGameDao {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String game=null;
-        ServerGame sg = null;
+        byte[] bytes = null;
         try {
             SqlDatabase sqlDB= new SqlDatabase();
             Connection connection = sqlDB.startTransaction();
@@ -124,8 +128,7 @@ public class SQLGameDAO implements IGameDao {
             stmt = connection.prepareStatement(sql);
             rs = stmt.executeQuery();
             if (rs.next()) {
-                game = rs.getString(1);
-                //sg. do something
+                bytes = rs.getBytes(1);
             }
             sqlDB.endTransaction(connection);
         }
@@ -141,13 +144,13 @@ public class SQLGameDAO implements IGameDao {
             }
 
         }
-        return sg;
+        return bytes;
     }
 
     public Map<String, List<byte[]>> getAllCommands(){
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        Map <String, List<ServerCommand>> commands= new TreeMap<>();
+        Map <String, List<byte[]>> commands= new TreeMap<>();
         try {
             SqlDatabase sqlDB= new SqlDatabase();
             Connection connection = sqlDB.startTransaction();
@@ -156,11 +159,8 @@ public class SQLGameDAO implements IGameDao {
             rs = stmt.executeQuery();
             while (rs.next()) {
                 String gameID = rs.getString(1);
-                String command = rs.getString(2);
-                String ordering = rs.getString(3);
-                ServerCommand sc=null;
-                //GOTTA MAKE THE STRONG EQUAL A SERVER COMMAND
-                commands.get(gameID).add(sc);
+                byte[] bytes = rs.getBytes(2);
+                commands.get(gameID).add(bytes);
             }
             sqlDB.endTransaction(connection);
         }
@@ -182,7 +182,7 @@ public class SQLGameDAO implements IGameDao {
     public List<byte[]> getAllSnapshots(){
         PreparedStatement stmt = null;
         ResultSet rs = null;
-        List<ServerGame> games= new ArrayList<>();
+        List<byte[]> games= new ArrayList<>();
         String game=null;
         try {
             SqlDatabase sqlDB= new SqlDatabase();
@@ -191,10 +191,8 @@ public class SQLGameDAO implements IGameDao {
             stmt = connection.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
-                game = rs.getString(1);
-                ServerGame sg=null;
-                //MAKE THIS WORK
-                games.add(sg);
+                byte[] bytes = rs.getBytes(1);
+                games.add(bytes);//pray no memory errors
             }
             sqlDB.endTransaction(connection);
         }

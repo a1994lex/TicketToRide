@@ -24,13 +24,13 @@ public class SQLUserDAO implements IUserDao {
             Statement stat = connection.createStatement();
             stat.executeUpdate("create table if not exists User ( username text NOT NULL UNIQUE,\n" +
                                   "password text NOT NULL,\n" +
-                                  "email text NOT NULL,\n" +//something else
+                                  "game text NOT NULL,\n" +//something else
                                   ");");
             PreparedStatement prep = connection.prepareStatement("insert into User values (?, ?, ?);");
 
             prep.setString(1, user.getUsername());
             prep.setString(2, user.getPassword());
-           // prep.setBlob(3, user.getGameList());
+            prep.setString(3, user.getGameList().get(0).getGameId());
             prep.addBatch();
             prep.executeBatch();
             sqlDB.endTransaction(connection);
@@ -47,13 +47,13 @@ public class SQLUserDAO implements IUserDao {
             Statement stat = connection.createStatement();
             stat.executeUpdate("create table if not exists User ( username text NOT NULL UNIQUE,\n" +
                     "password text NOT NULL,\n" +
-                    "email text NOT NULL,\n" +//something else
+                    "game text NOT NULL,\n" +//something else
                     ");");
             PreparedStatement prep = connection.prepareStatement("insert into User values (?, ?, ?);");
 
             prep.setString(1, user.getUsername());
             prep.setString(2, user.getPassword());
-            // prep.setBlob(3, user.getGameList());
+            prep.setString(3, user.getGameList().get(0).getGameId());
             prep.addBatch();
             prep.executeBatch();
             sqlDB.endTransaction(connection);
@@ -79,7 +79,7 @@ public class SQLUserDAO implements IUserDao {
             while(rs.next()) {
                 String username = rs.getString(1);
                 String pass = rs.getString(2);
-                String gamelist = rs.getString(3);
+                String gameID = rs.getString(3);//this does nothing
                 u=new User(username, pass);//, gamelist);
                 users.add(u);
             }
