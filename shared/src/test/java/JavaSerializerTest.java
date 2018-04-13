@@ -13,6 +13,10 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.sql.Blob;
+
+import javax.sql.rowset.serial.SerialBlob;
+
 import static com.groupryan.shared.utils.BLACK;
 import static com.groupryan.shared.utils.RED;
 import static org.junit.Assert.*;

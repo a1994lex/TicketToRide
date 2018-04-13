@@ -12,4 +12,5 @@ public interface IUserDao {
     void loginUser(User user);
     void registerUser(User user);
     List<User> getUsersList();
+    void updateUser(User user);
 }

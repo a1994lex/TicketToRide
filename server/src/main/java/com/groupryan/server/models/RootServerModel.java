@@ -34,6 +34,11 @@ public class RootServerModel {
     private Map<Integer, Route> routeMap = new HashMap<>();
     private Map<Integer, Integer> routeLengthPoints = new HashMap<>();
 
+
+    //usermap
+    //server gameid map
+    //usergames
+    //call make bank (add it to constructor)
     private static final long serialVersionUID = 5230549922091722630L;
 
     private static RootServerModel single_instance; /*= new RootServerModel();*/
