@@ -10,11 +10,13 @@ import java.util.List;
 
 public interface IGameDao {
 
-    void addCommandToGame(String gameid, byte[] command);
+    boolean addCommandToGame(String gameid, byte[] command);
     void updateGameSnapshot(String gameid, byte[] gameSnapshot);
     void clearCommands(String gameid);
     List<byte[]> getCommandsByGamdId(String gameid);
-    String getSnapshotByGameId(String gameid);
+    byte[] getSnapshotByGameId(String gameid);
     List<byte[]> getAllCommands();
     List<byte[]> getAllSnapshots();
+
+
 }
