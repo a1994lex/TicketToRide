@@ -1,0 +1,14 @@
+{
+  "plugin_registry": {
+    "sql": {
+      "description": "SQLite database plugin.",
+      "filePath": "",
+      "classPath": ""
+    },
+    "json": {
+      "description": "JSON file as database plugin.",
+      "filePath": "",
+      "classPath": ""
+    }
+  }
+}
