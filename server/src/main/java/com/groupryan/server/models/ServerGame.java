@@ -23,7 +23,7 @@ import java.util.Queue;
  * Created by arctu on 2/24/2018.
  */
 
-public class ServerGame {
+public class ServerGame implements java.io.Serializable{
     private String serverGameID;
     private Deck trainCards;
     private Deck destinationCards;
@@ -132,6 +132,18 @@ public class ServerGame {
     public void removeTrainCardsFromPlayer(List<TrainCard> discardable) {
         for (TrainCard tc:discardable) {
             trainCards.discard(tc);
+        }
+    }
+
+    public void removeAvailableRoute(String username, Route route) {
+        for (Map.Entry<String, Player> entry : playaMap.entrySet()) {
+            entry.getValue().removeAvailableRoute(route);
+            if (playaMap.size() >= 4 && username.equals(entry.getValue().getUsername())) {
+                entry.getValue().removeDoubleRoute(route);
+            }
+            else if (playaMap.size() < 4) {
+                entry.getValue().removeDoubleRoute(route);
+            }
         }
     }
 

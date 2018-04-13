@@ -178,6 +178,10 @@ public class EndGameFacade {
         return null;
     }
 
+    private void deleteGame(){
+        //TODO: DELETE GAME HERE
+    }
+
 
     public class WinnerComparing implements Comparator<EndGameStat> {
 
@@ -196,5 +200,7 @@ public class EndGameFacade {
     /*
     TODO: make it show if there is a tie!
      */
+
+
 
 }

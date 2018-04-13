@@ -21,7 +21,7 @@ import static com.groupryan.shared.utils.YELLOW;
  * Created by bengu3 on 1/31/18.
  */
 
-public class Game{
+public class Game implements  java.io.Serializable {
     public static Game mapToObject(LinkedTreeMap map){
       String gameName;
       String gameId;

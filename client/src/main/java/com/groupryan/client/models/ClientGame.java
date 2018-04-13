@@ -247,6 +247,7 @@ public class ClientGame extends Observable {
                 break;
             }
         }
+
         if (getPlayersColors().size() >= 4 && username.equals(myPlayer.getUsername())) {
             removeDoubleRoute(route);
         }

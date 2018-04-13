@@ -28,7 +28,6 @@ public class ClaimRouteFacade {
         Route r=root.getRoute(routeId);
         List<TrainCard> discardable= new ArrayList<>();
         List<Integer> trainCards = trainCardIDs.getTrainCards();
-//        List<Double> tc = trainCardIDs.getTrainCardsDoubles();
        for(int i = 0; i < trainCards.size(); i++){
             Card c = root.getCard(utils.TRAIN, trainCards.get(i));
             p.removeTrainCard(c);
@@ -43,7 +42,11 @@ public class ClaimRouteFacade {
         //make route match players color....
         p.addRoute(r);
         //add route to players list of claimed routes
+        serverGame.addPlayer(p);
+        // add modified player to server game
+        serverGame.removeAvailableRoute(username, r);
         serverGame.removeTrainCardsFromPlayer(discardable);
+        // place used train cards in discard pile
         cr.addClientCommand(CommandManager.getInstance().makeDiscardTrainCardsCommand(discardable));
         //send discard command to PLayer
         CommandManager.getInstance().makeClaimRouteCommand(r, username, serverGame.getServerGameID());
@@ -55,14 +58,6 @@ public class ClaimRouteFacade {
         CommandManager.getInstance().addHistoryCommand(history, serverGame.getServerGameID(), null);
         CommandManager.getInstance().makeStatCommand(serverGame.getServerGameID(), serverGame.getStat(username));
         return cr;
-    }
-
-    private double[] convertToDouble(List<Integer> trainCards) {
-        double[] usedTrainCards = new double[trainCards.size()];
-        for (int i = 0; i < trainCards.size(); i++) {
-            usedTrainCards[i] = trainCards.get(i).doubleValue();
-        }
-        return usedTrainCards;
     }
 }
 

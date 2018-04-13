@@ -6,7 +6,7 @@ import com.google.gson.internal.LinkedTreeMap;
  * Created by arctu on 2/17/2018.
  */
 
-public class TrainCard extends Card {
+public class TrainCard extends Card implements java.io.Serializable{
     String color;
     int cardId;
 

@@ -1,1 +1,1 @@
-include ':server', ':client', ':shared', ':clientapp', ':gson-2.8.2'
+include ':server', ':client', ':shared', ':clientapp', ':gson-2.8.2', ':dbplugin'
