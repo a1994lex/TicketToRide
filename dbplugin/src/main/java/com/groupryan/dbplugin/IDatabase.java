@@ -11,4 +11,8 @@ public interface IDatabase {
     IUserDao getUserDao();
     IGameDao getGameDao();
     void setUp();
+
+
+    //TODO: order?
+
 }
