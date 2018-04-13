@@ -8,11 +8,10 @@ import java.sql.Connection;
  */
 
 public interface IDatabase {
-    Connection startTransaction();
-    void endTransaction(Connection connection);
+    void startTransaction();
+    void endTransaction();
     IUserDao getUserDao();
     IGameDao getGameDao();
-    void setUp();
+    void setMaxCommands(int maxCommands);
 }
 
-//Boolean setMaxCommands()

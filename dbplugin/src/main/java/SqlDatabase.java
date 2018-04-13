@@ -56,28 +56,29 @@ public class SqlDatabase implements IDatabase {
 */
 
     int maxCommands;
+    Connection connection;
     public SqlDatabase(int maxCommands){this.maxCommands=maxCommands;}
 
     @Override
-    public Connection startTransaction() {
+    public void startTransaction() {
         Connection dbconnection=getConnection();
         try {
             dbconnection.setAutoCommit(false);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        return dbconnection;
+        this.connection=dbconnection;
     }
 
     @Override
-    public void endTransaction(Connection dbconnection) {
+    public void endTransaction() {
         try {
-            dbconnection.commit();
-            dbconnection.close();
+            connection.commit();
+            connection.close();
         } catch (SQLException e) {
             try {
-                dbconnection.rollback();
-                dbconnection.close();
+                connection.rollback();
+                connection.close();
             } catch (SQLException fe) {
                 fe.printStackTrace();
             }
@@ -88,17 +89,17 @@ public class SqlDatabase implements IDatabase {
 
     @Override
     public IUserDao getUserDao() {
-        return new SQLUserDAO();
+        return new SQLUserDAO(connection);
     }
 
     @Override
     public IGameDao getGameDao() {
-        return new SQLGameDAO();
+        return new SQLGameDAO(maxCommands, connection);
     }
 
     @Override
-    public void setUp() {
-//what are we setting up
+    public void setMaxCommands(int maxCommands) {
+        this.maxCommands=maxCommands;
 
     }
 
