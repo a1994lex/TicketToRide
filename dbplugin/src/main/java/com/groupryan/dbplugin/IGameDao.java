@@ -1,7 +1,5 @@
 package com.groupryan.dbplugin;
 
-import com.groupryan.shared.commands.ServerCommand;
-
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +9,7 @@ import java.util.Map;
 
 public interface IGameDao {
 
-    void addCommandToGame(String gameid, byte[] command);
+    void addCommandToGame(String gameid, byte[] command, int order);
     void updateGameSnapshot(String gameid, byte[] gameSnapshot);
     void clearCommands(String gameid);
     List<byte[]> getCommandsByGamdId(String gameid);

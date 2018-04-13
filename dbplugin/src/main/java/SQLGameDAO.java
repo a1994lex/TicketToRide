@@ -19,10 +19,12 @@ import javax.sql.rowset.serial.SerialBlob;
 
 public class SQLGameDAO implements IGameDao {
 
+
+
+
     @Override
-    public void addCommandToGame(String gameid, byte[] command) {
-        int order=0;  //HOW
-        SqlDatabase sql=new SqlDatabase();
+    public void addCommandToGame(String gameid, byte[] command, int order) {
+        SqlDatabase sql=new SqlDatabase(0);
         try {
             Connection connection = sql.startTransaction();
             Statement stat = connection.createStatement();
@@ -49,7 +51,7 @@ public class SQLGameDAO implements IGameDao {
     public void updateGameSnapshot(String gameid, byte[] gameSnapshot) {
         int commandNumber=0;//??????
 
-        SqlDatabase sql= new SqlDatabase();
+        SqlDatabase sql= new SqlDatabase(0);
         try {
             Connection connection = sql.startTransaction();
             Statement stat = connection.createStatement();
@@ -73,7 +75,7 @@ public class SQLGameDAO implements IGameDao {
 
     public void clearCommands(String gameid){
         try{
-            SqlDatabase sql= new SqlDatabase();
+            SqlDatabase sql= new SqlDatabase(0);
             Connection connection = sql.startTransaction();
             Statement stat = connection.createStatement();
             stat.executeUpdate("drop table if exists GameCommandTable");
@@ -89,7 +91,7 @@ public class SQLGameDAO implements IGameDao {
         ResultSet rs = null;
         List<byte[]> commands= new ArrayList<>();
         try {
-            SqlDatabase sqlDB= new SqlDatabase();
+            SqlDatabase sqlDB= new SqlDatabase(0);
             Connection connection = sqlDB.startTransaction();
             String sql = "select command from GameCommandTable where gameID='"+gameid+"' order by ordering";//TEST THIS
             stmt = connection.prepareStatement(sql);
@@ -122,7 +124,7 @@ public class SQLGameDAO implements IGameDao {
         String game=null;
         byte[] bytes = null;
         try {
-            SqlDatabase sqlDB= new SqlDatabase();
+            SqlDatabase sqlDB= new SqlDatabase(0);
             Connection connection = sqlDB.startTransaction();
             String sql = "select game from GameTable where gameID='"+gameid+"'";
             stmt = connection.prepareStatement(sql);
@@ -152,7 +154,7 @@ public class SQLGameDAO implements IGameDao {
         ResultSet rs = null;
         Map <String, List<byte[]>> commands= new TreeMap<>();
         try {
-            SqlDatabase sqlDB= new SqlDatabase();
+            SqlDatabase sqlDB= new SqlDatabase(0);
             Connection connection = sqlDB.startTransaction();
             String sql = "select * from GameCommandTable order by ordering";
             stmt = connection.prepareStatement(sql);
@@ -185,7 +187,7 @@ public class SQLGameDAO implements IGameDao {
         List<byte[]> games= new ArrayList<>();
         String game=null;
         try {
-            SqlDatabase sqlDB= new SqlDatabase();
+            SqlDatabase sqlDB= new SqlDatabase(0);
             Connection connection = sqlDB.startTransaction();
             String sql = "select game from GameTable ";
             stmt = connection.prepareStatement(sql);

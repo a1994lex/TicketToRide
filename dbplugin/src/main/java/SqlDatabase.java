@@ -2,13 +2,8 @@ import com.groupryan.dbplugin.IDatabase;
 import com.groupryan.dbplugin.IGameDao;
 import com.groupryan.dbplugin.IUserDao;
 
-
-import com.groupryan.shared.models.User;
-
 import java.sql.DriverManager;
 import java.sql.SQLException;
-import java.util.List;
-import java.util.Map;
 
 import java.sql.Connection;
 
@@ -59,6 +54,10 @@ public class SqlDatabase implements IDatabase {
         return getGameDao().getAllSnapshots();
     }
 */
+
+    int maxCommands;
+    public SqlDatabase(int maxCommands){this.maxCommands=maxCommands;}
+
     @Override
     public Connection startTransaction() {
         Connection dbconnection=getConnection();
