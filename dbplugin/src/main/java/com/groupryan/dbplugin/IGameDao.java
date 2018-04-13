@@ -13,7 +13,7 @@ public interface IGameDao {
     void addCommandToGame(String gameid, byte[] command);
     void updateGameSnapshot(String gameid, byte[] gameSnapshot);
     void clearCommands(String gameid);
-    List<byte[]> getCommandsByGamdId(String gameid);
+    List<byte[]> getCommandsByGameId(String gameid);
     String getSnapshotByGameId(String gameid);
     List<byte[]> getAllCommands();
     List<byte[]> getAllSnapshots();

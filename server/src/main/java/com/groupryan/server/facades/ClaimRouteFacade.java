@@ -48,7 +48,7 @@ public class ClaimRouteFacade {
         serverGame.removeTrainCardsFromPlayer(discardable);
         // place used train cards in discard pile
         cr.addClientCommand(CommandManager.getInstance().makeDiscardTrainCardsCommand(discardable));
-        //send discard command to PLayer
+        //send discard command to Player
         CommandManager.getInstance().makeClaimRouteCommand(r, username, serverGame.getServerGameID());
         //show route on all
 
