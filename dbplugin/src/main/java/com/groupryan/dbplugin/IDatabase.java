@@ -13,3 +13,4 @@ public interface IDatabase {
     IUserDao getUserDao();
     IGameDao getGameDao();
     void setMaxCommands(int maxCommands);
+}

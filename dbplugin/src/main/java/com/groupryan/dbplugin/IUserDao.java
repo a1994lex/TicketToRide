@@ -13,5 +13,4 @@ public interface IUserDao {
     void registerUser(User user);
     void addGameToUser(User user, String gameID);
     List<User> getUsersList();
-    void updateUser(User user);
 }
