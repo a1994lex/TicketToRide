@@ -11,7 +11,7 @@ import java.util.List;
  * Created by arctu on 2/24/2018.
  */
 
-public class Deck{
+public class Deck implements java.io.Serializable{
     List<Card> discardPile;
     List<Card> deck;
 

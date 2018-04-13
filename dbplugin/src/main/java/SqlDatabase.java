@@ -1,3 +1,8 @@
+import com.groupryan.dbplugin.IDatabase;
+import com.groupryan.dbplugin.IGameDao;
+import com.groupryan.dbplugin.IUserDao;
+
+
 import com.groupryan.server.models.ServerGame;
 import com.groupryan.shared.commands.ServerCommand;
 import com.groupryan.shared.models.User;
@@ -13,7 +18,7 @@ import java.sql.Connection;
  * Created by arctu on 4/11/2018.
  */
 
-public class SqlDatabase implements IDataBase {
+public class SqlDatabase implements IDatabase {
 
     public void loginUser(User user){
 
@@ -36,22 +41,22 @@ public class SqlDatabase implements IDataBase {
     }
 
     public void clearCommands(String gameID){
-        getGameDao().clearCommands(gameID);//IS THIS EVEN RIGHT
+        getGameDao().clearCommands(gameID);//IS THIS EVEN RIGHT?
     }
 
-    public List<ServerCommand> getCommandsByGameId(String gameID){
+    public List<byte[]> getCommandsByGameId(String gameID){
         return getGameDao().getCommandsByGamdId(gameID);
     }
 
-    public ServerGame getSnapshotByGameId(String gameID){
+    public byte[] getSnapshotByGameId(String gameID){
         return getGameDao().getSnapshotByGameId(gameID);
     }
 
-    public Map<String, List<ServerCommand>> getAllCommands(){
+    public Map<String, List<byte[]>> getAllCommands(){
         return getGameDao().getAllCommands();
     }
 
-    public List<ServerGame> getAllSnapshots(){
+    public List<byte[]> getAllSnapshots(){
         return getGameDao().getAllSnapshots();
     }
 

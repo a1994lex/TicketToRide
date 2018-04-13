@@ -6,7 +6,7 @@ import com.google.gson.internal.LinkedTreeMap;
  * Created by arctu on 2/24/2018.
  */
 
-public class Stat {
+public class Stat implements  java.io.Serializable {
 
     public static Stat mapToObject(LinkedTreeMap map) {
         String username;

@@ -1,3 +1,4 @@
+import com.groupryan.dbplugin.IGameDao;
 import com.groupryan.server.Server;
 import com.groupryan.server.models.ServerGame;
 import com.groupryan.shared.commands.ServerCommand;
@@ -16,10 +17,10 @@ import java.util.TreeMap;
  * Created by arctu on 4/11/2018.
  */
 
-public class SQLGameDAO implements IGameDao{
+public class SQLGameDAO implements IGameDao {
 
     @Override
-    public void addCommandToGame(String gameid, String command) {
+    public void addCommandToGame(String gameid, byte[] command) {
         int order=0;  //HOW
         SqlDatabase sql=new SqlDatabase();
 
@@ -42,11 +43,10 @@ public class SQLGameDAO implements IGameDao{
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
-    public void updateGameSnapshot(String gameid, String gameSnapshot) {
+    public void updateGameSnapshot(String gameid, byte[] gameSnapshot) {
         int commandNumber=0;//??????
 
         SqlDatabase sql= new SqlDatabase();
@@ -54,10 +54,10 @@ public class SQLGameDAO implements IGameDao{
             Connection connection = sql.startTransaction();
             Statement stat = connection.createStatement();
             stat.executeUpdate("create table if not exists GameTable (" +
-                                  "gameID text NOT NULL,\n" +
-                                  "commandNumber integer NOT NULL,\n" +
-                                  "game text NOT NULL,\n" +
-                                  ");");
+                    "gameID text NOT NULL,\n" +
+                    "commandNumber integer NOT NULL,\n" +
+                    "game text NOT NULL,\n" +
+                    ");");
             PreparedStatement prep = connection.prepareStatement("insert into GameTable values (?, ?, ?);");
             prep.setString(1, gameid);
             prep.setInt(2, commandNumber);
@@ -82,7 +82,7 @@ public class SQLGameDAO implements IGameDao{
     }
 
     @Override
-    public List<ServerCommand> getCommandsByGamdId(String gameid) {
+    public List<byte[]> getCommandsByGamdId(String gameid) {
 
         PreparedStatement stmt = null;
         ResultSet rs = null;
@@ -115,7 +115,7 @@ public class SQLGameDAO implements IGameDao{
     }
 
     @Override
-    public ServerGame getSnapshotByGameId(String gameid) {
+    public byte[] getSnapshotByGameId(String gameid) {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         String game=null;
@@ -147,7 +147,7 @@ public class SQLGameDAO implements IGameDao{
         return sg;
     }
 
-    public Map<String, List<ServerCommand>> getAllCommands(){
+    public Map<String, List<byte[]>> getAllCommands(){
         PreparedStatement stmt = null;
         ResultSet rs = null;
         Map <String, List<ServerCommand>> commands= new TreeMap<>();
@@ -182,7 +182,7 @@ public class SQLGameDAO implements IGameDao{
         return commands;
     }
 
-    public List<ServerGame> getAllSnapshots(){
+    public List<byte[]> getAllSnapshots(){
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List<ServerGame> games= new ArrayList<>();
