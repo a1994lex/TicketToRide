@@ -75,7 +75,7 @@ public class JsonGameDao implements IGameDao {
         while (i < gamesArray.size()) {
             JsonElement game = gamesArray.get(i);
             JsonObject gameObj = game.getAsJsonObject();
-            if (gameObj.get("gameId").equals(gameId)) {
+            if (gameObj.get("gameId").getAsString().equals(gameId)) {
                 return i;
             }
             i++;
@@ -90,14 +90,17 @@ public class JsonGameDao implements IGameDao {
             if (gameObj != null) {
                 String commandStr = new String(command);
                 JsonElement commandElem = new JsonParser().parse(commandStr);
-                JsonArray commandsArray = gameObj.get("commands").getAsJsonArray();
+                JsonArray commandsArray = new JsonArray();
+                if (gameObj.has("commands")) {
+                    commandsArray = gameObj.get("commands").getAsJsonArray();
+                }
                 commandsArray.add(commandElem);
                 gameObj.add("commands", commandsArray);
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 String gameStr = gson.toJson(gameObj);
                 JsonElement gameElem = new JsonParser().parse(gameStr);
-                int gameIndex = getGameIndex(gameid, gamesObj.getAsJsonArray());
-                gamesObj.getAsJsonArray().set(gameIndex, gameElem);
+                int gameIndex = getGameIndex(gameid, gamesObj);
+                gamesObj.set(gameIndex, gameElem);
             }
         }
     }
@@ -182,7 +185,7 @@ public class JsonGameDao implements IGameDao {
             if (gameObj.has("commands")) {
                 JsonArray commandsArray = gameObj.getAsJsonArray("commands");
                 for (int j = 0; j < commandsArray.size(); j++) {
-                    JsonElement command = commandsArray.get(i);
+                    JsonElement command = commandsArray.get(j);
                     Gson gson = new GsonBuilder().setPrettyPrinting().create();
                     String commandStr = gson.toJson(command);
                     commands.add(commandStr.getBytes());

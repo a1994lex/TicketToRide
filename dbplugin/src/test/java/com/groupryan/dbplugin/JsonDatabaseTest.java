@@ -68,6 +68,7 @@ public class JsonDatabaseTest {
     @After
     public void tearDown() throws Exception {
         database.clearDatabase();
+        database.endTransaction();
     }
 
     @Test
@@ -99,17 +100,20 @@ public class JsonDatabaseTest {
         List<byte[]> commands = gameDao.getAllCommands();
         assertEquals(commands.size(), 2);
         for (int i = 0; i < snapshots.size(); i++) {
-            System.out.println(gson.toJson(snapshots.get(i)));
+            String snapshot = new String(snapshots.get(i));
+            System.out.println("SNAPSHOT:\n" + gson.toJson(snapshot));
         }
 
         for (int i = 0; i < commands.size(); i++) {
-            System.out.println(gson.toJson(commands.get(i)));
+            String command = new String(commands.get(i));
+            System.out.println("COMMAND:\n" + gson.toJson(command));
         }
         commands = gameDao.getCommandsByGameId("1234");
         assertEquals(commands.size(), 1);
 
         for (int i = 0; i < commands.size(); i++) {
-            System.out.println(gson.toJson(commands.get(i)));
+            String command = new String(commands.get(i));
+            System.out.println("COMMAND:\n" + gson.toJson(command));
         }
         String snapshot = gameDao.getSnapshotByGameId("1234567890");
         System.out.println(snapshot);
