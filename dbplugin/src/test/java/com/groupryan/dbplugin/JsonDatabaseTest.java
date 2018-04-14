@@ -13,6 +13,7 @@ import org.junit.Test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import static org.junit.Assert.*;
 
@@ -97,25 +98,28 @@ public class JsonDatabaseTest {
         byte[] cmd2 = gson.toJson(sc2).getBytes();
         gameDao.addCommandToGame("1234", cmd1);
         gameDao.addCommandToGame("1234567890", cmd2);
-        List<byte[]> commands = gameDao.getAllCommands();
+        Map<String, List<byte[]>> commands = gameDao.getAllCommands();
         assertEquals(commands.size(), 2);
         for (int i = 0; i < snapshots.size(); i++) {
             String snapshot = new String(snapshots.get(i));
             System.out.println("SNAPSHOT:\n" + gson.toJson(snapshot));
         }
 
-        for (int i = 0; i < commands.size(); i++) {
-            String command = new String(commands.get(i));
-            System.out.println("COMMAND:\n" + gson.toJson(command));
+        for (Map.Entry<String, List<byte[]>> entry : commands.entrySet()) {
+            List<byte[]> commandList = entry.getValue();
+            for (int i = 0; i < commandList.size(); i++) {
+                String command = new String(commandList.get(i));
+                System.out.println("COMMAND:\n" + gson.toJson(command));
+            }
         }
-        commands = gameDao.getCommandsByGameId("1234");
-        assertEquals(commands.size(), 1);
+        List<byte[]> testCommandList = gameDao.getCommandsByGameId("1234");
+        assertEquals(testCommandList.size(), 1);
 
-        for (int i = 0; i < commands.size(); i++) {
-            String command = new String(commands.get(i));
+        for (int i = 0; i < testCommandList.size(); i++) {
+            String command = new String(testCommandList.get(i));
             System.out.println("COMMAND:\n" + gson.toJson(command));
         }
-        String snapshot = gameDao.getSnapshotByGameId("1234567890");
+        String snapshot = new String(gameDao.getSnapshotByGameId("1234567890"));
         System.out.println(snapshot);
 
         gameDao.clearCommands("1234567890");
