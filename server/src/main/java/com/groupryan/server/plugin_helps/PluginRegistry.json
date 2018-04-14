@@ -1,0 +1,14 @@
+{
+  "plugin_registry": {
+    "sql": {
+      "description": "SQLite database plugin.",
+      "filePath": "dbplugin/build/libs/dbplugin.jar",
+      "classPath": "src/main/java/com.groupryan.dbplugin"
+    },
+    "json": {
+      "description": "JSON file as database plugin.",
+      "filePath": "",
+      "classPath": ""
+    }
+  }
+}

@@ -25,7 +25,9 @@ public class DatabaseHolder {
 
     public void loadActiveServerGames(){
         //TODO: load active server games
+        database.startTransaction();
         List<byte[]> gameBlobs = database.getGameDao().getAllSnapshots();
+        database.endTransaction();
         //WHAT DO I DO NOW.
     }
 
@@ -39,7 +41,7 @@ public class DatabaseHolder {
 
     public void addCommand(String gameId, ServerCommand serverCommand){
         byte[] blob = JavaSerializer.getInstance().serializeObject(serverCommand);
-        database.getGameDao().addCommandToGame(gameId, blob);
+        database.getGameDao().addCommandToGame(gameId, blob, -1);
     }
 
 
