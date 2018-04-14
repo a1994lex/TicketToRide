@@ -6,13 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
-
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -22,72 +16,48 @@ import java.util.List;
 
 public class JsonUserDao implements IUserDao {
 
-    public JsonUserDao() {
+    private JsonObject usersObj;
 
+    public JsonUserDao(JsonObject usersObj) {
+        this.usersObj = usersObj;
     }
 
-    private JsonObject getDatabaseAsJsonObject() {
-        JsonDatabase database = new JsonDatabase();
-        File databaseFile = database.getDatabaseFile();
-        JsonObject databaseObj = null;
-        try {
-            String jsonStr = FileUtils.readFileToString(databaseFile, "UTF-8");
-            databaseObj = new JsonParser().parse(jsonStr).getAsJsonObject();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return databaseObj;
+    public JsonObject getUsersObj() {
+        return usersObj;
     }
 
-    private JsonObject addUserElement(JsonObject databaseObj) {
-        List<User> users = new ArrayList<>();
+    public void setUsersObj(JsonObject usersObj) {
+        this.usersObj = usersObj;
+    }
+
+    private void addUserElement() {
+        List<Integer> users = new ArrayList<>();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String usersJson = gson.toJson(users);
         JsonElement usersElem = new JsonParser().parse(usersJson);
-        databaseObj.add("users", usersElem);
-        return databaseObj;
-    }
-
-    @Override
-    public void loginUser(User user) {
-        JsonObject databaseObj = getDatabaseAsJsonObject();
-        if (!databaseObj.has("users")) {
-            databaseObj = addUserElement(databaseObj);
-        }
-        JsonArray usersArray = databaseObj.getAsJsonArray("users");
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String userStr = gson.toJson(user);
-        JsonElement userElem = new JsonParser().parse(userStr);
-        usersArray.add(userElem);
-        databaseObj.add("users", usersArray);
+        usersObj.add("users", usersElem);
     }
 
     @Override
     public void registerUser(User user) {
-        JsonObject databaseObj = getDatabaseAsJsonObject();
-        if (!databaseObj.has("users")) {
-            databaseObj = addUserElement(databaseObj);
+        if (usersObj.getAsJsonArray().size() == 0) {
+            addUserElement();
         }
-        JsonArray usersArray = databaseObj.getAsJsonArray("users");
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String userStr = gson.toJson(user);
         JsonElement userElem = new JsonParser().parse(userStr);
-        usersArray.add(userElem);
-        databaseObj.add("users", usersArray);
+        usersObj.getAsJsonArray().add(userElem);
     }
 
     @Override
     public List<User> getUsersList() {
-        JsonObject databaseObj = getDatabaseAsJsonObject();
         List<User> users = new ArrayList<>();
-        if (databaseObj.has("users")) {
-            JsonArray usersArray = databaseObj.getAsJsonArray("users");
-            Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            for (int i = 0; i < usersArray.size(); i++) {
-                JsonElement userElem = usersArray.get(i);
-                User u = gson.fromJson(userElem, User.class);
-                users.add(u);
-            }
+        JsonArray usersArray = usersObj.getAsJsonArray();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        for (int i = 0; i < usersArray.size(); i++) {
+            JsonElement userElem = usersArray.get(i);
+            User u = gson.fromJson(userElem, User.class);
+            users.add(u);
         }
         return users;
     }

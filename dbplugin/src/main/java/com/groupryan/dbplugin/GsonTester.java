@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonNull;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.groupryan.shared.*;
@@ -12,10 +11,6 @@ import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.Stat;
 
-import org.apache.commons.io.FileUtils;
-
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -148,15 +143,22 @@ public class GsonTester {
         arrayAsArray.set(2, valElem);
         String modifiedBlahArray = gson.toJson(arrayAsArray);
         System.out.println("array from blah: " + modifiedBlahArray);
-        JsonElement element = new JsonParser().parse(gson.toJson(new ArrayList<Game>()));
-
         List<Integer> intArray = new ArrayList<>();
+        intArray.add(9);
+        intArray.add(8);
+        intArray.add(7);
+        intArray.add(6);
+        List<String> strArray = new ArrayList<>();
+        strArray.add("a");
+        strArray.add("b");
+        String strArrayStr = gson.toJson(strArray);
         String intArrayStr = gson.toJson(intArray);
+        JsonElement strArrayElem = new JsonParser().parse(strArrayStr);
         JsonElement intArrayElem = new JsonParser().parse(intArrayStr);
         rLobject.add("int_array", intArrayElem);
+        rLobject.add("int_array", strArrayElem);
         json = gson.toJson(rLobject);
         System.out.println(json);
-//        System.out.println(gson.toJson(o));
     }
 
     public static void main(String[] args) {
