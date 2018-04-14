@@ -7,6 +7,7 @@ import com.groupryan.client.models.RootClientModel;
 import com.example.clientapp.IJoinGameView;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Game;
+import com.groupryan.shared.utils;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -99,6 +100,22 @@ public class JoinGamePresenter implements Observer, IJoinGamePresenter{
                     }
                 }
             }
+            else if (o == utils.GAME_RESTORED){
+                if (checkIfJoinedGame()){
+                    gameView.join(RootClientModel.getCurrentGame().getGameId());
+                }
+            }
+        }
+
+
+    }
+    public boolean checkIfJoinedGame(){
+        //checks to see if a user has already joined a game, and if they have, takes them directly to game activity
+        if(RootClientModel.getCurrentGame() == null){
+            return false;
+        }
+        else{
+            return true;
         }
 
     }

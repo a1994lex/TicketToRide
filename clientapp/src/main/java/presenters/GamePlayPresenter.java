@@ -125,6 +125,9 @@ public class GamePlayPresenter implements Observer, IGamePlayPresenter {
         stopLobbyPolling();
         String gameId = this.game.getGameId();
         GamePoller.get(gameId).poll();
+        if (game.isMyTurn()){
+            setState(new ActiveState());
+        }
     }
 
     @Override
