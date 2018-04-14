@@ -7,6 +7,7 @@ import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.models.ClientFacingGame;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
+import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.LoginResult;
@@ -61,14 +62,15 @@ public class LoginFacade {
     }
 
     private ClientFacingGame getClientGame(Player receiver, ServerGame serverGame){
+
         ClientFacingGame cGame = new ClientFacingGame(serverGame.getServerGameID(), receiver);
-// TODO:        cGame.setAvailableRoutes(); will be unique to the player
+        cGame.setAvailableRoutes((ArrayList<Route>) receiver.getAvailableRoutes());
         cGame.setHistory((ArrayList<String>) serverGame.getAllHistory());
         cGame.setBankCards((ArrayList<TrainCard>) serverGame.getBankList());
         Game g = RootServerModel.getInstance().getGame(serverGame.getServerGameID());
         cGame.setPlayersColors(g.getUsers());
         cGame.setCurrentTurn(serverGame.getCurrentTurn());
-// TODO:        cGame.setClaimedRoutes(); will be unique to the player
+        cGame.setClaimedRoutes(serverGame.getClaimedRoutes());
         cGame.setOriginal(!serverGame.updateReady());
         return cGame;
     }

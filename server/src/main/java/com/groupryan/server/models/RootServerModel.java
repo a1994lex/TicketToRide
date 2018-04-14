@@ -41,8 +41,6 @@ public class RootServerModel {
     public static RootServerModel getInstance() {
         if (single_instance == null) {
             single_instance = new RootServerModel();
-            Game game = new Game();
-            //single_instance.gameMap = game.makeTestGames();
         }
         return single_instance;
     }

@@ -35,8 +35,6 @@ public class ServerGame implements java.io.Serializable{
     private int ready;
     private int currentTurn = -1;
 //    TODO: set up available routes for client facing object
-//    TODO: save current Turn in server game
-//    TODO: if updateReady() == True, original is false
 
     public ServerGame(String serverGameID, Deck trainCards, Deck destinationCards) {
         this.serverGameID = serverGameID;
@@ -147,11 +145,6 @@ public class ServerGame implements java.io.Serializable{
         }
     }
 
-    public void removeDestinationCardsFromPlayer(String username, List<Integer> cardID) {
-        //needs to do something
-        //not    now voided by discard function
-    }
-
     public List<DestCard> drawDestinationCards() {
         //reshuffle if <3
         List<Card> list = destinationCards.draw(3);
@@ -198,19 +191,6 @@ public class ServerGame implements java.io.Serializable{
         return playaMap;
     }
 
-    public void makeFakeHistory() {
-        String hi = "first fake history";
-        String hello = "second fake history";
-        String indeed = "thirdFakeHistory";
-        history.add(hi);
-        history.add(hello);
-        history.add(indeed);
-        Map.Entry<String, Player> entry = playaMap.entrySet().iterator().next();
-        CommandManager.getInstance().addHistoryCommand(hi, getServerGameID(), null);
-        CommandManager.getInstance().addHistoryCommand(hello, getServerGameID(), null);
-        CommandManager.getInstance().addHistoryCommand(indeed, getServerGameID(), entry.getKey());
-    }
-
     public List<TrainCard> getBankList(){
       return bank;
     }
@@ -251,5 +231,13 @@ public class ServerGame implements java.io.Serializable{
 
     public Bank getBank(){
         return new Bank(bank);
+    }
+
+    public List<Route> getClaimedRoutes(){
+        ArrayList<Route>  claimedRoutes = new ArrayList<>();
+        for (Map.Entry<String, Player> player : playaMap.entrySet()) {
+           claimedRoutes.addAll(player.getValue().getRoutes());
+        }
+        return claimedRoutes;
     }
 }
