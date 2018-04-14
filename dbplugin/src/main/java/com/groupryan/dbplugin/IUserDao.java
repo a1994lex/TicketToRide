@@ -2,6 +2,7 @@ package com.groupryan.dbplugin;
 
 import com.groupryan.shared.models.User;
 
+import java.sql.Connection;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  */
 
 public interface IUserDao {
-    void loginUser(User user);
     void registerUser(User user);
+    void addGameToUser(User user, String gameID);
     List<User> getUsersList();
 }
