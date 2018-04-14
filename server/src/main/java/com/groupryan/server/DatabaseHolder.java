@@ -35,12 +35,22 @@ public class DatabaseHolder {
         database.startTransaction();
         List<byte[]> gameBlobs = database.getGameDao().getAllSnapshots();
         List<User> users = database.getUserDao().getUsersList();
+        Map<String, List<byte[]>> commandMap = database.getGameDao().getAllCommands();
         database.endTransaction();
 
         //update root server model
         RootServerModel.getInstance().setServerGameIdMap(this.deserializeGames(gameBlobs));
         RootServerModel.getInstance().setUserMap(this.makeUserMap(users));
         RootServerModel.getInstance().setUserGames(this.makeUserGamesMap(users));
+
+        //run commands
+        for(Map.Entry<String, List<byte[]>> entry : commandMap.entrySet()){
+            for (byte[] serializedCommand : entry.getValue()){
+                ServerCommand sc = (ServerCommand) JavaSerializer.getInstance().toObject(serializedCommand);
+                sc.execute();
+            }
+        }
+
     }
 
     public void setDatabase(IDatabase database){
