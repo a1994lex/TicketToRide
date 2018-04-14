@@ -2,19 +2,14 @@ package com.groupryan.dbplugin;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.groupryan.shared.models.Game;
-import com.groupryan.shared.models.User;
 
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Daniel on 4/12/2018.
