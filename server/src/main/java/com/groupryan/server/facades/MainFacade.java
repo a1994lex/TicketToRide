@@ -1,10 +1,13 @@
 package com.groupryan.server.facades;
 
 import com.groupryan.server.CommandManager;
+import com.groupryan.server.DatabaseHolder;
 import com.groupryan.server.models.RootServerModel;
 import com.groupryan.server.models.ServerGame;
 import com.groupryan.shared.IServer;
 import com.groupryan.shared.commands.ClientCommand;
+import com.groupryan.shared.commands.ServerCommand;
+import com.groupryan.shared.commands.ServerCommandFactory;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.Game;
@@ -17,6 +20,7 @@ import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by bengu3 on 1/31/18.
@@ -25,27 +29,47 @@ import java.util.List;
 
 public class MainFacade implements IServer {
 
+    private ServerCommandFactory scf = new ServerCommandFactory();
+
 
     @Override
     public CommandResult createGame(Game game) {
+        ServerCommand serverCommand = scf.createCreateGameCommand(game);
+        DatabaseHolder.getInstance().addCommand(game.getGameId(), serverCommand);
+        Map<String, String> userColors = game.getUsers();
+        for(String username : userColors.keySet()){
+           User user = RootServerModel.getUser(username);
+            DatabaseHolder.getInstance().addGameToUser(game.getGameId(),user);
+        }
+
         CreateGameFacade cgf = new CreateGameFacade();
         return cgf.createGame(game);
+
     }
 
     @Override
     public CommandResult joinGame(Game game, User user, String userColor) {
+        ServerCommand serverCommand = scf.createJoinGameCommand(game, user, userColor);
+        DatabaseHolder.getInstance().addGameToUser(game.getGameId(), user);
+        DatabaseHolder.getInstance().addCommand(game.getGameId(), serverCommand);
+
+
         JoinGameFacade jgf = new JoinGameFacade();
         return jgf.joinGame(game, user, userColor);
     }
 
     @Override
     public CommandResult startGame(String gameId) {
+        ServerCommand serverCommand = scf.createStartGameCommand(gameId);
+        DatabaseHolder.getInstance().addCommand(gameId, serverCommand);
+
         StartGameFacade sgf = new StartGameFacade();
         return sgf.start(gameId);
     }
 
     @Override
     public LoginResult register(User user) {
+        DatabaseHolder.getInstance().getDatabase().getUserDao().registerUser(user);
         RegisterFacade rf = new RegisterFacade();
         return rf.register(user);
     }
@@ -58,7 +82,10 @@ public class MainFacade implements IServer {
 
     @Override
     public CommandResult discardDestinationCard(DestCardList destCardList, String username) {
+        ServerCommand serverCommand = scf.createDiscardDestinationCardCommand(destCardList, username);
         ServerGame serverGame = RootServerModel.getInstance().getServerGame(username);
+        DatabaseHolder.getInstance().addCommand(serverGame.getServerGameID(), serverCommand);
+
         DestinationCardFacade dcf = new DestinationCardFacade();
         List<Integer> cardIDs = destCardList.getList();
         CommandResult cr=  dcf.discard(cardIDs, username);
@@ -81,6 +108,9 @@ public class MainFacade implements IServer {
     public CommandResult endTurn(String username){
         ServerGame serverGame = RootServerModel.getInstance().getServerGame(username);
 
+        ServerCommand serverCommand = scf.createEndTurnCommand(username);
+        DatabaseHolder.getInstance().addCommand(serverGame.getServerGameID(), serverCommand);
+
         Player player = serverGame.getPlayer(username);
         if(player.getEndGame()){
             EndGameFacade endGameFacade = new EndGameFacade();
@@ -99,12 +129,20 @@ public class MainFacade implements IServer {
 
     @Override
     public CommandResult drawDestinationCards(String username) {
+        ServerGame serverGame = RootServerModel.getInstance().getServerGame(username);
+        ServerCommand serverCommand = scf.createDrawThreeCardsCommand(username);
+        DatabaseHolder.getInstance().addCommand(serverGame.getServerGameID(), serverCommand);
+
         DestinationCardFacade dcf = new DestinationCardFacade();
         return dcf.drawDestinationCards(username);
     }
 
     @Override
     public CommandResult sendChat(String gameId, String msg, String username) {
+        ServerCommand serverCommand = scf.createSendChat(gameId, msg, username);
+        DatabaseHolder.getInstance().addCommand(gameId, serverCommand);
+
+
         CommandManager.getInstance().addChatCommand(msg, gameId, username);
         CommandResult cm = new CommandResult();
         cm.setClientCommands(CommandManager.getInstance().getGameCommands(gameId, username));
@@ -114,12 +152,22 @@ public class MainFacade implements IServer {
 
     @Override
     public CommandResult drawColorCard(Integer position, String username) {
+        ServerGame sg = RootServerModel.getInstance().getServerGame(username);
+        ServerCommand serverCommand = scf.createDrawColorCardCommand(position, username);
+        DatabaseHolder.getInstance().addCommand(sg.getServerGameID(), serverCommand);
+
+
         ColorCardFacade ccf = new ColorCardFacade();
         return ccf.drawCard(position, username);
     }
 
     @Override
     public CommandResult updateFaceUp(String gameId) {
+//        ServerCommand serverCommand =
+//        DatabaseHolder.getInstance().addCommand(gameId, serverCommand);
+        //TODO: WHEN IS THIS CALLED???????
+
+
         ColorCardFacade ccf = new ColorCardFacade();
         return ccf.updateFaceUp();
 
@@ -127,12 +175,18 @@ public class MainFacade implements IServer {
 
     @Override
     public CommandResult getCommands(User user) {
+        //TODO: assuming i don't need to add this to db?
         GetCommandsFacade gcf = new GetCommandsFacade();
         return gcf.getCommandList(user);
     }
 
     @Override
     public CommandResult claimRoute(String username, Integer routeId, TrainCardList trainCardIDs) {
+
+        ServerGame sg = RootServerModel.getInstance().getServerGame(username);
+        ServerCommand serverCommand = scf.createClaimRouteCommand(username, routeId, trainCardIDs);
+        DatabaseHolder.getInstance().addCommand(sg.getServerGameID(), serverCommand);
+
         int id = (int) routeId;
         ClaimRouteFacade crf = new ClaimRouteFacade();
         CommandResult cr = crf.claimRoute(username, id, trainCardIDs);
@@ -144,6 +198,7 @@ public class MainFacade implements IServer {
 
     @Override
     public CommandResult getGameCommands(String gameId, String playerId) {
+        //TODO: assuming i don't need to add this command to db?
         GetCommandsFacade gcf = new GetCommandsFacade();
         return gcf.getGameCommands(gameId, playerId);
     }

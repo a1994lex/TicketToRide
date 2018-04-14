@@ -35,10 +35,7 @@ public class RootServerModel {
     private Map<Integer, Integer> routeLengthPoints = new HashMap<>();
 
 
-    //usermap
-    //server gameid map
-    //usergames
-    //call make bank (add it to constructor)
+
     private static final long serialVersionUID = 5230549922091722630L;
 
     private static RootServerModel single_instance; /*= new RootServerModel();*/
@@ -46,6 +43,7 @@ public class RootServerModel {
     public static RootServerModel getInstance() {
         if (single_instance == null) {
             single_instance = new RootServerModel();
+            single_instance.makeBank();
             Game game = new Game();
             //single_instance.gameMap = game.makeTestGames();
         }
@@ -60,6 +58,14 @@ public class RootServerModel {
             }
         }
         return notStartedGames;
+    }
+
+    public void setUserMap(Map<String, User> userMap) {
+        this.userMap = userMap;
+    }
+
+    public void setUserGames(Map<String, ServerGame> userGames) {
+        this.userGames = userGames;
     }
 
     public ArrayList<User> getUsers() {
@@ -474,6 +480,10 @@ public class RootServerModel {
 
     public Map<String, ServerGame> getServerGameIdMap() {
         return serverGameIdMap;
+    }
+
+    public void setServerGameIdMap(Map<String, ServerGame> idToGame){
+        this.serverGameIdMap = idToGame;
     }
 
     public Route getRoute(int ID){

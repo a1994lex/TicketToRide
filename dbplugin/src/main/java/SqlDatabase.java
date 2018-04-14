@@ -57,6 +57,7 @@ public class SqlDatabase implements IDatabase {
 
     int maxCommands;
     Connection connection;
+    public SqlDatabase(){}
     public SqlDatabase(int maxCommands){this.maxCommands=maxCommands;}
 
     @Override

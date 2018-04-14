@@ -75,6 +75,7 @@ public class Server {
                 Object pluginObject = constructor.newInstance();
                 IDatabase databasePlugin = (IDatabase) pluginObject;
                 DatabaseHolder.getInstance().setDatabase(databasePlugin);
+                DatabaseHolder.getInstance().loadActiveServerGames();
 
             } catch (Exception ex) {
                 System.err.println(ex.getClass());
