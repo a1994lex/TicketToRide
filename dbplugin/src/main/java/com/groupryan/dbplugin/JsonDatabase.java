@@ -119,8 +119,8 @@ public class JsonDatabase implements IDatabase {
         databaseCopy.add("games", gamesObj);
         databaseCopy.add("users", usersObj);
         writeToDatabase();
-        userDao = null;
-        gameDao = null;
+        updateUserDao();
+        updateGameDao();
         System.out.println("Database updated successfully!");
     }
 
