@@ -2,6 +2,7 @@ package com.groupryan.dbplugin;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -37,25 +38,30 @@ public class JsonDatabase implements IDatabase {
         JsonObject databaseObj = null;
         try {
             String fileStr = FileUtils.readFileToString(databaseFile, "UTF-8");
-            databaseObj = new JsonParser().parse(fileStr).getAsJsonObject();
+            if (!fileStr.isEmpty()) {
+                databaseObj = new JsonParser().parse(fileStr).getAsJsonObject();
+            }
+            else {
+                databaseObj = new JsonObject();
+            }
         } catch (IOException e) {
             e.printStackTrace();
         }
         return databaseObj;
     }
 
-    private JsonObject getUsersAsJsonObject(JsonObject databaseObj) {
+    private JsonArray getUsersAsJsonObject(JsonObject databaseObj) {
         if (databaseObj.has("users")) {
-            return databaseObj.getAsJsonObject("users");
+            return databaseObj.getAsJsonArray("users");
         }
-        return null;
+        return new JsonArray();
     }
 
-    private JsonObject getGamesAsJsonObject(JsonObject databaseObj) {
+    private JsonArray getGamesAsJsonObject(JsonObject databaseObj) {
         if (databaseObj.has("games")) {
-            return databaseObj.getAsJsonObject("games");
+            return databaseObj.getAsJsonArray("games");
         }
-        return null;
+        return new JsonArray();
     }
 
     private void checkJsonFileExists() {
@@ -78,11 +84,11 @@ public class JsonDatabase implements IDatabase {
         }
     }
 
-    private JsonObject getUserDaoModifications() {
+    private JsonArray getUserDaoModifications() {
         return userDao.getUsersObj();
     }
 
-    private JsonObject getGameDaoModifications() {
+    private JsonArray getGameDaoModifications() {
         return gameDao.getGamesObj();
     }
 
@@ -109,8 +115,8 @@ public class JsonDatabase implements IDatabase {
 
     @Override
     public void endTransaction() {
-        JsonObject gamesObj = getGameDaoModifications();
-        JsonObject usersObj = getUserDaoModifications();
+        JsonArray gamesObj = getGameDaoModifications();
+        JsonArray usersObj = getUserDaoModifications();
         databaseCopy.add("games", gamesObj);
         databaseCopy.add("users", usersObj);
         writeToDatabase();
@@ -138,7 +144,7 @@ public class JsonDatabase implements IDatabase {
     @Override
     public void setUp() {
         File jsonFile = new File(databaseAddress);
-        if (!jsonFile.isFile()) {
+        if (jsonFile.isFile()) {
             try {
                 jsonFile.createNewFile();
                 databaseFile = jsonFile;
@@ -146,5 +152,11 @@ public class JsonDatabase implements IDatabase {
                 e.printStackTrace();
             }
         }
+    }
+
+    public void clearDatabase() {
+        checkJsonFileExists();
+        databaseCopy.remove("users");
+        databaseCopy.remove("games");
     }
 }

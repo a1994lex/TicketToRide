@@ -16,43 +16,43 @@ import java.util.List;
 
 public class JsonGameDao implements IGameDao {
 
-    private JsonObject gamesObj;
+    private JsonArray gamesObj;
 
-    public JsonObject getGamesObj() {
+    public JsonArray getGamesObj() {
         return gamesObj;
     }
 
-    public void setGamesObj(JsonObject gamesObj) {
+    public void setGamesObj(JsonArray gamesObj) {
         this.gamesObj = gamesObj;
     }
 
-    public JsonGameDao(JsonObject gamesObj) {
+    public JsonGameDao(JsonArray gamesObj) {
         this.gamesObj = gamesObj;
     }
 
     private void addGamesElement() {
-        List<Integer> games = new ArrayList<>();
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String gamesJson = gson.toJson(games);
-        JsonElement gamesElem = new JsonParser().parse(gamesJson);
-        gamesObj.add("games", gamesElem);
+//        List<Integer> games = new ArrayList<>();
+//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//        String gamesJson = gson.toJson(games);
+//        JsonElement gamesElem = new JsonParser().parse(gamesJson);
+//        gamesObj.add("games", gamesElem);
     }
 
     private void addCommandsElement() {
-        List<Integer> commands = new ArrayList<>();
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String commandsJson = gson.toJson(commands);
-        JsonElement commandsElem = new JsonParser().parse(commandsJson);
-        JsonObject commandsObj = commandsElem.getAsJsonObject();
-
-        for (int i = 0; i < gamesObj.getAsJsonArray().size(); i++) {
-            JsonElement gameElem = gamesObj.getAsJsonArray().get(i);
-            JsonObject gameObj = gameElem.getAsJsonObject();
-            if (!gameObj.has("commands")) {
-                gameObj.add("commands", commandsObj);
-                gamesObj.getAsJsonArray().set(i, gameObj);
-            }
-        }
+//        List<Integer> commands = new ArrayList<>();
+//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//        String commandsJson = gson.toJson(commands);
+//        JsonElement commandsElem = new JsonParser().parse(commandsJson);
+//        JsonObject commandsObj = commandsElem.getAsJsonObject();
+//
+//        for (int i = 0; i < gamesObj.getAsJsonArray().size(); i++) {
+//            JsonElement gameElem = gamesObj.getAsJsonArray().get(i);
+//            JsonObject gameObj = gameElem.getAsJsonObject();
+//            if (!gameObj.has("commands")) {
+//                gameObj.add("commands", commandsObj);
+//                gamesObj.getAsJsonArray().set(i, gameObj);
+//            }
+//        }
     }
 
     private JsonObject findGameById(String gameId, JsonArray gamesArray) {
@@ -61,7 +61,7 @@ public class JsonGameDao implements IGameDao {
         while (i < gamesArray.size()) {
             JsonElement game = gamesArray.get(i);
             JsonObject gameObj = game.getAsJsonObject();
-            if (gameObj.get("gameId").equals(gameId)) {
+            if (gameObj.get("gameId").getAsString().equals(gameId)) {
                 obj = gameObj;
                 i = gamesArray.size();
             }
@@ -86,7 +86,6 @@ public class JsonGameDao implements IGameDao {
     @Override
     public void addCommandToGame(String gameid, byte[] command) {
         if (gamesObj != null) {
-            addCommandsElement();
             JsonObject gameObj = findGameById(gameid, gamesObj.getAsJsonArray());
             if (gameObj != null) {
                 String commandStr = new String(command);
@@ -107,9 +106,6 @@ public class JsonGameDao implements IGameDao {
     public void updateGameSnapshot(String gameid, byte[] gameSnapshot) {
         String snapshotStr = new String(gameSnapshot);
         JsonElement snapshotElem = new JsonParser().parse(snapshotStr);
-        if (gamesObj == null) {
-            addGamesElement();
-        }
         JsonArray gamesArray = gamesObj.getAsJsonArray();
         JsonObject gameObj = findGameById(gameid, gamesArray);
         if (gameObj == null) {
@@ -122,7 +118,7 @@ public class JsonGameDao implements IGameDao {
             }
             else {
                 gamesArray.add(snapshotElem);
-                gamesObj = gamesArray.getAsJsonObject();
+                gamesObj = gamesArray;
             }
         }
     }

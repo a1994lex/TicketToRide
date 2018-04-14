@@ -16,37 +16,34 @@ import java.util.List;
 
 public class JsonUserDao implements IUserDao {
 
-    private JsonObject usersObj;
+    private JsonArray usersObj;
 
-    public JsonUserDao(JsonObject usersObj) {
+    public JsonUserDao(JsonArray usersObj) {
         this.usersObj = usersObj;
     }
 
-    public JsonObject getUsersObj() {
+    public JsonArray getUsersObj() {
         return usersObj;
     }
 
-    public void setUsersObj(JsonObject usersObj) {
+    public void setUsersObj(JsonArray usersObj) {
         this.usersObj = usersObj;
     }
 
     private void addUserElement() {
-        List<Integer> users = new ArrayList<>();
-        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        String usersJson = gson.toJson(users);
-        JsonElement usersElem = new JsonParser().parse(usersJson);
-        usersObj.add("users", usersElem);
+//    List<Integer> users = new ArrayList<>();
+//    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+//    String usersJson = gson.toJson(users);
+//    JsonElement usersElem = new JsonParser().parse(usersJson);
+//    usersObj.add("users", usersElem);
     }
 
     @Override
     public void registerUser(User user) {
-        if (usersObj.getAsJsonArray().size() == 0) {
-            addUserElement();
-        }
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String userStr = gson.toJson(user);
         JsonElement userElem = new JsonParser().parse(userStr);
-        usersObj.getAsJsonArray().add(userElem);
+        usersObj.add(userElem);
     }
 
     @Override
