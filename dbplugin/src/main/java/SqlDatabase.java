@@ -39,7 +39,7 @@ public class SqlDatabase implements IDatabase {
     }
 
     public List<byte[]> getCommandsByGameId(String gameID){
-        return getGameDao().getCommandsByGamdId(gameID);
+        return getGameDao().getCommandsByGameId(gameID);
     }
 
     public byte[] getSnapshotByGameId(String gameID){

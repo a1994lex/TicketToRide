@@ -143,7 +143,7 @@ public class JsonDatabase implements IDatabase {
     }
 
     @Override
-    public void setUp() {
+    public void setMaxCommands(int commands) {
         File jsonFile = new File(databaseAddress);
         if (jsonFile.exists()) {
             if (!jsonFile.isDirectory()) {

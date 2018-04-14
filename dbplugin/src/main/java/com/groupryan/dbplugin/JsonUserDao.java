@@ -30,14 +30,6 @@ public class JsonUserDao implements IUserDao {
         this.usersObj = usersObj;
     }
 
-    private void addUserElement() {
-//    List<Integer> users = new ArrayList<>();
-//    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//    String usersJson = gson.toJson(users);
-//    JsonElement usersElem = new JsonParser().parse(usersJson);
-//    usersObj.add("users", usersElem);
-    }
-
     @Override
     public void registerUser(User user) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -49,13 +41,26 @@ public class JsonUserDao implements IUserDao {
     @Override
     public List<User> getUsersList() {
         List<User> users = new ArrayList<>();
-        JsonArray usersArray = usersObj.getAsJsonArray();
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
-        for (int i = 0; i < usersArray.size(); i++) {
-            JsonElement userElem = usersArray.get(i);
+        for (int i = 0; i < usersObj.size(); i++) {
+            JsonElement userElem = usersObj.get(i);
             User u = gson.fromJson(userElem, User.class);
             users.add(u);
         }
         return users;
+    }
+
+    @Override
+    public void addGameToUser(User user, String gameID) {
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        String username = user.getUsername();
+        for (int i = 0; i < usersObj.size(); i++) {
+            JsonObject userObj = usersObj.get(i).getAsJsonObject();
+            if (userObj.get("username").getAsString().equals(username)) {
+                String gameIdStr = gson.toJson(gameID);
+                JsonElement gameIdElem = new JsonParser().parse(gameIdStr);
+                userObj.add("gameId", gameIdElem);
+            }
+        }
     }
 }

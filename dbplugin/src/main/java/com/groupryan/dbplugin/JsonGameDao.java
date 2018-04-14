@@ -86,7 +86,7 @@ public class JsonGameDao implements IGameDao {
     }
 
     @Override
-    public void addCommandToGame(String gameid, byte[] command) {
+    public Boolean addCommandToGame(String gameid, byte[] command, int order) {
         if (gamesObj != null) {
             JsonObject gameObj = findGameById(gameid, gamesObj.getAsJsonArray());
             if (gameObj != null) {
@@ -105,6 +105,7 @@ public class JsonGameDao implements IGameDao {
                 gamesObj.set(gameIndex, gameElem);
             }
         }
+        return true;
     }
 
     @Override

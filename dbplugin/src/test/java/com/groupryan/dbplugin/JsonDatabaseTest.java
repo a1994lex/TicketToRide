@@ -62,7 +62,7 @@ public class JsonDatabaseTest {
     @Before
     public void setUp() throws Exception {
         database = new JsonDatabase();
-        database.setUp();
+        database.setMaxCommands(10);
         database.startTransaction();
     }
 
@@ -96,8 +96,8 @@ public class JsonDatabaseTest {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         byte[] cmd1 = gson.toJson(sc).getBytes();
         byte[] cmd2 = gson.toJson(sc2).getBytes();
-        gameDao.addCommandToGame("1234", cmd1);
-        gameDao.addCommandToGame("1234567890", cmd2);
+        gameDao.addCommandToGame("1234", cmd1, 0);
+        gameDao.addCommandToGame("1234567890", cmd2, 0);
         Map<String, List<byte[]>> commands = gameDao.getAllCommands();
         assertEquals(commands.size(), 2);
         for (int i = 0; i < snapshots.size(); i++) {
