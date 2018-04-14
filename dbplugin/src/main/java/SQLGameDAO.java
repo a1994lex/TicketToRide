@@ -112,7 +112,7 @@ public class SQLGameDAO implements IGameDao {
     }
 
     @Override
-    public List<byte[]> getCommandsByGamdId(String gameid) {
+    public List<byte[]> getCommandsByGameId(String gameid) {
         PreparedStatement stmt = null;
         ResultSet rs = null;
         List<byte[]> commands= new ArrayList<>();
