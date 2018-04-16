@@ -6,6 +6,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
+import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.User;
 import java.util.ArrayList;
 import java.util.List;
@@ -57,9 +58,11 @@ public class JsonUserDao implements IUserDao {
         for (int i = 0; i < usersObj.size(); i++) {
             JsonObject userObj = usersObj.get(i).getAsJsonObject();
             if (userObj.get("username").getAsString().equals(username)) {
-                String gameIdStr = gson.toJson(gameID);
-                JsonElement gameIdElem = new JsonParser().parse(gameIdStr);
-                userObj.add("gameId", gameIdElem);
+                List<Game> gameList = new ArrayList<>();
+                gameList.add(new Game("", gameID, 2));
+                String gameListStr = gson.toJson(gameList);
+                JsonElement gameListElem = new JsonParser().parse(gameListStr);
+                userObj.add("gameList", gameListElem);
             }
         }
     }
