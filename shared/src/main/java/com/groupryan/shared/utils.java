@@ -39,6 +39,7 @@ public class utils {
     public static final String BLANK = "BLANK";
     public static final String END_GAME = "END GAME";
 
+    public static final String PLUGIN_REGISTRY_PATH = "server/src/main/java/com/groupryan/server/plugin_helps/PluginRegistry.json";
 
     public static final String EXEC_COMMAND = "/executeCommand";  // url for command API
 //    public static final String SERVER_HOST = "localhost";

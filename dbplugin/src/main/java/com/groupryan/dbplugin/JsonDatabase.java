@@ -26,6 +26,7 @@ public class JsonDatabase implements IDatabase {
     public JsonDatabase() {
         gameDao = null;
         userDao = null;
+        databaseFile = null;
         databaseAddress = "database.json";
     }
 
@@ -65,7 +66,7 @@ public class JsonDatabase implements IDatabase {
     }
 
     private void checkJsonFileExists() {
-        if (!databaseFile.isFile()) {
+        if (!databaseFile.exists()) {
             try {
                 databaseFile.createNewFile();
             } catch (IOException e) {
@@ -142,14 +143,16 @@ public class JsonDatabase implements IDatabase {
     }
 
     @Override
-    public void setUp() {
+    public void setMaxCommands(int commands) {
         File jsonFile = new File(databaseAddress);
-        if (jsonFile.isFile()) {
-            try {
-                jsonFile.createNewFile();
-                databaseFile = jsonFile;
-            } catch (IOException e) {
-                e.printStackTrace();
+        if (jsonFile.exists()) {
+            if (!jsonFile.isDirectory()) {
+                try {
+                    jsonFile.createNewFile();
+                    databaseFile = jsonFile;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
@@ -158,5 +161,8 @@ public class JsonDatabase implements IDatabase {
         checkJsonFileExists();
         databaseCopy.remove("users");
         databaseCopy.remove("games");
+        writeToDatabase();
+        updateGameDao();
+        updateUserDao();
     }
 }
