@@ -8,12 +8,14 @@ import com.groupryan.shared.models.ClientFacingGame;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Route;
+import com.groupryan.shared.models.Stat;
 import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.LoginResult;
 import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -66,6 +68,7 @@ public class LoginFacade {
         ClientFacingGame cGame = new ClientFacingGame(serverGame.getServerGameID(), receiver);
         cGame.setAvailableRoutes((ArrayList<Route>) receiver.getAvailableRoutes());
         cGame.setHistory((ArrayList<String>) serverGame.getAllHistory());
+        cGame.setStats((HashMap<String, Stat>) serverGame.getStats());
         cGame.setBankCards((ArrayList<TrainCard>) serverGame.getBankList());
         Game g = RootServerModel.getInstance().getGame(serverGame.getServerGameID());
         cGame.setPlayersColors(g.getUsers());

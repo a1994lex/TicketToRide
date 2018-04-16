@@ -111,6 +111,10 @@ public class ServerGame implements java.io.Serializable{
         return s;
     }
 
+    public Map<String, Stat> getStats(){
+        return this.stats;
+    }
+
     public int getNextTurn(){
         Player nextPlayer = this.turnOrder.remove(); // push top player off the queue.
         int turnNum = nextPlayer.getTurn();

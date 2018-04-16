@@ -163,7 +163,7 @@ public class RootClientModel extends Observable {
     private void _restoreCurrentGame(ClientFacingGame cfg){
         clientGame = new ClientGame(cfg);
         setChanged();
-        notifyObservers();
+        notifyObservers(utils.GAME_RESTORED);
     }
 
 

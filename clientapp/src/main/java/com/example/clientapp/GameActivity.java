@@ -104,7 +104,10 @@ public class GameActivity extends FragmentActivity implements IGameView {
         this.gamePlayPresenter.setGameView(this);
 
         Bundle extras = getIntent().getExtras();
-        Boolean isRestored = extras.getBoolean(utils.GAME_RESTORED);
+        Boolean isRestored = false;
+        if (extras != null){
+            isRestored = extras.getBoolean(utils.GAME_RESTORED);
+        }
 
         mNav = findViewById(R.id.navigation);
         mNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
