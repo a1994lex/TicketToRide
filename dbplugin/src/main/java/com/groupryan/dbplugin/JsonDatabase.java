@@ -52,6 +52,15 @@ public class JsonDatabase implements IDatabase {
         return databaseObj;
     }
 
+    private void printDatabaseContents() {
+        JsonElement usersElem = databaseCopy.get("users");
+        JsonElement gamesElem = databaseCopy.get("games");
+        JsonElement maxCommands = databaseCopy.get("maxCommands");
+        System.out.println("users: " + usersElem);
+        System.out.println("games: " + gamesElem);
+        System.out.println("max commands: " + maxCommands);
+    }
+
     private JsonArray getUsersAsJsonObject(JsonObject databaseObj) {
         if (databaseObj.has("users")) {
             return databaseObj.getAsJsonArray("users");
@@ -95,8 +104,8 @@ public class JsonDatabase implements IDatabase {
     }
 
     private void updateGameDao() {
-        int maxCommands = databaseCopy.get("maxCommands").getAsInt();
-        this.gameDao = new JsonGameDao(getGamesAsJsonObject(databaseCopy), maxCommands);
+//        int maxCommands = databaseCopy.get("maxCommands").getAsInt();
+        this.gameDao = new JsonGameDao(getGamesAsJsonObject(databaseCopy), 0);
     }
 
     private void updateUserDao() {
@@ -123,6 +132,7 @@ public class JsonDatabase implements IDatabase {
         databaseCopy.add("games", gamesObj);
         databaseCopy.add("users", usersObj);
         writeToDatabase();
+        printDatabaseContents();
         updateUserDao();
         updateGameDao();
         System.out.println("Database updated successfully!");
