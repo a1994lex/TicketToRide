@@ -34,10 +34,19 @@ public class DatabaseHolder {
 
     public void setDatabase(IDatabase database){
         this.database = database;
-        String example = "Convert Java String";
-        byte[] bytes = example.getBytes();
-        database.getGameDao().addCommandToGame(example, bytes, -1);
-        database.getGameDao().updateGameSnapshot();
+        /**
+         * database.startTransaction();
+         String example = "Convert Java String";
+         byte[] bytes = example.getBytes();
+         database.getGameDao().updateGameSnapshot("one", bytes);
+         example = "Convert  ";
+         bytes = example.getBytes();
+         database.getGameDao().updateGameSnapshot("two", bytes);
+         Map<String,List<byte[]>> que= database.getGameDao().getAllCommands();
+         List<byte[]> gay=database.getGameDao().getAllSnapshots();
+         database.endTransaction();
+         *
+         */
 
     }
 
