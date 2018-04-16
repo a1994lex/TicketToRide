@@ -42,12 +42,12 @@ public class DatabaseHolder {
 
 
     public void loadActiveServerGames(){
-        makeGame();
-        byte[] stream = JavaSerializer.getInstance().serializeObject(serverGame);
-        DatabaseHolder.getInstance().getDatabase().startTransaction();
-        DatabaseHolder.getInstance().getDatabase().getGameDao().updateGameSnapshot(serverGame.getServerGameID(), stream);
-        byte[] afterstream = DatabaseHolder.getInstance().getDatabase().getGameDao().getSnapshotByGameId(serverGame.getServerGameID());
-        DatabaseHolder.getInstance().getDatabase().endTransaction();
+//        makeGame();
+//        byte[] stream = JavaSerializer.getInstance().serializeObject(serverGame);
+//        DatabaseHolder.getInstance().getDatabase().startTransaction();
+//        DatabaseHolder.getInstance().getDatabase().getGameDao().updateGameSnapshot(serverGame.getServerGameID(), stream);
+//        byte[] afterstream = DatabaseHolder.getInstance().getDatabase().getGameDao().getSnapshotByGameId(serverGame.getServerGameID());
+//        DatabaseHolder.getInstance().getDatabase().endTransaction();
 
 
 
