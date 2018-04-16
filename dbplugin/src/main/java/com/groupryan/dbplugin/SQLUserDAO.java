@@ -92,4 +92,13 @@ public class SQLUserDAO implements IUserDao {
         }
         return users;
     }
+
+    public void dropTables(){
+        try{
+            Statement stat = connection.createStatement();
+            stat.executeUpdate("drop table if exists User");
+        } catch (Exception e) {
+            System.out.println("DROP USER TABLE FAILED");
+        }
+    }
 }
