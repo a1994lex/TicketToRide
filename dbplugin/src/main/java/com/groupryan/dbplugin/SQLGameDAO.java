@@ -1,3 +1,5 @@
+package com.groupryan.dbplugin;
+
 import com.groupryan.dbplugin.IGameDao;
 
 import java.sql.Blob;
