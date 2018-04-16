@@ -20,6 +20,8 @@ public class JsonGameDao implements IGameDao {
 
     private JsonArray gamesObj;
 
+    private int maxCommands;
+
     public JsonArray getGamesObj() {
         return gamesObj;
     }
@@ -28,8 +30,9 @@ public class JsonGameDao implements IGameDao {
         this.gamesObj = gamesObj;
     }
 
-    public JsonGameDao(JsonArray gamesObj) {
+    public JsonGameDao(JsonArray gamesObj, int maxCommands) {
         this.gamesObj = gamesObj;
+        this.maxCommands = maxCommands;
     }
 
     private void addGamesElement() {
@@ -87,6 +90,7 @@ public class JsonGameDao implements IGameDao {
 
     @Override
     public Boolean addCommandToGame(String gameid, byte[] command, int order) {
+        boolean maxReached = false;
         if (gamesObj != null) {
             JsonObject gameObj = findGameById(gameid, gamesObj.getAsJsonArray());
             if (gameObj != null) {
@@ -97,6 +101,9 @@ public class JsonGameDao implements IGameDao {
                     commandsArray = gameObj.get("commands").getAsJsonArray();
                 }
                 commandsArray.add(commandElem);
+                if (commandsArray.size() == maxCommands) {
+                    maxReached = true;
+                }
                 gameObj.add("commands", commandsArray);
                 Gson gson = new GsonBuilder().setPrettyPrinting().create();
                 String gameStr = gson.toJson(gameObj);
@@ -105,7 +112,7 @@ public class JsonGameDao implements IGameDao {
                 gamesObj.set(gameIndex, gameElem);
             }
         }
-        return true;
+        return maxReached;
     }
 
     @Override

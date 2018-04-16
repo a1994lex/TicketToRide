@@ -3,6 +3,7 @@ package com.groupryan.dbplugin;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -94,7 +95,8 @@ public class JsonDatabase implements IDatabase {
     }
 
     private void updateGameDao() {
-        this.gameDao = new JsonGameDao(getGamesAsJsonObject(databaseCopy));
+        int maxCommands = databaseCopy.get("maxCommands").getAsInt();
+        this.gameDao = new JsonGameDao(getGamesAsJsonObject(databaseCopy), maxCommands);
     }
 
     private void updateUserDao() {
@@ -150,6 +152,11 @@ public class JsonDatabase implements IDatabase {
                 try {
                     jsonFile.createNewFile();
                     databaseFile = jsonFile;
+                    databaseCopy = copyDatabase();
+                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
+                    String commandsStr = gson.toJson(commands);
+                    JsonElement maxCommands = new JsonParser().parse(commandsStr);
+                    databaseCopy.add("maxCommands", maxCommands);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -161,6 +168,7 @@ public class JsonDatabase implements IDatabase {
         checkJsonFileExists();
         databaseCopy.remove("users");
         databaseCopy.remove("games");
+        databaseCopy.remove("maxCommands");
         writeToDatabase();
         updateGameDao();
         updateUserDao();
