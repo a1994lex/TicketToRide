@@ -232,6 +232,17 @@ public class SQLGameDAO implements IGameDao {
         }
         return games;
     }
+
+    public void dropTables(){
+        try{
+            Statement stat = connection.createStatement();
+            stat.executeUpdate("drop table if exists gamecommandtable");
+            stat.executeUpdate("drop table if exists GameTable");
+        } catch (Exception e) {
+            System.out.println("DROP Tables FAILED");
+        }
+    }
+
 }
 
 

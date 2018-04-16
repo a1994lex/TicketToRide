@@ -16,6 +16,5 @@ public interface IGameDao {
     byte[] getSnapshotByGameId(String gameid);
     Map<String, List<byte[]>> getAllCommands();
     List<byte[]> getAllSnapshots();
-
-
+    void dropTables();
 }

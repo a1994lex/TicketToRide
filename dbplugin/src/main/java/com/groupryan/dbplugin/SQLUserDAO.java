@@ -28,7 +28,7 @@ public class SQLUserDAO implements IUserDao {
             Statement stat = connection.createStatement();
             stat.executeUpdate("create table if not exists User ( username text NOT NULL UNIQUE,\n" +
                     "password text NOT NULL,\n" +
-                    "game text,\n" +//something else
+                    "game text" +//something else
                     ");");
             PreparedStatement prep = connection.prepareStatement("insert into User values (?, ?, ?);");
 
@@ -91,5 +91,14 @@ public class SQLUserDAO implements IUserDao {
             }
         }
         return users;
+    }
+
+    public void dropTables(){
+        try{
+            Statement stat = connection.createStatement();
+            stat.executeUpdate("drop table if exists User");
+        } catch (Exception e) {
+            System.out.println("DROP USER TABLE FAILED");
+        }
     }
 }
