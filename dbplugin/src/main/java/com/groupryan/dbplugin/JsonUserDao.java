@@ -52,6 +52,11 @@ public class JsonUserDao implements IUserDao {
     }
 
     @Override
+    public void dropTables() {
+
+    }
+
+    @Override
     public void addGameToUser(User user, String gameID) {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         String username = user.getUsername();
