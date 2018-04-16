@@ -4,6 +4,7 @@
       "description": "SQLite database plugin.",
       "filePath": "file://dbplugin/dbplugin.jar",
       "classPath": "SqlDatabase"
+
     },
     "json": {
       "description": "JSON file as database plugin.",

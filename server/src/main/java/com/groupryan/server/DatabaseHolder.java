@@ -55,6 +55,9 @@ public class DatabaseHolder {
 
     public void setDatabase(IDatabase database){
         this.database = database;
+//        String example = "Convert Java String";
+//        byte[] bytes = example.getBytes();
+
     }
 
     public IDatabase getDatabase(){
