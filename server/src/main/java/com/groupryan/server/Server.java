@@ -27,9 +27,9 @@ public class Server {
 
     private HttpServer server;
 
-    private void run(String DBType, Integer numCommandsToStore) {
+    private void run(String DBType, Integer maxCommands) {
 
-        this.loadDBPlugin(DBType, numCommandsToStore);
+        this.loadDBPlugin(DBType, maxCommands);
 
         int portNumber = utils.PORT_NUMBER;
         System.out.println("Initializing HTTP Server on port " + portNumber);
@@ -74,10 +74,10 @@ public class Server {
                 Constructor<?> constructor = pluginClass.getConstructor();
                 Object pluginObject = constructor.newInstance();
                 IDatabase databasePlugin = (IDatabase) pluginObject;
+                databasePlugin.setMaxCommands(maxCommands);
                 DatabaseHolder.getInstance().setDatabase(databasePlugin);
 
             } catch (Exception ex) {
-                System.err.println(ex.getClass());
                 System.err.println(ex.getMessage());
             }
             
@@ -88,7 +88,7 @@ public class Server {
 
     public static void main(String[] args) {
         if (args.length == 2) {
-            new Server().run(args[0], Integer.getInteger(args[1]));
+            new Server().run(args[0], Integer.parseInt(args[1]));
         } else {
             System.err.println("Required plugin command-line arguments.");
         }

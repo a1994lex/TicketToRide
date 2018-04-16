@@ -4,7 +4,11 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
     implementation project(':shared')
-    implementation files('src/main/java/sqlite-jdbc-3.21.0.jar')
+    implementation project(':commons-io-2.6')
+    implementation project(':gson-2.8.2')
+    implementation files('junit-4.12.jar')
+    implementation files('src/main/java/com/groupryan/dbplugin/sqlite-jdbc-3.21.0.jar')
+    implementation project(':sqlite-jdbc-3.21.0')
 }
 
 sourceCompatibility = "1.8"
