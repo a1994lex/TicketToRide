@@ -3,7 +3,7 @@
     "sql": {
       "description": "SQLite database plugin.",
       "filePath": "file://dbplugin/dbplugin.jar",
-      "classPath": "SqlDatabase"
+      "classPath": "com.groupryan.dbplugin.SqlDatabase"
 
     },
     "json": {
