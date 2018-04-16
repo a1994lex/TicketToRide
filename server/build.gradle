@@ -6,6 +6,7 @@ dependencies {
     testCompile 'junit:junit:4.12'
     implementation project(':gson-2.8.2')
     compile project(':dbplugin')
+    implementation project(':sqlite-jdbc-3.21.0')
 }
 
 sourceCompatibility = "1.8"

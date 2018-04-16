@@ -40,7 +40,7 @@ public class JavaSerializer {
         Object o = null;
 
         try (ByteArrayInputStream bais = new ByteArrayInputStream(stream);
-             ObjectInputStream ois = new ObjectInputStream(bais);){
+             ObjectInputStream ois = new ObjectInputStream(bais)){
             o = ois.readObject();
         }catch (IOException e){
             e.printStackTrace();

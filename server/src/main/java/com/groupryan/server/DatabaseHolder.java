@@ -8,6 +8,7 @@ import com.groupryan.dbplugin.IDatabase;
 import com.groupryan.shared.JavaSerializer;
 
 import java.util.List;
+import java.util.Map;
 
 
 public class DatabaseHolder {
@@ -33,6 +34,9 @@ public class DatabaseHolder {
 
     public void setDatabase(IDatabase database){
         this.database = database;
+//        String example = "Convert Java String";
+//        byte[] bytes = example.getBytes();
+
     }
 
     public IDatabase getDatabase(){
