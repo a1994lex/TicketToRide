@@ -33,8 +33,8 @@ public class JsonDatabaseTest {
         Game game = new Game(gameName, gameId, 2);
         List<Game> games = new ArrayList<>();
         games.add(game);
-        user.setGameList(games);
         userDao.registerUser(user);
+        userDao.addGameToUser(user, gameId);
         return userDao.getUsersList();
     }
 
@@ -75,9 +75,11 @@ public class JsonDatabaseTest {
     @Test
     public void userDaoTest() throws Exception {
         List<User> users = addUsers();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         for (int i = 0; i < users.size(); i++) {
             System.out.println("username: " + users.get(i).getUsername() +
-                                " password: " + users.get(i).getPassword());
+                                " password: " + users.get(i).getPassword() +
+                                " gameList: " + gson.toJson(users.get(i).getGameList()));
             List<Game> gameList = users.get(i).getGameList();
             assertEquals(gameList.size(), 1);
             assertEquals(users.get(i).getUsername(), "daniel");
