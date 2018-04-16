@@ -10,6 +10,7 @@
       <module fileurl="file://$PROJECT_DIR$/gson-2.8.2/gson-2.8.2.iml" filepath="$PROJECT_DIR$/gson-2.8.2/gson-2.8.2.iml" />
       <module fileurl="file://$PROJECT_DIR$/server/server.iml" filepath="$PROJECT_DIR$/server/server.iml" />
       <module fileurl="file://$PROJECT_DIR$/shared/shared.iml" filepath="$PROJECT_DIR$/shared/shared.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sqlite-jdbc-3.21.0/sqlite-jdbc-3.21.0.iml" filepath="$PROJECT_DIR$/sqlite-jdbc-3.21.0/sqlite-jdbc-3.21.0.iml" />
     </modules>
   </component>
 </project>
