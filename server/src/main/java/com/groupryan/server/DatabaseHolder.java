@@ -68,8 +68,6 @@ public class DatabaseHolder {
             ServerGame serverGame = RootServerModel.getInstance().getServerGameByGameId(gameId);
             byte[] serializedGame = JavaSerializer.getInstance().serializeObject(serverGame);
             database.getGameDao().updateGameSnapshot(gameId,serializedGame );
-
-            //TODO: check if commands are cleared when snapshot is updated?
         }
     }
 
