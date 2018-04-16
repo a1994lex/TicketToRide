@@ -28,7 +28,7 @@ public class SQLUserDAO implements IUserDao {
             Statement stat = connection.createStatement();
             stat.executeUpdate("create table if not exists User ( username text NOT NULL UNIQUE,\n" +
                     "password text NOT NULL,\n" +
-                    "game text,\n" +//something else
+                    "game text" +//something else
                     ");");
             PreparedStatement prep = connection.prepareStatement("insert into User values (?, ?, ?);");
 
