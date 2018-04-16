@@ -34,8 +34,10 @@ public class DatabaseHolder {
 
     public void setDatabase(IDatabase database){
         this.database = database;
-//        String example = "Convert Java String";
-//        byte[] bytes = example.getBytes();
+        String example = "Convert Java String";
+        byte[] bytes = example.getBytes();
+        database.getGameDao().addCommandToGame(example, bytes, -1);
+        database.getGameDao().updateGameSnapshot();
 
     }
 
@@ -47,9 +49,4 @@ public class DatabaseHolder {
         byte[] blob = JavaSerializer.getInstance().serializeObject(serverCommand);
         database.getGameDao().addCommandToGame(gameId, blob, -1);
     }
-
-
-
-
-
 }
