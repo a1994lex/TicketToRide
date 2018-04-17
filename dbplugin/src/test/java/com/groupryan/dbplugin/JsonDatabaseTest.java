@@ -53,6 +53,7 @@ public class JsonDatabaseTest {
         games.add(game2);
         gameDao.updateGameSnapshot("1234a", game1Bytes);
         gameDao.updateGameSnapshot("1234567890a", game2Bytes);
+        gameDao.updateGameSnapshot("1234a", game1Bytes);
         return gameDao.getAllSnapshots();
     }
 
@@ -95,8 +96,9 @@ public class JsonDatabaseTest {
         byte[] cmd2 = gson.toJson(sc2).getBytes();
         gameDao.addCommandToGame("1234a", cmd1, 0);
         gameDao.addCommandToGame("1234567890a", cmd2, 0);
+        gameDao.updateGameSnapshot("1234a", snapshots.get(0));
         Map<String, List<byte[]>> commands = gameDao.getAllCommands();
-        assertEquals(commands.size(), 2);
+        assertEquals(commands.size(), 1);
         for (int i = 0; i < snapshots.size(); i++) {
             String snapshot = new String(snapshots.get(i));
             System.out.println("SNAPSHOT:\n" + gson.toJson(snapshot));
@@ -110,22 +112,13 @@ public class JsonDatabaseTest {
             }
         }
         List<byte[]> testCommandList = gameDao.getCommandsByGameId("1234a");
-        assertEquals(testCommandList.size(), 1);
+        assertEquals(testCommandList.size(), 0);
 
         for (int i = 0; i < testCommandList.size(); i++) {
             String command = new String(testCommandList.get(i));
             System.out.println("COMMAND:\n" + gson.toJson(command));
         }
-        String snapshot = new String(gameDao.getSnapshotByGameId("1234567890a"));
-        System.out.println(snapshot);
 
-        gameDao.clearCommands("1234567890a");
-        commands = gameDao.getAllCommands();
-        assertEquals(commands.size(), 1);
-
-        gameDao.clearCommands("1234a");
-        commands = gameDao.getAllCommands();
-        assertEquals(commands.size(), 0);
         database.endTransaction();
     }
 }

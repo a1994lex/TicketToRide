@@ -111,6 +111,7 @@ public class JsonGameDao implements IGameDao {
             int gameIndex = getGameIndex(gameid, gamesArray);
             if (gameIndex != -1) {
                 gamesArray.set(gameIndex, snapshotElem);
+                gamesObj = gamesArray;
             }
             else {
                 gamesArray.add(snapshotElem);
@@ -190,6 +191,7 @@ public class JsonGameDao implements IGameDao {
                 allCommands.put(gameId, commands);
             }
         }
+        gamesObj = new JsonArray();
         return allCommands;
     }
 
