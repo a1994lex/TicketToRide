@@ -30,7 +30,6 @@ public class DatabaseHolder {
         database.startTransaction();
         List<byte[]> gameBlobs = database.getGameDao().getAllSnapshots();
         database.endTransaction();
-        //WHAT DO I DO NOW.
     }
 
     public void setDatabase(IDatabase database){
