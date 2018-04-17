@@ -90,7 +90,7 @@ public class SQLGameDAO implements IGameDao {
         try {
             Statement stat = connection.createStatement();
             stat.executeUpdate("create table if not exists GameTable (" +
-                    "gameID text NOT NULL,\n" +
+                    "gameID text PRIMARY KEY,\n" +
                     "game BLOB NOT NULL" +
                     ");");
             stat.executeUpdate("delete from GameTable where gameID='"+gameid+"'");
