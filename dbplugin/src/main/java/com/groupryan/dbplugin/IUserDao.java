@@ -2,7 +2,6 @@ package com.groupryan.dbplugin;
 
 import com.groupryan.shared.models.User;
 
-import java.sql.Connection;
 import java.util.List;
 
 /**
