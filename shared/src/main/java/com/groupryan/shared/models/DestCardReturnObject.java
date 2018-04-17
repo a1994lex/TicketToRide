@@ -9,7 +9,7 @@ import java.util.List;
  * Created by arctu on 3/15/2018.
  */
 
-public class DestCardReturnObject {
+public class DestCardReturnObject implements java.io.Serializable {
     List<DestCard> cards=new ArrayList<>();
 
     public static DestCardReturnObject mapToObject(LinkedTreeMap map){

@@ -1,5 +1,8 @@
 package com.groupryan.server.models;
 
+import com.groupryan.server.DatabaseHolder;
+import com.groupryan.shared.commands.ServerCommand;
+import com.groupryan.shared.commands.ServerCommandFactory;
 import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Deck;
@@ -120,6 +123,14 @@ public class RootServerModel {
     private String _addGame(Game game) {
         if (game.getGameId() == null) {
             game.makeGameId();
+            ServerCommandFactory scf = new ServerCommandFactory();
+            ServerCommand serverCommand = scf.createCreateGameCommand(game);
+            DatabaseHolder.getInstance().addCommand(game.getGameId(), serverCommand);
+            Map<String, String> userColors = game.getUsers();
+            for(String username : userColors.keySet()){
+                User user = RootServerModel.getUser(username);
+                DatabaseHolder.getInstance().addGameToUser(game.getGameId(),user);
+            }
         }
         gameMap.put(game.getGameId(), game);
         Set<String> keys = game.getUsers().keySet();

@@ -11,7 +11,7 @@ import java.util.List;
  * Created by bengu3 on 1/31/18.
  */
 
-public class User implements Comparable{
+public class User implements Comparable, java.io.Serializable{
     public static User mapToObject(LinkedTreeMap map){
         String username;
         String password;

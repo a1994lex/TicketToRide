@@ -4,7 +4,7 @@ package com.groupryan.shared.models;
  * Created by Daniel on 3/6/2018.
  */
 
-public class RouteSegment {
+public class RouteSegment implements java.io.Serializable {
     private int routeId;
     private float xCoordinateA;
     private float yCoordinateA;

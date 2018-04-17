@@ -34,13 +34,7 @@ public class MainFacade implements IServer {
 
     @Override
     public CommandResult createGame(Game game) {
-        ServerCommand serverCommand = scf.createCreateGameCommand(game);
-        DatabaseHolder.getInstance().addCommand(game.getGameId(), serverCommand);
-        Map<String, String> userColors = game.getUsers();
-        for(String username : userColors.keySet()){
-           User user = RootServerModel.getUser(username);
-            DatabaseHolder.getInstance().addGameToUser(game.getGameId(),user);
-        }
+        //createGame command only added to db if gamename is not already in use. added in creategame
 
         CreateGameFacade cgf = new CreateGameFacade();
         return cgf.createGame(game);
@@ -69,7 +63,7 @@ public class MainFacade implements IServer {
 
     @Override
     public LoginResult register(User user) {
-        DatabaseHolder.getInstance().getDatabase().getUserDao().registerUser(user);
+        //register command sent to db in register facade so username can be checked first
         RegisterFacade rf = new RegisterFacade();
         return rf.register(user);
     }

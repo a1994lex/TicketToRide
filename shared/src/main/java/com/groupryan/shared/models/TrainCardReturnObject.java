@@ -8,7 +8,7 @@ import com.google.gson.internal.LinkedTreeMap;
  * Created by ryanm on 3/24/2018.
  */
 
-public class TrainCardReturnObject {
+public class TrainCardReturnObject implements java.io.Serializable {
     List<TrainCard> cards=new ArrayList<>();
 
     public static TrainCardReturnObject mapToObject(LinkedTreeMap map){
