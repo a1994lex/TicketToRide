@@ -13,21 +13,11 @@ public class User implements Comparable {
     public static User mapToObject(LinkedTreeMap map) {
         String username;
         String password;
-<<<<<<< HEAD
-        String game;
-        username = (String)map.get("username");
-        password = (String)map.get("password");
-        game = (String)map.get("gameList");
-
-        //gameList = (List<Game>)map.get("gameList");
-        return new User(username, password, game);
-=======
         String gameId;
         username = (String) map.get("username");
         password = (String) map.get("password");
         gameId = (String) map.get("gameId");
         return new User(username, password, gameId);
->>>>>>> 3b907495d3685b440324f15c5ea66999087ada0b
     }
 
     private String username;
@@ -100,17 +90,10 @@ public class User implements Comparable {
         return users;
     }
 
-<<<<<<< HEAD
-    public User makeOneTestUser(){
-        User u = new User("clairescout", "gammon", "gameID");
-        Game game = new Game("game1", "gameID", 3);
-        u.setGameId(game.getGameId());
-=======
     public User makeOneTestUser() {
         User u = new User("clairescout", "gammon");
         Game game = new Game("game1", "gameID", 3);
         u.addGame(game.getGameId());
->>>>>>> 3b907495d3685b440324f15c5ea66999087ada0b
         return u;
     }
 
