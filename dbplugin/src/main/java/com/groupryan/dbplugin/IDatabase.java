@@ -1,8 +1,6 @@
 package com.groupryan.dbplugin;
 
 
-import java.sql.Connection;
-
 /**
  * Created by clairescout on 4/7/18.
  */
