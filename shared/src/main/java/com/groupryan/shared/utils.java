@@ -45,7 +45,10 @@ public class utils {
 //    public static final String SERVER_HOST = "localhost";
     public static final int PORT_NUMBER = 8080;
     public static String URL_PREFIX = "http://" + "192.168.1.205" + ":" + PORT_NUMBER;
+<<<<<<< HEAD
 
+=======
+>>>>>>> 5b8e38acec0e535d9b84af840cb485fef100a686
     public static final String HTTP_POST = "POST";
     public static final String COMMAND_NAME = "CommandName";   // HTTP request header to determine
 

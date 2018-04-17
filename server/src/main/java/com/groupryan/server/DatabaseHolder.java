@@ -69,7 +69,7 @@ public class DatabaseHolder {
                 sc.execute();
             }
         }
-
+]
     }
 
     public void setDatabase(IDatabase database){
