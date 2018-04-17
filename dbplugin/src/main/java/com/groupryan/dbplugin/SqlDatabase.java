@@ -11,47 +11,6 @@ import java.sql.Connection;
  */
 
 public class SqlDatabase implements IDatabase {
-    /**
-     * public void loginUser(User user){
-     * getUserDao().loginUser(user);
-     * }
-     * <p>
-     * public void registerUser(User user){
-     * getUserDao().registerUser(user);
-     * }
-     * <p>
-     * public List<User> getUserList(){
-     * return getUserDao().getUsersList();
-     * }
-     * <p>
-     * public void addCommandToGame(String gameID, byte[]command){//and a command?
-     * getGameDao().addCommandToGame(gameID, command);
-     * }
-     * <p>
-     * public void updateGameSnapshot(String gameID ){
-     * //where IS IT COMING FROM
-     * }
-     * <p>
-     * public void clearCommands(String gameID){
-     * getGameDao().clearCommands(gameID);//IS THIS EVEN RIGHT?
-     * }
-     * <p>
-     * public List<byte[]> getCommandsByGameId(String gameID){
-     * return getGameDao().getCommandsByGameId(gameID);
-     * }
-     * <p>
-     * public byte[] getSnapshotByGameId(String gameID){
-     * return getGameDao().getSnapshotByGameId(gameID);
-     * }
-     * <p>
-     * public Map<String, List<byte[]>> getAllCommands(){
-     * return getGameDao().getAllCommands();
-     * }
-     * <p>
-     * public List<byte[]> getAllSnapshots(){
-     * return getGameDao().getAllSnapshots();
-     * }
-     */
 
     int maxCommands;
     Connection connection;
@@ -100,7 +59,6 @@ public class SqlDatabase implements IDatabase {
     @Override
     public void setMaxCommands(int maxCommands) {
         this.maxCommands = maxCommands;
-
     }
 
     private Connection getConnection() {

@@ -206,4 +206,9 @@ public class JsonGameDao implements IGameDao {
         }
         return snapshots;
     }
+
+    @Override
+    public void dropTables() {
+
+    }
 }

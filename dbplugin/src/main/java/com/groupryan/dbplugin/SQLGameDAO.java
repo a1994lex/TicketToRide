@@ -33,15 +33,16 @@ public class SQLGameDAO implements IGameDao {
         boolean max=false;
         try {
             Statement stat = connection.createStatement();
-            stat.executeUpdate("create table if not exists GameCommandTable (" +
+            stat.executeUpdate("create table if not exists gamecommandtable (" +
                     "gameID text NOT NULL,\n" +
                     "command BLOB NOT NULL,\n" +
-                    "ordering integer NOT NULL,\n" +
+                    "ordering integer NOT NULL \n" +
                     ");");
-            PreparedStatement prep = connection.prepareStatement("insert into GameCommandTable values (?, ?, ?);");
+
+            PreparedStatement prep = connection.prepareStatement("insert into gamecommandtable values (?, ?, ?);");
             prep.setString(1, gameid);
             Blob b = new SerialBlob(command);
-            prep.setBlob(2, b);
+            prep.setBytes(2, command);
             prep.setInt(3, order);
             prep.addBatch();
             prep.executeBatch();
@@ -54,17 +55,17 @@ public class SQLGameDAO implements IGameDao {
             ResultSet rs = null;
             int currentCommands=0;
             try {
-                String sql = "select command from GameCommandTable where gameID='"+gameid+"' order by ordering";//TEST THIS
+                String sql = "select command from gamecommandtable where gameID='"+gameid+"' order by ordering";//TEST THIS
                 stmt = connection.prepareStatement(sql);
                 rs = stmt.executeQuery();
                 while (rs.next()) {
-                   currentCommands++;
+                    currentCommands++;
                 }
                 if(currentCommands==maxCommands){
                     max=true;
                 }
                 Statement stat = connection.createStatement();
-                stat.executeUpdate("update GameCommandTable set order ='"+currentCommands+"' where order='"+-1+"'");//kjfkjf
+                stat.executeUpdate("update gamecommandtable set ordering ='"+currentCommands+"' where ordering='"+-1+"'");//kjfkjf
             }
             catch (SQLException e) {
                 System.err.println("GET commands by gameID FAILED");
@@ -90,15 +91,16 @@ public class SQLGameDAO implements IGameDao {
             Statement stat = connection.createStatement();
             stat.executeUpdate("create table if not exists GameTable (" +
                     "gameID text NOT NULL,\n" +
-                    "game BLOB NOT NULL,\n" +
+                    "game BLOB NOT NULL" +
                     ");");
+            stat.executeUpdate("delete from GameTable where gameID='"+gameid+"'");
             PreparedStatement prep = connection.prepareStatement("insert into GameTable values (?, ?);");
-               prep.setString(1, gameid);
+            prep.setString(1, gameid);
             Blob b = new SerialBlob(gameSnapshot);
-               prep.setBlob(2, b);
-               prep.addBatch();
-               prep.executeBatch();
-               clearCommands(gameid);
+            prep.setBytes(2, gameSnapshot);
+            prep.addBatch();
+            prep.executeBatch();
+            clearCommands(gameid);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -107,7 +109,7 @@ public class SQLGameDAO implements IGameDao {
     public void clearCommands(String gameid){
         try{
             Statement stat = connection.createStatement();
-            stat.executeUpdate("delete from GameCommandTable where gameID='"+gameid+"'");
+            stat.executeUpdate("delete from gamecommandtable where gameID='"+gameid+"'");
         } catch (Exception e) {
             System.out.println("CLEAR game commands FAILED");
         }
@@ -119,7 +121,7 @@ public class SQLGameDAO implements IGameDao {
         ResultSet rs = null;
         List<byte[]> commands= new ArrayList<>();
         try {
-            String sql = "select command from GameCommandTable where gameID='"+gameid+"' order by ordering";//TEST THIS
+            String sql = "select command from gamecommandtable where gameID='"+gameid+"' order by ordering";//TEST THIS
             stmt = connection.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
@@ -131,9 +133,9 @@ public class SQLGameDAO implements IGameDao {
             System.err.println("GET commands by gameID FAILED");
         }
         finally {
-           try {
-               if (rs != null) rs.close();
-               if (stmt != null) stmt.close();
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -175,12 +177,15 @@ public class SQLGameDAO implements IGameDao {
         ResultSet rs = null;
         Map <String, List<byte[]>> commands= new TreeMap<>();
         try {
-            String sql = "select * from GameCommandTable order by ordering";
+            String sql = "select * from gamecommandtable order by ordering";
             stmt = connection.prepareStatement(sql);
             rs = stmt.executeQuery();
             while (rs.next()) {
                 String gameID = rs.getString(1);
                 byte[] bytes = rs.getBytes(2);
+                if(commands.get(gameID)==null){
+                    commands.put(gameID, new ArrayList<>());
+                }
                 commands.get(gameID).add(bytes);
             }
         }
@@ -227,6 +232,17 @@ public class SQLGameDAO implements IGameDao {
         }
         return games;
     }
+
+    public void dropTables(){
+        try{
+            Statement stat = connection.createStatement();
+            stat.executeUpdate("drop table if exists gamecommandtable");
+            stat.executeUpdate("drop table if exists GameTable");
+        } catch (Exception e) {
+            System.out.println("DROP Tables FAILED");
+        }
+    }
+
 }
 
 
