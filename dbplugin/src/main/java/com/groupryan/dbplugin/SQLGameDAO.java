@@ -96,7 +96,6 @@ public class SQLGameDAO implements IGameDao {
             stat.executeUpdate("delete from GameTable where gameID='"+gameid+"'");
             PreparedStatement prep = connection.prepareStatement("insert into GameTable values (?, ?);");
             prep.setString(1, gameid);
-            Blob b = new SerialBlob(gameSnapshot);
             prep.setBytes(2, gameSnapshot);
             prep.addBatch();
             prep.executeBatch();

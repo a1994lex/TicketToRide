@@ -206,9 +206,7 @@ public class CommandManager {
 
     // UpdateFaceUpCommand goes to all playas in game
     public ClientCommand makeUpdateFaceUpCommand() {
-        // TODO create commandFactory method
         ClientCommand command = null;
-        // TODO put in each player of game list
         return command;
     }
 

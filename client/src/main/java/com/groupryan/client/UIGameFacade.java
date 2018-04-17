@@ -30,7 +30,6 @@ public class UIGameFacade {
     public CommandResult placeRoute(List<Integer> trainCards, String username, int routeId) {
         TrainCardList trainCardIds = new TrainCardList(trainCards);
         return ServerProxy.getInstance().claimRoute(username, routeId, trainCardIds);
-        // TODO: finish sending command to server
     }
 
 //    public void claimRoute(String username, Route route) {
