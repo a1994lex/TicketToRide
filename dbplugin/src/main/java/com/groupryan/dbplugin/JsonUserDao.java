@@ -53,7 +53,7 @@ public class JsonUserDao implements IUserDao {
 
     @Override
     public void dropTables() {
-
+        usersObj = new JsonArray();
     }
 
     @Override

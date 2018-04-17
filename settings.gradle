@@ -1,1 +1,1 @@
-include ':server', ':client', ':shared', ':clientapp', ':gson-2.8.2', ':dbplugin', ':commons-io-2.6', ':sqlite-jdbc-3.21.0'
+include ':server', ':client', ':shared', ':clientapp', ':gson-2.8.2', ':dbplugin', ':commons-io-2.6', ':sqlite-jdbc-3.21.0', ':jsonplugin'
