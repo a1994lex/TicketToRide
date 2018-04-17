@@ -33,11 +33,8 @@ public class SQLUserDAO implements IUserDao {
 
             prep.setString(1, user.getUsername());
             prep.setString(2, user.getPassword());
-            if (!user.getGameId().equals("")) {
-                prep.setString(3, user.getGameId());
-            } else {
-                prep.setString(3, "NONE");
-            }
+            prep.setString(3, user.getGameId());
+
 
             prep.addBatch();
             prep.executeBatch();
@@ -73,7 +70,8 @@ public class SQLUserDAO implements IUserDao {
                 String username = rs.getString(1);
                 String pass = rs.getString(2);
                 String gameID = rs.getString(3);//this does nothing
-                u = new User(username, pass);//, gamelist);
+                u = new User(username, pass);
+                u.setGameId(gameID);
                 users.add(u);
             }
         } catch (SQLException e) {
