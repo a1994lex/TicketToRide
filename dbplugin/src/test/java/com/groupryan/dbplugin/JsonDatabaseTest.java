@@ -30,9 +30,6 @@ public class JsonDatabaseTest {
         String gameName = "gname";
         String gameId = "1234567890";
         User user = new User(username1, pass1);
-        Game game = new Game(gameName, gameId, 2);
-        List<Game> games = new ArrayList<>();
-        games.add(game);
         userDao.registerUser(user);
         userDao.addGameToUser(user, gameId);
         return userDao.getUsersList();
@@ -79,12 +76,10 @@ public class JsonDatabaseTest {
         for (int i = 0; i < users.size(); i++) {
             System.out.println("username: " + users.get(i).getUsername() +
                                 " password: " + users.get(i).getPassword() +
-                                " gameList: " + gson.toJson(users.get(i).getGameList()));
-            List<Game> gameList = users.get(i).getGameList();
-            assertEquals(gameList.size(), 1);
+                                " gameId: " + gson.toJson(users.get(i).getGameId()));
             assertEquals(users.get(i).getUsername(), "daniel");
             assertEquals(users.get(i).getPassword(), "najarro");
-            assertEquals(gameList.get(0).getGameId(), "1234567890");
+            assertEquals(users.get(i).getGameId(), "1234567890");
         }
         database.endTransaction();
     }

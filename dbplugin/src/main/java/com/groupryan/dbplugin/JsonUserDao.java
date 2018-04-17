@@ -63,11 +63,8 @@ public class JsonUserDao implements IUserDao {
         for (int i = 0; i < usersObj.size(); i++) {
             JsonObject userObj = usersObj.get(i).getAsJsonObject();
             if (userObj.get("username").getAsString().equals(username)) {
-                List<Game> gameList = new ArrayList<>();
-                gameList.add(new Game("", gameID, 2));
-                String gameListStr = gson.toJson(gameList);
-                JsonElement gameListElem = new JsonParser().parse(gameListStr);
-                userObj.add("gameList", gameListElem);
+                JsonElement gameIdElem = new JsonParser().parse(gameID);
+                userObj.add("gameId", gameIdElem);
             }
         }
     }
