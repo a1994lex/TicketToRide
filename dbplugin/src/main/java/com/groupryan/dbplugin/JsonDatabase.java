@@ -22,12 +22,17 @@ public class JsonDatabase implements IDatabase {
     private JsonUserDao userDao;
     private JsonObject databaseCopy;
     private String databaseAddress;
+    private int maxCommands;
 
     public JsonDatabase() {
         gameDao = null;
         userDao = null;
         databaseFile = null;
         databaseAddress = "database.json";
+    }
+
+    public int getMaxCommands() {
+        return maxCommands;
     }
 
     public File getDatabaseFile() {
@@ -79,6 +84,7 @@ public class JsonDatabase implements IDatabase {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (FileWriter file = new FileWriter(databaseAddress)) {
             String fileContents = gson.toJson(databaseCopy);
+            System.out.println("file contents: " + fileContents);
             file.write(fileContents);
         } catch (IOException e) {
             e.printStackTrace();
@@ -94,7 +100,7 @@ public class JsonDatabase implements IDatabase {
     }
 
     private void updateGameDao() {
-        this.gameDao = new JsonGameDao(getGamesAsJsonObject(databaseCopy));
+        this.gameDao = new JsonGameDao(getGamesAsJsonObject(databaseCopy), maxCommands);
     }
 
     private void updateUserDao() {
@@ -150,6 +156,7 @@ public class JsonDatabase implements IDatabase {
                 try {
                     jsonFile.createNewFile();
                     databaseFile = jsonFile;
+                    this.maxCommands = commands;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

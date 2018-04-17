@@ -8,8 +8,8 @@
     },
     "json": {
       "description": "JSON file as database plugin.",
-      "filePath": "",
-      "classPath": ""
+      "filePath": "file://dbplugin/build/libs/dbplugin.jar",
+      "classPath": "com.groupryan.dbplugin.JsonDatabase"
     }
   }
 }

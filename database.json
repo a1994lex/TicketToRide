@@ -1,4 +1,31 @@
 {
   "games": [],
-  "users": []
+  "users": [
+    {
+      "username": "q",
+      "password": "q",
+      "gameList": [
+        {
+          "users": {},
+          "gameName": "",
+          "gameId": "one",
+          "started": false,
+          "maxPlayers": 2.0
+        }
+      ]
+    },
+    {
+      "username": "qq",
+      "password": "qq",
+      "gameList": [
+        {
+          "users": {},
+          "gameName": "",
+          "gameId": "two",
+          "started": false,
+          "maxPlayers": 2.0
+        }
+      ]
+    }
+  ]
 }
