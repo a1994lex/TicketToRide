@@ -35,31 +35,6 @@ public class JsonGameDao implements IGameDao {
         this.maxCommands = maxCommands;
     }
 
-    private void addGamesElement() {
-//        List<Integer> games = new ArrayList<>();
-//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//        String gamesJson = gson.toJson(games);
-//        JsonElement gamesElem = new JsonParser().parse(gamesJson);
-//        gamesObj.add("games", gamesElem);
-    }
-
-    private void addCommandsElement() {
-//        List<Integer> commands = new ArrayList<>();
-//        Gson gson = new GsonBuilder().setPrettyPrinting().create();
-//        String commandsJson = gson.toJson(commands);
-//        JsonElement commandsElem = new JsonParser().parse(commandsJson);
-//        JsonObject commandsObj = commandsElem.getAsJsonObject();
-//
-//        for (int i = 0; i < gamesObj.getAsJsonArray().size(); i++) {
-//            JsonElement gameElem = gamesObj.getAsJsonArray().get(i);
-//            JsonObject gameObj = gameElem.getAsJsonObject();
-//            if (!gameObj.has("commands")) {
-//                gameObj.add("commands", commandsObj);
-//                gamesObj.getAsJsonArray().set(i, gameObj);
-//            }
-//        }
-    }
-
     private JsonObject findGameById(String gameId, JsonArray gamesArray) {
         int i = 0;
         JsonObject obj = null;

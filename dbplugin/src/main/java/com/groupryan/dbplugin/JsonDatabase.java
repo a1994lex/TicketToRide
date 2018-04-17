@@ -23,6 +23,7 @@ public class JsonDatabase implements IDatabase {
     private JsonUserDao userDao;
     private JsonObject databaseCopy;
     private String databaseAddress;
+    private int maxCommands;
 
     public JsonDatabase() {
         gameDao = null;
@@ -50,15 +51,6 @@ public class JsonDatabase implements IDatabase {
             e.printStackTrace();
         }
         return databaseObj;
-    }
-
-    private void printDatabaseContents() {
-        JsonElement usersElem = databaseCopy.get("users");
-        JsonElement gamesElem = databaseCopy.get("games");
-        JsonElement maxCommands = databaseCopy.get("maxCommands");
-        System.out.println("users: " + usersElem);
-        System.out.println("games: " + gamesElem);
-        System.out.println("max commands: " + maxCommands);
     }
 
     private JsonArray getUsersAsJsonObject(JsonObject databaseObj) {
@@ -89,6 +81,7 @@ public class JsonDatabase implements IDatabase {
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         try (FileWriter file = new FileWriter(databaseAddress)) {
             String fileContents = gson.toJson(databaseCopy);
+            System.out.println("file contents: " + fileContents);
             file.write(fileContents);
         } catch (IOException e) {
             e.printStackTrace();
@@ -104,8 +97,7 @@ public class JsonDatabase implements IDatabase {
     }
 
     private void updateGameDao() {
-//        int maxCommands = databaseCopy.get("maxCommands").getAsInt();
-        this.gameDao = new JsonGameDao(getGamesAsJsonObject(databaseCopy), 0);
+        this.gameDao = new JsonGameDao(getGamesAsJsonObject(databaseCopy), maxCommands);
     }
 
     private void updateUserDao() {
@@ -132,7 +124,6 @@ public class JsonDatabase implements IDatabase {
         databaseCopy.add("games", gamesObj);
         databaseCopy.add("users", usersObj);
         writeToDatabase();
-        printDatabaseContents();
         updateUserDao();
         updateGameDao();
         System.out.println("Database updated successfully!");
@@ -163,10 +154,7 @@ public class JsonDatabase implements IDatabase {
                     jsonFile.createNewFile();
                     databaseFile = jsonFile;
                     databaseCopy = copyDatabase();
-                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                    String commandsStr = gson.toJson(commands);
-                    JsonElement maxCommands = new JsonParser().parse(commandsStr);
-                    databaseCopy.add("maxCommands", maxCommands);
+                    this.maxCommands = commands;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
@@ -178,7 +166,6 @@ public class JsonDatabase implements IDatabase {
         checkJsonFileExists();
         databaseCopy.remove("users");
         databaseCopy.remove("games");
-        databaseCopy.remove("maxCommands");
         writeToDatabase();
         updateGameDao();
         updateUserDao();
