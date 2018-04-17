@@ -74,7 +74,7 @@ public class Game implements  java.io.Serializable {
             }
             users.put(u.getUsername(), color);
             //return "User added to "+gameId;
-            u.addGame(this);
+            u.addGame(this.getGameId());
             return utils.VALID;
         }
         return "User already in game";
@@ -130,8 +130,8 @@ public class Game implements  java.io.Serializable {
 
         User u2 = new User("sheila", "parker");
         game.addUser(u2, BLUE);
-        u.addGame(game);
-        u2.addGame(game);
+        u.addGame(game.getGameId());
+        u2.addGame(game.getGameId());
 
         Game game2 = new Game("game2", "gameID2", 3);
 
@@ -139,8 +139,8 @@ public class Game implements  java.io.Serializable {
         User u4 = new User("joanna", "newsom");
         game2.addUser(u3, GREEN);
         game2.addUser(u4, YELLOW);
-        u3.addGame(game2);
-        u4.addGame(game2);
+        u3.addGame(game2.getGameId());
+        u4.addGame(game2.getGameId());
 
         User u5 = new User("kate", "gammon");
         User u6 = new User("grace", "gammon");

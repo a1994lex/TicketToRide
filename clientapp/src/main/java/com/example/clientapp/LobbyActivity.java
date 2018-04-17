@@ -6,27 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.clientapp.dialogs.CreateGameDialogActivity;
-import com.example.clientapp.dialogs.JoinGameDialogActivity;
 import com.groupryan.client.models.RootClientModel;
 import com.groupryan.shared.models.Game;
-import com.groupryan.shared.models.User;
 import com.groupryan.shared.utils;
 
 import java.util.ArrayList;
-import java.util.Set;
 
-import async.GamePoller;
-import async.Poller;
-import presenters.JoinGamePresenter;
 import presenters.LobbyPresenter;
 
 public class LobbyActivity extends AppCompatActivity implements ILobbyView {
@@ -34,7 +25,7 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
     RecyclerView.Adapter mAdapter;
     RecyclerView mRecyclerView;
     private Game mGame;
-    private Boolean clicked=false;
+    private Boolean clicked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,7 +35,8 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
 
         Intent i = getIntent();
         String gameId = i.getStringExtra(utils.GAME_ID_TAG);
-        for (Game game : RootClientModel.getUser().getGameList()) {
+        // TODO watch out, may mess up
+        for (Game game : RootClientModel.getGames()) {
             if (game.getGameId().equals(gameId)) {
                 mGame = game;
                 LobbyPresenter.setGame(game);
@@ -64,8 +56,8 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
             @Override
             public void onClick(View view) {
                 if (mGame.getMaxPlayers() == (double) mGame.getUsers().size()) {
-                    if(clicked==false) {
-                        clicked=true;
+                    if (clicked == false) {
+                        clicked = true;
                         LobbyPresenter.startGame(mGame);
                     }
                 }
@@ -107,24 +99,24 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
             this.mUserId = userId;
             mPlayerName.setText(mUserId);
             mPlayerName.setTextColor(Color.BLACK);
-            int c=Color.RED;
-            switch(color){
+            int c = Color.RED;
+            switch (color) {
                 case utils.BLACK:
-                    c=Color.BLACK;
+                    c = Color.BLACK;
                     mPlayerName.setTextColor(Color.WHITE);
                     break;
                 case utils.RED:
-                    c=Color.RED;
+                    c = Color.RED;
                     break;
                 case utils.BLUE:
-                    c=Color.BLUE;
+                    c = Color.BLUE;
                     mPlayerName.setTextColor(Color.WHITE);
                     break;
                 case utils.YELLOW:
-                    c=Color.YELLOW;
+                    c = Color.YELLOW;
                     break;
                 case utils.GREEN:
-                    c=Color.GREEN;
+                    c = Color.GREEN;
                     break;
             }
             itemView.setBackgroundColor(c);
@@ -146,13 +138,13 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
         @Override
         public void onBindViewHolder(LobbyHolder holder, int position) {
             String userId = mUserIds.get(position);
-            String color=mColors.get(position);
+            String color = mColors.get(position);
             holder.bindUser(userId, color);
         }
 
         @Override
         public int getItemCount() {
-            if (mUserIds.size() == mGame.getMaxPlayers()){
+            if (mUserIds.size() == mGame.getMaxPlayers()) {
                 enableStartButton();
             }
             return mUserIds.size();
