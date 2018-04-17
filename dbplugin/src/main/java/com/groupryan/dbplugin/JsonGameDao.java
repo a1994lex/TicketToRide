@@ -20,6 +20,8 @@ public class JsonGameDao implements IGameDao {
 
     private JsonArray gamesObj;
 
+    private JsonObject commandsObj;
+
     private int maxCommands;
 
     public JsonArray getGamesObj() {
@@ -30,8 +32,9 @@ public class JsonGameDao implements IGameDao {
         this.gamesObj = gamesObj;
     }
 
-    public JsonGameDao(JsonArray gamesObj, int maxCommands) {
+    public JsonGameDao(JsonArray gamesObj, JsonObject commandsObj, int maxCommands) {
         this.gamesObj = gamesObj;
+        this.commandsObj = commandsObj;
         this.maxCommands = maxCommands;
     }
 
@@ -41,6 +44,14 @@ public class JsonGameDao implements IGameDao {
 
     public void setMaxCommands(int maxCommands) {
         this.maxCommands = maxCommands;
+    }
+
+    public JsonObject getCommandsObj() {
+        return commandsObj;
+    }
+
+    public void setCommandsObj(JsonObject commandsObj) {
+        this.commandsObj = commandsObj;
     }
 
     private JsonObject findGameById(String gameId, JsonArray gamesArray) {
@@ -56,6 +67,12 @@ public class JsonGameDao implements IGameDao {
             i++;
         }
         return obj;
+    }
+
+    private JsonArray findCommandListById(String gameId) {
+        JsonArray array = null;
+        array = commandsObj.getAsJsonArray(gameId);
+        return array;
     }
 
     private int getGameIndex(String gameId, JsonArray gamesArray) {
@@ -74,27 +91,19 @@ public class JsonGameDao implements IGameDao {
     @Override
     public Boolean addCommandToGame(String gameid, byte[] command, int order) {
         boolean maxReached = false;
-        if (gamesObj != null) {
-            JsonObject gameObj = findGameById(gameid, gamesObj.getAsJsonArray());
-            if (gameObj != null) {
-                String commandStr = new String(command);
-                JsonElement commandElem = new JsonParser().parse(commandStr);
-                JsonArray commandsArray = new JsonArray();
-                if (gameObj.has("commands")) {
-                    commandsArray = gameObj.get("commands").getAsJsonArray();
-                }
-                commandsArray.add(commandElem);
-                if (commandsArray.size() == maxCommands) {
-                    maxReached = true;
-                }
-                gameObj.add("commands", commandsArray);
-                Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                String gameStr = gson.toJson(gameObj);
-                JsonElement gameElem = new JsonParser().parse(gameStr);
-                int gameIndex = getGameIndex(gameid, gamesObj);
-                gamesObj.set(gameIndex, gameElem);
-            }
+        JsonArray commandsArray = findCommandListById(gameid);
+        String commandStr = new String(command);
+        JsonElement commandElem = new JsonParser().parse(commandStr);
+        if (commandsArray == null) {
+            commandsArray = new JsonArray();
         }
+        commandsArray.add(commandElem);
+        commandsObj.remove(gameid);
+        commandsObj.add(gameid, commandsArray);
+        if (commandsArray.size() == maxCommands) {
+            maxReached = true;
+        }
+
         return maxReached;
     }
 
@@ -111,40 +120,30 @@ public class JsonGameDao implements IGameDao {
             int gameIndex = getGameIndex(gameid, gamesArray);
             if (gameIndex != -1) {
                 gamesArray.set(gameIndex, snapshotElem);
-                gamesObj = gamesArray;
             }
             else {
                 gamesArray.add(snapshotElem);
-                gamesObj = gamesArray;
             }
+            gamesObj = gamesArray;
         }
+
+        commandsObj.remove(gameid);
     }
 
     @Override
     public void clearCommands(String gameid) {
-        if (gamesObj.size() > 0) {
-            JsonObject gameObj = findGameById(gameid, gamesObj);
-            if (gameObj != null) {
-                gameObj.remove("commands");
-                int gameIndex = getGameIndex(gameid, gamesObj);
-                gamesObj.set(gameIndex, gameObj);
-            }
-        }
+        commandsObj.remove(gameid);
     }
 
     @Override
     public List<byte[]> getCommandsByGameId(String gameid) {
         List<byte[]> commandsList = new ArrayList<>();
-        JsonArray gamesArray = gamesObj.getAsJsonArray();
-        JsonObject game = findGameById(gameid, gamesArray);
-        if (game != null) {
-            if (game.has("commands")) {
-                JsonArray commandsArray = game.getAsJsonArray("commands");
-                Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                for (int i = 0; i < commandsArray.size(); i++) {
-                    String command = gson.toJson(commandsArray.get(i));
-                    commandsList.add(command.getBytes());
-                }
+        JsonArray commands = commandsObj.getAsJsonArray(gameid);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        if (commands != null) {
+            for (int i = 0; i < commands.size(); i++) {
+                String command = gson.toJson(commands.get(i));
+                commandsList.add(command.getBytes());
             }
         }
         return commandsList;
@@ -157,15 +156,7 @@ public class JsonGameDao implements IGameDao {
         JsonObject gameObj = findGameById(gameid, gamesArray);
         if (gameObj != null) {
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            if (gameObj.has("commands")) {
-                JsonArray commandsCopy = gameObj.getAsJsonArray("commands");
-                gameObj.remove("commands");
-                snapshot = gson.toJson(gameObj).getBytes();
-                gameObj.add("commands", commandsCopy);
-            }
-            else {
-                snapshot = gson.toJson(gameObj).getBytes();
-            }
+            snapshot = gson.toJson(gameObj).getBytes();
         }
         return snapshot;
     }
@@ -173,27 +164,17 @@ public class JsonGameDao implements IGameDao {
     @Override
     public Map<String, List<byte[]>> getAllCommands() {
         Map<String, List<byte[]>> allCommands = new HashMap<>();
-        JsonArray gamesArray = gamesObj;
-        for (int i = 0; i < gamesArray.size(); i++) {
-            List<byte[]> commands = new ArrayList<>();
-            JsonObject gameObj = gamesArray.get(i).getAsJsonObject();
-            if (gameObj.has("commands")) {
-                JsonArray commandsArray = gameObj.getAsJsonArray("commands");
-                for (int j = 0; j < commandsArray.size(); j++) {
-                    JsonElement command = commandsArray.get(j);
-                    Gson gson = new GsonBuilder().setPrettyPrinting().create();
-                    String commandStr = gson.toJson(command);
-                    commands.add(commandStr.getBytes());
-                }
-                gameObj.remove("commands");
-                gamesArray.set(i, gameObj);
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
+        for (Map.Entry<String, JsonElement> entry : commandsObj.entrySet()) {
+            JsonArray commandsArray = entry.getValue().getAsJsonArray();
+            List<byte[]> commandList = new ArrayList<>();
+            for (int i = 0; i < commandsArray.size(); i++) {
+                byte[] command = gson.toJson(commandsArray.get(i)).getBytes();
+                commandList.add(command);
             }
-            String gameId = gameObj.get("gameId").getAsString();
-            if (commands.size() > 0) {
-                allCommands.put(gameId, commands);
-            }
-            gamesObj = gamesArray;
+            allCommands.put(entry.getKey(), commandList);
         }
+        commandsObj = new JsonObject();
         return allCommands;
     }
 
@@ -204,25 +185,17 @@ public class JsonGameDao implements IGameDao {
         for (int i = 0; i < gamesArray.size(); i++) {
             JsonObject gameObj = gamesArray.get(i).getAsJsonObject();
             Gson gson = new GsonBuilder().setPrettyPrinting().create();
-            if (gameObj.has("commands")) {
-                JsonArray commandsCopy = gameObj.getAsJsonArray("commands");
-                gameObj.remove("commands");
-                String snapshot = gson.toJson(gameObj);
-                snapshots.add(snapshot.getBytes());
-                gameObj.add("commands", commandsCopy);
-            }
-            else {
-                String gameStr = gson.toJson(gameObj);
-                snapshots.add(gameStr.getBytes());
-            }
+            String gameStr = gson.toJson(gameObj);
+            snapshots.add(gameStr.getBytes());
         }
         return snapshots;
     }
 
     @Override
     public void dropTables() {
-        JsonArray empty = new JsonArray();
-        gamesObj = empty;
-        System.out.println("dropped table: " + gamesObj);
+        gamesObj = new JsonArray();
+        commandsObj = new JsonObject();
+        System.out.println("games table is now empty: " + gamesObj);
+        System.out.println("commands table is now empty: " + commandsObj);
     }
 }
