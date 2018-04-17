@@ -91,6 +91,7 @@ public class Server {
             new Server().run(args[0], Integer.parseInt(args[1]));
         } else {
             System.err.println("Required plugin command-line arguments.");
+            //todo bless the person who wrote this else
         }
     }
 
