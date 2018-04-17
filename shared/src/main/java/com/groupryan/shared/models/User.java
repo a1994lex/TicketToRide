@@ -31,21 +31,18 @@ public class User implements Comparable{
 
     private String username;
     private String password;
-    private List<Game> gameList;
+    private String gameId;
 
     public User(String username, String password) {
         this.username = username;
         this.password = password;
-        gameList = new ArrayList();
+        gameId = "";
     }
 
-    private User(String username, String password, List<Game> gameList){
+    private User(String username, String password, String gameId){
         this.username = username;
         this.password = password;
-        this.gameList = gameList;
-    }
-    public void addGame(Game game){
-        gameList.add(game);
+        this.gameId = gameId;
     }
 
     public String getUsername() {
@@ -64,12 +61,12 @@ public class User implements Comparable{
         this.password = password;
     }
 
-    public List<Game> getGameList() {
-        return gameList;
+    public String getGameId() {
+        return gameId;
     }
 
-    public void setGameList(List<Game> gameList) {
-        this.gameList = gameList;
+    public void setGameId(String gameId) {
+        this.gameId = gameId;
     }
 
     public List<User> makeTestUsers(){
