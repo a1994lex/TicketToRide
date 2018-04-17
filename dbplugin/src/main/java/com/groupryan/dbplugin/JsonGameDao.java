@@ -35,6 +35,14 @@ public class JsonGameDao implements IGameDao {
         this.maxCommands = maxCommands;
     }
 
+    public int getMaxCommands() {
+        return maxCommands;
+    }
+
+    public void setMaxCommands(int maxCommands) {
+        this.maxCommands = maxCommands;
+    }
+
     private JsonObject findGameById(String gameId, JsonArray gamesArray) {
         int i = 0;
         JsonObject obj = null;

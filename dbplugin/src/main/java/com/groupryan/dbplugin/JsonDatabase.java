@@ -3,7 +3,6 @@ package com.groupryan.dbplugin;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 
@@ -30,6 +29,10 @@ public class JsonDatabase implements IDatabase {
         userDao = null;
         databaseFile = null;
         databaseAddress = "database.json";
+    }
+
+    public int getMaxCommands() {
+        return maxCommands;
     }
 
     public File getDatabaseFile() {
@@ -153,7 +156,6 @@ public class JsonDatabase implements IDatabase {
                 try {
                     jsonFile.createNewFile();
                     databaseFile = jsonFile;
-                    databaseCopy = copyDatabase();
                     this.maxCommands = commands;
                 } catch (IOException e) {
                     e.printStackTrace();
