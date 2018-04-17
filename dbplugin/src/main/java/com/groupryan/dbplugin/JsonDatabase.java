@@ -71,11 +71,18 @@ public class JsonDatabase implements IDatabase {
     }
 
     private void checkJsonFileExists() {
-        if (!databaseFile.exists()) {
-            try {
-                databaseFile.createNewFile();
-            } catch (IOException e) {
-                e.printStackTrace();
+        File jsonFile = new File(databaseAddress);
+        if (databaseFile == null) {
+            if (!jsonFile.exists()) {
+                try {
+                    jsonFile.createNewFile();
+                    databaseFile = jsonFile;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+            else {
+                databaseFile = jsonFile;
             }
         }
     }
@@ -151,17 +158,20 @@ public class JsonDatabase implements IDatabase {
     @Override
     public void setMaxCommands(int commands) {
         File jsonFile = new File(databaseAddress);
-        if (jsonFile.exists()) {
-            if (!jsonFile.isDirectory()) {
+        if (databaseFile == null) {
+            if (!jsonFile.exists()) {
                 try {
                     jsonFile.createNewFile();
                     databaseFile = jsonFile;
-                    this.maxCommands = commands;
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
             }
+            else {
+                databaseFile = jsonFile;
+            }
         }
+        this.maxCommands = commands;
     }
 
     public void clearDatabase() {

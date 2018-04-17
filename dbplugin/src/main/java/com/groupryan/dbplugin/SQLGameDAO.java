@@ -187,6 +187,9 @@ public class SQLGameDAO implements IGameDao {
                 }
                 commands.get(gameID).add(bytes);
             }
+            for(Map.Entry<String, List<byte[]>> entry: commands.entrySet()){
+                clearCommands(entry.getKey());
+            }
         }
         catch (SQLException e) {
             System.err.println("GET commands by gameID FAILED");

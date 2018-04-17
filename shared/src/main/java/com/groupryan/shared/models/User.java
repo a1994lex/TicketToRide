@@ -91,7 +91,6 @@ public class User implements Comparable, java.io.Serializable {
         return users;
     }
 
-
     public User makeOneTestUser() {
         User u = new User("clairescout", "gammon");
         Game game = new Game("game1", "gameID", 3);

@@ -72,7 +72,11 @@ public class RootServerModel {
     }
 
     public ArrayList<User> getUsers() {
-        return (ArrayList<User>) userMap.values();
+        ArrayList<User> users = new ArrayList<>();
+        for(User user: userMap.values()){
+            users.add(user);
+        }
+        return users;
     }
 
     public static String addUser(User user) {

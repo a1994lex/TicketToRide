@@ -73,7 +73,6 @@ public class Game implements  java.io.Serializable {
                 return "Color in use";
             }
             users.put(u.getUsername(), color);
-            //return "User added to "+gameId;
             u.addGame(this.getGameId());
             return utils.VALID;
         }
