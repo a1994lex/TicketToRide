@@ -133,8 +133,8 @@ public class MainFacade implements IServer {
 
     @Override
     public CommandResult sendChat(String gameId, String msg, String username) {
-        ServerCommand serverCommand = scf.createSendChat(gameId, msg, username);
-        DatabaseHolder.getInstance().addCommand(gameId, serverCommand);
+//        ServerCommand serverCommand = scf.createSendChat(gameId, msg, username);
+//        DatabaseHolder.getInstance().addCommand(gameId, serverCommand);
 
 
         CommandManager.getInstance().addChatCommand(msg, gameId, username);

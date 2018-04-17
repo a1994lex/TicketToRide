@@ -75,7 +75,7 @@ public class DatabaseHolder {
         this.database = database;
 
 
-        database.startTransaction();
+//        database.startTransaction();
 //        /*
 //        User u=new User("q", "q");
 //        User uu=new User("qq","qq");
@@ -92,9 +92,12 @@ public class DatabaseHolder {
 //         database.getGameDao().updateGameSnapshot("two", bytes);
 //         Map<String,List<byte[]>> que= database.getGameDao().getAllCommands();
 //         List<byte[]> gay=database.getGameDao().getAllSnapshots();*/
-        database.getUserDao().dropTables();
-         database.getGameDao().dropTables();
-         database.endTransaction();
+
+//        database.getUserDao().dropTables();
+//         database.getGameDao().dropTables();
+//         database.endTransaction();
+
+
 //        database.startTransaction();
 //        User u=new User("q", "q");
 //        User uu=new User("qq","qq");
@@ -165,10 +168,10 @@ public class DatabaseHolder {
 //                }
 //            }
 
-//            ServerGame sg = RootServerModel.getInstance().getServerGameByGameId(u.getGameId());
-//            if(sg != null){
-//                userGames.put(u.getUsername(), sg);
-//            }
+            ServerGame sg = RootServerModel.getInstance().getServerGameByGameId(u.getGameId());
+            if(sg != null){
+                userGames.put(u.getUsername(), sg);
+            }
         }
         return userGames;
     }

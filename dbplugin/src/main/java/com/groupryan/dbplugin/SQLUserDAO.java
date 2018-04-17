@@ -74,6 +74,7 @@ public class SQLUserDAO implements IUserDao {
                 String pass = rs.getString(2);
                 String gameID = rs.getString(3);//this does nothing
                 u = new User(username, pass);//, gamelist);
+                u.setGameId(gameID);
                 users.add(u);
             }
         } catch (SQLException e) {
