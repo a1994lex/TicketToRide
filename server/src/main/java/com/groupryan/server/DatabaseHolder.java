@@ -34,15 +34,15 @@ public class DatabaseHolder {
 
     public void setDatabase(IDatabase database){
         this.database = database;
-        database.startTransaction();
-        User u=new User("q", "q");
-        User uu=new User("qq","qq");
-        database.getUserDao().registerUser(u);
-        database.getUserDao().registerUser(uu);
-        database.getUserDao().addGameToUser(u, "one");
-        database.getUserDao().addGameToUser(uu, "two");
-        List<User> users= database.getUserDao().getUsersList();
-        database.endTransaction();
+//        database.startTransaction();
+//        User u=new User("q", "q");
+//        User uu=new User("qq","qq");
+//        database.getUserDao().registerUser(u);
+//        database.getUserDao().registerUser(uu);
+//        database.getUserDao().addGameToUser(u, "one");
+//        database.getUserDao().addGameToUser(uu, "two");
+//        List<User> users= database.getUserDao().getUsersList();
+//        database.endTransaction();
 //         String example = "Convert Java String";
 //         byte[] bytes = example.getBytes();
          //database.getGameDao().updateGameSnapshot("one", bytes);

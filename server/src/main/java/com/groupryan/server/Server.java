@@ -79,10 +79,12 @@ public class Server {
 
             } catch (Exception ex) {
                 System.err.println(ex.getMessage());
+                ex.printStackTrace();
             }
             
         } catch (IOException ex) {
             System.err.println(ex.getMessage());
+            ex.printStackTrace();
         }
     }
 

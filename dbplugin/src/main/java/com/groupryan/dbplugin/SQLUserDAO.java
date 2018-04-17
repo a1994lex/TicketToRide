@@ -1,6 +1,5 @@
 package com.groupryan.dbplugin;
 
-import com.groupryan.dbplugin.IUserDao;
 import com.groupryan.shared.models.User;
 
 import java.sql.Connection;
@@ -18,8 +17,8 @@ import java.util.List;
 public class SQLUserDAO implements IUserDao {
     private Connection connection;
 
-    public SQLUserDAO (Connection connection){
-        this.connection=connection;
+    public SQLUserDAO(Connection connection) {
+        this.connection = connection;
     }
 
     @Override
@@ -34,10 +33,9 @@ public class SQLUserDAO implements IUserDao {
 
             prep.setString(1, user.getUsername());
             prep.setString(2, user.getPassword());
-            if(user.getGameList().size()>0){
-                prep.setString(3, user.getGameList().get(0).getGameId());
-            }
-            else{
+            if (!user.getGameId().equals("")) {
+                prep.setString(3, user.getGameId());
+            } else {
                 prep.setString(3, "NONE");
             }
 
@@ -51,9 +49,9 @@ public class SQLUserDAO implements IUserDao {
 
     @Override
     public void addGameToUser(User user, String gameID) {
-        try{
+        try {
             Statement stat = connection.createStatement();
-            stat.executeUpdate("update User set game ='"+gameID+"' where username='"+user.getUsername()+"'");
+            stat.executeUpdate("update User set game ='" + gameID + "' where username='" + user.getUsername() + "'");
         } catch (Exception e) {
             System.out.println("UPDATE USER GAME FAILED");
         }
@@ -71,21 +69,19 @@ public class SQLUserDAO implements IUserDao {
             stmt = connection.prepareStatement(sql);
             rs = stmt.executeQuery();
 
-            while(rs.next()) {
+            while (rs.next()) {
                 String username = rs.getString(1);
                 String pass = rs.getString(2);
                 String gameID = rs.getString(3);//this does nothing
-                u=new User(username, pass);//, gamelist);
+                u = new User(username, pass);//, gamelist);
                 users.add(u);
             }
-        }
-        catch (SQLException e) {
+        } catch (SQLException e) {
             System.err.println("Could NOT get User");
-        }
-        finally {
-           try {
-               if (rs != null) rs.close();
-               if (stmt != null) stmt.close();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
             } catch (SQLException e) {
                 e.printStackTrace();
             }
@@ -93,8 +89,8 @@ public class SQLUserDAO implements IUserDao {
         return users;
     }
 
-    public void dropTables(){
-        try{
+    public void dropTables() {
+        try {
             Statement stat = connection.createStatement();
             stat.executeUpdate("drop table if exists User");
         } catch (Exception e) {

@@ -118,7 +118,7 @@ public class RootServerModel {
         gameMap.put(game.getGameId(), game);
         Set<String> keys = game.getUsers().keySet();
         for (String s : keys) {
-            getUser(s).addGame(game);
+            getUser(s).addGame(game.getGameId());
             break;
         }
 //        Set<String> keys = game.getUsers().keySet();
