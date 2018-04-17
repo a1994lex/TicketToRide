@@ -217,6 +217,8 @@ public class JsonGameDao implements IGameDao {
 
     @Override
     public void dropTables() {
-
+        JsonArray empty = new JsonArray();
+        gamesObj = empty;
+        System.out.println("dropped table: " + gamesObj);
     }
 }
