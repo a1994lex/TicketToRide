@@ -186,7 +186,7 @@ public class RootClientModel extends Observable {
         for (Game g : this.games) {
             if (g.equals(game)) {
                 g.addUser(user, userColor);
-                this.user.addGame(g);
+                this.user.addGame(g.getGameId());
                 setChanged();
                 notifyObservers();
             }
