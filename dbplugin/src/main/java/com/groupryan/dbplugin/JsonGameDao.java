@@ -185,13 +185,15 @@ public class JsonGameDao implements IGameDao {
                     String commandStr = gson.toJson(command);
                     commands.add(commandStr.getBytes());
                 }
+                gameObj.remove("commands");
+                gamesArray.set(i, gameObj);
             }
             String gameId = gameObj.get("gameId").getAsString();
             if (commands.size() > 0) {
                 allCommands.put(gameId, commands);
             }
+            gamesObj = gamesArray;
         }
-        gamesObj = new JsonArray();
         return allCommands;
     }
 
