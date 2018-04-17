@@ -71,7 +71,7 @@ public class JsonDatabase implements IDatabase {
     }
 
     private void checkJsonFileExists() {
-        if (!databaseFile.exists()) {
+        if (databaseFile == null) {
             try {
                 databaseFile.createNewFile();
             } catch (IOException e) {
@@ -150,17 +150,18 @@ public class JsonDatabase implements IDatabase {
 
     @Override
     public void setMaxCommands(int commands) {
-        File jsonFile = new File(databaseAddress);
-        if (jsonFile.exists()) {
-            if (!jsonFile.isDirectory()) {
-                try {
-                    jsonFile.createNewFile();
-                    databaseFile = jsonFile;
-                    this.maxCommands = commands;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+        if (databaseFile == null) {
+            File jsonFile = new File(databaseAddress);
+            try {
+                jsonFile.createNewFile();
+                databaseFile = jsonFile;
+                this.maxCommands = commands;
+            } catch (IOException e) {
+                e.printStackTrace();
             }
+        }
+        else {
+            this.maxCommands = commands;
         }
     }
 
