@@ -44,7 +44,7 @@ public class utils {
     public static final String EXEC_COMMAND = "/executeCommand";  // url for command API
 //    public static final String SERVER_HOST = "localhost";
     public static final int PORT_NUMBER = 8080;
-    public static String URL_PREFIX = "http://" + "192.168.1.107" + ":" + PORT_NUMBER;
+    public static String URL_PREFIX = "http://" + "192.168.253.215" + ":" + PORT_NUMBER;
 
 
     public static final String HTTP_POST = "POST";
@@ -98,6 +98,6 @@ public class utils {
     }
 
     public static void setUrlPrefix(String host){
-        //URL_PREFIX = "http://" + host + ":" + PORT_NUMBER;
+        URL_PREFIX = "http://" + host + ":" + PORT_NUMBER;
     }
 }
