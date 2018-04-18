@@ -70,6 +70,13 @@ public class JsonDatabase implements IDatabase {
         return new JsonArray();
     }
 
+    private JsonObject getCommandsAsJsonObject(JsonObject databaseObj) {
+        if (databaseObj.has("commands")) {
+            return databaseObj.getAsJsonObject("commands");
+        }
+        return new JsonObject();
+    }
+
     private void checkJsonFileExists() {
         File jsonFile = new File(databaseAddress);
         if (databaseFile == null) {
@@ -102,12 +109,15 @@ public class JsonDatabase implements IDatabase {
         return userDao.getUsersObj();
     }
 
-    private JsonArray getGameDaoModifications() {
+    private JsonArray getSnapshotModifications() {
         return gameDao.getGamesObj();
     }
 
+    private JsonObject getCommandModifications() { return gameDao.getCommandsObj(); }
+
     private void updateGameDao() {
-        this.gameDao = new JsonGameDao(getGamesAsJsonObject(databaseCopy), maxCommands);
+        this.gameDao = new JsonGameDao(getGamesAsJsonObject(databaseCopy),
+                getCommandsAsJsonObject(databaseCopy), maxCommands);
     }
 
     private void updateUserDao() {
@@ -129,10 +139,12 @@ public class JsonDatabase implements IDatabase {
 
     @Override
     public void endTransaction() {
-        JsonArray gamesObj = getGameDaoModifications();
+        JsonArray gamesObj = getSnapshotModifications();
         JsonArray usersObj = getUserDaoModifications();
+        JsonObject commandsObj = getCommandModifications();
         databaseCopy.add("games", gamesObj);
         databaseCopy.add("users", usersObj);
+        databaseCopy.add("commands", commandsObj);
         writeToDatabase();
         updateUserDao();
         updateGameDao();
@@ -178,6 +190,7 @@ public class JsonDatabase implements IDatabase {
         checkJsonFileExists();
         databaseCopy.remove("users");
         databaseCopy.remove("games");
+        databaseCopy.remove("commands");
         writeToDatabase();
         updateGameDao();
         updateUserDao();
