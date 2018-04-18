@@ -9,7 +9,7 @@ import java.util.List;
  * Created by clairescout on 3/24/18.
  */
 
-public class EndGameStatReturnObject {
+public class EndGameStatReturnObject implements java.io.Serializable {
 
     List<EndGameStat> endGameStats = new ArrayList<>();
 

@@ -1,5 +1,8 @@
 package com.groupryan.server.models;
 
+import com.groupryan.server.DatabaseHolder;
+import com.groupryan.shared.commands.ServerCommand;
+import com.groupryan.shared.commands.ServerCommandFactory;
 import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.Deck;
@@ -34,10 +37,7 @@ public class RootServerModel {
     private Map<Integer, Route> routeMap = new HashMap<>();
     private Map<Integer, Integer> routeLengthPoints = new HashMap<>();
 
-    //usermap
-    //server gameid map
-    //usergames
-    //call make bank (add it to constructor)
+
     private static final long serialVersionUID = 5230549922091722630L;
 
     private static RootServerModel single_instance; /*= new RootServerModel();*/
@@ -45,6 +45,9 @@ public class RootServerModel {
     public static RootServerModel getInstance() {
         if (single_instance == null) {
             single_instance = new RootServerModel();
+            single_instance.makeBank();
+            Game game = new Game();
+            //single_instance.gameMap = game.makeTestGames();
         }
         return single_instance;
     }
@@ -59,8 +62,20 @@ public class RootServerModel {
         return notStartedGames;
     }
 
+    public void setUserMap(Map<String, User> userMap) {
+        this.userMap = userMap;
+    }
+
+    public void setUserGames(Map<String, ServerGame> userGames) {
+        this.userGames = userGames;
+    }
+
     public ArrayList<User> getUsers() {
-        return (ArrayList<User>) userMap.values();
+        ArrayList<User> users = new ArrayList<>();
+        for(User user: userMap.values()){
+            users.add(user);
+        }
+        return users;
     }
 
     public static String addUser(User user) {
@@ -112,6 +127,14 @@ public class RootServerModel {
     private String _addGame(Game game) {
         if (game.getGameId() == null) {
             game.makeGameId();
+            ServerCommandFactory scf = new ServerCommandFactory();
+            ServerCommand serverCommand = scf.createCreateGameCommand(game);
+            DatabaseHolder.getInstance().addCommand(game.getGameId(), serverCommand);
+            Map<String, String> userColors = game.getUsers();
+            for(String username : userColors.keySet()){
+                User user = RootServerModel.getUser(username);
+                DatabaseHolder.getInstance().addGameToUser(game.getGameId(),user);
+            }
         }
         gameMap.put(game.getGameId(), game);
         Set<String> keys = game.getUsers().keySet();
@@ -471,6 +494,10 @@ public class RootServerModel {
 
     public Map<String, ServerGame> getServerGameIdMap() {
         return serverGameIdMap;
+    }
+
+    public void setServerGameIdMap(Map<String, ServerGame> idToGame){
+        this.serverGameIdMap = idToGame;
     }
 
     public Route getRoute(int ID){

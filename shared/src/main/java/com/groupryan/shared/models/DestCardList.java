@@ -9,7 +9,7 @@ import java.util.List;
  * Created by ryanm on 3/7/2018.
  */
 
-public class DestCardList {
+public class DestCardList implements java.io.Serializable{
     double one=-1;
     double two=-1;
 

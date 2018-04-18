@@ -1,5 +1,6 @@
 package com.groupryan.server.handlers;
 
+import com.groupryan.server.DatabaseHolder;
 import com.groupryan.server.ServerCommand;
 import com.groupryan.shared.Serializer;
 import com.groupryan.shared.results.CommandResult;
@@ -29,7 +30,6 @@ public class CommandHandler implements HttpHandler {
             InputStream is = httpExchange.getRequestBody();
             InputStreamReader reader = new InputStreamReader(is);
             ServerCommand command = (ServerCommand) Serializer.decode(is, ServerCommand.class);
-            //put command in database.
             commandResult = command.execute();
         } catch (Exception e) {
             e.printStackTrace();

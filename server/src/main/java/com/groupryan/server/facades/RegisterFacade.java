@@ -1,6 +1,7 @@
 package com.groupryan.server.facades;
 
 import com.groupryan.server.CommandManager;
+import com.groupryan.server.DatabaseHolder;
 import com.groupryan.server.models.RootServerModel;
 import com.groupryan.shared.commands.ClientCommand;
 import com.groupryan.shared.models.User;
@@ -16,6 +17,11 @@ public class RegisterFacade {
         Boolean exists = checkUserId(user);
         LoginResult lr = new LoginResult();
         if (!exists) {
+            //send command to db
+            DatabaseHolder.getInstance().getDatabase().startTransaction();
+            DatabaseHolder.getInstance().getDatabase().getUserDao().registerUser(user);
+            DatabaseHolder.getInstance().getDatabase().endTransaction();
+
             String result = createUser(user);
             lr.addClientCommand(createReturnCommand(user));
             lr.setSucceeded(true);

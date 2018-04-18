@@ -6,7 +6,7 @@ import com.google.gson.internal.LinkedTreeMap;
  * Created by clairescout on 3/21/18.
  */
 
-public class EndGameStat {
+public class EndGameStat implements java.io.Serializable {
     private String username;
     private int totalPoints;
     private int claimedRoutePoints;

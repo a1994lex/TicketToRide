@@ -76,6 +76,7 @@ public class Server {
                 IDatabase databasePlugin = (IDatabase) pluginObject;
                 databasePlugin.setMaxCommands(maxCommands);
                 DatabaseHolder.getInstance().setDatabase(databasePlugin);
+                DatabaseHolder.getInstance().loadActiveServerGames();
 
             } catch (Exception ex) {
                 System.err.println(ex.getMessage());

@@ -33,7 +33,7 @@ public class JoinAsyncTask extends AsyncTask<Object, Void,CommandResult> {
     @Override
     protected void onPostExecute(CommandResult result){
         OnJoinOrCreate onJoinOrCreate = (OnJoinOrCreate)activity;
-        if(result.getResultType().equals(utils.VALID)) {
+         if(result.getResultType().equals(utils.VALID)) {
             executeCommands(result.getClientCommands());
         }
         else{

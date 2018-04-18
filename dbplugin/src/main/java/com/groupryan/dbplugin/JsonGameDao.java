@@ -7,6 +7,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -92,7 +93,8 @@ public class JsonGameDao implements IGameDao {
     public Boolean addCommandToGame(String gameid, byte[] command, int order) {
         boolean maxReached = false;
         JsonArray commandList = findCommandListById(gameid);
-        String commandStr = new String(command);
+        //String commandStr = new String(command);
+        String commandStr = Arrays.toString(command);
         if (commandList == null) {
             commandList = new JsonArray();
         }
@@ -106,7 +108,7 @@ public class JsonGameDao implements IGameDao {
 
     @Override
     public void updateGameSnapshot(String gameid, byte[] gameSnapshot) {
-        String snapshotStr = new String(gameSnapshot);
+        String snapshotStr = Arrays.toString(gameSnapshot);
         gamesObj.addProperty(gameid, snapshotStr);
 //        if (gameObj == null) {
 //            gamesArray.add(snapshotElem);
@@ -136,7 +138,9 @@ public class JsonGameDao implements IGameDao {
         JsonArray commands = commandsObj.getAsJsonArray(gameid);
         if (commands != null) {
             for (int i = 0; i < commands.size(); i++) {
-                commandsList.add(commands.get(i).getAsString().getBytes());
+                //commandsList.add(commands.get(i).getAsString().getBytes());
+                commandsList.add(makeBytes(commands.get(i).getAsString()));
+
             }
         }
         return commandsList;
@@ -147,7 +151,7 @@ public class JsonGameDao implements IGameDao {
         byte[] snapshot = null;
         JsonElement gameElem = findGameById(gameid);
         if (gameElem != null) {
-            snapshot = gameElem.getAsString().getBytes();
+            snapshot = makeBytes(gameElem.getAsString());
         }
         return snapshot;
     }
@@ -160,7 +164,8 @@ public class JsonGameDao implements IGameDao {
             JsonArray commandsArray = entry.getValue().getAsJsonArray();
             List<byte[]> commandList = new ArrayList<>();
             for (int i = 0; i < commandsArray.size(); i++) {
-                commandList.add(commandsArray.get(i).getAsString().getBytes());
+                byte[] theCommand = makeBytes(commandsArray.get(i).getAsString());
+                commandList.add(theCommand);
             }
             allCommands.put(entry.getKey(), commandList);
         }
@@ -172,7 +177,7 @@ public class JsonGameDao implements IGameDao {
     public List<byte[]> getAllSnapshots() {
         List<byte[]> snapshots = new ArrayList<>();
         for (Map.Entry<String, JsonElement> entry : gamesObj.entrySet()) {
-            snapshots.add(entry.getValue().getAsString().getBytes());
+            snapshots.add(makeBytes(entry.getValue().getAsString()));
         }
         //        JsonArray gamesArray = gamesObj.getAsJsonArray();
 //        for (int i = 0; i < gamesArray.size(); i++) {
@@ -190,5 +195,16 @@ public class JsonGameDao implements IGameDao {
         commandsObj = new JsonObject();
         System.out.println("games table is now empty: " + gamesObj);
         System.out.println("commands table is now empty: " + commandsObj);
+    }
+
+    public byte[] makeBytes(String s){
+        String[] byteValues = s.substring(1, s.length() - 1).split(",");
+        byte[] bytes = new byte[byteValues.length];
+
+        for (int i=0, len=bytes.length; i<len; i++) {
+            bytes[i] = Byte.parseByte(byteValues[i].trim());
+        }
+        return bytes;
+
     }
 }

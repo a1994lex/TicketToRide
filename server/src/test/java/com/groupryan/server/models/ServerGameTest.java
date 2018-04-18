@@ -1,5 +1,6 @@
 package com.groupryan.server.models;
 
+import com.groupryan.server.DatabaseHolder;
 import com.groupryan.shared.JavaSerializer;
 import com.groupryan.shared.models.Card;
 import com.groupryan.shared.models.Deck;
@@ -211,6 +212,16 @@ public class ServerGameTest {
         ServerGame afterGame = (ServerGame) JavaSerializer.getInstance().toObject(stream);
         Assert.assertEquals(serverGame.getTDeckSize(), afterGame.getTDeckSize());
 
+    }
+
+    @Test
+    public void testSerializeAndPutIntoDatabase(){
+        byte[] stream = JavaSerializer.getInstance().serializeObject(serverGame);
+        DatabaseHolder.getInstance().getDatabase().startTransaction();
+        DatabaseHolder.getInstance().getDatabase().getGameDao().updateGameSnapshot(serverGame.getServerGameID(), stream);
+        byte[] afterstream = DatabaseHolder.getInstance().getDatabase().getGameDao().getSnapshotByGameId(serverGame.getServerGameID());
+        DatabaseHolder.getInstance().getDatabase().endTransaction();
+        int a = 2;
 
     }
 }

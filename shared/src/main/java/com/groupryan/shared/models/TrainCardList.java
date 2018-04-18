@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Daniel on 3/26/2018.
  */
 
-public class TrainCardList {
+public class TrainCardList implements java.io.Serializable {
     List<Integer> trainCards = new ArrayList<>();
 
     public static TrainCardList mapToObject(LinkedTreeMap map) {

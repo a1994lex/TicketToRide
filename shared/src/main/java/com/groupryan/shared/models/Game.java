@@ -37,6 +37,10 @@ public class Game implements  java.io.Serializable {
       return new Game(users, gameName, gameId, maxPlayers, started);
     }
 
+//    public static Game mapToObject(Game game){
+//        return game;
+//    }
+
     private Map<String, String> users;
     private String gameName;
     private String gameId;

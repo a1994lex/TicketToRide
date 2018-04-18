@@ -77,21 +77,27 @@ public class CommandManager {
         {
             assert (this.gamePlayerCommands.get(gameId).containsKey(exceptionPlayer));
         }
-        for (String playerId : this.gamePlayerCommands.get(gameId).keySet()) {
+        if(gamePlayerCommands.containsKey(gameId)){
+            for (String playerId : this.gamePlayerCommands.get(gameId).keySet()) {
             /* only adds a command to the list if the player is not the exceptionPlayer.
              exceptionPlayer is another word for the player who is currently having their turn, and
              they don't need this specific command handed to them.*/
 
-            if (!playerId.equals(exceptionPlayer)) {
-                this.gamePlayerCommands.get(gameId).get(playerId).add(command); //add the command to list
+                if (!playerId.equals(exceptionPlayer)) {
+                    this.gamePlayerCommands.get(gameId).get(playerId).add(command); //add the command to list
+                }
             }
         }
+
     }
 
     private void createGameCommandMapEntry(String gameId) {
         HashMap<String, List<ClientCommand>> userCmdMap = new HashMap<>();
-        for (String user : RootServerModel.getInstance().getGame(gameId).getUsers().keySet()) {
-            userCmdMap.put(user, new ArrayList<>());
+//        for (Player player : RootServerModel.getInstance().getServerGameByGameId(gameId).getPlayers()) {
+//            userCmdMap.put(player.getUsername(), new ArrayList<>());
+//        }
+        for(User user : RootServerModel.getInstance().getUsers()){
+            userCmdMap.put(user.getUsername(), new ArrayList<>());
         }
         this.gamePlayerCommands.put(gameId, userCmdMap);
     }

@@ -65,8 +65,14 @@ public class ServerCommand implements IServerCommand, java.io.Serializable {
                     objects.add(Enum.valueOf((Class<Enum>) types[i], (String)paramValues[i]));
                 }
                 else{
-                    Method method = receiver.getMethod("mapToObject", LinkedTreeMap.class);
-                    objects.add(method.invoke(receiver,paramValues[i]));
+                    if(paramValues[i].getClass() == LinkedTreeMap.class){
+                        Method method = receiver.getMethod("mapToObject", LinkedTreeMap.class);
+                        objects.add(method.invoke(receiver,paramValues[i]));
+                    }
+                    else{
+                        objects.add(paramValues[i]);
+                    }
+
                 }
             }
             catch (Exception e) {
