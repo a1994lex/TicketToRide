@@ -39,8 +39,9 @@ public class JavaSerializer {
     public Object toObject(byte[] stream){
         Object o = null;
 
-        try (ByteArrayInputStream bais = new ByteArrayInputStream(stream);
-             ObjectInputStream ois = new ObjectInputStream(bais)){
+        try {
+            ByteArrayInputStream bais = new ByteArrayInputStream(stream);
+            ObjectInputStream ois = new ObjectInputStream(bais);
             o = ois.readObject();
         }catch (IOException e){
             e.printStackTrace();

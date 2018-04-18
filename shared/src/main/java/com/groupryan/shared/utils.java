@@ -98,6 +98,6 @@ public class utils {
     }
 
     public static void setUrlPrefix(String host){
-//        URL_PREFIX = "http://" + host + ":" + PORT_NUMBER;
+        URL_PREFIX = "http://" + host + ":" + PORT_NUMBER;
     }
 }
