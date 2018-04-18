@@ -34,8 +34,8 @@ public class ClientFacade {
         RootClientModel.addUser(user);
     }
 
-    public void restoreClient(ClientFacingGame game){
-        RootClientModel.restoreCurrentGame(game);
+    public void restoreClient(ClientFacingGame game, User user){
+        RootClientModel.restoreCurrentGame(game, user);
     }
 
     public void rejoinLobby(Game game) {

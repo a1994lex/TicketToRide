@@ -3,6 +3,7 @@ package presenters;
 import android.app.Activity;
 
 import com.groupryan.client.UIFacade;
+import com.groupryan.client.models.ClientGame;
 import com.groupryan.client.models.RootClientModel;
 import com.example.clientapp.IJoinGameView;
 import com.groupryan.shared.models.Game;
@@ -113,15 +114,14 @@ public class JoinGamePresenter implements Observer, IJoinGamePresenter {
                         dialogView.join(game.getGameId());
                     }
                 }
-            }
-            else if (o == utils.GAME_RESTORED){
-                if (checkIfJoinedGame()){
-                    gameView.join(RootClientModel.getCurrentGame().getGameId());
-                }
-            }
-            else if (o == utils.REJOIN_LOBBY){
+            } else if (o.getClass().equals(ClientGame.class)) {
+//                if (checkIfJoinedGame()) {
+                ClientGame cg = (ClientGame) o;
+                gameView.join(cg.getGameId());
+//                }
+            } else if (o == utils.REJOIN_LOBBY) {
                 String id = RootClientModel.getRejoinLobbyGameId();
-                if (id != null){
+                if (id != null) {
                     gameView.join(id);
                 }
             }
@@ -129,12 +129,12 @@ public class JoinGamePresenter implements Observer, IJoinGamePresenter {
 
 
     }
-    public boolean checkIfJoinedGame(){
+
+    public boolean checkIfJoinedGame() {
         //checks to see if a user has already joined a game, and if they have, takes them directly to game activity
-        if(RootClientModel.getCurrentGame() == null){
+        if (RootClientModel.getCurrentGame() == null) {
             return false;
-        }
-        else{
+        } else {
             return true;
         }
 

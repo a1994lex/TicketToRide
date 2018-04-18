@@ -17,15 +17,14 @@ import com.groupryan.shared.utils;
 import async.OnLogin;
 import presenters.RegisterPresenter;
 
-public class RegisterActivity extends AppCompatActivity implements IRegisterView, OnLogin{
+public class RegisterActivity extends AppCompatActivity implements IRegisterView, OnLogin {
 
     private EditText usernameEditText;
     private EditText passwordEditText;
     private EditText hostEditText;
     private Button loginButton;
     private Button registerButton;
-    private RegisterPresenter regPresenter = new RegisterPresenter(this);
-
+    private RegisterPresenter regPresenter = new RegisterPresenter(this, this);
 
 
     @Override
@@ -45,7 +44,17 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         initializeListeners();
     }
 
-    public void initializeListeners(){
+    @Override
+    public void joinGame(String id) {
+        if (RootClientModel.getInstance().hasRejoinLobbyGameId()) {
+
+            Intent intent = new Intent(this, LobbyActivity.class);
+            intent.putExtra(utils.GAME_ID_TAG, id);
+            startActivity(intent);
+        }
+    }
+
+    public void initializeListeners() {
 
 
         loginButton.setOnClickListener(new View.OnClickListener() {
@@ -69,17 +78,18 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
             @Override
             public void onTextChanged(CharSequence s, int i, int i1, int i2) {
-                if(s.toString().trim().length()==0 || passwordEditText.getText().toString().trim().length() == 0){
+                if (s.toString().trim().length() == 0 || passwordEditText.getText().toString().trim().length() == 0) {
                     loginButton.setEnabled(false);
                     registerButton.setEnabled(false);
-                }  else{
+                } else {
                     loginButton.setEnabled(true);
                     registerButton.setEnabled(true);
                 }
             }
 
             @Override
-            public void afterTextChanged(Editable editable) {            }
+            public void afterTextChanged(Editable editable) {
+            }
         });
 
         passwordEditText.addTextChangedListener(new TextWatcher() {
@@ -90,10 +100,10 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
 
             @Override
             public void onTextChanged(CharSequence s, int i, int i1, int i2) {
-                if(s.toString().trim().length()==0 || usernameEditText.getText().toString().trim().length() == 0){
+                if (s.toString().trim().length() == 0 || usernameEditText.getText().toString().trim().length() == 0) {
                     loginButton.setEnabled(false);
                     registerButton.setEnabled(false);
-                }  else{
+                } else {
                     loginButton.setEnabled(true);
                     registerButton.setEnabled(true);
                 }
@@ -106,7 +116,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         });
     }
 
-    public void login(){
+    public void login() {
         //Toast.makeText(this, "logging in!", Toast.LENGTH_SHORT).show();
 
         String username = usernameEditText.getText().toString();
@@ -115,7 +125,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         regPresenter.login(username, password);
     }
 
-    public void register(){
+    public void register() {
 //        Toast.makeText(this, "registerrrr", Toast.LENGTH_SHORT).show();
         String username = usernameEditText.getText().toString();
         String password = passwordEditText.getText().toString();
@@ -123,14 +133,14 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         regPresenter.register(username, password);
     }
 
-    public void onLogin(){
+    public void onLogin() {
         RootClientModel.getSingle_instance().deleteObserver(regPresenter);
-        if(regPresenter.checkIfJoinedGame()){
+
+        if (regPresenter.checkIfJoinedGame()) {
             Intent intent = new Intent(this, GameActivity.class);
             intent.putExtra(utils.GAME_RESTORED, true);
             startActivity(intent);
-        }
-        else{
+        } else {
             Intent intent = new Intent(this, JoinGameActivity.class);
             startActivity(intent);
         }

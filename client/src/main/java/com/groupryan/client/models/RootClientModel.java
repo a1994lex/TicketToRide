@@ -27,22 +27,27 @@ public class RootClientModel extends Observable {
     private ArrayList<Route> routes;
     private String rejoinLobbyGameId = null;
 
-    public static String getRejoinLobbyGameId(){
-       return single_instance._getRejoinLobbyGameId();
+    public static String getRejoinLobbyGameId() {
+
+        return single_instance._getRejoinLobbyGameId();
     }
-    private String _getRejoinLobbyGameId(){
+
+    private String _getRejoinLobbyGameId() {
         return this.rejoinLobbyGameId;
     }
-    public static boolean hasRejoinLobbyGameId(){
+
+    public static boolean hasRejoinLobbyGameId() {
         return single_instance._hasRejoinLobbyGameId();
     }
-    private boolean _hasRejoinLobbyGameId(){
-        if (this.rejoinLobbyGameId != null){
+
+    private boolean _hasRejoinLobbyGameId() {
+        if (this.rejoinLobbyGameId != null) {
             this.rejoinLobbyGameId = null;
             return true;
         }
         return false;
     }
+
     public HashSet<RouteSegment> getRouteSegmentSet(int routeId) {
         return routeSegments.get(routeId);
     }
@@ -54,7 +59,7 @@ public class RootClientModel extends Observable {
         return single_instance;
     }
 
-    public static RootClientModel getSingle_instance(){
+    public static RootClientModel getSingle_instance() {
         return single_instance;
     }
 
@@ -81,19 +86,26 @@ public class RootClientModel extends Observable {
     public static void addUser(User user) {
         single_instance._addUser(user);
     }
-     public static void addLobbyGame(Game game) {single_instance._addLobbyGame(game);}
+
+    public static void addLobbyGame(Game game) {
+        single_instance._addLobbyGame(game);
+    }
 
     public static void addGame(Game game) {
-            single_instance._addGame(game);
+        single_instance._addGame(game);
     }
 
     public static void startGame(Game game, Player p) {
         single_instance._startGame(game, p);
     }
 
-    public static void setCurrentGame(Game game, Player p){ single_instance._setCurrentGame(game, p);}
+    public static void setCurrentGame(Game game, Player p) {
+        single_instance._setCurrentGame(game, p);
+    }
 
-    public static void restoreCurrentGame(ClientFacingGame cfg){ single_instance._restoreCurrentGame(cfg);}
+    public static void restoreCurrentGame(ClientFacingGame cfg, User user) {
+        single_instance._restoreCurrentGame(cfg, user);
+    }
 
     public static void addUserToGame(Game game, User user, String userColor) {
         single_instance._addUserToGame(game, user, userColor);
@@ -103,7 +115,7 @@ public class RootClientModel extends Observable {
         single_instance._addClaimedRoute(username, route);
     }
 
-    public static void setGames(List<Game> games){
+    public static void setGames(List<Game> games) {
         single_instance._setGames(games);
     }
 
@@ -121,9 +133,9 @@ public class RootClientModel extends Observable {
     }
 
     private void _addGame(Game game) {
-        for(Game g:games){
-            if(g.getGameId().equals(game.getGameId())){
-               return;
+        for (Game g : games) {
+            if (g.getGameId().equals(game.getGameId())) {
+                return;
             }
         }
         games.add(game);
@@ -160,7 +172,7 @@ public class RootClientModel extends Observable {
 
     }
 
-    private void _addLobbyGame(Game g){
+    private void _addLobbyGame(Game g) {
         games.add(g);
         rejoinLobbyGameId = g.getGameId();
         setChanged();
@@ -179,16 +191,18 @@ public class RootClientModel extends Observable {
     }
 
     private void _setGames(List<Game> games) {
-        this.games = (ArrayList<Game>)games;
+        this.games = (ArrayList<Game>) games;
     }
 
-    private void _setCurrentGame(Game gm, Player p){
+    private void _setCurrentGame(Game gm, Player p) {
         clientGame = new ClientGame(gm, p);
     }
-    private void _restoreCurrentGame(ClientFacingGame cfg){
+
+    private void _restoreCurrentGame(ClientFacingGame cfg, User user) {
+        this.user = user;
         clientGame = new ClientGame(cfg);
         setChanged();
-        notifyObservers(utils.GAME_RESTORED);
+        notifyObservers(clientGame);
     }
 
 
@@ -1271,7 +1285,7 @@ public class RootClientModel extends Observable {
                 71);
         rs3 = new RouteSegment(952, 209, 989, 199,
                 71);
-        rs4 = new RouteSegment(995,198,1027,176, 71);
+        rs4 = new RouteSegment(995, 198, 1027, 176, 71);
         chicagoToronto.add(rs1);
         chicagoToronto.add(rs2);
         chicagoToronto.add(rs3);
@@ -1438,7 +1452,7 @@ public class RootClientModel extends Observable {
         HashSet<RouteSegment> newYorkWashington2 = new HashSet<>();
         rs1 = new RouteSegment(1179, 303, 1178, 271,
                 86);
-        rs2 = new RouteSegment(1178, 263, 1175,229,
+        rs2 = new RouteSegment(1178, 263, 1175, 229,
                 86);
         newYorkWashington2.add(rs1);
         newYorkWashington2.add(rs2);

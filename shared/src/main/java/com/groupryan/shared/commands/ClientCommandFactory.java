@@ -28,13 +28,14 @@ public class ClientCommandFactory {
     public ClientCommandFactory() {
 
     }
-    public ClientCommand createRetrieveGameCommand(ClientFacingGame game){
+
+    public ClientCommand createRetrieveGameCommand(ClientFacingGame game, User user) {
         return new ClientCommand("com.groupryan.client.ClientFacade", "restoreClient",
-                new String[]{ClientFacingGame.class.getTypeName()},
-                new Object[]{game});
+                new String[]{ClientFacingGame.class.getTypeName(), User.class.getTypeName()},
+                new Object[]{game, user});
     }
 
-    public ClientCommand createRejoinLobbyCommand(Game game){
+    public ClientCommand createRejoinLobbyCommand(Game game) {
         return new ClientCommand("com.groupryan.client.ClientFacade", "rejoinLobby",
                 new String[]{Game.class.getTypeName()},
                 new Object[]{game});
@@ -69,69 +70,70 @@ public class ClientCommandFactory {
                 new String[]{User.class.getTypeName()},
                 new Object[]{user});
     }
+
     public ClientCommand createDiscardDestinationCardCommand(DestCardList destCardList, String username) {
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "discardDestCard",
                 new String[]{DestCardList.class.getTypeName(), String.class.getTypeName()},
                 new Object[]{destCardList, username});
     }
 
-    public ClientCommand createDrawThreeCardsCommand(List<DestCard> cards){
-        DestCardReturnObject cardss= new DestCardReturnObject(cards);
+    public ClientCommand createDrawThreeCardsCommand(List<DestCard> cards) {
+        DestCardReturnObject cardss = new DestCardReturnObject(cards);
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "drawThreeCards",
                 new String[]{DestCardReturnObject.class.getTypeName()},
                 new Object[]{cardss});
     }
 
-    public ClientCommand createDrawColorCardCommand(TrainCard tc){
+    public ClientCommand createDrawColorCardCommand(TrainCard tc) {
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "drawColorCard",
                 new String[]{TrainCard.class.getTypeName()},
                 new Object[]{tc});
     }
 
-    public ClientCommand createDiscardTrainCardsCommand(List<TrainCard> cards){
+    public ClientCommand createDiscardTrainCardsCommand(List<TrainCard> cards) {
         TrainCardReturnObject cardss = new TrainCardReturnObject(cards);
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "discardColorCards",
                 new String[]{TrainCardReturnObject.class.getTypeName()},
                 new Object[]{cardss});
     }
 
-    public ClientCommand createClaimRouteCommand(Route r, String u){
+    public ClientCommand createClaimRouteCommand(Route r, String u) {
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "claimRoute",
                 new String[]{Route.class.getTypeName(), String.class.getTypeName()},
                 new Object[]{r, u});
     }
 
-    public ClientCommand createChatCommand(String msg, String username){
+    public ClientCommand createChatCommand(String msg, String username) {
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "updateChat",
                 new String[]{String.class.getTypeName(), String.class.getTypeName()},
                 new Object[]{msg, username});
     }
 
-    public ClientCommand createHistoryCommand(String msg){
+    public ClientCommand createHistoryCommand(String msg) {
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "updateHistory",
                 new String[]{String.class.getTypeName()},
                 new Object[]{msg});
     }
 
-    public ClientCommand createStatCommand(Stat stat){
+    public ClientCommand createStatCommand(Stat stat) {
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "updateStat",
                 new String[]{Stat.class.getTypeName()},
                 new Object[]{stat});
     }
 
-    public ClientCommand createBankCommand(Bank bank){
+    public ClientCommand createBankCommand(Bank bank) {
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "setBank",
                 new String[]{Bank.class.getTypeName()},
                 new Object[]{bank});
     }
 
-    public ClientCommand createDDeckCommand(Integer size){
+    public ClientCommand createDDeckCommand(Integer size) {
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "setDDeckSize",
                 new String[]{Integer.class.getTypeName()},
                 new Object[]{size});
     }
 
-    public ClientCommand createTDeckCommand(Integer size){
+    public ClientCommand createTDeckCommand(Integer size) {
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "setTDeckSize",
                 new String[]{Integer.class.getTypeName()},
                 new Object[]{size});
@@ -144,7 +146,7 @@ public class ClientCommandFactory {
                 new Object[]{winner, endStats});
     }
 
-    public ClientCommand createNextTurnCommand(int turn){
+    public ClientCommand createNextTurnCommand(int turn) {
         return new ClientCommand("com.groupryan.client.ClientGameFacade", "changeTurn",
                 new String[]{Integer.class.getTypeName()},
                 new Object[]{turn});

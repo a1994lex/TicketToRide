@@ -30,11 +30,14 @@ public class LoginFacade {
 
         LoginResult lr = new LoginResult();//create the specific login result instead of a command result
         if (result.equals(utils.VALID)) {
-            user=RootServerModel.getUser(user.getUsername());
-            lr.addClientCommand(createReturnCommand(user));//creates and stores the client command that comes through
+            user = RootServerModel.getUser(user.getUsername());
+            checkIfInGame(user, lr);
+            if (lr.getClientCommands().size() == 0) {
+                lr.addClientCommand(createReturnCommand(user));//creates and stores the client command that comes through
+            }
             lr.setSucceeded(true);//im setting this so that the client knows to go to the next activity
             lr.setGameList(RootServerModel.getInstance().getGames());
-            checkIfInGame(user, lr);
+
         } else {
             lr.setSucceeded(false);
         }//else false
@@ -50,31 +53,30 @@ public class LoginFacade {
         return CommandManager.getInstance().makeLoginCommand(user);
     }
 
-    public LoginResult checkIfInGame(User user, LoginResult lr){
+    public LoginResult checkIfInGame(User user, LoginResult lr) {
         Map<String, ServerGame> serversGames = RootServerModel.getInstance().getServerGameIdMap();
         boolean foundGame = false;
         for (ServerGame serverGame : serversGames.values()) {
             Map<String, Player> playerMap = serverGame.getPlayaMap();
-            if(playerMap.containsKey(user.getUsername())){
+            if (playerMap.containsKey(user.getUsername())) {
                 //create start game command
                 Player p = playerMap.get(user.getUsername());
-                lr.addClientCommand(CommandManager.getInstance().makeRetrieveGameCommand(getClientGame(p, serverGame)));
+                lr.addClientCommand(CommandManager.getInstance().makeRetrieveGameCommand(getClientGame(p, serverGame), user));
                 foundGame = true;
                 break;
             }
         }
-        if (!foundGame){
-            if (user.getGameId()!=""){
+        if (!foundGame) {
+            if (user.getGameId() != "") {
                 lr.addClientCommand(CommandManager.getInstance()
                         .makeRejoinLobbyCommand(RootServerModel.getInstance()
-                                .getGame(user.getGameId())) );
+                                .getGame(user.getGameId())));
             }
         }
         return lr;
     }
 
-    private ClientFacingGame getClientGame(Player receiver, ServerGame serverGame){
-
+    private ClientFacingGame getClientGame(Player receiver, ServerGame serverGame) {
         ClientFacingGame cGame = new ClientFacingGame(serverGame.getServerGameID(), receiver);
         cGame.setAvailableRoutes((ArrayList<Route>) receiver.getAvailableRoutes());
         cGame.setHistory((ArrayList<String>) serverGame.getAllHistory());

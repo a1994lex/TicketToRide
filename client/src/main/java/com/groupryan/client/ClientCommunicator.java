@@ -231,7 +231,7 @@ public class ClientCommunicator {
             }
         } catch (IOException e) {   // return result with exception message
             e.printStackTrace();
-            result = new CommandResult(e.getCause().getClass().toString(), e.getMessage(),
+            result = new CommandResult(e.getCause().toString(), e.getMessage(),
                     new ArrayList<ClientCommand>(), utils.INVALID);
         }
         return result;

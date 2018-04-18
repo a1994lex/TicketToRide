@@ -58,10 +58,13 @@ public class CommandManager {
             // Creates an entry for game in the gamePlayerCommands Map using all the users from the game
             createGameCommandMapEntry(gameId);
         }
-        int size = this.gamePlayerCommands.get(gameId).get(playerId).size();
-       // System.out.println("command size in server: " + size);
-        List<ClientCommand> playerCommands = new ArrayList<>(this.gamePlayerCommands.get(gameId).get(playerId));
-        this.gamePlayerCommands.get(gameId).get(playerId).clear(); // Clears the players list of commands
+        List<ClientCommand> playerCommands = new ArrayList<>();
+        if (this.gamePlayerCommands.get(gameId).containsKey(playerId)) {
+            int size = this.gamePlayerCommands.get(gameId).get(playerId).size();
+            // System.out.println("command size in server: " + size);
+            playerCommands = new ArrayList<>(this.gamePlayerCommands.get(gameId).get(playerId));
+            this.gamePlayerCommands.get(gameId).get(playerId).clear(); // Clears the players list of commands
+        }
         return playerCommands;
     }
 
@@ -147,8 +150,8 @@ public class CommandManager {
         }
     }
     // ------------------------------ Retrieve Game Commands -----------------------------
-    public ClientCommand makeRetrieveGameCommand(ClientFacingGame game){
-        return factory.createRetrieveGameCommand(game);
+    public ClientCommand makeRetrieveGameCommand(ClientFacingGame game, User user){
+        return factory.createRetrieveGameCommand(game, user);
     }
 
     public ClientCommand makeRejoinLobbyCommand(Game g) {
