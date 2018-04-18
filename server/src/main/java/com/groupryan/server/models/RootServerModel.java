@@ -34,7 +34,6 @@ public class RootServerModel {
     private Map<Integer, Route> routeMap = new HashMap<>();
     private Map<Integer, Integer> routeLengthPoints = new HashMap<>();
 
-
     //usermap
     //server gameid map
     //usergames
@@ -46,8 +45,6 @@ public class RootServerModel {
     public static RootServerModel getInstance() {
         if (single_instance == null) {
             single_instance = new RootServerModel();
-            Game game = new Game();
-            //single_instance.gameMap = game.makeTestGames();
         }
         return single_instance;
     }
@@ -93,6 +90,7 @@ public class RootServerModel {
     private RootServerModel() {
         gameMap = new HashMap<>();
         userMap = new HashMap<>();
+        makeBank();
     }
 
     private String _addUser(User user) {
@@ -431,7 +429,6 @@ public class RootServerModel {
     }
 
     public void createServerGame(String gameId) {
-        makeBank();
         ServerGame sg = new ServerGame(gameId, new Deck(trainCards), new Deck(destinationCards));
         serverGameIdMap.put(gameId, sg);
     }

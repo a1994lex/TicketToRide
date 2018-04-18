@@ -2,6 +2,7 @@ package com.groupryan.shared.commands;
 
 import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Card;
+import com.groupryan.shared.models.ClientFacingGame;
 import com.groupryan.shared.models.Color;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.DestCardList;
@@ -27,7 +28,11 @@ public class ClientCommandFactory {
     public ClientCommandFactory() {
 
     }
-
+    public ClientCommand createRetrieveGameCommand(ClientFacingGame game){
+        return new ClientCommand("com.groupryan.client.ClientFacade", "restoreClient",
+                new String[]{ClientFacingGame.class.getTypeName()},
+                new Object[]{game});
+    }
 
 
     public ClientCommand createCreateGameCommand(Game game) {

@@ -16,4 +16,5 @@ public interface IGamePlayPresenter {
     void cancel();
     void submit();
     boolean checkEndGame();
+    void restorePollers();
 }

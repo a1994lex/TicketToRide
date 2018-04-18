@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.groupryan.client.models.RootClientModel;
+import com.groupryan.shared.utils;
 
 import async.OnLogin;
 import presenters.RegisterPresenter;
@@ -126,6 +127,7 @@ public class RegisterActivity extends AppCompatActivity implements IRegisterView
         RootClientModel.getSingle_instance().deleteObserver(regPresenter);
         if(regPresenter.checkIfJoinedGame()){
             Intent intent = new Intent(this, GameActivity.class);
+            intent.putExtra(utils.GAME_RESTORED, true);
             startActivity(intent);
         }
         else{

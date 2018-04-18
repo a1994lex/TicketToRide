@@ -3,6 +3,7 @@ package com.groupryan.server.models;
 import com.groupryan.server.CommandManager;
 import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Card;
+import com.groupryan.shared.models.ClientFacingGame;
 import com.groupryan.shared.models.Deck;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.Player;
@@ -32,8 +33,9 @@ public class ServerGame implements java.io.Serializable{
     private Queue<Player> turnOrder;
     private List<TrainCard> bank;
     private int ready;
+    private int currentTurn = -1;
+//    TODO: set up available routes for client facing object
 
-    // playamap after  stats also null
     public ServerGame(String serverGameID, Deck trainCards, Deck destinationCards) {
         this.serverGameID = serverGameID;
         this.trainCards = trainCards;
@@ -45,6 +47,7 @@ public class ServerGame implements java.io.Serializable{
         stats = new HashMap<>();
         turnOrder = new LinkedList<>();
         bank = new ArrayList<>();
+
         setRiver();//river is a poker term referring to the cards on the table to see
 //        makeFakeHistory();
     }
@@ -108,11 +111,20 @@ public class ServerGame implements java.io.Serializable{
         return s;
     }
 
+    public Map<String, Stat> getStats(){
+        return this.stats;
+    }
+
     public int getNextTurn(){
         Player nextPlayer = this.turnOrder.remove(); // push top player off the queue.
         int turnNum = nextPlayer.getTurn();
+        this.currentTurn = turnNum;
         this.turnOrder.add(nextPlayer);
         return turnNum;
+    }
+
+    public int getCurrentTurn(){
+        return this.currentTurn;
     }
 
     public List<String> getAllHistory() {
@@ -135,11 +147,6 @@ public class ServerGame implements java.io.Serializable{
                 entry.getValue().removeDoubleRoute(route);
             }
         }
-    }
-
-    public void removeDestinationCardsFromPlayer(String username, List<Integer> cardID) {
-        //needs to do something
-        //not    now voided by discard function
     }
 
     public List<DestCard> drawDestinationCards() {
@@ -188,19 +195,6 @@ public class ServerGame implements java.io.Serializable{
         return playaMap;
     }
 
-    public void makeFakeHistory() {
-        String hi = "first fake history";
-        String hello = "second fake history";
-        String indeed = "thirdFakeHistory";
-        history.add(hi);
-        history.add(hello);
-        history.add(indeed);
-        Map.Entry<String, Player> entry = playaMap.entrySet().iterator().next();
-        CommandManager.getInstance().addHistoryCommand(hi, getServerGameID(), null);
-        CommandManager.getInstance().addHistoryCommand(hello, getServerGameID(), null);
-        CommandManager.getInstance().addHistoryCommand(indeed, getServerGameID(), entry.getKey());
-    }
-
     public List<TrainCard> getBankList(){
       return bank;
     }
@@ -241,5 +235,13 @@ public class ServerGame implements java.io.Serializable{
 
     public Bank getBank(){
         return new Bank(bank);
+    }
+
+    public List<Route> getClaimedRoutes(){
+        ArrayList<Route>  claimedRoutes = new ArrayList<>();
+        for (Map.Entry<String, Player> player : playaMap.entrySet()) {
+           claimedRoutes.addAll(player.getValue().getRoutes());
+        }
+        return claimedRoutes;
     }
 }
