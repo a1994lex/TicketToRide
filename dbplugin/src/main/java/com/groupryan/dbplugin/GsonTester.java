@@ -12,7 +12,9 @@ import com.groupryan.shared.models.Route;
 import com.groupryan.shared.models.Stat;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by Daniel on 4/13/2018.
@@ -157,6 +159,29 @@ public class GsonTester {
         JsonElement intArrayElem = new JsonParser().parse(intArrayStr);
         rLobject.add("int_array", intArrayElem);
         rLobject.add("int_array", strArrayElem);
+        json = gson.toJson(rLobject);
+        System.out.println(json);
+
+        Map<String, List<String>> testMap = new HashMap<>();
+        List<String> list1 = new ArrayList<>();
+        list1.add("abc");
+        list1.add("def");
+        list1.add("ghi");
+        String key = "a";
+        testMap.put(key, list1);
+        List<String> list2 = new ArrayList<>();
+        list2.add("123");
+        list2.add("456");
+        list2.add("789");
+        String key2 = "b";
+        testMap.put(key2, list2);
+        String testMapStr = gson.toJson(testMap);
+        JsonElement mapElem = new JsonParser().parse(testMapStr);
+        rLobject.add("map", mapElem);
+        JsonObject mapObj = rLobject.get("map").getAsJsonObject();
+        JsonArray commandsList = mapObj.getAsJsonArray("a");
+        JsonElement listElem = new JsonParser().parse(gson.toJson("777"));
+        commandsList.add(listElem);
         json = gson.toJson(rLobject);
         System.out.println(json);
     }
