@@ -100,7 +100,14 @@ public class GameActivity extends FragmentActivity implements IGameView {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
 
+
         this.gamePlayPresenter.setGameView(this);
+
+        Bundle extras = getIntent().getExtras();
+        Boolean isRestored = false;
+        if (extras != null){
+            isRestored = extras.getBoolean(utils.GAME_RESTORED);
+        }
 
         mNav = findViewById(R.id.navigation);
         mNav.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
@@ -150,6 +157,9 @@ public class GameActivity extends FragmentActivity implements IGameView {
         });
         if (GamePlayPresenter.getInstance().getState().getClass().equals(ClaimRouteState.class)) {
             addFragment(R.id.hand_fragment, new HandFragment(), utils.HAND);
+        }
+        if (isRestored){
+            this.gamePlayPresenter.restorePollers();
         }
 
     }

@@ -38,7 +38,6 @@ public class RootServerModel {
     private Map<Integer, Integer> routeLengthPoints = new HashMap<>();
 
 
-
     private static final long serialVersionUID = 5230549922091722630L;
 
     private static RootServerModel single_instance; /*= new RootServerModel();*/
@@ -106,6 +105,7 @@ public class RootServerModel {
     private RootServerModel() {
         gameMap = new HashMap<>();
         userMap = new HashMap<>();
+        makeBank();
     }
 
     private String _addUser(User user) {
@@ -452,7 +452,6 @@ public class RootServerModel {
     }
 
     public void createServerGame(String gameId) {
-        makeBank();
         ServerGame sg = new ServerGame(gameId, new Deck(trainCards), new Deck(destinationCards));
         serverGameIdMap.put(gameId, sg);
     }

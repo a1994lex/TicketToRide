@@ -46,6 +46,7 @@ public class utils {
     public static final int PORT_NUMBER = 8080;
     public static String URL_PREFIX = "http://" + "10.37.107.160" + ":" + PORT_NUMBER;
 
+
     public static final String HTTP_POST = "POST";
     public static final String COMMAND_NAME = "CommandName";   // HTTP request header to determine
 
@@ -66,7 +67,7 @@ public class utils {
     public static final String ROUTE_ID = "ROUTE ID";
 
     public static final String GAME_OVER = "GAME_OVER";
-
+    public static final String GAME_RESTORED = "GAME RESTORED";
     public static final String NEW_TURN = "NEW_TURN";
     public static final String CLAIM_ROUTE = "CLAIM ROUTE";
     public static final String COMMAND_LIST = "commandList";

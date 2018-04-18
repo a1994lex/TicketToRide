@@ -1,7 +1,9 @@
 package com.groupryan.client.models;
 
+import com.google.gson.internal.LinkedTreeMap;
 import com.groupryan.shared.models.Bank;
 import com.groupryan.shared.models.Chat;
+import com.groupryan.shared.models.ClientFacingGame;
 import com.groupryan.shared.models.DestCard;
 import com.groupryan.shared.models.DestCardList;
 import com.groupryan.shared.models.EndGameStat;
@@ -40,12 +42,29 @@ public class ClientGame extends Observable {
     HashMap<String, Stat> stats;
     Map<String, String> playersColors;
     Integer currentTurn;
-    Map<Integer, String> turnOrderMap;
     private List<Route> claimedRoutes;
     Boolean original=true;
     List<EndGameStat> endGameStats;
     private boolean showRoutes;
     String winner = "";
+
+    public ClientGame(ClientFacingGame g) {
+        this.gameId = g.getGameId();
+        this.myPlayer = g.getMyPlayer();
+        this.availableRoutes = g.getAvailableRoutes();
+        this.history = g.getHistory();
+        this.chat = new ArrayList<>();
+        this.bankCards = g.getBankCards();
+        this.stats = g.getStats();
+        this.playersColors = g.getPlayersColors();
+        this.currentTurn = g.getCurrentTurn();
+        this.claimedRoutes = g.getClaimedRoutes();
+        this.original = g.getOriginal();
+        this.winner = "";
+        this.DDeckSize = 30;
+        this.showRoutes = true;
+        this.TDeckSize = 110;
+    }
 
     public ClientGame(Game game, Player player) {
         this.history = new ArrayList<>();
@@ -166,9 +185,6 @@ public class ClientGame extends Observable {
         return currentTurn;
     }
 
-    public Map<Integer, String> getTurnOrderMap() {
-        return turnOrderMap;
-    }
 
     public boolean isMyTurn(){
         int a= 0-myPlayer.getTurn();

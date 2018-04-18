@@ -4,12 +4,18 @@ import com.groupryan.server.CommandManager;
 import com.groupryan.server.models.RootServerModel;
 import com.groupryan.server.models.ServerGame;
 import com.groupryan.shared.commands.ClientCommand;
+import com.groupryan.shared.models.ClientFacingGame;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
+import com.groupryan.shared.models.Route;
+import com.groupryan.shared.models.Stat;
+import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.LoginResult;
 import com.groupryan.shared.utils;
 
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -49,12 +55,27 @@ public class LoginFacade {
             Map<String, Player> playerMap = serverGame.getPlayaMap();
             if(playerMap.containsKey(user.getUsername())){
                 //create start game command
-                Game g = RootServerModel.getInstance().getGame(serverGame.getServerGameID());
                 Player p = playerMap.get(user.getUsername());
-                lr.addClientCommand(CommandManager.getInstance().makeStartGameCommand(g, p));
+                lr.addClientCommand(CommandManager.getInstance().makeRetrieveGameCommand(getClientGame(p, serverGame)));
+                break;
             }
         }
         return lr;
+    }
+
+    private ClientFacingGame getClientGame(Player receiver, ServerGame serverGame){
+
+        ClientFacingGame cGame = new ClientFacingGame(serverGame.getServerGameID(), receiver);
+        cGame.setAvailableRoutes((ArrayList<Route>) receiver.getAvailableRoutes());
+        cGame.setHistory((ArrayList<String>) serverGame.getAllHistory());
+        cGame.setStats((HashMap<String, Stat>) serverGame.getStats());
+        cGame.setBankCards((ArrayList<TrainCard>) serverGame.getBankList());
+        Game g = RootServerModel.getInstance().getGame(serverGame.getServerGameID());
+        cGame.setPlayersColors(g.getUsers());
+        cGame.setCurrentTurn(serverGame.getCurrentTurn());
+        cGame.setClaimedRoutes(serverGame.getClaimedRoutes());
+        cGame.setOriginal(!serverGame.updateReady());
+        return cGame;
     }
 
 }

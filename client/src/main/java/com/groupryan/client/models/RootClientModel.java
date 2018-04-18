@@ -1,5 +1,6 @@
 package com.groupryan.client.models;
 
+import com.groupryan.shared.models.ClientFacingGame;
 import com.groupryan.shared.models.Game;
 import com.groupryan.shared.models.Player;
 import com.groupryan.shared.models.Route;
@@ -25,16 +26,8 @@ public class RootClientModel extends Observable {
     private ClientGame clientGame = null;
     private ArrayList<Route> routes;
 
-    public Map<Integer, HashSet<RouteSegment>> getRouteSegments() {
-        return routeSegments;
-    }
-
     public HashSet<RouteSegment> getRouteSegmentSet(int routeId) {
         return routeSegments.get(routeId);
-    }
-
-    public void setRouteSegments(HashMap<Integer, HashSet<RouteSegment>> routeSegments) {
-        this.routeSegments = routeSegments;
     }
 
     public static RootClientModel getInstance() {
@@ -64,23 +57,12 @@ public class RootClientModel extends Observable {
         return single_instance._getRoute(routeId);
     }
 
-    public static List<Route> getClaimedRoutes() {
-        return single_instance._getClaimedRoutes();
-    }
-
-    public static ArrayList<Route> getRoutesList() {
-        return single_instance._getRoutes();
-    }
 
     private static RootClientModel single_instance = new RootClientModel();
 
 
     public static void addUser(User user) {
         single_instance._addUser(user);
-    }
-
-    public static void updateStats(Stat stat) {
-        single_instance._updateStats(stat);
     }
 
     public static void addGame(Game game) {
@@ -93,6 +75,8 @@ public class RootClientModel extends Observable {
 
     public static void setCurrentGame(Game game, Player p){ single_instance._setCurrentGame(game, p);}
 
+    public static void restoreCurrentGame(ClientFacingGame cfg){ single_instance._restoreCurrentGame(cfg);}
+
     public static void addUserToGame(Game game, User user, String userColor) {
         single_instance._addUserToGame(game, user, userColor);
     }
@@ -101,26 +85,14 @@ public class RootClientModel extends Observable {
         single_instance._addClaimedRoute(username, route);
     }
 
-//    public static HashMap<String, Route> getClaimedRoutesMap() {
-//        return single_instance._getRoutesMap();
-//    }
-
     public static void setGames(List<Game> games){
         single_instance._setGames(games);
-    }
-
-    public Map<String, String> getPlayers() {
-        return single_instance._getPlayers();
-    }
-
-    public void addPlayers(HashMap<String, String> players) {
-        single_instance._setPlayers(players);
     }
 
     private RootClientModel() {
         games = new ArrayList();
         user = new User(null, null);
-        initializeRoutesList();
+        initializeRoutesList();   // Is there a reason that routes list is in the root client model and not the clientgame?
         initializeRouteSegmentData();
     }
 
@@ -139,18 +111,6 @@ public class RootClientModel extends Observable {
         games.add(game);
         setChanged();
         notifyObservers();
-    }
-
-    private List<Route> _getClaimedRoutes() {
-        return clientGame.getClaimedRoutesList();
-    }
-
-//    private HashMap<String, Route> _getRoutesMap() {
-//        return clientGame.getRoutesMap();
-//    }
-
-    private ArrayList<Route> _getRoutes() {
-        return routes;
     }
 
     private Route _getRoute(int routeId) {
@@ -200,20 +160,12 @@ public class RootClientModel extends Observable {
     private void _setCurrentGame(Game gm, Player p){
         clientGame = new ClientGame(gm, p);
     }
-
-    private Map<String, String> _getPlayers() {
-        return players;
-    }
-
-    private void _setPlayers(HashMap<String, String> players) {
-        this.players = players;
-    }
-
-    private void _updateStats(Stat stat) {
-        clientGame.updateStat(stat);
+    private void _restoreCurrentGame(ClientFacingGame cfg){
+        clientGame = new ClientGame(cfg);
         setChanged();
-        notifyObservers();
+        notifyObservers(utils.GAME_RESTORED);
     }
+
 
     private void initializeRoutesList() {
         routes = new ArrayList<>();

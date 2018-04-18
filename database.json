@@ -1,0 +1,40 @@
+{
+  "games": [],
+  "users": [
+    {
+      "username": "claire",
+      "password": "asdf",
+      "gameId": "1d080bc0-a8fa-4455-a0ca-88f00985d806"
+    },
+    {
+      "username": "hello",
+      "password": "asdf",
+      "gameId": "57407c4e-c886-4afe-a17b-c7aae34a458d"
+    },
+    {
+      "username": "clairee",
+      "password": "asdf",
+      "gameId": "57407c4e-c886-4afe-a17b-c7aae34a458d"
+    },
+    {
+      "username": "change",
+      "password": "asdf",
+      "gameId": ""
+    },
+    {
+      "username": "zxcv",
+      "password": "asdf",
+      "gameId": ""
+    },
+    {
+      "username": "bnm",
+      "password": "asdf",
+      "gameId": ""
+    }
+  ],
+  "commands": {
+    "1d080bc0-a8fa-4455-a0ca-88f00985d806": [
+      "��\u0000\u0005sr\u0000+com.groupryan.shared.commands.ServerCommand���*���\u0002\u0000\u0004L\u0000\n_classNamet\u0000\u0012Ljava/lang/String;L\u0000\u000b_methodNameq\u0000~\u0000\u0001[\u0000\u000b_paramTypest\u0000\u0013[Ljava/lang/String;[\u0000\f_paramValuest\u0000\u0013[Ljava/lang/Object;xpt\u0000\u0027com.groupryan.server.facades.MainFacadet\u0000\ncreateGameur\u0000\u0013[Ljava.lang.String;��V��\u001d{G\u0002\u0000\u0000xp\u0000\u0000\u0000\u0001t\u0000 com.groupryan.shared.models.Gameur\u0000\u0013[Ljava.lang.Object;��X�\u0010s)l\u0002\u0000\u0000xp\u0000\u0000\u0000\u0001sr\u0000 com.groupryan.shared.models.Game������b\u0012\u0002\u0000\u0005D\u0000\nmaxPlayersZ\u0000\u0007startedL\u0000\u0006gameIdq\u0000~\u0000\u0001L\u0000\bgameNameq\u0000~\u0000\u0001L\u0000\u0005userst\u0000\u000fLjava/util/Map;xp@\u0000\u0000\u0000\u0000\u0000\u0000\u0000\u0000t\u0000$1d080bc0-a8fa-4455-a0ca-88f00985d806t\u0000\u0004zxcvsr\u0000\u0017java.util.LinkedHashMap4�N\\\u0010l��\u0002\u0000\u0001Z\u0000\u000baccessOrderxr\u0000\u0011java.util.HashMap\u0005\u0007���\u0016`�\u0003\u0000\u0002F\u0000\nloadFactorI\u0000\tthresholdxp?@\u0000\u0000\u0000\u0000\u0000\u0001w\b\u0000\u0000\u0000\u0002\u0000\u0000\u0000\u0001t\u0000\u0006clairet\u0000\u0003REDx\u0000"
+    ]
+  }
+}

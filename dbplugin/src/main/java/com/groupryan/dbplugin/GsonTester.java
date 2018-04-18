@@ -175,6 +175,16 @@ public class GsonTester {
         list2.add("789");
         String key2 = "b";
         testMap.put(key2, list2);
+        Map<String, String> users = new HashMap<>();
+        users.put("blue", "p1");
+        users.put("red", "p2");
+        users.put("yellow", "p3");
+        Game game = new Game(users, "gameName", "gameId", 2, false);
+        byte[] gameBytes = gson.toJson(game).getBytes();
+        String gameStr = new String(gameBytes);
+        JsonElement element = new JsonParser().parse(gameStr);
+        String a = element.toString();
+        System.out.println("string: " + a);
         String testMapStr = gson.toJson(testMap);
         JsonElement mapElem = new JsonParser().parse(testMapStr);
         rLobject.add("map", mapElem);
