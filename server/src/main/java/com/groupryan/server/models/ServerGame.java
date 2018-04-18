@@ -36,6 +36,8 @@ public class ServerGame implements java.io.Serializable{
     private int currentTurn = -1;
 //    TODO: set up available routes for client facing object
 
+    private static final long serialVersionUID = -7011963834618661468L;
+
     public ServerGame(String serverGameID, Deck trainCards, Deck destinationCards) {
         this.serverGameID = serverGameID;
         this.trainCards = trainCards;
