@@ -34,6 +34,11 @@ public class ClientCommandFactory {
                 new Object[]{game});
     }
 
+    public ClientCommand createRejoinLobbyCommand(Game game){
+        return new ClientCommand("com.groupryan.client.ClientFacade", "rejoinLobby",
+                new String[]{Game.class.getTypeName()},
+                new Object[]{game});
+    }
 
     public ClientCommand createCreateGameCommand(Game game) {
         return new ClientCommand("com.groupryan.client.ClientFacade", "createGame",

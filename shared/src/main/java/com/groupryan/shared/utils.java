@@ -71,6 +71,7 @@ public class utils {
     public static final String NEW_TURN = "NEW_TURN";
     public static final String CLAIM_ROUTE = "CLAIM ROUTE";
     public static final String COMMAND_LIST = "commandList";
+    public static final String REJOIN_LOBBY = "REJOIN LOBBY";
 
     public static int convertStringToRColor(String color) {
         switch (color) {

@@ -119,6 +119,12 @@ public class JoinGamePresenter implements Observer, IJoinGamePresenter {
                     gameView.join(RootClientModel.getCurrentGame().getGameId());
                 }
             }
+            else if (o == utils.REJOIN_LOBBY){
+                String id = RootClientModel.getRejoinLobbyGameId();
+                if (id != null){
+                    gameView.join(id);
+                }
+            }
         }
 
 

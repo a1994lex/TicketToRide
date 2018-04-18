@@ -18,6 +18,7 @@ import com.groupryan.shared.models.TrainCard;
 import com.groupryan.shared.models.User;
 import com.groupryan.shared.results.CommandResult;
 import com.groupryan.shared.utils;
+import com.sun.security.ntlm.Client;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -155,6 +156,10 @@ public class CommandManager {
         return factory.createRetrieveGameCommand(game);
     }
 
+    public ClientCommand makeRejoinLobbyCommand(Game g) {
+        return factory.createRejoinLobbyCommand(g);
+    }
+
     // ------------------------------ Game Commands -----------------------------
     public void addNextTurnCommand(String gameId, int turnNum){
         ClientCommand command = factory.createNextTurnCommand(turnNum);
@@ -230,6 +235,7 @@ public class CommandManager {
         ClientCommand command = factory.createBankCommand(bank);
         _addCommandToGameMap(command, gameId, null);
     }
+
 
     public void makeDDeckCommand(String gameId, int size){
         Integer theSize=(Integer)size;

@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+
 /**
  * Created by bengu3 on 1/31/18.
  */
@@ -51,13 +52,22 @@ public class LoginFacade {
 
     public LoginResult checkIfInGame(User user, LoginResult lr){
         Map<String, ServerGame> serversGames = RootServerModel.getInstance().getServerGameIdMap();
+        boolean foundGame = false;
         for (ServerGame serverGame : serversGames.values()) {
             Map<String, Player> playerMap = serverGame.getPlayaMap();
             if(playerMap.containsKey(user.getUsername())){
                 //create start game command
                 Player p = playerMap.get(user.getUsername());
                 lr.addClientCommand(CommandManager.getInstance().makeRetrieveGameCommand(getClientGame(p, serverGame)));
+                foundGame = true;
                 break;
+            }
+        }
+        if (!foundGame){
+            if (user.getGameId()!=""){
+                lr.addClientCommand(CommandManager.getInstance()
+                        .makeRejoinLobbyCommand(RootServerModel.getInstance()
+                                .getGame(user.getGameId())) );
             }
         }
         return lr;
@@ -70,8 +80,7 @@ public class LoginFacade {
         cGame.setHistory((ArrayList<String>) serverGame.getAllHistory());
         cGame.setStats((HashMap<String, Stat>) serverGame.getStats());
         cGame.setBankCards((ArrayList<TrainCard>) serverGame.getBankList());
-        Game g = RootServerModel.getInstance().getGame(serverGame.getServerGameID());
-        cGame.setPlayersColors(g.getUsers());
+        cGame.setPlayersColors(serverGame.getPlayerColors());
         cGame.setCurrentTurn(serverGame.getCurrentTurn());
         cGame.setClaimedRoutes(serverGame.getClaimedRoutes());
         cGame.setOriginal(!serverGame.updateReady());

@@ -178,7 +178,13 @@ public class ServerGame implements java.io.Serializable{
             playaMap.get(username).removeTrainCard(c);
         }
     }
-
+    public Map<String, String> getPlayerColors(){
+        Map<String, String> map = new HashMap<>();
+        for (Player p: this.getPlayers()){
+            map.put(p.getUsername(), p.getColor());
+        }
+        return map;
+    }
     public int getDDeckSize() {
         return destinationCards.cardsLeft();
     }

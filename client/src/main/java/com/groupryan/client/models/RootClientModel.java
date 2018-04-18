@@ -25,7 +25,24 @@ public class RootClientModel extends Observable {
     private HashMap<Integer, HashSet<RouteSegment>> routeSegments = new HashMap<>();
     private ClientGame clientGame = null;
     private ArrayList<Route> routes;
+    private String rejoinLobbyGameId = null;
 
+    public static String getRejoinLobbyGameId(){
+       return single_instance._getRejoinLobbyGameId();
+    }
+    private String _getRejoinLobbyGameId(){
+        return this.rejoinLobbyGameId;
+    }
+    public static boolean hasRejoinLobbyGameId(){
+        return single_instance._hasRejoinLobbyGameId();
+    }
+    private boolean _hasRejoinLobbyGameId(){
+        if (this.rejoinLobbyGameId != null){
+            this.rejoinLobbyGameId = null;
+            return true;
+        }
+        return false;
+    }
     public HashSet<RouteSegment> getRouteSegmentSet(int routeId) {
         return routeSegments.get(routeId);
     }
@@ -64,6 +81,7 @@ public class RootClientModel extends Observable {
     public static void addUser(User user) {
         single_instance._addUser(user);
     }
+     public static void addLobbyGame(Game game) {single_instance._addLobbyGame(game);}
 
     public static void addGame(Game game) {
             single_instance._addGame(game);
@@ -140,6 +158,13 @@ public class RootClientModel extends Observable {
             }
         }
 
+    }
+
+    private void _addLobbyGame(Game g){
+        games.add(g);
+        rejoinLobbyGameId = g.getGameId();
+        setChanged();
+        notifyObservers(utils.REJOIN_LOBBY);
     }
 
     private void _addUserToGame(Game game, User user, String userColor) {

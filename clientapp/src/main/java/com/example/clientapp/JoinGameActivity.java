@@ -80,11 +80,15 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
     @Override
     public void join(String gameid){
 //        This is really implemented in the JoinGameDialogActivity and the CreateGameDialogActivity
-
-            Intent intent = new Intent(this, GameActivity.class);
-            intent.putExtra(utils.GAME_RESTORED, true);
+            Intent intent = new Intent(this, LobbyActivity.class);
+            if (RootClientModel.getInstance().hasRejoinLobbyGameId()){
+                intent.putExtra(utils.GAME_ID_TAG, gameid);
+            }
+            else {
+                intent = new Intent(this, GameActivity.class);
+                intent.putExtra(utils.GAME_RESTORED, true);
+            }
             startActivity(intent);
-
     }
 
     @Override

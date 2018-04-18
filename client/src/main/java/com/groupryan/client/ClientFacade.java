@@ -38,5 +38,9 @@ public class ClientFacade {
         RootClientModel.restoreCurrentGame(game);
     }
 
+    public void rejoinLobby(Game game) {
+        RootClientModel.addLobbyGame(game);
+    }
+
 
 }
