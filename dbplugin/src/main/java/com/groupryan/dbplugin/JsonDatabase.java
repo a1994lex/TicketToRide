@@ -63,11 +63,11 @@ public class JsonDatabase implements IDatabase {
         return new JsonArray();
     }
 
-    private JsonArray getGamesAsJsonObject(JsonObject databaseObj) {
+    private JsonObject getGamesAsJsonObject(JsonObject databaseObj) {
         if (databaseObj.has("games")) {
-            return databaseObj.getAsJsonArray("games");
+            return databaseObj.getAsJsonObject("games");
         }
-        return new JsonArray();
+        return new JsonObject();
     }
 
     private JsonObject getCommandsAsJsonObject(JsonObject databaseObj) {
@@ -109,7 +109,7 @@ public class JsonDatabase implements IDatabase {
         return userDao.getUsersObj();
     }
 
-    private JsonArray getSnapshotModifications() {
+    private JsonObject getSnapshotModifications() {
         return gameDao.getGamesObj();
     }
 
@@ -139,7 +139,7 @@ public class JsonDatabase implements IDatabase {
 
     @Override
     public void endTransaction() {
-        JsonArray gamesObj = getSnapshotModifications();
+        JsonObject gamesObj = getSnapshotModifications();
         JsonArray usersObj = getUserDaoModifications();
         JsonObject commandsObj = getCommandModifications();
         databaseCopy.add("games", gamesObj);
