@@ -196,11 +196,4 @@ public class EndGameFacade {
             return -1;
         }
     }
-
-    /*
-    TODO: make it show if there is a tie!
-     */
-
-
-
 }

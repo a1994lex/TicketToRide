@@ -210,7 +210,6 @@ public class Player implements  java.io.Serializable{
 
     public Map<String, Integer> getTrainCardsMap() {
 
-        //TODO move this somewhere else
         Map<String, Integer> trainCardsMap = new HashMap<>();
         trainCardsMap.put(utils.RED, 0);
         trainCardsMap.put(utils.ORANGE, 0);

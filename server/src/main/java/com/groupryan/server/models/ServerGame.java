@@ -34,7 +34,6 @@ public class ServerGame implements java.io.Serializable{
     private List<TrainCard> bank;
     private int ready;
     private int currentTurn = -1;
-//    TODO: set up available routes for client facing object
 
     private static final long serialVersionUID = -7011963834618661468L;
 
@@ -170,7 +169,6 @@ public class ServerGame implements java.io.Serializable{
 
     public void discard(String deckType, int cardID, String username) {
         if (deckType.equals(utils.DESTINATION)) {
-            //todo maybe check to see if it is already in the discard pile ebcause if you double click this could cause problems
             Card c = RootServerModel.getInstance().getCard(deckType, cardID);
             destinationCards.discard(c);
             playaMap.get(username).removeDestinationCard(cardID);

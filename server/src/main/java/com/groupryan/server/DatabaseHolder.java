@@ -42,15 +42,6 @@ public class DatabaseHolder {
 
 
     public void loadActiveServerGames(){
-//        makeGame();
-//        byte[] stream = JavaSerializer.getInstance().serializeObject(serverGame);
-//        DatabaseHolder.getInstance().getDatabase().startTransaction();
-//        DatabaseHolder.getInstance().getDatabase().getGameDao().updateGameSnapshot(serverGame.getServerGameID(), stream);
-//        byte[] afterstream = DatabaseHolder.getInstance().getDatabase().getGameDao().getSnapshotByGameId(serverGame.getServerGameID());
-//        DatabaseHolder.getInstance().getDatabase().endTransaction();
-
-
-
         database.startTransaction();
         List<byte[]> gameBlobs = database.getGameDao().getAllSnapshots();
         List<User> users = database.getUserDao().getUsersList();
@@ -73,52 +64,6 @@ public class DatabaseHolder {
 
     public void setDatabase(IDatabase database){
         this.database = database;
-
-
-//       database.startTransaction();
-//        /*
-//        User u=new User("q", "q");
-//        User uu=new User("qq","qq");
-//        database.getUserDao().registerUser(u);
-//        database.getUserDao().registerUser(uu);
-//        database.getUserDao().addGameToUser(u, "one");
-//        database.getUserDao().addGameToUser(uu, "two");
-//        List<User> users= database.getUserDao().getUsersList();*/
-//       /*  String example = "Convert Java String";
-//         byte[] bytes = example.getBytes();
-//         database.getGameDao().updateGameSnapshot("one", bytes);
-//         example = "Convert  ";
-//         bytes = example.getBytes();
-//         database.getGameDao().updateGameSnapshot("two", bytes);
-//         Map<String,List<byte[]>> que= database.getGameDao().getAllCommands();
-//         List<byte[]> gay=database.getGameDao().getAllSnapshots();*/
-
-//        database.getUserDao().dropTables();
-//         database.getGameDao().dropTables();
-//         database.endTransaction();
-
-
-//        database.startTransaction();
-//        User u=new User("q", "q");
-//        User uu=new User("qq","qq");
-//        database.getUserDao().registerUser(u);
-//        database.getUserDao().registerUser(uu);
-//        database.getUserDao().addGameToUser(u, "one");
-//        database.getUserDao().addGameToUser(uu, "two");
-//        List<User> users= database.getUserDao().getUsersList();
-//        database.endTransaction();
-//         String example = "Convert Java String";
-//         byte[] bytes = example.getBytes();
-         //database.getGameDao().updateGameSnapshot("one", bytes);
-//         example = "Convert  ";
-//         bytes = example.getBytes();
-//         //database.getGameDao().updateGameSnapshot("two", bytes);
-//         Map<String,List<byte[]>> que= database.getGameDao().getAllCommands();
-//         List<byte[]> gay=database.getGameDao().getAllSnapshots();
-//         database.getGameDao().dropTables();
-//         database.getUserDao().dropTables();
-//         database.endTransaction();
-
     }
 
     public IDatabase getDatabase(){
@@ -159,15 +104,6 @@ public class DatabaseHolder {
     private Map<String, ServerGame> makeUserGamesMap(List<User> users){
         Map<String, ServerGame> userGames = new HashMap<>();
         for(User u : users){
-//            List<Game> gameList = u.getGameList();
-//            for(Game game: gameList){
-//                String gameid = game.getGameId();
-//                ServerGame sg = RootServerModel.getInstance().getServerGameByGameId(gameid);
-//                if(sg != null){ //TODO: CHECK IF THIS WORKS
-//                    userGames.put(u.getUsername(), sg);
-//                }
-//            }
-
             ServerGame sg = RootServerModel.getInstance().getServerGameByGameId(u.getGameId());
             if(sg != null){
                 userGames.put(u.getUsername(), sg);

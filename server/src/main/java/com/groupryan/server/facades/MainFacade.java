@@ -34,8 +34,6 @@ public class MainFacade implements IServer {
 
     @Override
     public CommandResult createGame(Game game) {
-        //createGame command only added to db if gamename is not already in use. added in creategame
-
         CreateGameFacade cgf = new CreateGameFacade();
         return cgf.createGame(game);
 
@@ -46,8 +44,6 @@ public class MainFacade implements IServer {
         ServerCommand serverCommand = scf.createJoinGameCommand(game, user, userColor);
         DatabaseHolder.getInstance().addGameToUser(game.getGameId(), user);
         DatabaseHolder.getInstance().addCommand(game.getGameId(), serverCommand);
-
-
         JoinGameFacade jgf = new JoinGameFacade();
         return jgf.joinGame(game, user, userColor);
     }
@@ -63,7 +59,6 @@ public class MainFacade implements IServer {
 
     @Override
     public LoginResult register(User user) {
-        //register command sent to db in register facade so username can be checked first
         RegisterFacade rf = new RegisterFacade();
         return rf.register(user);
     }
@@ -89,8 +84,6 @@ public class MainFacade implements IServer {
                 cr.addClientCommand(cc);
             }
         }
-
-
         return cr;
     }
 
@@ -116,8 +109,7 @@ public class MainFacade implements IServer {
         changeTurn(serverGame);
         CommandResult cm = new CommandResult();
         cm.setResultType(utils.VALID);
-        cm.setClientCommands(CommandManager.getInstance().
-                getGameCommands(serverGame.getServerGameID(), username));
+        cm.setClientCommands(CommandManager.getInstance().getGameCommands(serverGame.getServerGameID(), username));
         return cm;
     }
 
@@ -126,17 +118,12 @@ public class MainFacade implements IServer {
         ServerGame serverGame = RootServerModel.getInstance().getServerGame(username);
         ServerCommand serverCommand = scf.createDrawThreeCardsCommand(username);
         DatabaseHolder.getInstance().addCommand(serverGame.getServerGameID(), serverCommand);
-
         DestinationCardFacade dcf = new DestinationCardFacade();
         return dcf.drawDestinationCards(username);
     }
 
     @Override
     public CommandResult sendChat(String gameId, String msg, String username) {
-//        ServerCommand serverCommand = scf.createSendChat(gameId, msg, username);
-//        DatabaseHolder.getInstance().addCommand(gameId, serverCommand);
-
-
         CommandManager.getInstance().addChatCommand(msg, gameId, username);
         CommandResult cm = new CommandResult();
         cm.setClientCommands(CommandManager.getInstance().getGameCommands(gameId, username));
@@ -157,11 +144,6 @@ public class MainFacade implements IServer {
 
     @Override
     public CommandResult updateFaceUp(String gameId) {
-//        ServerCommand serverCommand =
-//        DatabaseHolder.getInstance().addCommand(gameId, serverCommand);
-        //TODO: WHEN IS THIS CALLED???????
-
-
         ColorCardFacade ccf = new ColorCardFacade();
         return ccf.updateFaceUp();
 
@@ -169,7 +151,6 @@ public class MainFacade implements IServer {
 
     @Override
     public CommandResult getCommands(User user) {
-        //TODO: assuming i don't need to add this to db?
         GetCommandsFacade gcf = new GetCommandsFacade();
         return gcf.getCommandList(user);
     }
@@ -192,7 +173,6 @@ public class MainFacade implements IServer {
 
     @Override
     public CommandResult getGameCommands(String gameId, String playerId) {
-        //TODO: assuming i don't need to add this command to db?
         GetCommandsFacade gcf = new GetCommandsFacade();
         return gcf.getGameCommands(gameId, playerId);
     }

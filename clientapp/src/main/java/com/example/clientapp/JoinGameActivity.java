@@ -32,9 +32,6 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
     Button mCreateGamebtn;
     RecyclerView.Adapter mAdapter;
     RecyclerView mRecyclerView;
-//    Boolean addGame;
-//    Boolean removeGame;
-    //todo check to see why the person cant join when they re login
 
     @Override
     protected void onCreate(final Bundle savedInstanceState) {
@@ -70,10 +67,6 @@ public class JoinGameActivity extends AppCompatActivity implements IJoinGameView
     @Override
     public void onGameDelete(){//int position){
 //      This method is called by the JoinGamePresenter to update the View
-//        mRecyclerView.removeViewAt(position);
-//        mAdapter.notifyItemRemoved(position);
-//        mAdapter.notifyItemRangeChanged(position, RootClientModel.getGames().size());
-//        removeGame = true;
         mAdapter.notifyDataSetChanged();
     }
 

@@ -35,7 +35,6 @@ public class LobbyActivity extends AppCompatActivity implements ILobbyView {
 
         Intent i = getIntent();
         String gameId = i.getStringExtra(utils.GAME_ID_TAG);
-        // TODO watch out, may mess up
         for (Game game : RootClientModel.getGames()) {
             if (game.getGameId().equals(gameId)) {
                 mGame = game;
